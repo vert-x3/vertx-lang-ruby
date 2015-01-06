@@ -1,0 +1,8 @@
+{
+  "name": "JRuby",
+  "generators": [ {
+    "kind": "class",
+    "fileName": "'resources/' + type.raw.moduleName + '/' + helper.convertCamelCaseToUnderscores(type.raw.simpleName) + '.rb'",
+    "templateFileName": "vertx-rb/template/rb.templ"
+  } ]
+}

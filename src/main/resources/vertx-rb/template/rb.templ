@@ -1,0 +1,285 @@
+@code{
+  /* todo : have this in codegen and not here */
+  def dashedSeparatedNameToCamelCase(name) {
+    var index = name.indexOf("-");
+    var head;
+    var tail;
+    if (index == -1) {
+      head = name;
+      tail = "";
+    } else {
+      head = name.substring(0, index);
+      tail = dashedSeparatedNameToCamelCase(name.substring(index + 1));
+    }
+    return Character.toUpperCase(head.charAt(0)) + head.substring(1) + tail;
+  }
+}
+
+@code{
+  def typeCheckPred(name, type) {
+    var kind = type.kind;
+    if (kind.basic) {
+      var typeName = type.name;
+      if (kind == CLASS_STRING) {
+        return name + " != nil && " + name + ".class == String";
+      }
+      if (typeName == "byte" || typeName == "java.lang.Byte" ||
+          typeName == "short" || typeName == "java.lang.Short" ||
+          typeName == "int" || typeName == "java.lang.Integer" ||
+          typeName == "char" || typeName == "java.lang.Character" ||
+          typeName == "long" || typeName == "java.lang.Long") {
+        return name + " != nil && " + name + ".class == Fixnum";
+      }
+      if (typeName == "float" || typeName == "java.lang.Float" ||
+          typeName == "double" || typeName == "java.lang.Double") {
+        return name + " != nil && " + name + ".class == Float";
+      }
+      if (typeName == "boolean" || typeName == "java.lang.Boolean") {
+        return name + " != nil && (" + name + ".class == TrueClass || " + name + ".class == FalseClass)";
+      }
+    } else if (kind == CLASS_OBJECT) {
+      return name + " != nil && (" + name + ".class == Hash || " + name + ".class == Array)"
+    } else if (kind == CLASS_API) {
+      return name + " != nil && " + name + ".class.method_defined?(:j_del)";
+    } else if (kind == CLASS_HANDLER) {
+      return name + " != nil && " + name + ".class == Proc";
+    } else if (kind == CLASS_OPTIONS) {
+      return name + " == nil || " + name + ".class == Hash";
+     }
+    return "false";
+  }
+}
+
+@code{
+  def genMethodCall(method,generic) {
+    var s = "";
+    var index = 1;
+    for (param : method.params) {
+      if (s.length() > 0) {
+        s += ",";
+      }
+      var name = "";
+      if (generic) {
+        name = 'param_' + index;
+      } else {
+        name = param.getName(CASE_SNAKE);
+      }
+      var type = param.type;
+      s += genConvParam(type, name);
+      index += 1;
+    }
+    return "@j_del." + method.getName() + "(" + s + ")";
+  }
+}
+
+@code{
+  def genConvParam(type, name) {
+    var kind = type.kind;
+    if (kind.basic) {
+      return name;
+    } else if (kind == CLASS_HANDLER) {
+      var eventType = type.args[0];
+      var eventKind = eventType.kind;
+      if (eventKind.basic || eventKind == CLASS_OPTIONS) {
+        return "(Proc.new { |event| " + name + ".call(" + genConvReturn(eventType, "event") + ") })";
+      } else if (eventKind == CLASS_ASYNC_RESULT) {
+        var resultType = eventType.args[0];
+        var resultKind = resultType.kind;
+        if (resultKind.basic || resultKind == CLASS_OPTIONS) {
+          return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
+        }
+      }
+    } else if (kind == CLASS_API) {
+      return name + ".j_del";
+    } else if (kind == CLASS_OBJECT) {
+      return "Vertx::Util::Utils.to_object(" + name + ")";
+    } else if (kind == CLASS_OPTIONS) {
+      return name + " != nil ? " + type.simpleName + ".new(Vertx::Util::Utils.to_json_object(" + name + ")) : nil";
+    }
+    return "nil";
+  }
+}
+
+@code{
+  def genConvReturn(type, expr) {
+    if (type.name.equals("void")) {
+      return expr;
+    } else {
+      var kind = type.kind;
+      if (kind.basic) {
+        return expr;
+      } else if (kind == CLASS_OPTIONS) {
+        return "JSON.parse(" + expr + ".toJson.encode)";
+      }
+      return "nil";
+    }
+  }
+}
+
+@code{
+  def genIndent() {
+    var builder = new java.lang.StringBuilder('  ');
+    for (i:_trie.size()) {
+      builder.append('    ');
+    }
+    return builder.toString();
+  }
+}
+
+
+@code{
+  /* Append an entry Iterator<ParamInfo> to a trie Map<ParamInfo, Map<ParamInfo, Map<...>>> */
+  def trieAppend(trie, entry) {
+    if (entry.hasNext()) {
+      var first = entry.next();
+      if (!trie.containsKey(first.type)) {
+        trie.put(first.type, new java.util.HashMap());
+      }
+      return trieAppend(trie.get(first.type), entry);
+    } else {
+      return trie;
+    }
+  }
+  /*
+    0 : empty
+    1 : linear
+    2 : multiarg
+  */
+  def trieKind(trie) {
+    if (trie.isEmpty()) {
+      return 0;
+    } else if (trie.size() == 1) {
+      var kind = trieKind(trie.get(trie.keySet().iterator().next()));
+      if (kind == 2) {
+        return 2;
+      }
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+  def trieHeight(trie) {
+    if (trie.isEmpty()) {
+      return 0;
+    } else {
+      var max = 0;
+      for (child : trie.values()) {
+        var height = trieHeight(child) + 1;
+        if (height > max) {
+          max = height;
+        }
+      }
+      return max;
+    }
+  }
+}
+
+@declare{'foobarjuu'}
+@if{method.fluent}
+@{indent}@{genMethodCall(method,generic)}\n
+@{indent}return self\n
+@else{}
+@{indent}return @{genConvReturn(method.returnType, genMethodCall(method,generic))}\n
+@end{}
+@end{}
+
+@comment{"Generate the include_class"}
+@foreach{referencedType : referencedTypes}
+include_class '@{referencedType.name}'\n
+@end{}
+@foreach{optionType: referencedOptionsTypes}
+include_class '@{optionType.name}'\n
+@end{}
+require 'vertx/util/utils.rb'\n
+
+module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
+
+  @if{concrete}class@else{}module@end{} @{type.raw.simpleName}\n
+@if{concrete}
+    def initialize(j_del)\n
+      @j_del = j_del\n
+    end\n
+    def j_del\n
+      @j_del\n
+    end\n
+@end{}
+
+	@foreach{methods:methodsByName.values()}
+
+		@code{methodName=methods[0].getName(CASE_SNAKE)}
+		@code{trie = new java.util.HashMap()}
+		@code{methodMap = new java.util.IdentityHashMap()}
+		@foreach{method:methods}
+			@code{methodMap.put(trieAppend(trie, method.params.iterator()), method)}
+		@end{}
+		@code{kind = trieKind(trie)}
+
+		@if{kind == 0 || kind == 1}
+		@code{lastMethod=methods[methods.size() - 1]}
+    def @{methodName}(
+		@foreach{param:lastMethod.params}
+			@{param.getName(CASE_SNAKE)}@if{!methods[0].params.contains(param)}=nil@end{}
+		@end{","}
+		)\n
+		@code{paramCount=0}
+		@code{margin=""}
+		@foreach{param:lastMethod.params}
+      @{margin}if @{typeCheckPred(param.getName(CASE_SNAKE), param.type)}\n
+			@code{margin+="  "}
+			@code{paramCount++}
+		@end{}
+		@foreach{param:lastMethod.params}
+			@code{margin=margin.substring(2)}
+			@code{found=null}
+			@foreach{method:methods}
+				@if{method.params.size() == paramCount}
+					@code{found=method}
+				@end{}
+			@end{}
+			@if{found!=null}
+				@includeNamed{'foobarjuu';method=found;indent="        " + margin;generic=false}
+			@else{}
+        @{margin}raise ArgumentError, 'dispatch error'\n
+			@end{}
+      @{margin}end\n
+			@code{paramCount--}
+		@end{}
+		@if{methods[0].params.empty}
+			@includeNamed{'foobarjuu';method=methods[0];indent="      ";generic=false}
+		@else{}
+      raise ArgumentError, 'dispatch error'\n
+		@end{}
+    end\n
+		@else{}
+
+@code{_trie=new java.util.LinkedList()}
+
+@declare{'foobar'}
+	@code{_trie.addLast(trie)}
+	@if{trie.size() > 0}
+		@foreach{entry:trie.entrySet()}
+			@{genIndent()}  if @{typeCheckPred('param_' + _trie.size(), entry.key)}\n
+			@code{trie=entry.value}
+			@includeNamed{'foobar'}
+			@{genIndent()}  end\n
+		@end{}
+	@end{}
+	@code{trie=_trie.removeLast()}
+	@if{methodMap.containsKey(trie)}
+		@{genIndent()}@includeNamed{'foobarjuu';method=methodMap.get(trie);indent='    ';generic=true}
+	@else{}
+		@{genIndent()}    raise ArgumentError, 'dispatch error'\n
+	@end{}
+@end{}
+
+    def @{methodName}(@foreach{index:trieHeight(trie)}param_@{(index + 1)}=nil@end{","})\n
+			@includeNamed{'foobar'}
+    end\n
+
+		@end{}
+
+	@end{}
+
+  end\n
+
+end\n
