@@ -40,7 +40,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def body_stream()
-      return ReadStream.new(@j_del.bodyStream())
+      return Vertx::ReadStreamImpl.new(@j_del.bodyStream())
     end
     def is_registered()
       return @j_del.isRegistered()
@@ -50,7 +50,7 @@ module Vertx
     end
     def set_max_buffered_messages(max_buffered_messages)
       if max_buffered_messages != nil && max_buffered_messages.class == Fixnum
-        return MessageConsumer.new(@j_del.setMaxBufferedMessages(max_buffered_messages))
+        return Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(max_buffered_messages))
       end
       raise ArgumentError, 'dispatch error'
     end

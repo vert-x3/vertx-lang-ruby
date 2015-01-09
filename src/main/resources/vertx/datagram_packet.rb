@@ -11,10 +11,10 @@ module Vertx
       @j_del
     end
     def sender()
-      return SocketAddress.new(@j_del.sender())
+      return Vertx::SocketAddress.new(@j_del.sender())
     end
     def data()
-      return Buffer.new(@j_del.data())
+      return Vertx::Buffer.new(@j_del.data())
     end
   end
 end

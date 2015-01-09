@@ -86,6 +86,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_list_vertx_gen");;
   }
 
+  @Test
+  public void testMethodWithHandlerListAbstractVertxGen() {
+    runTest("test_method_with_handler_list_abstract_vertx_gen");;
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

@@ -3,6 +3,7 @@ require "test"
 require 'set'
 require "testmodel/test_interface"
 require "testmodel/refed_interface1"
+require "testmodel/refed_interface2"
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
 java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
@@ -130,6 +131,19 @@ def test_method_with_handler_list_vertx_gen()
      Test.assert_equals(val[1].class, Testmodel::RefedInterface1)
      Test.assert_equals(val[1].get_string, "bar")
      count += 1
+  })
+  Test.assert_equals(1, count)
+end
+
+def test_method_with_handler_list_abstract_vertx_gen()
+  count = 0
+  $obj.method_with_handler_list_abstract_vertx_gen(Proc.new { |val|
+    Test.assert_equals(val.size, 2)
+    Test.assert_equals(val[0].is_a?(Testmodel::RefedInterface2), true)
+    Test.assert_equals(val[0].get_string, "abstractfoo")
+    Test.assert_equals(val[1].is_a?(Testmodel::RefedInterface2), true)
+    Test.assert_equals(val[1].get_string, "abstractbar")
+    count += 1
   })
   Test.assert_equals(1, count)
 end

@@ -9,4 +9,13 @@ module Vertx
       return nil
     end
   end
+  class MeasuredImpl
+    include Measured
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+  end
 end

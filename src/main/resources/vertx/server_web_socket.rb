@@ -26,10 +26,10 @@ module Vertx
       return @j_del.close()
     end
     def remote_address()
-      return SocketAddress.new(@j_del.remoteAddress())
+      return Vertx::SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return SocketAddress.new(@j_del.localAddress())
+      return Vertx::SocketAddress.new(@j_del.localAddress())
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
@@ -119,7 +119,7 @@ module Vertx
       return @j_del.query()
     end
     def headers()
-      return MultiMap.new(@j_del.headers())
+      return Vertx::MultiMap.new(@j_del.headers())
     end
     def reject()
       @j_del.reject()

@@ -13,4 +13,13 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
   end
+  class RefedInterface2Impl
+    include RefedInterface2
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+  end
 end

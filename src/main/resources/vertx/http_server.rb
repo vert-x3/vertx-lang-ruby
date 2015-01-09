@@ -20,20 +20,20 @@ module Vertx
       return nil
     end
     def request_stream()
-      return HttpServerRequestStream.new(@j_del.requestStream())
+      return Vertx::HttpServerRequestStream.new(@j_del.requestStream())
     end
     def request_handler(handler)
       if handler != nil && handler.class == Proc
-        return HttpServer.new(@j_del.requestHandler(nil))
+        return Vertx::HttpServer.new(@j_del.requestHandler(nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def websocket_stream()
-      return ServerWebSocketStream.new(@j_del.websocketStream())
+      return Vertx::ServerWebSocketStream.new(@j_del.websocketStream())
     end
     def websocket_handler(handler)
       if handler != nil && handler.class == Proc
-        return HttpServer.new(@j_del.websocketHandler(nil))
+        return Vertx::HttpServer.new(@j_del.websocketHandler(nil))
       end
       raise ArgumentError, 'dispatch error'
     end

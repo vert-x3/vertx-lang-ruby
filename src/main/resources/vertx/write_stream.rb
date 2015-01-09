@@ -35,4 +35,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
   end
+  class WriteStreamImpl
+    include WriteStream
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+  end
 end

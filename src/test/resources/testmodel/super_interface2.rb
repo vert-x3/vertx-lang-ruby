@@ -33,4 +33,13 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
   end
+  class SuperInterface2Impl
+    include SuperInterface2
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+  end
 end

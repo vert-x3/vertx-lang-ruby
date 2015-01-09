@@ -371,25 +371,25 @@ module Testmodel
     end
     def method_with_handler_list_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| RefedInterface1.new(elt) }) }))
+        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| RefedInterface1.new(elt) }) }))
+        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_list_abstract_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| RefedInterface2.new(elt) }) }))
+        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_abstract_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| RefedInterface2.new(elt) }) }))
+        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -443,25 +443,25 @@ module Testmodel
     end
     def method_with_handler_async_result_list_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| RefedInterface1.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| RefedInterface1.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_list_abstract_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| RefedInterface2.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_abstract_vertx_gen(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| RefedInterface2.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -598,10 +598,10 @@ module Testmodel
       return @j_del.methodWithStringReturn()
     end
     def method_with_vertx_gen_return()
-      return RefedInterface1.new(@j_del.methodWithVertxGenReturn())
+      return Testmodel::RefedInterface1.new(@j_del.methodWithVertxGenReturn())
     end
     def method_with_abstract_vertx_gen_return()
-      return RefedInterface2.new(@j_del.methodWithAbstractVertxGenReturn())
+      return Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn())
     end
     def overloaded_method(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
         if param_1 != nil && param_1.class == String
@@ -666,13 +666,13 @@ module Testmodel
     end
     def static_factory_method(foo)
       if foo != nil && foo.class == String
-        return RefedInterface1.new(@j_del.staticFactoryMethod(foo))
+        return Testmodel::RefedInterface1.new(@j_del.staticFactoryMethod(foo))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_cached_return(foo)
       if foo != nil && foo.class == String
-        return RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
+        return Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -788,7 +788,7 @@ module Testmodel
       return @j_del.methodWithListLongReturn().to_a.map { |elt| elt }
     end
     def method_with_list_vertx_gen_return()
-      return @j_del.methodWithListVertxGenReturn().to_a.map { |elt| RefedInterface1.new(elt) }
+      return @j_del.methodWithListVertxGenReturn().to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_list_json_object_return()
       return @j_del.methodWithListJsonObjectReturn().to_a.map { |elt| nil }
@@ -806,7 +806,7 @@ module Testmodel
       return @j_del.methodWithSetLongReturn().to_set.map! { |elt| elt }
     end
     def method_with_set_vertx_gen_return()
-      return @j_del.methodWithSetVertxGenReturn().to_set.map! { |elt| RefedInterface1.new(elt) }
+      return @j_del.methodWithSetVertxGenReturn().to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_set_json_object_return()
       return @j_del.methodWithSetJsonObjectReturn().to_set.map! { |elt| nil }

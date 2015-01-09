@@ -117,7 +117,7 @@
         var elementType = type.args[0];
         return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
       } else if (kind == CLASS_API) {
-        return type.raw.simpleName + ".new(" + expr + ")";
+        return type.raw.module.getName(CASE_CAMEL) + "::"  + type.raw.simpleName + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
       }
       return "nil";
     }
@@ -200,17 +200,21 @@ include_class '@{optionType.name}'\n
 @end{}
 require 'vertx/util/utils.rb'\n
 
-# Generated from @{type.name}\n
-module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
-
-  @if{concrete}class@else{}module@end{} @{type.raw.simpleName}\n
-@if{concrete}
+@declare{'initializer'}
     def initialize(j_del)\n
       @j_del = j_del\n
     end\n
     def j_del\n
       @j_del\n
     end\n
+@end{}
+
+# Generated from @{type.name}\n
+module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
+
+  @if{concrete}class@else{}module@end{} @{type.raw.simpleName}\n
+@if{concrete}
+@includeNamed{'initializer'}
 @end{}
 
 	@foreach{methods:methodsByName.values()}
@@ -290,5 +294,13 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 	@end{}
 
   end\n
+
+@comment{"The mixin implementing the class for abstract interfaces"}
+@if{!concrete}
+  class @{type.raw.simpleName}Impl\n
+    include @{type.raw.simpleName}\n
+@includeNamed{'initializer'}
+  end\n
+@end{}
 
 end\n
