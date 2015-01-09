@@ -1,0 +1,19 @@
+include_class 'io.vertx.core.buffer.Buffer'
+include_class 'io.vertx.core.net.SocketAddress'
+require 'vertx/util/utils.rb'
+module Vertx
+  class DatagramPacket
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+    def sender()
+      return nil
+    end
+    def data()
+      return nil
+    end
+  end
+end

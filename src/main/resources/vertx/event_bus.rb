@@ -1,0 +1,104 @@
+include_class 'io.vertx.core.metrics.Measured'
+include_class 'io.vertx.core.eventbus.Message'
+include_class 'io.vertx.core.eventbus.MessageConsumer'
+include_class 'io.vertx.core.eventbus.MessageProducer'
+include_class 'io.vertx.core.eventbus.DeliveryOptions'
+include_class 'io.vertx.core.eventbus.DeliveryOptions'
+include_class 'io.vertx.core.eventbus.DeliveryOptions'
+include_class 'io.vertx.core.eventbus.DeliveryOptions'
+include_class 'io.vertx.core.eventbus.DeliveryOptions'
+require 'vertx/util/utils.rb'
+module Vertx
+  class EventBus
+    def initialize(j_del)
+      @j_del = j_del
+    end
+    def j_del
+      @j_del
+    end
+    def metric_base_name()
+      return @j_del.metricBaseName()
+    end
+    def metrics()
+      return nil
+    end
+    def close(completion_handler)
+      if completion_handler != nil && completion_handler.class == Proc
+        return @j_del.close(nil)
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
+        if param_1 != nil && param_1.class == String
+            if param_2 != nil && (param_2.class == Hash || param_2.class == Array)
+                if param_3 == nil || param_3.class == Hash
+                    if param_4 != nil && param_4.class == Proc
+                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,nil)
+    return self
+                    end
+                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
+    return self
+                end
+                if param_3 != nil && param_3.class == Proc
+                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),nil)
+    return self
+                end
+              @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
+    return self
+            end
+          raise ArgumentError, 'dispatch error'
+        end
+      raise ArgumentError, 'dispatch error'
+    end
+    def publish(address,message,options=nil)
+      if address != nil && address.class == String
+        if message != nil && (message.class == Hash || message.class == Array)
+          if options == nil || options.class == Hash
+            @j_del.publish(address,Vertx::Util::Utils.to_object(message),options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+            return self
+          end
+          @j_del.publish(address,Vertx::Util::Utils.to_object(message))
+          return self
+        end
+        raise ArgumentError, 'dispatch error'
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def consumer(address,handler=nil)
+      if address != nil && address.class == String
+        if handler != nil && handler.class == Proc
+          return nil
+        end
+        return nil
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def local_consumer(address,handler=nil)
+      if address != nil && address.class == String
+        if handler != nil && handler.class == Proc
+          return nil
+        end
+        return nil
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def sender(address,options=nil)
+      if address != nil && address.class == String
+        if options == nil || options.class == Hash
+          return nil
+        end
+        return nil
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def publisher(address,options=nil)
+      if address != nil && address.class == String
+        if options == nil || options.class == Hash
+          return nil
+        end
+        return nil
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+  end
+end

@@ -17,4 +17,3 @@ test-output
 test-results
 test-tmp
 *.class
-src/main/resources/vertx/**
