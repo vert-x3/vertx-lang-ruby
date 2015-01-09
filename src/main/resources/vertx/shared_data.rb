@@ -53,7 +53,7 @@ module Vertx
     end
     def get_local_map(name)
       if name != nil && name.class == String
-        return nil
+        return LocalMap.new(@j_del.getLocalMap(name))
       end
       raise ArgumentError, 'dispatch error'
     end

@@ -12,7 +12,7 @@ module Vertx
     def binary_frame(data,is_final)
       if data != nil && data.class.method_defined?(:j_del)
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return nil
+          return WebSocketFrame.new(@j_del.binaryFrame(data.j_del,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -21,7 +21,7 @@ module Vertx
     def text_frame(str,is_final)
       if str != nil && str.class == String
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return nil
+          return WebSocketFrame.new(@j_del.textFrame(str,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -30,7 +30,7 @@ module Vertx
     def continuation_frame(data,is_final)
       if data != nil && data.class.method_defined?(:j_del)
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return nil
+          return WebSocketFrame.new(@j_del.continuationFrame(data.j_del,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -49,7 +49,7 @@ module Vertx
       return @j_del.textData()
     end
     def binary_data()
-      return nil
+      return Buffer.new(@j_del.binaryData())
     end
     def is_final()
       return @j_del.isFinal()

@@ -205,7 +205,7 @@ module Vertx
     end
     def props_blocking(path)
       if path != nil && path.class == String
-        return nil
+        return FileProps.new(@j_del.propsBlocking(path))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -221,7 +221,7 @@ module Vertx
     end
     def lprops_blocking(path)
       if path != nil && path.class == String
-        return nil
+        return FileProps.new(@j_del.lpropsBlocking(path))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -438,7 +438,7 @@ module Vertx
     end
     def read_file_blocking(path)
       if path != nil && path.class == String
-        return nil
+        return Buffer.new(@j_del.readFileBlocking(path))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -481,7 +481,7 @@ module Vertx
     def open_blocking(path,options)
       if path != nil && path.class == String
         if options == nil || options.class == Hash
-          return nil
+          return AsyncFile.new(@j_del.openBlocking(path,options != nil ? OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -543,7 +543,7 @@ module Vertx
     end
     def fs_props_blocking(path)
       if path != nil && path.class == String
-        return nil
+        return FileSystemProps.new(@j_del.fsPropsBlocking(path))
       end
       raise ArgumentError, 'dispatch error'
     end

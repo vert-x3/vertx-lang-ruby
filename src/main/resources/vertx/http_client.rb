@@ -24,17 +24,17 @@ module Vertx
         if false
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
-                  return nil
+                  return HttpClientRequest.new(@j_del.request(nil,param_2,nil))
                 end
-              return nil
+              return HttpClientRequest.new(@j_del.request(nil,param_2))
             end
             if param_2 != nil && param_2.class == Fixnum
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == String
                         if param_5 != nil && param_5.class == Proc
-                          return nil
+                          return HttpClientRequest.new(@j_del.request(nil,param_2,param_3,param_4,nil))
                         end
-                      return nil
+                      return HttpClientRequest.new(@j_del.request(nil,param_2,param_3,param_4))
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -51,13 +51,13 @@ module Vertx
             if headers != nil && headers.class.method_defined?(:j_del)
               if false
                 if sub_protocols != nil && sub_protocols.class == String
-                  return nil
+                  return WebSocketStream.new(@j_del.websocket(port,host,request_uri,headers.j_del,nil,sub_protocols))
                 end
-                return nil
+                return WebSocketStream.new(@j_del.websocket(port,host,request_uri,headers.j_del,nil))
               end
-              return nil
+              return WebSocketStream.new(@j_del.websocket(port,host,request_uri,headers.j_del))
             end
-            return nil
+            return WebSocketStream.new(@j_del.websocket(port,host,request_uri))
           end
           raise ArgumentError, 'dispatch error'
         end
@@ -70,19 +70,19 @@ module Vertx
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
-                      return nil
+                      return HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,nil))
                     end
                     if param_4 != nil && param_4.class.method_defined?(:j_del)
                         if param_5 != nil && param_5.class == Proc
-                          return nil
+                          return HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil))
                         end
                         if false
                             if param_6 != nil && param_6.class == Proc
-                              return nil
+                              return HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,nil))
                             end
                             if param_6 != nil && param_6.class == String
                                 if param_7 != nil && param_7.class == Proc
-                                  return nil
+                                  return HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,param_6,nil))
                                 end
                               raise ArgumentError, 'dispatch error'
                             end

@@ -15,7 +15,7 @@ module Vertx
       return @j_del.address()
     end
     def headers()
-      return nil
+      return MultiMap.new(@j_del.headers())
     end
     def body()
       return nil

@@ -48,10 +48,10 @@ module Vertx
       return @j_del.statusMessage()
     end
     def headers()
-      return nil
+      return MultiMap.new(@j_del.headers())
     end
     def trailers()
-      return nil
+      return MultiMap.new(@j_del.trailers())
     end
     def cookies()
       return @j_del.cookies().to_a.map { |elt| elt }
@@ -64,7 +64,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def net_socket()
-      return nil
+      return NetSocket.new(@j_del.netSocket())
     end
   end
 end

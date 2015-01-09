@@ -120,3 +120,16 @@ def test_method_with_handler_async_result_list_and_set()
   $obj.method_with_handler_async_result_set_integer(Proc.new { |err,val| Test.assert_nil(err); Test.assert_equals(val, Set.new([5,12,100])); count += 1 })
   Test.assert_equals(4, count)
 end
+
+def test_method_with_handler_list_vertx_gen()
+  count = 0
+  $obj.method_with_handler_list_vertx_gen(Proc.new { |val|
+     Test.assert_equals(val.size, 2)
+     Test.assert_equals(val[0].class, Testmodel::RefedInterface1)
+     Test.assert_equals(val[0].get_string, "foo")
+     Test.assert_equals(val[1].class, Testmodel::RefedInterface1)
+     Test.assert_equals(val[1].get_string, "bar")
+     count += 1
+  })
+  Test.assert_equals(1, count)
+end

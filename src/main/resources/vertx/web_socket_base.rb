@@ -98,10 +98,10 @@ module Vertx
       return @j_del.close()
     end
     def remote_address()
-      return nil
+      return SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return nil
+      return SocketAddress.new(@j_del.localAddress())
     end
   end
 end

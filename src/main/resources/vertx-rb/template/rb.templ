@@ -116,6 +116,8 @@
       } else if (kind == CLASS_SET) {
         var elementType = type.args[0];
         return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
+      } else if (kind == CLASS_API) {
+        return type.raw.simpleName + ".new(" + expr + ")";
       }
       return "nil";
     }

@@ -91,7 +91,7 @@ module Vertx
       return @j_del.uri()
     end
     def headers()
-      return nil
+      return MultiMap.new(@j_del.headers())
     end
     def put_header(name,value)
       if name != nil && name.class == String

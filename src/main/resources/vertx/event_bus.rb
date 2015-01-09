@@ -68,36 +68,36 @@ module Vertx
     def consumer(address,handler=nil)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
-          return nil
+          return MessageConsumer.new(@j_del.consumer(address,nil))
         end
-        return nil
+        return MessageConsumer.new(@j_del.consumer(address))
       end
       raise ArgumentError, 'dispatch error'
     end
     def local_consumer(address,handler=nil)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
-          return nil
+          return MessageConsumer.new(@j_del.localConsumer(address,nil))
         end
-        return nil
+        return MessageConsumer.new(@j_del.localConsumer(address))
       end
       raise ArgumentError, 'dispatch error'
     end
     def sender(address,options=nil)
       if address != nil && address.class == String
         if options == nil || options.class == Hash
-          return nil
+          return MessageProducer.new(@j_del.sender(address,options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
-        return nil
+        return MessageProducer.new(@j_del.sender(address))
       end
       raise ArgumentError, 'dispatch error'
     end
     def publisher(address,options=nil)
       if address != nil && address.class == String
         if options == nil || options.class == Hash
-          return nil
+          return MessageProducer.new(@j_del.publisher(address,options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
-        return nil
+        return MessageProducer.new(@j_del.publisher(address))
       end
       raise ArgumentError, 'dispatch error'
     end

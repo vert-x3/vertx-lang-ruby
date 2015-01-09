@@ -38,9 +38,9 @@ module Vertx
     end
     def vertx(options=nil)
       if options == nil || options.class == Hash
-        return nil
+        return Vertx.new(@j_del.vertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
-      return nil
+      return Vertx.new(@j_del.vertx())
     end
     def clustered_vertx(options,result_handler)
       if options == nil || options.class == Hash
@@ -52,58 +52,58 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def current_context()
-      return nil
+      return Context.new(@j_del.currentContext())
     end
     def get_or_create_context()
-      return nil
+      return Context.new(@j_del.getOrCreateContext())
     end
     def create_net_server(options)
       if options == nil || options.class == Hash
-        return nil
+        return NetServer.new(@j_del.createNetServer(options != nil ? NetServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_net_client(options)
       if options == nil || options.class == Hash
-        return nil
+        return NetClient.new(@j_del.createNetClient(options != nil ? NetClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_http_server(options)
       if options == nil || options.class == Hash
-        return nil
+        return HttpServer.new(@j_del.createHttpServer(options != nil ? HttpServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_http_client(options)
       if options == nil || options.class == Hash
-        return nil
+        return HttpClient.new(@j_del.createHttpClient(options != nil ? HttpClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_datagram_socket(options)
       if options == nil || options.class == Hash
-        return nil
+        return DatagramSocket.new(@j_del.createDatagramSocket(options != nil ? DatagramSocketOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def file_system()
-      return nil
+      return FileSystem.new(@j_del.fileSystem())
     end
     def event_bus()
-      return nil
+      return EventBus.new(@j_del.eventBus())
     end
     def create_dns_client(port,host)
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
-          return nil
+          return DnsClient.new(@j_del.createDnsClient(port,host))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
     def shared_data()
-      return nil
+      return SharedData.new(@j_del.sharedData())
     end
     def set_timer(delay,handler)
       if delay != nil && delay.class == Fixnum
@@ -116,7 +116,7 @@ module Vertx
     end
     def timer_stream(delay)
       if delay != nil && delay.class == Fixnum
-        return nil
+        return TimeoutStream.new(@j_del.timerStream(delay))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -131,7 +131,7 @@ module Vertx
     end
     def periodic_stream(delay)
       if delay != nil && delay.class == Fixnum
-        return nil
+        return TimeoutStream.new(@j_del.periodicStream(delay))
       end
       raise ArgumentError, 'dispatch error'
     end

@@ -81,7 +81,7 @@ module Vertx
       return @j_del.isChunked()
     end
     def headers()
-      return nil
+      return MultiMap.new(@j_del.headers())
     end
     def put_header(name,value)
       if name != nil && name.class == String
@@ -94,7 +94,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def trailers()
-      return nil
+      return MultiMap.new(@j_del.trailers())
     end
     def put_trailer(name,value)
       if name != nil && name.class == String

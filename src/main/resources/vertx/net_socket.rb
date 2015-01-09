@@ -88,10 +88,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def remote_address()
-      return nil
+      return SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return nil
+      return SocketAddress.new(@j_del.localAddress())
     end
     def close()
       return @j_del.close()

@@ -9,17 +9,17 @@ module Vertx
       @j_del
     end
     def future()
-      return nil
+      return Future.new(@j_del.future())
     end
     def succeeded_future(result=nil)
       if result != nil && (result.class == Hash || result.class == Array)
-        return nil
+        return Future.new(@j_del.succeededFuture(Vertx::Util::Utils.to_object(result)))
       end
-      return nil
+      return Future.new(@j_del.succeededFuture())
     end
     def failed_future(failure_message)
       if failure_message != nil && failure_message.class == String
-        return nil
+        return Future.new(@j_del.failedFuture(failure_message))
       end
       raise ArgumentError, 'dispatch error'
     end

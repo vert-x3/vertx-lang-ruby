@@ -61,19 +61,19 @@ module Vertx
       return @j_del.query()
     end
     def response()
-      return nil
+      return HttpServerResponse.new(@j_del.response())
     end
     def headers()
-      return nil
+      return MultiMap.new(@j_del.headers())
     end
     def params()
-      return nil
+      return MultiMap.new(@j_del.params())
     end
     def remote_address()
-      return nil
+      return SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return nil
+      return SocketAddress.new(@j_del.localAddress())
     end
     def absolute_uri()
       return @j_del.absoluteURI()
@@ -86,7 +86,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def net_socket()
-      return nil
+      return NetSocket.new(@j_del.netSocket())
     end
     def set_expect_multipart(expect)
       if expect != nil && (expect.class == TrueClass || expect.class == FalseClass)
@@ -106,10 +106,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def form_attributes()
-      return nil
+      return MultiMap.new(@j_del.formAttributes())
     end
     def upgrade()
-      return nil
+      return ServerWebSocket.new(@j_del.upgrade())
     end
   end
 end

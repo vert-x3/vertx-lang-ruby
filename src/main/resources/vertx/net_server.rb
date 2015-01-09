@@ -18,11 +18,11 @@ module Vertx
       return nil
     end
     def connect_stream()
-      return nil
+      return NetSocketStream.new(@j_del.connectStream())
     end
     def connect_handler(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return NetServer.new(@j_del.connectHandler(nil))
       end
       raise ArgumentError, 'dispatch error'
     end

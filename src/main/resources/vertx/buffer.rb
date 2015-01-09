@@ -11,14 +11,14 @@ module Vertx
     def buffer(param_1=nil,param_2=nil)
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == String
-              return nil
+              return Buffer.new(@j_del.buffer(param_1,param_2))
             end
-          return nil
+          return Buffer.new(@j_del.buffer(param_1))
         end
         if param_1 != nil && param_1.class == Fixnum
-          return nil
+          return Buffer.new(@j_del.buffer(param_1))
         end
-      return nil
+      return Buffer.new(@j_del.buffer())
     end
     def to_string(enc)
       if enc != nil && enc.class == String
@@ -65,7 +65,7 @@ module Vertx
     def get_buffer(start,end)
       if start != nil && start.class == Fixnum
         if end != nil && end.class == Fixnum
-          return nil
+          return Buffer.new(@j_del.getBuffer(start,end))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -245,16 +245,16 @@ module Vertx
       return @j_del.length()
     end
     def copy()
-      return nil
+      return Buffer.new(@j_del.copy())
     end
     def slice(start=nil,end=nil)
       if start != nil && start.class == Fixnum
         if end != nil && end.class == Fixnum
-          return nil
+          return Buffer.new(@j_del.slice(start,end))
         end
         raise ArgumentError, 'dispatch error'
       end
-      return nil
+      return Buffer.new(@j_del.slice())
     end
   end
 end

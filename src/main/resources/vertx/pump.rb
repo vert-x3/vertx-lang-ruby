@@ -14,9 +14,9 @@ module Vertx
       if rs != nil && rs.class.method_defined?(:j_del)
         if ws != nil && ws.class.method_defined?(:j_del)
           if write_queue_max_size != nil && write_queue_max_size.class == Fixnum
-            return nil
+            return Pump.new(@j_del.pump(rs.j_del,ws.j_del,write_queue_max_size))
           end
-          return nil
+          return Pump.new(@j_del.pump(rs.j_del,ws.j_del))
         end
         raise ArgumentError, 'dispatch error'
       end

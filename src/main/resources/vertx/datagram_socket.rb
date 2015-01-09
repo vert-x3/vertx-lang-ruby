@@ -65,7 +65,7 @@ module Vertx
     def sender(port,host)
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
-          return nil
+          return PacketWritestream.new(@j_del.sender(port,host))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -78,7 +78,7 @@ module Vertx
       return @j_del.close()
     end
     def local_address()
-      return nil
+      return SocketAddress.new(@j_del.localAddress())
     end
     def listen_multicast_group(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
         if param_1 != nil && param_1.class == String

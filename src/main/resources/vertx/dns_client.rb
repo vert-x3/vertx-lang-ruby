@@ -73,7 +73,7 @@ module Vertx
     def resolve_mx(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| MxRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -113,7 +113,7 @@ module Vertx
     def resolve_srv(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| SrvRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
