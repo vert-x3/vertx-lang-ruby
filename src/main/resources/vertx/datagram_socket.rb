@@ -26,7 +26,7 @@ module Vertx
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
                       @j_del.send(param_1.j_del,param_2,param_3,nil)
-    return self
+                      return self
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -40,7 +40,7 @@ module Vertx
                     if param_4 != nil && param_4.class == String
                         if param_5 != nil && param_5.class == Proc
                           @j_del.send(param_1,param_2,param_3,param_4,nil)
-    return self
+                          return self
                         end
                       raise ArgumentError, 'dispatch error'
                     end
@@ -52,7 +52,7 @@ module Vertx
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
                       @j_del.send(param_1,param_2,param_3,nil)
-    return self
+                      return self
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -84,13 +84,13 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.listenMulticastGroup(param_1,nil)
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
                       @j_del.listenMulticastGroup(param_1,param_2,param_3,nil)
-    return self
+                      return self
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -104,13 +104,13 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.unlistenMulticastGroup(param_1,nil)
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
                       @j_del.unlistenMulticastGroup(param_1,param_2,param_3,nil)
-    return self
+                      return self
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -125,12 +125,12 @@ module Vertx
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
                   @j_del.blockMulticastGroup(param_1,param_2,nil)
-    return self
+                  return self
                 end
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
                       @j_del.blockMulticastGroup(param_1,param_2,param_3,nil)
-    return self
+                      return self
                     end
                   raise ArgumentError, 'dispatch error'
                 end

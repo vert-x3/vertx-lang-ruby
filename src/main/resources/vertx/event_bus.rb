@@ -35,17 +35,17 @@ module Vertx
                 if param_3 == nil || param_3.class == Hash
                     if param_4 != nil && param_4.class == Proc
                       @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,nil)
-    return self
+                      return self
                     end
                   @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
-    return self
+                  return self
                 end
                 if param_3 != nil && param_3.class == Proc
                   @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),nil)
-    return self
+                  return self
                 end
               @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
-    return self
+              return self
             end
           raise ArgumentError, 'dispatch error'
         end

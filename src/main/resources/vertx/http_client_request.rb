@@ -26,15 +26,15 @@ module Vertx
     def write(param_1=nil,param_2=nil)
         if param_1 != nil && param_1.class.method_defined?(:j_del)
           @j_del.write(param_1.j_del)
-    return self
+          return self
         end
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == String
               @j_del.write(param_1,param_2)
-    return self
+              return self
             end
           @j_del.write(param_1)
-    return self
+          return self
         end
       raise ArgumentError, 'dispatch error'
     end

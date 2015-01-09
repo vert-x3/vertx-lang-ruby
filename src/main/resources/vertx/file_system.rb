@@ -348,12 +348,12 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.mkdir(param_1,nil)
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
                   @j_del.mkdir(param_1,param_2,nil)
-    return self
+                  return self
                 end
               raise ArgumentError, 'dispatch error'
             end
@@ -376,12 +376,12 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.mkdirs(param_1,nil)
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
                   @j_del.mkdirs(param_1,param_2,nil)
-    return self
+                  return self
                 end
               raise ArgumentError, 'dispatch error'
             end
@@ -404,12 +404,12 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
                   @j_del.readDir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
-    return self
+                  return self
                 end
               raise ArgumentError, 'dispatch error'
             end
@@ -491,12 +491,12 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
               @j_del.createFile(param_1,nil)
-    return self
+              return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
                   @j_del.createFile(param_1,param_2,nil)
-    return self
+                  return self
                 end
               raise ArgumentError, 'dispatch error'
             end

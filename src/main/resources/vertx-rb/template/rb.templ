@@ -281,7 +281,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 	@end{}
 	@code{trie=_trie.removeLast()}
 	@if{methodMap.containsKey(trie)}
-		@{genIndent()}@includeNamed{'foobarjuu';method=methodMap.get(trie);indent='    ';generic=true}
+		@includeNamed{"foobarjuu";method=methodMap.get(trie);indent=("    " + genIndent());generic=true}
 	@else{}
 		@{genIndent()}    raise ArgumentError, 'dispatch error'\n
 	@end{}
