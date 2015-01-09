@@ -1,4 +1,4 @@
-module Test
+module Assert
   def self.fail(msg)
     raise "the error"
   end
