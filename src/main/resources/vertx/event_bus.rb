@@ -8,6 +8,7 @@ include_class 'io.vertx.core.eventbus.DeliveryOptions'
 include_class 'io.vertx.core.eventbus.DeliveryOptions'
 include_class 'io.vertx.core.eventbus.DeliveryOptions'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.eventbus.EventBus
 module Vertx
   class EventBus
     def initialize(j_del)

@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.dns.SrvRecord
 module Vertx
   class SrvRecord
     def initialize(j_del)

@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.metrics.Measured'
 include_class 'io.vertx.core.net.NetSocket'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.net.NetClient
 module Vertx
   class NetClient
     def initialize(j_del)

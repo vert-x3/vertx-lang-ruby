@@ -1,5 +1,6 @@
 require 'java'
 require "test"
+require 'set'
 require "testmodel/test_interface"
 require "testmodel/refed_interface1"
 
@@ -98,4 +99,24 @@ def test_method_with_handler_async_result_options_fails()
   count = 0
   $obj.method_with_handler_async_result_options(true, Proc.new { |err,val| Test.assert_nil(val); Test.assert_not_nil(err); Test.assert_equals(err.message, "foobar!"); count += 1 })
   Test.assert_equals(count, 1)
+end
+
+def test_method_with_handler_list_and_set()
+  count = 0
+  $obj.method_with_handler_list_and_set(
+      Proc.new { |val| Test.assert_equals(val, ["foo","bar","wibble"]); count += 1 },
+      Proc.new { |val| Test.assert_equals(val, [5,12,100]); count += 1 },
+      Proc.new { |val| Test.assert_equals(val, Set.new(["foo","bar","wibble"])); count += 1 },
+      Proc.new { |val| Test.assert_equals(val, Set.new([5,12,100])); count += 1 }
+  )
+  Test.assert_equals(4, count)
+end
+
+def test_method_with_handler_async_result_list_and_set()
+  count = 0
+  $obj.method_with_handler_async_result_list_string(Proc.new { |err,val| Test.assert_nil(err); Test.assert_equals(val, ["foo","bar","wibble"]); count += 1 })
+  $obj.method_with_handler_async_result_list_integer(Proc.new { |err,val| Test.assert_nil(err); Test.assert_equals(val, [5,12,100]); count += 1 })
+  $obj.method_with_handler_async_result_set_string(Proc.new { |err,val| Test.assert_nil(err); Test.assert_equals(val, Set.new(["foo","bar","wibble"])); count += 1 })
+  $obj.method_with_handler_async_result_set_integer(Proc.new { |err,val| Test.assert_nil(err); Test.assert_equals(val, Set.new([5,12,100])); count += 1 })
+  Test.assert_equals(4, count)
 end

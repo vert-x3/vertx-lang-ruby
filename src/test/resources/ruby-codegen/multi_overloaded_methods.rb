@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.test.support.MultiOverloadedMethods
 module RubyCodegen
   class MultiOverloadedMethods
     def initialize(j_del)

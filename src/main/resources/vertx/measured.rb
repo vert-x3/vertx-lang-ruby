@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.metrics.Measured
 module Vertx
   module Measured
     def metric_base_name()

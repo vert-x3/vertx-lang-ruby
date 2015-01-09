@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.net.SocketAddress
 module Vertx
   class SocketAddress
     def initialize(j_del)

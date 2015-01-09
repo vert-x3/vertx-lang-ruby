@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.MultiMap
 module Vertx
   class MultiMap
     def initialize(j_del)
@@ -15,7 +16,7 @@ module Vertx
     end
     def get_all(name)
       if name != nil && name.class == String
-        return nil
+        return @j_del.getAll(name).to_a.map { |elt| elt }
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -29,7 +30,7 @@ module Vertx
       return @j_del.isEmpty()
     end
     def names()
-      return nil
+      return @j_del.names().to_set.map! { |elt| elt }
     end
     def add(name,value)
       if name != nil && name.class == String

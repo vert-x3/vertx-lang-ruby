@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.dns.MxRecord
 module Vertx
   class MxRecord
     def initialize(j_del)

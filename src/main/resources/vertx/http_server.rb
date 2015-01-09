@@ -4,6 +4,7 @@ include_class 'io.vertx.core.metrics.Measured'
 include_class 'io.vertx.core.http.HttpServerRequestStream'
 include_class 'io.vertx.core.http.ServerWebSocketStream'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.HttpServer
 module Vertx
   class HttpServer
     def initialize(j_del)

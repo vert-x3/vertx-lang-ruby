@@ -21,6 +21,7 @@ include_class 'io.vertx.core.datagram.DatagramSocketOptions'
 include_class 'io.vertx.core.DeploymentOptions'
 include_class 'io.vertx.core.DeploymentOptions'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.Vertx
 module Vertx
   class Vertx
     def initialize(j_del)
@@ -177,7 +178,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def deployments()
-      return nil
+      return @j_del.deployments().to_set.map! { |elt| elt }
     end
     def execute_blocking(blocking_code_handler,result_handler)
       if blocking_code_handler != nil && blocking_code_handler.class == Proc

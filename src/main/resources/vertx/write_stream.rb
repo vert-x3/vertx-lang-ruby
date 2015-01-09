@@ -1,5 +1,6 @@
 include_class 'io.vertx.core.streams.StreamBase'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.streams.WriteStream<T>
 module Vertx
   module WriteStream
     def exception_handler(handler)

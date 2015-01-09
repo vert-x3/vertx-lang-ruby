@@ -4,6 +4,7 @@ include_class 'io.vertx.core.streams.WriteStream'
 include_class 'io.vertx.core.streams.ReadStream'
 include_class 'io.vertx.core.MultiMap'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.HttpClientRequest
 module Vertx
   class HttpClientRequest
     def initialize(j_del)

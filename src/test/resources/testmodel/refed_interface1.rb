@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.codegen.testmodel.RefedInterface1
 module Testmodel
   class RefedInterface1
     def initialize(j_del)

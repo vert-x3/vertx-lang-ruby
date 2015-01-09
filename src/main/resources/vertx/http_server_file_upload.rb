@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.buffer.Buffer'
 include_class 'io.vertx.core.streams.ReadStream'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.HttpServerFileUpload
 module Vertx
   class HttpServerFileUpload
     def initialize(j_del)

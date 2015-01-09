@@ -5,6 +5,7 @@ include_class 'io.vertx.core.http.WebSocketStream'
 include_class 'io.vertx.core.MultiMap'
 include_class 'io.vertx.core.http.WebSocket'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.HttpClient
 module Vertx
   class HttpClient
     def initialize(j_del)

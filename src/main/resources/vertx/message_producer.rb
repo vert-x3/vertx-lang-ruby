@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.streams.WriteStream'
 include_class 'io.vertx.core.eventbus.DeliveryOptions'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.eventbus.MessageProducer<T>
 module Vertx
   class MessageProducer
     def initialize(j_del)

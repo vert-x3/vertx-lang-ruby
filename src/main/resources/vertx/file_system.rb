@@ -5,6 +5,7 @@ include_class 'io.vertx.core.file.FileProps'
 include_class 'io.vertx.core.file.OpenOptions'
 include_class 'io.vertx.core.file.OpenOptions'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.file.FileSystem
 module Vertx
   class FileSystem
     def initialize(j_del)
@@ -402,12 +403,12 @@ module Vertx
     def read_dir(param_1=nil,param_2=nil,param_3=nil)
         if param_1 != nil && param_1.class == String
             if param_2 != nil && param_2.class == Proc
-              @j_del.readDir(param_1,nil)
+              @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
     return self
             end
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
-                  @j_del.readDir(param_1,param_2,nil)
+                  @j_del.readDir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
     return self
                 end
               raise ArgumentError, 'dispatch error'
@@ -419,9 +420,9 @@ module Vertx
     def read_dir_blocking(path,filter=nil)
       if path != nil && path.class == String
         if filter != nil && filter.class == String
-          return nil
+          return @j_del.readDirBlocking(path,filter).to_a.map { |elt| elt }
         end
-        return nil
+        return @j_del.readDirBlocking(path).to_a.map { |elt| elt }
       end
       raise ArgumentError, 'dispatch error'
     end

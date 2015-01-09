@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.streams.ReadStream'
 include_class 'io.vertx.core.net.NetSocket'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.net.NetSocketStream
 module Vertx
   class NetSocketStream
     def initialize(j_del)

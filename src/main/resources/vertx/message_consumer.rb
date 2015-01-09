@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.streams.ReadStream'
 include_class 'io.vertx.core.eventbus.Message'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.eventbus.MessageConsumer<T>
 module Vertx
   class MessageConsumer
     def initialize(j_del)

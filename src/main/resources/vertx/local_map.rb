@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.shareddata.LocalMap<K,V>
 module Vertx
   class LocalMap
     def initialize(j_del)

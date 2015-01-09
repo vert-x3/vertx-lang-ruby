@@ -1,5 +1,6 @@
 include_class 'io.vertx.core.streams.ReadStream'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.TimeoutStream
 module Vertx
   class TimeoutStream
     def initialize(j_del)

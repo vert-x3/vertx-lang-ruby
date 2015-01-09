@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.Context
 module Vertx
   class Context
     def initialize(j_del)
@@ -20,7 +21,7 @@ module Vertx
       return nil
     end
     def process_args()
-      return nil
+      return @j_del.processArgs().to_a.map { |elt| elt }
     end
     def is_event_loop_context()
       return @j_del.isEventLoopContext()

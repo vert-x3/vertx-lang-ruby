@@ -80,12 +80,12 @@
     } else if (kind == CLASS_HANDLER) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
-      if (eventKind.basic || eventKind == CLASS_OPTIONS) {
+      if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection) {
         return "(Proc.new { |event| " + name + ".call(" + genConvReturn(eventType, "event") + ") })";
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
-        if (resultKind.basic || resultKind == CLASS_OPTIONS) {
+        if (resultKind.basic || resultKind == CLASS_OPTIONS || resultKind.collection) {
           return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
         }
       }
@@ -110,6 +110,12 @@
         return expr;
       } else if (kind == CLASS_OPTIONS) {
         return "JSON.parse(" + expr + ".toJson.encode)";
+      } else if (kind == CLASS_LIST) {
+        var elementType = type.args[0];
+        return expr + ".to_a.map { |elt| " + genConvReturn(elementType, "elt") + " }";
+      } else if (kind == CLASS_SET) {
+        var elementType = type.args[0];
+        return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
       }
       return "nil";
     }
@@ -192,6 +198,7 @@ include_class '@{optionType.name}'\n
 @end{}
 require 'vertx/util/utils.rb'\n
 
+# Generated from @{type.name}\n
 module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 
   @if{concrete}class@else{}module@end{} @{type.raw.simpleName}\n

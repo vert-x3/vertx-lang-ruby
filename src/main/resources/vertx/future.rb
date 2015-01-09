@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.Future<T>
 module Vertx
   class Future
     def initialize(j_del)

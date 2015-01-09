@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.codegen.testmodel.SuperInterface2
 module Testmodel
   module SuperInterface2
     def other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)

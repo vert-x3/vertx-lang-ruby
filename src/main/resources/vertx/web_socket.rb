@@ -3,6 +3,7 @@ include_class 'io.vertx.core.buffer.Buffer'
 include_class 'io.vertx.core.http.WebSocketFrame'
 include_class 'io.vertx.core.net.SocketAddress'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.WebSocket
 module Vertx
   class WebSocket
     def initialize(j_del)

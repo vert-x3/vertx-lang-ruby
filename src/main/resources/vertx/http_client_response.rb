@@ -3,6 +3,7 @@ include_class 'io.vertx.core.streams.ReadStream'
 include_class 'io.vertx.core.MultiMap'
 include_class 'io.vertx.core.net.NetSocket'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.HttpClientResponse
 module Vertx
   class HttpClientResponse
     def initialize(j_del)
@@ -53,7 +54,7 @@ module Vertx
       return nil
     end
     def cookies()
-      return nil
+      return @j_del.cookies().to_a.map { |elt| elt }
     end
     def body_handler(body_handler)
       if body_handler != nil && body_handler.class == Proc

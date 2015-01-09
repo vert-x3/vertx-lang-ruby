@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.shareddata.Counter
 module Vertx
   class Counter
     def initialize(j_del)

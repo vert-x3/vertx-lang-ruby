@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.codegen.testmodel.SuperInterface1
 module Testmodel
   class SuperInterface1
     def initialize(j_del)

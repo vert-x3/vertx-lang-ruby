@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.buffer.Buffer
 module Vertx
   class Buffer
     def initialize(j_del)

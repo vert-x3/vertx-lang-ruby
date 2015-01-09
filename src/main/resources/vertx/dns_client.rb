@@ -1,6 +1,7 @@
 include_class 'io.vertx.core.dns.MxRecord'
 include_class 'io.vertx.core.dns.SrvRecord'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.dns.DnsClient
 module Vertx
   class DnsClient
     def initialize(j_del)
@@ -42,7 +43,7 @@ module Vertx
     def resolve_a(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveA(name,nil)
+          @j_del.resolveA(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -52,7 +53,7 @@ module Vertx
     def resolve_aaaa(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveAAAA(name,nil)
+          @j_del.resolveAAAA(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -62,7 +63,7 @@ module Vertx
     def resolve_cname(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveCNAME(name,nil)
+          @j_del.resolveCNAME(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -72,7 +73,7 @@ module Vertx
     def resolve_mx(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveMX(name,nil)
+          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -82,7 +83,7 @@ module Vertx
     def resolve_txt(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveTXT(name,nil)
+          @j_del.resolveTXT(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -102,7 +103,7 @@ module Vertx
     def resolve_ns(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveNS(name,nil)
+          @j_del.resolveNS(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -112,7 +113,7 @@ module Vertx
     def resolve_srv(name,handler)
       if name != nil && name.class == String
         if handler != nil && handler.class == Proc
-          @j_del.resolveSRV(name,nil)
+          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'

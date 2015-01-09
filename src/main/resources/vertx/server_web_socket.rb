@@ -4,6 +4,7 @@ include_class 'io.vertx.core.MultiMap'
 include_class 'io.vertx.core.http.WebSocketFrame'
 include_class 'io.vertx.core.net.SocketAddress'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.http.ServerWebSocket
 module Vertx
   class ServerWebSocket
     def initialize(j_del)

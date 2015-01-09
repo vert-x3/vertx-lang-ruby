@@ -5,6 +5,7 @@ include_class 'io.vertx.core.datagram.DatagramPacket'
 include_class 'io.vertx.core.streams.ReadStream'
 include_class 'io.vertx.core.net.SocketAddress'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.datagram.DatagramSocket
 module Vertx
   class DatagramSocket
     def initialize(j_del)

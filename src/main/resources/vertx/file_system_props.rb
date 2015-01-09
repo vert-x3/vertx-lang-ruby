@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.file.FileSystemProps
 module Vertx
   class FileSystemProps
     def initialize(j_del)

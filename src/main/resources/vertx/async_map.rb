@@ -1,4 +1,5 @@
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.shareddata.AsyncMap<K,V>
 module Vertx
   class AsyncMap
     def initialize(j_del)

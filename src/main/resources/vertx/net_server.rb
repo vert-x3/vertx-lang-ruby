@@ -2,6 +2,7 @@ include_class 'io.vertx.core.net.NetSocketStream'
 include_class 'io.vertx.core.metrics.Measured'
 include_class 'io.vertx.core.net.NetSocket'
 require 'vertx/util/utils.rb'
+# Generated from io.vertx.core.net.NetServer
 module Vertx
   class NetServer
     def initialize(j_del)
