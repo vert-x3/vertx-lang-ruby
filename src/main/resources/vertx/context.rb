@@ -18,7 +18,7 @@ module Vertx
       return @j_del.deploymentID()
     end
     def config()
-      return nil
+      return @j_del.config() != nil ? JSON.parse(@j_del.config().encode) : nil
     end
     def process_args()
       return @j_del.processArgs().to_a.map { |elt| elt }

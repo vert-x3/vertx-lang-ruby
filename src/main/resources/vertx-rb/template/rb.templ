@@ -118,6 +118,8 @@
         return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
       } else if (kind == CLASS_API) {
         return type.raw.module.getName(CASE_CAMEL) + "::"  + type.raw.simpleName + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
+      } else if (kind == CLASS_JSON_OBJECT) {
+        return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       }
       return "nil";
     }

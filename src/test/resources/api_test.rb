@@ -229,3 +229,55 @@ def test_method_with_handler_async_result_set_abstract_vertx_gen()
   })
   Assert.assert_equals(1, count)
 end
+
+def test_method_with_handler_list_json_object()
+  count = 0
+  $obj.method_with_handler_list_json_object(Proc.new { |val|
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 2)
+    Assert.assert_equals(val[0].class, Hash)
+    Assert.assert_equals(val[0], {"cheese" => "stilton"})
+    Assert.assert_equals(val[1].class, Hash)
+    Assert.assert_equals(val[1], {"socks" => "tartan"})
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_list_null_json_object()
+  count = 0
+  $obj.method_with_handler_list_null_json_object(Proc.new { |val|
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 1)
+    Assert.assert_equals(val[0], nil)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_async_result_handler_list_json_object()
+  count = 0
+  $obj.method_with_handler_async_result_list_json_object(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 2)
+    Assert.assert_equals(val[0].class, Hash)
+    Assert.assert_equals(val[0], {"cheese" => "stilton"})
+    Assert.assert_equals(val[1].class, Hash)
+    Assert.assert_equals(val[1], {"socks" => "tartan"})
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_list_null_json_object()
+  count = 0
+  $obj.method_with_handler_async_result_list_null_json_object(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 1)
+    Assert.assert_equals(val[0], nil)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end

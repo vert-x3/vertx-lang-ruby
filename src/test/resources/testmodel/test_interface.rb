@@ -395,25 +395,25 @@ module Testmodel
     end
     def method_with_handler_list_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| nil }) }))
+        return @j_del.methodWithHandlerListJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_list_null_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListNullJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| nil }) }))
+        return @j_del.methodWithHandlerListNullJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| nil }) }))
+        return @j_del.methodWithHandlerSetJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_null_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetNullJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| nil }) }))
+        return @j_del.methodWithHandlerSetNullJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -467,25 +467,25 @@ module Testmodel
     end
     def method_with_handler_async_result_list_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_list_null_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_null_json_object(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -677,10 +677,10 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_json_object_return()
-      return nil
+      return @j_del.methodWithJsonObjectReturn() != nil ? JSON.parse(@j_del.methodWithJsonObjectReturn().encode) : nil
     end
     def method_with_null_json_object_return()
-      return nil
+      return @j_del.methodWithNullJsonObjectReturn() != nil ? JSON.parse(@j_del.methodWithNullJsonObjectReturn().encode) : nil
     end
     def method_with_json_array_return()
       return nil
@@ -791,7 +791,7 @@ module Testmodel
       return @j_del.methodWithListVertxGenReturn().to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_list_json_object_return()
-      return @j_del.methodWithListJsonObjectReturn().to_a.map { |elt| nil }
+      return @j_del.methodWithListJsonObjectReturn().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_list_json_array_return()
       return @j_del.methodWithListJsonArrayReturn().to_a.map { |elt| nil }
@@ -809,7 +809,7 @@ module Testmodel
       return @j_del.methodWithSetVertxGenReturn().to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_set_json_object_return()
-      return @j_del.methodWithSetJsonObjectReturn().to_set.map! { |elt| nil }
+      return @j_del.methodWithSetJsonObjectReturn().to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_set_json_array_return()
       return @j_del.methodWithSetJsonArrayReturn().to_set.map! { |elt| nil }
