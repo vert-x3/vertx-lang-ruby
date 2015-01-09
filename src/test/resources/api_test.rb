@@ -125,6 +125,7 @@ end
 def test_method_with_handler_list_vertx_gen()
   count = 0
   $obj.method_with_handler_list_vertx_gen(Proc.new { |val|
+     Assert.assert_equals(val.class, Array)
      Assert.assert_equals(val.size, 2)
      Assert.assert_equals(val[0].class, Testmodel::RefedInterface1)
      Assert.assert_equals(val[0].get_string, "foo")
@@ -138,6 +139,7 @@ end
 def test_method_with_handler_list_abstract_vertx_gen()
   count = 0
   $obj.method_with_handler_list_abstract_vertx_gen(Proc.new { |val|
+    Assert.assert_equals(val.class, Array)
     Assert.assert_equals(val.size, 2)
     Assert.assert_equals(val[0].is_a?(Testmodel::RefedInterface2), true)
     Assert.assert_equals(val[0].get_string, "abstractfoo")
@@ -152,6 +154,7 @@ def test_method_with_handler_async_result_list_vertx_gen()
   count = 0
   $obj.method_with_handler_async_result_list_vertx_gen(Proc.new { |err,val|
     Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
     Assert.assert_equals(val.size, 2)
     Assert.assert_equals(val[0].class, Testmodel::RefedInterface1)
     Assert.assert_equals(val[0].get_string, "foo")
@@ -166,11 +169,62 @@ def test_method_with_handler_async_result_list_abstract_vertx_gen()
   count = 0
   $obj.method_with_handler_async_result_list_abstract_vertx_gen(Proc.new { |err,val|
     Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
     Assert.assert_equals(val.size, 2)
     Assert.assert_equals(val[0].is_a?(Testmodel::RefedInterface2), true)
     Assert.assert_equals(val[0].get_string, "abstractfoo")
     Assert.assert_equals(val[1].is_a?(Testmodel::RefedInterface2), true)
     Assert.assert_equals(val[1].get_string, "abstractbar")
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_set_vertx_gen()
+  count = 0
+  $obj.method_with_handler_set_vertx_gen(Proc.new { |val|
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 2)
+    val.each { |elt| Assert.assert_equals(elt.class, Testmodel::RefedInterface1) }
+    Assert.assert_equals(val.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_set_abstract_vertx_gen()
+  count = 0
+  $obj.method_with_handler_set_abstract_vertx_gen(Proc.new { |val|
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 2)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Testmodel::RefedInterface2), true) }
+    Assert.assert_equals(val.map { |o| o.get_string }.to_set, Set.new(["abstractfoo","abstractbar"]))
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_set_vertx_gen()
+  count = 0
+  $obj.method_with_handler_async_result_set_vertx_gen(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 2)
+    val.each { |elt| Assert.assert_equals(elt.class, Testmodel::RefedInterface1) }
+    Assert.assert_equals(val.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_set_abstract_vertx_gen()
+  count = 0
+  $obj.method_with_handler_async_result_set_abstract_vertx_gen(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 2)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Testmodel::RefedInterface2), true) }
+    Assert.assert_equals(val.map { |o| o.get_string }.to_set, Set.new(["abstractfoo","abstractbar"]))
     count += 1
   })
   Assert.assert_equals(1, count)

@@ -101,6 +101,26 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_async_result_list_abstract_vertx_gen");
   }
 
+  @Test
+  public void testMethodWithHandlerSetVertxGen() {
+    runTest("test_method_with_handler_set_vertx_gen");
+  }
+
+  @Test
+  public void testMethodWithHandlerSetAbstractVertxGen() {
+    runTest("test_method_with_handler_set_abstract_vertx_gen");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetVertxGen() {
+    runTest("test_method_with_handler_async_result_set_vertx_gen");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetAbstractVertxGen() {
+    runTest("test_method_with_handler_async_result_set_abstract_vertx_gen");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }
