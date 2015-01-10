@@ -17,6 +17,11 @@ public class LangTest extends RubyTestBase {
     runTest("test_multi_overload");
   }
 
+  @Test
+  public void testMixinInheritance() {
+    runTest("test_mixin_inheritance");
+  }
+
   private void runTest(String testName) {
     runTest("lang_test", testName);
   }

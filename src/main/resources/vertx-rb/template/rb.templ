@@ -192,6 +192,12 @@
   }
 }
 
+@code{
+  def genRubyClassFqn(type) {
+    return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
+  }
+}
+
 @declare{'foobarjuu'}
 @if{method.fluent}
 @{indent}@{genMethodCall(method,generic)}\n
@@ -212,6 +218,9 @@ require 'vertx/util/utils.rb'\n
 
 @declare{'initializer'}
     def initialize(j_del)\n
+	@if{callSuper}
+      super(j_del)\n
+	@end{}
       @j_del = j_del\n
     end\n
     def j_del\n
@@ -222,9 +231,17 @@ require 'vertx/util/utils.rb'\n
 # Generated from @{type.name}\n
 module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 
-  @if{concrete}class@else{}module@end{} @{type.raw.simpleName}\n
 @if{concrete}
-@includeNamed{'initializer'}
+  class @{type.raw.simpleName}@if{concreteSuperTypes.size() == 1} < @{genRubyClassFqn(concreteSuperTypes[0].raw)}@end{}\n
+	@foreach{abstractSuperType:abstractSuperTypes}
+    include @{genRubyClassFqn(abstractSuperType.raw)}\n
+	@end{}
+	@includeNamed{'initializer';callSuper=concreteSuperTypes.size() == 1}
+@else{}
+  module @{type.raw.simpleName}\n
+	@foreach{superType:superTypes}
+    include @{genRubyClassFqn(superType.raw)}\n
+	@end{}
 @end{}
 
 	@foreach{methods:methodsByName.values()}
@@ -309,7 +326,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 @if{!concrete}
   class @{type.raw.simpleName}Impl\n
     include @{type.raw.simpleName}\n
-@includeNamed{'initializer'}
+@includeNamed{'initializer';callSuper=false}
   end\n
 @end{}
 

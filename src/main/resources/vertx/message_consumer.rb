@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageConsumer<T>
 module Vertx
   class MessageConsumer
+    include Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end

@@ -5,6 +5,8 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.AsyncFile
 module Vertx
   class AsyncFile
+    include Vertx::ReadStream
+    include Vertx::WriteStream
     def initialize(j_del)
       @j_del = j_del
     end

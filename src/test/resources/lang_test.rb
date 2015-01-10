@@ -2,9 +2,13 @@ require 'java'
 require "assert"
 require 'ruby-codegen/linear_overloaded_methods'
 require 'ruby-codegen/multi_overloaded_methods'
+require 'ruby-codegen/super_mixin'
+require 'ruby-codegen/mixin'
+require 'ruby-codegen/class_with_mixin'
 
 java_import 'io.vertx.test.support.LinearOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.MultiOverloadedMethodsImpl'
+java_import 'io.vertx.test.support.ClassWithMixinImpl'
 
 def test_linear_overload
   def create
@@ -59,5 +63,14 @@ def test_multi_overload
   obj = create
   Assert.assert_argument_error { obj.method 123, 'some_string' }
   Assert.assert_equals(obj.j_del.getCalled, nil)
+
+end
+
+def test_mixin_inheritance
+  impl = ClassWithMixinImpl.new
+  obj = RubyCodegen::ClassWithMixin.new impl
+  Assert.assert_equals(obj.is_a?(RubyCodegen::ClassWithMixin), true)
+  Assert.assert_equals(obj.is_a?(RubyCodegen::Mixin), true)
+  Assert.assert_equals(obj.is_a?(RubyCodegen::SuperMixin), true)
 
 end

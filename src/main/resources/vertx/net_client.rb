@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetClient
 module Vertx
   class NetClient
+    include Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end

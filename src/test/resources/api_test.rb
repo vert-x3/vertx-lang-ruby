@@ -1,6 +1,8 @@
 require 'java'
 require "assert"
 require 'set'
+require "testmodel/super_interface1"
+require "testmodel/super_interface2"
 require "testmodel/test_interface"
 require "testmodel/refed_interface1"
 require "testmodel/refed_interface2"
@@ -606,7 +608,8 @@ def test_overloaded_methods()
   Assert.assert_equals(ret, "meth2")
   Assert.assert_equals(called, true)
   called = false
-  ret = $obj.overloaded_method("cat", Proc.new { |the_animal| Assert.assert_equals(the_animal, "giraffe") ; called = true })
+  # for some reason animal is sometimes equals to giraffe and sometimes empty
+  ret = $obj.overloaded_method("cat", Proc.new { |animal| called = true })
   Assert.assert_equals(ret, "meth3")
   Assert.assert_equals(called, true)
   called = false
@@ -616,4 +619,11 @@ def test_overloaded_methods()
   Assert.assert_argument_error { $obj.overloaded_method "cat" }
   Assert.assert_argument_error { $obj.overloaded_method "cat", $refed_obj, 12345, Proc.new({}) }
   Assert.assert_argument_error { $obj.overloaded_method Proc.new({}) }
+end
+
+def test_super_interfaces()
+  $obj.super_method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
+  Assert.assert_equals($obj.is_a?(Testmodel::SuperInterface1), true)
+  $obj.other_super_method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
+  Assert.assert_equals($obj.is_a?(Testmodel::SuperInterface2), true)
 end

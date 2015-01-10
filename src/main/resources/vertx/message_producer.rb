@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageProducer<T>
 module Vertx
   class MessageProducer
+    include Vertx::WriteStream
     def initialize(j_del)
       @j_del = j_del
     end

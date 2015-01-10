@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetSocketStream
 module Vertx
   class NetSocketStream
+    include Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end

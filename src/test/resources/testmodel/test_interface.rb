@@ -8,8 +8,10 @@ include_class 'io.vertx.codegen.testmodel.TestOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel
-  class TestInterface
+  class TestInterface < Testmodel::SuperInterface1
+    include Testmodel::SuperInterface2
     def initialize(j_del)
+      super(j_del)
       @j_del = j_del
     end
     def j_del

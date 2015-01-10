@@ -7,6 +7,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.ServerWebSocket
 module Vertx
   class ServerWebSocket
+    include Vertx::WebSocketBase
     def initialize(j_del)
       @j_del = j_del
     end

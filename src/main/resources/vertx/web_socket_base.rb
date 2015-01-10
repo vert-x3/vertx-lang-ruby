@@ -7,6 +7,8 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocketBase
 module Vertx
   module WebSocketBase
+    include Vertx::ReadStream
+    include Vertx::WriteStream
     def write_queue_full()
       return @j_del.writeQueueFull()
     end

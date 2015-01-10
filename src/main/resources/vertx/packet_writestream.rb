@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.PacketWritestream
 module Vertx
   class PacketWritestream
+    include Vertx::WriteStream
     def initialize(j_del)
       @j_del = j_del
     end

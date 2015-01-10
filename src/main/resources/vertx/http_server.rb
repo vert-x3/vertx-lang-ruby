@@ -7,6 +7,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServer
 module Vertx
   class HttpServer
+    include Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end

@@ -5,6 +5,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetServer
 module Vertx
   class NetServer
+    include Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end

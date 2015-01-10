@@ -276,6 +276,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_overloaded_methods");
   }
 
+  @Test
+  public void testSuperInterfaces() {
+    runTest("test_super_interfaces");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

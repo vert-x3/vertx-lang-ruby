@@ -4,6 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerRequestStream
 module Vertx
   class HttpServerRequestStream
+    include Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end

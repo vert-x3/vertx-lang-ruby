@@ -3,6 +3,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.ReadStream<T>
 module Vertx
   module ReadStream
+    include Vertx::StreamBase
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))

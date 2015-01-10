@@ -11,6 +11,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.EventBus
 module Vertx
   class EventBus
+    include Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end
