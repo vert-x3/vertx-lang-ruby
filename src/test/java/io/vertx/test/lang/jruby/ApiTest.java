@@ -281,6 +281,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_super_interfaces");
   }
 
+  @Test
+  public void testMethodWithGenericReturn() {
+    runTest("test_method_with_generic_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

@@ -627,3 +627,12 @@ def test_super_interfaces()
   $obj.other_super_method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
   Assert.assert_equals($obj.is_a?(Testmodel::SuperInterface2), true)
 end
+
+def test_method_with_generic_return()
+  ret = $obj.method_with_generic_return("JsonObject")
+  Assert.assert_equals(ret.class, Hash)
+  Assert.assert_equals(ret, {"foo"=>"hello","bar"=>123})
+  ret = $obj.method_with_generic_return("JsonArray")
+  Assert.assert_equals(ret.class, Array)
+  Assert.assert_equals(ret, ["foo","bar","wib"])
+end
