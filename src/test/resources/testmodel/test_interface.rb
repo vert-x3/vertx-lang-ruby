@@ -824,8 +824,8 @@ module Testmodel
     end
     def method_with_enum_param(str_val,weirdo)
       if str_val != nil && str_val.class == String
-        if false
-          return @j_del.methodWithEnumParam(str_val,nil)
+        if weirdo != nil && weirdo.class == String
+          return @j_del.methodWithEnumParam(str_val,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(weirdo))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -833,7 +833,7 @@ module Testmodel
     end
     def method_with_enum_return(str_val)
       if str_val != nil && str_val.class == String
-        return nil
+        return @j_del.methodWithEnumReturn(str_val).name
       end
       raise ArgumentError, 'dispatch error'
     end

@@ -341,6 +341,16 @@ public class ApiTest extends RubyTestBase {
     runTest("test_null_json_handler_async_result_params");
   }
 
+  @Test
+  public void testEnumParam() {
+    runTest("test_enum_param");
+  }
+
+  @Test
+  public void testEnumReturn() {
+    runTest("test_enum_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

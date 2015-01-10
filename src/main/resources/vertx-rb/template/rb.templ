@@ -18,11 +18,10 @@
 @code{
   def typeCheckPred(name, type) {
     var kind = type.kind;
-    if (kind.basic) {
+    if (kind == CLASS_STRING || kind == CLASS_ENUM) {
+      return name + " != nil && " + name + ".class == String";
+    } else if (kind.basic) {
       var typeName = type.name;
-      if (kind == CLASS_STRING) {
-        return name + " != nil && " + name + ".class == String";
-      }
       if (typeName == "byte" || typeName == "java.lang.Byte" ||
           typeName == "short" || typeName == "java.lang.Short" ||
           typeName == "int" || typeName == "java.lang.Integer" ||
@@ -106,6 +105,8 @@
       return name + " != nil ? " + "Vertx::Util::Utils.to_json_object(" + name + ") : nil";
     } else if (kind == CLASS_JSON_ARRAY) {
       return name + " != nil ? " + "Vertx::Util::Utils.to_json_array(" + name + ") : nil";
+    } else if (kind == CLASS_ENUM) {
+      return genJavaClassFqn(type) + ".valueOf(" + name + ")";
     }
     return "nil";
   }
@@ -133,6 +134,8 @@
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {
         return "Vertx::Util::Utils.from_object(" + expr + ")";
+      } else if (kind == CLASS_ENUM) {
+        return expr + ".name";
       }
       return "nil";
     }

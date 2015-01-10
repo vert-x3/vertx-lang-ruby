@@ -715,3 +715,13 @@ def test_null_json_handler_async_result_params()
   $obj.method_with_handler_async_result_null_json_array(Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_nil(val); count += 1 })
   Assert.assert_equals(2, count)
 end
+
+def test_enum_param()
+  ret = $obj.method_with_enum_param("sausages", "TIM")
+  Assert.assert_equals(ret, "sausagesTIM")
+end
+
+def test_enum_return()
+  ret = $obj.method_with_enum_return("JULIEN")
+  Assert.assert_equals("JULIEN", ret)
+end

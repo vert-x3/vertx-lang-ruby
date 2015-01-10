@@ -47,10 +47,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def version()
-      return nil
+      return @j_del.version().name
     end
     def method()
-      return nil
+      return @j_del.method().name
     end
     def uri()
       return @j_del.uri()

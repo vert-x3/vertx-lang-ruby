@@ -87,7 +87,7 @@ module Vertx
       return @j_del.isChunked()
     end
     def method()
-      return nil
+      return @j_del.method().name
     end
     def uri()
       return @j_del.uri()
