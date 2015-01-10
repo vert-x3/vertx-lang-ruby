@@ -261,6 +261,16 @@ public class ApiTest extends RubyTestBase {
     runTest("test_basic_returns");
   }
 
+  @Test
+  public void testVertxGenReturn() {
+    runTest("test_vertx_gen_return");
+  }
+
+  @Test
+  public void testAbstractVertxGenReturn() {
+    runTest("test_abstract_vertx_gen_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

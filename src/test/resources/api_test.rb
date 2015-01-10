@@ -584,3 +584,15 @@ def test_basic_returns()
   Assert.assert_equals(ret.class, String)
   Assert.assert_equals(ret, "orangutan")
 end
+
+def test_vertx_gen_return()
+  ret = $obj.method_with_vertx_gen_return
+  Assert.assert_equals(ret.class, Testmodel::RefedInterface1)
+  Assert.assert_equals(ret.get_string, "chaffinch")
+end
+
+def test_abstract_vertx_gen_return()
+  ret = $obj.method_with_abstract_vertx_gen_return
+  Assert.assert_equals(ret.is_a?(Testmodel::RefedInterface2), true)
+  Assert.assert_equals(ret.get_string, "abstractchaffinch")
+end
