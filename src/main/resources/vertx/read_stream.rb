@@ -12,7 +12,7 @@ module Vertx
     end
     def handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.handler(nil)
+        @j_del.handler((Proc.new { |event| handler.call(Vertx::Util::Utils.from_object(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

@@ -16,12 +16,11 @@ module Vertx
         end
       end
       def self.from_object(object)
-        if object.is_a? String
-          object;
-        elsif object.is_a?(JsonObject) || object.is_a?(JsonArray)
+        if object.is_a?(JsonObject) || object.is_a?(JsonArray)
           JSON.parse(object.encode)
         else
-          raise "conversion of type #{object.class} not implemented"
+          # Best effort, we let jruby handle the conversion
+          object
         end
       end
       def self.to_json_object(hash)

@@ -642,7 +642,7 @@ module Testmodel
     def method_with_generic_handler(type,handler)
       if type != nil && type.class == String
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithGenericHandler(type,nil)
+          return @j_del.methodWithGenericHandler(type,(Proc.new { |event| handler.call(Vertx::Util::Utils.from_object(event)) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -651,7 +651,7 @@ module Testmodel
     def method_with_generic_handler_async_result(type,async_result_handler)
       if type != nil && type.class == String
         if async_result_handler != nil && async_result_handler.class == Proc
-          return @j_del.methodWithGenericHandlerAsyncResult(type,nil)
+          return @j_del.methodWithGenericHandlerAsyncResult(type,(Proc.new { |ar| async_result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end

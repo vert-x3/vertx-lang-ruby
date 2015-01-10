@@ -183,7 +183,7 @@ module Vertx
     def execute_blocking(blocking_code_handler,result_handler)
       if blocking_code_handler != nil && blocking_code_handler.class == Proc
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.executeBlocking((Proc.new { |event| blocking_code_handler.call(Vertx::Future.new(event)) }),nil)
+          return @j_del.executeBlocking((Proc.new { |event| blocking_code_handler.call(Vertx::Future.new(event)) }),(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end

@@ -518,3 +518,39 @@ def test_method_with_handler_async_result_generic_user_type()
   run_test({"key" => "key_value"}) { |value| Assert.assert_equals(value, {"key" => "key_value"}) }
   run_test(["foo","bar","juu"]) { |value| Assert.assert_equals(value, ["foo","bar","juu"]) }
 end
+
+def test_method_with_generic_param()
+  $obj.method_with_generic_param "String", "foo"
+  $obj.method_with_generic_param "JsonObject", {"foo"=>"hello","bar"=>123}
+  $obj.method_with_generic_param "JsonArray", ["foo", "bar", "wib"]
+end
+
+def test_method_with_generic_handler()
+  count = 0
+  $obj.method_with_generic_handler("String", Proc.new { |val| Assert.assert_equals(val.class, String); Assert.assert_equals(val, "foo"); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler("Ref", Proc.new { |val| Assert.assert_equals(val.getString, "bar"); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler("JsonObject", Proc.new { |val| Assert.assert_equals(val.class, Hash); Assert.assert_equals(val, {"foo"=>"hello","bar"=>123}); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler("JsonArray", Proc.new { |val| Assert.assert_equals(val.class, Array); Assert.assert_equals(val, ["foo","bar","wib"]); count += 1 })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_generic_handler_async_result()
+  count = 0
+  $obj.method_with_generic_handler_async_result("String", Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val.class, String); Assert.assert_equals(val, "foo"); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler_async_result("Ref", Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val.getString, "bar"); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler_async_result("JsonObject", Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val.class, Hash); Assert.assert_equals(val, {"foo"=>"hello","bar"=>123}); count += 1 })
+  Assert.assert_equals(1, count)
+  count = 0
+  $obj.method_with_generic_handler_async_result("JsonArray", Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val.class, Array); Assert.assert_equals(val, ["foo","bar","wib"]); count += 1 })
+  Assert.assert_equals(1, count)
+end

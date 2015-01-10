@@ -11,7 +11,7 @@ module Vertx
     def get(k,result_handler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.get(Vertx::Util::Utils.to_object(k),nil)
+          return @j_del.get(Vertx::Util::Utils.to_object(k),(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -39,11 +39,11 @@ module Vertx
         if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
             if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
                 if param_3 != nil && param_3.class == Proc
-                  return @j_del.putIfAbsent(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),nil)
+                  return @j_del.putIfAbsent(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
                 end
                 if param_3 != nil && param_3.class == Fixnum
                     if param_4 != nil && param_4.class == Proc
-                      return @j_del.putIfAbsent(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),param_3,nil)
+                      return @j_del.putIfAbsent(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -56,7 +56,7 @@ module Vertx
     def remove(k,result_handler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.remove(Vertx::Util::Utils.to_object(k),nil)
+          return @j_del.remove(Vertx::Util::Utils.to_object(k),(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -78,7 +78,7 @@ module Vertx
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if v != nil && (v.class == String  ||v.class == Hash || v.class == Array)
           if result_handler != nil && result_handler.class == Proc
-            return @j_del.replace(Vertx::Util::Utils.to_object(k),Vertx::Util::Utils.to_object(v),nil)
+            return @j_del.replace(Vertx::Util::Utils.to_object(k),Vertx::Util::Utils.to_object(v),(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
           end
           raise ArgumentError, 'dispatch error'
         end

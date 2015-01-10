@@ -28,7 +28,7 @@ module Vertx
     end
     def set_handler(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.setHandler(nil)
+        return @j_del.setHandler((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
