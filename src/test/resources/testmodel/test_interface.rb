@@ -419,25 +419,25 @@ module Testmodel
     end
     def method_with_handler_list_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| nil }) }))
+        return @j_del.methodWithHandlerListJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_list_null_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListNullJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| nil }) }))
+        return @j_del.methodWithHandlerListNullJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| nil }) }))
+        return @j_del.methodWithHandlerSetJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_set_null_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetNullJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| nil }) }))
+        return @j_del.methodWithHandlerSetNullJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -491,25 +491,25 @@ module Testmodel
     end
     def method_with_handler_async_result_list_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_list_null_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_set_null_json_array(list_handler)
       if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| nil } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -683,10 +683,10 @@ module Testmodel
       return @j_del.methodWithNullJsonObjectReturn() != nil ? JSON.parse(@j_del.methodWithNullJsonObjectReturn().encode) : nil
     end
     def method_with_json_array_return()
-      return nil
+      return @j_del.methodWithJsonArrayReturn() != nil ? JSON.parse(@j_del.methodWithJsonArrayReturn().encode) : nil
     end
     def method_with_null_json_array_return()
-      return nil
+      return @j_del.methodWithNullJsonArrayReturn() != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn().encode) : nil
     end
     def method_with_json_params(json_object,json_array)
       if false
@@ -794,7 +794,7 @@ module Testmodel
       return @j_del.methodWithListJsonObjectReturn().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_list_json_array_return()
-      return @j_del.methodWithListJsonArrayReturn().to_a.map { |elt| nil }
+      return @j_del.methodWithListJsonArrayReturn().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_null_list_return()
       return @j_del.methodWithNullListReturn().to_a.map { |elt| elt }
@@ -812,7 +812,7 @@ module Testmodel
       return @j_del.methodWithSetJsonObjectReturn().to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_set_json_array_return()
-      return @j_del.methodWithSetJsonArrayReturn().to_set.map! { |elt| nil }
+      return @j_del.methodWithSetJsonArrayReturn().to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
     def method_with_null_set_return()
       return @j_del.methodWithNullSetReturn().to_set.map! { |elt| elt }

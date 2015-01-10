@@ -161,6 +161,46 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_async_result_set_null_json_object");
   }
 
+  @Test
+  public void testMethodWithHandlerListJsonArray() {
+    runTest("test_method_with_handler_list_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerListNullJsonArray() {
+    runTest("test_method_with_handler_list_null_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultListJsonArray() {
+    runTest("test_method_with_async_result_handler_list_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultListNullJsonArray() {
+    runTest("test_method_with_handler_async_result_list_null_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerSetJsonArray() {
+    runTest("test_method_with_handler_set_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerSetNullJsonArray() {
+    runTest("test_method_with_handler_set_null_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetJsonArray() {
+    runTest("test_method_with_async_result_handler_set_json_array");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetNullJsonArray() {
+    runTest("test_method_with_handler_async_result_set_null_json_array");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

@@ -325,3 +325,99 @@ def test_method_with_handler_async_result_set_null_json_object()
   })
   Assert.assert_equals(1, count)
 end
+
+def test_method_with_handler_list_json_array()
+  count = 0
+  $obj.method_with_handler_list_json_array(Proc.new { |val|
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 2)
+    Assert.assert_equals(val[0].class, Array)
+    Assert.assert_equals(val[0], ["green","blue"])
+    Assert.assert_equals(val[1].class, Array)
+    Assert.assert_equals(val[1], ["yellow","purple"])
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_list_null_json_array()
+  count = 0
+  $obj.method_with_handler_list_null_json_array(Proc.new { |val|
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 1)
+    Assert.assert_equals(val[0], nil)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_async_result_handler_list_json_array()
+  count = 0
+  $obj.method_with_handler_async_result_list_json_array(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 2)
+    Assert.assert_equals(val[0].class, Array)
+    Assert.assert_equals(val[0], ["green","blue"])
+    Assert.assert_equals(val[1].class, Array)
+    Assert.assert_equals(val[1], ["yellow","purple"])
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_list_null_json_array()
+  count = 0
+  $obj.method_with_handler_async_result_list_null_json_array(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Array)
+    Assert.assert_equals(val.size, 1)
+    Assert.assert_equals(val[0], nil)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_set_json_array()
+  count = 0
+  $obj.method_with_handler_set_json_array(Proc.new { |val|
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val, Set.new([["green","blue"],["yellow","purple"]]))
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_set_null_json_array()
+  count = 0
+  $obj.method_with_handler_set_null_json_array(Proc.new { |val|
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 1)
+    val.each { |elt| Assert.assert_nil(elt) }
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_async_result_handler_set_json_array()
+  count = 0
+  $obj.method_with_handler_async_result_set_json_array(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val, Set.new([["green","blue"],["yellow","purple"]]))
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_set_null_json_array()
+  count = 0
+  $obj.method_with_handler_async_result_set_null_json_array(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Set)
+    Assert.assert_equals(val.size, 1)
+    val.each { |elt| Assert.assert_nil(elt) }
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
