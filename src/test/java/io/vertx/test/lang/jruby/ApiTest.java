@@ -271,6 +271,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_abstract_vertx_gen_return");
   }
 
+  @Test
+  public void testOverloadedMethods() {
+    runTest("test_overloaded_methods");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

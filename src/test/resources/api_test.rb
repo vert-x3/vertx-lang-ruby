@@ -596,3 +596,24 @@ def test_abstract_vertx_gen_return()
   Assert.assert_equals(ret.is_a?(Testmodel::RefedInterface2), true)
   Assert.assert_equals(ret.get_string, "abstractchaffinch")
 end
+
+def test_overloaded_methods()
+  $refed_obj.set_string("dog")
+  called = false
+  ret = $obj.overloaded_method("cat", $refed_obj)
+  Assert.assert_equals(ret, "meth1")
+  ret = $obj.overloaded_method("cat", $refed_obj, 12345, Proc.new { |animal| Assert.assert_equals(animal, "giraffe") ; called = true })
+  Assert.assert_equals(ret, "meth2")
+  Assert.assert_equals(called, true)
+  called = false
+  ret = $obj.overloaded_method("cat", Proc.new { |the_animal| Assert.assert_equals(the_animal, "giraffe") ; called = true })
+  Assert.assert_equals(ret, "meth3")
+  Assert.assert_equals(called, true)
+  called = false
+  ret = $obj.overloaded_method("cat", $refed_obj, Proc.new { |animal| Assert.assert_equals(animal, "giraffe") ; called = true })
+  Assert.assert_equals(ret, "meth4")
+  Assert.assert_equals(called, true)
+  Assert.assert_argument_error { $obj.overloaded_method "cat" }
+  Assert.assert_argument_error { $obj.overloaded_method "cat", $refed_obj, 12345, Proc.new({}) }
+  Assert.assert_argument_error { $obj.overloaded_method Proc.new({}) }
+end
