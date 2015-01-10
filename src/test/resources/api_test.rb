@@ -554,3 +554,33 @@ def test_method_with_generic_handler_async_result()
   $obj.method_with_generic_handler_async_result("JsonArray", Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val.class, Array); Assert.assert_equals(val, ["foo","bar","wib"]); count += 1 })
   Assert.assert_equals(1, count)
 end
+
+def test_basic_returns()
+  ret = $obj.method_with_byte_return
+  Assert.assert_equals(ret.class, Fixnum)
+  Assert.assert_equals(ret, 123)
+  ret = $obj.method_with_short_return
+  Assert.assert_equals(ret.class, Fixnum)
+  Assert.assert_equals(ret, 12345)
+  ret = $obj.method_with_int_return
+  Assert.assert_equals(ret.class, Fixnum)
+  Assert.assert_equals(ret, 12345464)
+  ret = $obj.method_with_long_return
+  Assert.assert_equals(ret.class, Fixnum)
+  Assert.assert_equals(ret, 65675123)
+  ret = $obj.method_with_float_return
+  Assert.assert_equals(ret.class, Float)
+  Assert.assert_equals(ret, 1.23)
+  ret = $obj.method_with_double_return
+  Assert.assert_equals(ret.class, Float)
+  Assert.assert_equals(ret, 3.34535)
+  ret = $obj.method_with_boolean_return
+  Assert.assert_equals(ret.class, TrueClass)
+  Assert.assert_equals(ret, true)
+  ret = $obj.method_with_char_return
+  Assert.assert_equals(ret.class, Fixnum)
+  Assert.assert_equals(ret, 89)
+  ret = $obj.method_with_string_return
+  Assert.assert_equals(ret.class, String)
+  Assert.assert_equals(ret, "orangutan")
+end

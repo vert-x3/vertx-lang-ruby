@@ -256,6 +256,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_generic_handler_async_result");
   }
 
+  @Test
+  public void testBasicReturns() {
+    runTest("test_basic_returns");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }
