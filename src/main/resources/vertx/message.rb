@@ -18,13 +18,13 @@ module Vertx
       return Vertx::MultiMap.new(@j_del.headers())
     end
     def body()
-      return nil
+      return Vertx::Util::Utils.from_object(@j_del.body())
     end
     def reply_address()
       return @j_del.replyAddress()
     end
     def reply(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && (param_1.class == Hash || param_1.class == Array)
+        if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
             if param_2 == nil || param_2.class == Hash
                 if param_3 != nil && param_3.class == Proc
                   return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))

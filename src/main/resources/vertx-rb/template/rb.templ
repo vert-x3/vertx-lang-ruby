@@ -38,7 +38,7 @@
         return name + " != nil && (" + name + ".class == TrueClass || " + name + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
-      return name + " != nil && (" + name + ".class == Hash || " + name + ".class == Array)"
+      return name + " != nil && (" + name + ".class == String  ||" + name + ".class == Hash || " + name + ".class == Array)"
     } else if (kind == CLASS_API) {
       return name + " != nil && " + name + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER) {
@@ -125,6 +125,8 @@
         return type.raw.module.getName(CASE_CAMEL) + "::"  + type.raw.simpleName + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
+      } else if (kind == CLASS_OBJECT) {
+        return "Vertx::Util::Utils.from_object(" + expr + ")";
       }
       return "nil";
     }

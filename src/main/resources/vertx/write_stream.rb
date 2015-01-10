@@ -11,7 +11,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def write(data)
-      if data != nil && (data.class == Hash || data.class == Array)
+      if data != nil && (data.class == String  ||data.class == Hash || data.class == Array)
         @j_del.write(Vertx::Util::Utils.to_object(data))
         return self
       end

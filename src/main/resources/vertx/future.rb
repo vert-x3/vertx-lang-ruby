@@ -12,7 +12,7 @@ module Vertx
       return Vertx::Future.new(@j_del.future())
     end
     def succeeded_future(result=nil)
-      if result != nil && (result.class == Hash || result.class == Array)
+      if result != nil && (result.class == String  ||result.class == Hash || result.class == Array)
         return Vertx::Future.new(@j_del.succeededFuture(Vertx::Util::Utils.to_object(result)))
       end
       return Vertx::Future.new(@j_del.succeededFuture())
@@ -33,7 +33,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def complete(result=nil)
-      if result != nil && (result.class == Hash || result.class == Array)
+      if result != nil && (result.class == String  ||result.class == Hash || result.class == Array)
         return @j_del.complete(Vertx::Util::Utils.to_object(result))
       end
       return @j_del.complete()

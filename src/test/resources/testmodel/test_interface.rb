@@ -230,7 +230,7 @@ module Testmodel
     end
     def method_with_object_param(str,obj)
       if str != nil && str.class == String
-        if obj != nil && (obj.class == Hash || obj.class == Array)
+        if obj != nil && (obj.class == String  ||obj.class == Hash || obj.class == Array)
           return @j_del.methodWithObjectParam(str,Vertx::Util::Utils.to_object(obj))
         end
         raise ArgumentError, 'dispatch error'
@@ -553,7 +553,7 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_generic_user_type(value,handler)
-      if value != nil && (value.class == Hash || value.class == Array)
+      if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
         if handler != nil && handler.class == Proc
           return @j_del.methodWithHandlerGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |event| handler.call(Testmodel::GenericRefedInterface.new(event)) }))
         end
@@ -562,7 +562,7 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_generic_user_type(value,handler)
-      if value != nil && (value.class == Hash || value.class == Array)
+      if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
         if handler != nil && handler.class == Proc
           return @j_del.methodWithHandlerAsyncResultGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
         end
@@ -626,13 +626,13 @@ module Testmodel
     end
     def method_with_generic_return(type)
       if type != nil && type.class == String
-        return nil
+        return Vertx::Util::Utils.from_object(@j_del.methodWithGenericReturn(type))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_generic_param(type,u)
       if type != nil && type.class == String
-        if u != nil && (u.class == Hash || u.class == Array)
+        if u != nil && (u.class == String  ||u.class == Hash || u.class == Array)
           return @j_del.methodWithGenericParam(type,Vertx::Util::Utils.to_object(u))
         end
         raise ArgumentError, 'dispatch error'

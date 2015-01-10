@@ -31,7 +31,7 @@ module Vertx
     end
     def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
         if param_1 != nil && param_1.class == String
-            if param_2 != nil && (param_2.class == Hash || param_2.class == Array)
+            if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
                 if param_3 == nil || param_3.class == Hash
                     if param_4 != nil && param_4.class == Proc
                       @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
@@ -53,7 +53,7 @@ module Vertx
     end
     def publish(address,message,options=nil)
       if address != nil && address.class == String
-        if message != nil && (message.class == Hash || message.class == Array)
+        if message != nil && (message.class == String  ||message.class == Hash || message.class == Array)
           if options == nil || options.class == Hash
             @j_del.publish(address,Vertx::Util::Utils.to_object(message),options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
             return self

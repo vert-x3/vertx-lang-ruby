@@ -34,13 +34,13 @@ module Vertx
     end
     def get(key)
       if key != nil && key.class == String
-        return nil
+        return Vertx::Util::Utils.from_object(@j_del.get(key))
       end
       raise ArgumentError, 'dispatch error'
     end
     def put(key,value)
       if key != nil && key.class == String
-        if value != nil && (value.class == Hash || value.class == Array)
+        if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
           return @j_del.put(key,Vertx::Util::Utils.to_object(value))
         end
         raise ArgumentError, 'dispatch error'

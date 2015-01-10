@@ -9,8 +9,19 @@ module Vertx
           JsonObject.new(JSON.generate(object))
         elsif object.is_a? Array
           JsonArray.new(JSON.generate(object))
+        elsif object.is_a? String
+          object
         else
-          raise "conversion of #{object} not implemented"
+          raise "conversion of #{object.class} not implemented"
+        end
+      end
+      def self.from_object(object)
+        if object.is_a? String
+          object;
+        elsif object.is_a?(JsonObject) || object.is_a?(JsonArray)
+          JSON.parse(object.encode)
+        else
+          raise "conversion of type #{object.class} not implemented"
         end
       end
       def self.to_json_object(hash)
