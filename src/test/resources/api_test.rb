@@ -425,3 +425,24 @@ def test_method_with_handler_async_result_set_null_json_array()
   })
   Assert.assert_equals(1, count)
 end
+
+def test_method_with_handler_user_types()
+  count = 0
+  $obj.method_with_handler_user_types(Proc.new { |val|
+    Assert.assert_equals(val.class, Testmodel::RefedInterface1)
+    Assert.assert_equals(val.get_string, "echidnas")
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_user_types()
+  count = 0
+  $obj.method_with_handler_async_result_user_types(Proc.new { |err,val|
+    Assert.assert_nil(err)
+    Assert.assert_equals(val.class, Testmodel::RefedInterface1)
+    Assert.assert_equals(val.get_string, "cheetahs")
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end

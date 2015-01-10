@@ -25,7 +25,7 @@ module Vertx
     end
     def handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.handler(nil)
+        @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -80,7 +80,7 @@ module Vertx
     end
     def body_handler(body_handler)
       if body_handler != nil && body_handler.class == Proc
-        @j_del.bodyHandler(nil)
+        @j_del.bodyHandler((Proc.new { |event| body_handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -100,7 +100,7 @@ module Vertx
     end
     def upload_handler(upload_handler)
       if upload_handler != nil && upload_handler.class == Proc
-        @j_del.uploadHandler(nil)
+        @j_del.uploadHandler((Proc.new { |event| upload_handler.call(Vertx::HttpServerFileUpload.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

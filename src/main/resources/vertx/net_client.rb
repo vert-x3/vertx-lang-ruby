@@ -20,7 +20,7 @@ module Vertx
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
           if connect_handler != nil && connect_handler.class == Proc
-            @j_del.connect(port,host,nil)
+            @j_del.connect(port,host,(Proc.new { |ar| connect_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetSocket.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, 'dispatch error'

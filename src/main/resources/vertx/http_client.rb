@@ -24,7 +24,7 @@ module Vertx
         if false
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == Proc
-                  return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2,nil))
+                  return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2,(Proc.new { |event| param_3.call(Vertx::HttpClientResponse.new(event)) })))
                 end
               return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2))
             end
@@ -32,7 +32,7 @@ module Vertx
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == String
                         if param_5 != nil && param_5.class == Proc
-                          return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2,param_3,param_4,nil))
+                          return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2,param_3,param_4,(Proc.new { |event| param_5.call(Vertx::HttpClientResponse.new(event)) })))
                         end
                       return Vertx::HttpClientRequest.new(@j_del.request(nil,param_2,param_3,param_4))
                     end
@@ -70,19 +70,19 @@ module Vertx
             if param_2 != nil && param_2.class == String
                 if param_3 != nil && param_3.class == String
                     if param_4 != nil && param_4.class == Proc
-                      return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,nil))
+                      return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,(Proc.new { |event| param_4.call(Vertx::WebSocket.new(event)) })))
                     end
                     if param_4 != nil && param_4.class.method_defined?(:j_del)
                         if param_5 != nil && param_5.class == Proc
-                          return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil))
+                          return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| param_5.call(Vertx::WebSocket.new(event)) })))
                         end
                         if false
                             if param_6 != nil && param_6.class == Proc
-                              return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,nil))
+                              return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,(Proc.new { |event| param_6.call(Vertx::WebSocket.new(event)) })))
                             end
                             if param_6 != nil && param_6.class == String
                                 if param_7 != nil && param_7.class == Proc
-                                  return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,param_6,nil))
+                                  return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,nil,param_6,(Proc.new { |event| param_7.call(Vertx::WebSocket.new(event)) })))
                                 end
                               raise ArgumentError, 'dispatch error'
                             end

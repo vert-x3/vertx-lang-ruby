@@ -16,7 +16,7 @@ module Vertx
     end
     def handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.handler(nil)
+        @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -83,7 +83,7 @@ module Vertx
           if position != nil && position.class == Fixnum
             if length != nil && length.class == Fixnum
               if handler != nil && handler.class == Proc
-                @j_del.read(buffer.j_del,offset,position,length,nil)
+                @j_del.read(buffer.j_del,offset,position,length,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
                 return self
               end
               raise ArgumentError, 'dispatch error'

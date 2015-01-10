@@ -45,7 +45,7 @@ module Vertx
     def clustered_vertx(options,result_handler)
       if options == nil || options.class == Hash
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.clusteredVertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,nil)
+          return @j_del.clusteredVertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -183,7 +183,7 @@ module Vertx
     def execute_blocking(blocking_code_handler,result_handler)
       if blocking_code_handler != nil && blocking_code_handler.class == Proc
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.executeBlocking(nil,nil)
+          return @j_del.executeBlocking((Proc.new { |event| blocking_code_handler.call(Vertx::Future.new(event)) }),nil)
         end
         raise ArgumentError, 'dispatch error'
       end

@@ -22,13 +22,13 @@ module Vertx
     end
     def connect_handler(handler)
       if handler != nil && handler.class == Proc
-        return Vertx::NetServer.new(@j_del.connectHandler(nil))
+        return Vertx::NetServer.new(@j_del.connectHandler((Proc.new { |event| handler.call(Vertx::NetSocket.new(event)) })))
       end
       raise ArgumentError, 'dispatch error'
     end
     def listen(listen_handler=nil)
       if listen_handler != nil && listen_handler.class == Proc
-        @j_del.listen(nil)
+        @j_del.listen((Proc.new { |ar| listen_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
       @j_del.listen()

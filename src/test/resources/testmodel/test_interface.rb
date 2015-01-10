@@ -515,13 +515,13 @@ module Testmodel
     end
     def method_with_handler_user_types(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerUserTypes(nil)
+        return @j_del.methodWithHandlerUserTypes((Proc.new { |event| handler.call(Testmodel::RefedInterface1.new(event)) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_user_types(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultUserTypes(nil)
+        return @j_del.methodWithHandlerAsyncResultUserTypes((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Testmodel::RefedInterface1.new(ar.result) : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -555,7 +555,7 @@ module Testmodel
     def method_with_handler_generic_user_type(value,handler)
       if value != nil && (value.class == Hash || value.class == Array)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerGenericUserType(Vertx::Util::Utils.to_object(value),nil)
+          return @j_del.methodWithHandlerGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |event| handler.call(Testmodel::GenericRefedInterface.new(event)) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -564,7 +564,7 @@ module Testmodel
     def method_with_handler_async_result_generic_user_type(value,handler)
       if value != nil && (value.class == Hash || value.class == Array)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultGenericUserType(Vertx::Util::Utils.to_object(value),nil)
+          return @j_del.methodWithHandlerAsyncResultGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end

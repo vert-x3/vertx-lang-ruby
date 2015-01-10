@@ -34,14 +34,14 @@ module Vertx
             if param_2 != nil && (param_2.class == Hash || param_2.class == Array)
                 if param_3 == nil || param_3.class == Hash
                     if param_4 != nil && param_4.class == Proc
-                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,nil)
+                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
                       return self
                     end
                   @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
                   return self
                 end
                 if param_3 != nil && param_3.class == Proc
-                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),nil)
+                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
                   return self
                 end
               @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
@@ -68,7 +68,7 @@ module Vertx
     def consumer(address,handler=nil)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
-          return Vertx::MessageConsumer.new(@j_del.consumer(address,nil))
+          return Vertx::MessageConsumer.new(@j_del.consumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))
         end
         return Vertx::MessageConsumer.new(@j_del.consumer(address))
       end
@@ -77,7 +77,7 @@ module Vertx
     def local_consumer(address,handler=nil)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
-          return Vertx::MessageConsumer.new(@j_del.localConsumer(address,nil))
+          return Vertx::MessageConsumer.new(@j_del.localConsumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))
         end
         return Vertx::MessageConsumer.new(@j_del.localConsumer(address))
       end

@@ -39,7 +39,7 @@ module Vertx
     end
     def handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.handler(nil)
+        @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -103,7 +103,7 @@ module Vertx
     end
     def frame_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.frameHandler(nil)
+        @j_del.frameHandler((Proc.new { |event| handler.call(Vertx::WebSocketFrame.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

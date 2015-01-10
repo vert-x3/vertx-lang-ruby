@@ -201,6 +201,16 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_async_result_set_null_json_array");
   }
 
+  @Test
+  public void testMethodWithHandlerUserTypes() {
+    runTest("test_method_with_handler_user_types");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultUserTypes() {
+    runTest("test_method_with_handler_async_result_user_types");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

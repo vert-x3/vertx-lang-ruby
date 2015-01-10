@@ -196,7 +196,7 @@ module Vertx
     def props(path,handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
-          @j_del.props(path,nil)
+          @j_del.props(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -212,7 +212,7 @@ module Vertx
     def lprops(path,handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
-          @j_del.lprops(path,nil)
+          @j_del.lprops(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -429,7 +429,7 @@ module Vertx
     def read_file(path,handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
-          @j_del.readFile(path,nil)
+          @j_del.readFile(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -469,7 +469,7 @@ module Vertx
       if path != nil && path.class == String
         if options == nil || options.class == Hash
           if handler != nil && handler.class == Proc
-            @j_del.open(path,options != nil ? OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,nil)
+            @j_del.open(path,options != nil ? OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::AsyncFile.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, 'dispatch error'
@@ -534,7 +534,7 @@ module Vertx
     def fs_props(path,handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
-          @j_del.fsProps(path,nil)
+          @j_del.fsProps(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileSystemProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, 'dispatch error'
