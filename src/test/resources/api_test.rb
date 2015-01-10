@@ -286,6 +286,7 @@ def test_method_with_handler_set_json_object()
   count = 0
   $obj.method_with_handler_set_json_object(Proc.new { |val|
     Assert.assert_equals(val.class, Set)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Hash), true) }
     Assert.assert_equals(val, Set.new([{"cheese" => "stilton"},{"socks" => "tartan"}]))
     count += 1
   })
@@ -308,6 +309,7 @@ def test_method_with_async_result_handler_set_json_object()
   $obj.method_with_handler_async_result_set_json_object(Proc.new { |err,val|
     Assert.assert_nil(err)
     Assert.assert_equals(val.class, Set)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Hash), true) }
     Assert.assert_equals(val, Set.new([{"cheese" => "stilton"},{"socks" => "tartan"}]))
     count += 1
   })
@@ -382,6 +384,7 @@ def test_method_with_handler_set_json_array()
   count = 0
   $obj.method_with_handler_set_json_array(Proc.new { |val|
     Assert.assert_equals(val.class, Set)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Array), true) }
     Assert.assert_equals(val, Set.new([["green","blue"],["yellow","purple"]]))
     count += 1
   })
@@ -404,6 +407,7 @@ def test_method_with_async_result_handler_set_json_array()
   $obj.method_with_handler_async_result_set_json_array(Proc.new { |err,val|
     Assert.assert_nil(err)
     Assert.assert_equals(val.class, Set)
+    val.each { |elt| Assert.assert_equals(elt.is_a?(Array), true) }
     Assert.assert_equals(val, Set.new([["green","blue"],["yellow","purple"]]))
     count += 1
   })
