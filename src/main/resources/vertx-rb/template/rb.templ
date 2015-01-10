@@ -80,7 +80,8 @@
     } else if (kind == CLASS_HANDLER) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
-      if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection || eventKind == CLASS_API) {
+      if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection || eventKind == CLASS_API ||
+          eventKind == CLASS_THROWABLE) {
         return "(Proc.new { |event| " + name + ".call(" + genConvReturn(eventType, "event") + ") })";
       } else if (eventKind == CLASS_VOID) {
         return name;
@@ -110,7 +111,7 @@
       return expr;
     } else {
       var kind = type.kind;
-      if (kind.basic) {
+      if (kind.basic || kind == CLASS_THROWABLE) {
         return expr;
       } else if (kind == CLASS_OPTIONS) {
         return "JSON.parse(" + expr + ".toJson.encode)";

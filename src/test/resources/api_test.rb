@@ -474,3 +474,13 @@ def test_method_with_handler_async_result_void_fails()
   })
   Assert.assert_equals(1, count)
 end
+
+def test_method_with_handler_throwable()
+  count = 0
+  $obj.method_with_handler_throwable(Proc.new { |err|
+    Assert.assert_not_nil err
+    Assert.assert_equals(err.message, "cheese!")
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end

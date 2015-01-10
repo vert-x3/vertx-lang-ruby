@@ -226,6 +226,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_async_result_void_fails");
   }
 
+  @Test
+  public void testMethodWithHandlerThrowable() {
+    runTest("test_method_with_handler_throwable");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

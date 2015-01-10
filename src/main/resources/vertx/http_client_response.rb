@@ -18,7 +18,7 @@ module Vertx
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.exceptionHandler(nil)
+        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

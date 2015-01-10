@@ -542,7 +542,7 @@ module Testmodel
     end
     def method_with_handler_throwable(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerThrowable(nil)
+        return @j_del.methodWithHandlerThrowable((Proc.new { |event| handler.call(event) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -834,7 +834,7 @@ module Testmodel
     end
     def method_with_throwable_return(str_val)
       if str_val != nil && str_val.class == String
-        return nil
+        return @j_del.methodWithThrowableReturn(str_val)
       end
       raise ArgumentError, 'dispatch error'
     end
