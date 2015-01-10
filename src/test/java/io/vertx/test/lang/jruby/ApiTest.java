@@ -301,6 +301,46 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_cached_return");
   }
 
+  @Test
+  public void testJsonReturns() {
+    runTest("test_json_returns");
+  }
+
+  @Test
+  public void testNullJsonReturns() {
+    runTest("test_null_json_returns");
+  }
+
+  @Test
+  public void testJsonParams() {
+    runTest("test_json_params");
+  }
+
+  @Test
+  public void testNullJsonParams() {
+    runTest("test_null_json_params");
+  }
+
+  @Test
+  public void testJsonHandlerParams() {
+    runTest("test_json_handler_params");
+  }
+
+  @Test
+  public void testNullJsonHandlerParams() {
+    runTest("test_null_json_handler_params");
+  }
+
+  @Test
+  public void testJsonHandlerAsyncResultParams() {
+    runTest("test_json_handler_async_result_params");
+  }
+
+  @Test
+  public void testNullJsonHandlerAsyncResultParams() {
+    runTest("test_null_json_handler_async_result_params");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

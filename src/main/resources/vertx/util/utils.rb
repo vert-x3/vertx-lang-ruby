@@ -27,7 +27,14 @@ module Vertx
         if hash.is_a? Hash
           JsonObject.new(JSON.generate(hash))
         else
-          raise "conversion of #{hash} not implemented"
+          raise "Not a json object #{hash}"
+        end
+      end
+      def self.to_json_array(array)
+        if array.is_a? Array
+          return to_json_object({"key"=>array}).getJsonArray("key")
+        else
+          raise "Not a json array: #{array}"
         end
       end
     end

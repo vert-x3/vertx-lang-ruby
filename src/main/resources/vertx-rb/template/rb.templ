@@ -43,9 +43,11 @@
       return name + " != nil && " + name + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER) {
       return name + " != nil && " + name + ".class == Proc";
-    } else if (kind == CLASS_OPTIONS) {
+    } else if (kind == CLASS_OPTIONS || kind == CLASS_JSON_OBJECT) {
       return name + " == nil || " + name + ".class == Hash";
-     }
+    } else if (kind == CLASS_JSON_ARRAY) {
+      return name + " == nil || " + name + ".class == Array";
+    }
     return "false";
   }
 }
@@ -80,7 +82,7 @@
       var eventType = type.args[0];
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection || eventKind == CLASS_API ||
-          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT) {
+          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json) {
         return "(Proc.new { |event| " + name + ".call(" + genConvReturn(eventType, "event") + ") })";
       } else if (eventKind == CLASS_VOID) {
         return name;
@@ -88,7 +90,7 @@
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
         if (resultKind.basic || resultKind == CLASS_OPTIONS || resultKind.collection || resultKind == CLASS_API ||
-            resultKind == CLASS_OBJECT) {
+            resultKind == CLASS_OBJECT || resultKind.json) {
           return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
         } else if (resultKind == CLASS_VOID) {
           return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil) })";
@@ -100,6 +102,10 @@
       return "Vertx::Util::Utils.to_object(" + name + ")";
     } else if (kind == CLASS_OPTIONS) {
       return name + " != nil ? " + type.simpleName + ".new(Vertx::Util::Utils.to_json_object(" + name + ")) : nil";
+    } else if (kind == CLASS_JSON_OBJECT) {
+      return name + " != nil ? " + "Vertx::Util::Utils.to_json_object(" + name + ") : nil";
+    } else if (kind == CLASS_JSON_ARRAY) {
+      return name + " != nil ? " + "Vertx::Util::Utils.to_json_array(" + name + ") : nil";
     }
     return "nil";
   }

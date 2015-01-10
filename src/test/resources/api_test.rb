@@ -661,3 +661,57 @@ def test_method_with_cached_return()
   Assert.assert_equals ret2.get_string, "foo"
   Assert.assert_equals ret3.get_string, "foo"
 end
+
+def test_json_returns()
+  ret = $obj.method_with_json_object_return
+  Assert.assert_equals(ret, {"cheese"=>"stilton"})
+  ret = $obj.method_with_json_array_return
+  Assert.assert_equals(ret, ["socks","shoes"])
+end
+
+def test_null_json_returns()
+  ret = $obj.method_with_null_json_object_return
+  Assert.assert_nil(ret)
+  ret = $obj.method_with_null_json_array_return
+  Assert.assert_nil(ret)
+end
+
+def test_json_params()
+  $obj.method_with_json_params({"cat" => "lion", "cheese" => "cheddar"}, ["house", "spider"])
+end
+
+def test_null_json_params()
+  $obj.method_with_null_json_params(nil, nil)
+end
+
+def test_json_handler_params()
+  count = 0
+  $obj.method_with_handler_json(
+      Proc.new { |val| Assert.assert_equals(val, {"cheese"=>"stilton"}); count += 1 },
+      Proc.new { |val| Assert.assert_equals(val, ["socks","shoes"]); count += 1 }
+  )
+  Assert.assert_equals(2, count)
+end
+
+def test_null_json_handler_params()
+  count = 0
+  $obj.method_with_handler_null_json(
+      Proc.new { |val| Assert.assert_nil(val); count += 1 },
+      Proc.new { |val| Assert.assert_nil(val); count += 1 }
+  )
+  Assert.assert_equals(2, count)
+end
+
+def test_json_handler_async_result_params()
+  count = 0
+  $obj.method_with_handler_async_result_json_object(Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val, {"cheese"=>"stilton"}); count += 1 })
+  $obj.method_with_handler_async_result_json_array(Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_equals(val, ["socks","shoes"]); count += 1 })
+  Assert.assert_equals(2, count)
+end
+
+def test_null_json_handler_async_result_params()
+  count = 0
+  $obj.method_with_handler_async_result_null_json_object(Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_nil(val); count += 1 })
+  $obj.method_with_handler_async_result_null_json_array(Proc.new { |err,val| Assert.assert_nil(err); Assert.assert_nil(val); count += 1 })
+  Assert.assert_equals(2, count)
+end

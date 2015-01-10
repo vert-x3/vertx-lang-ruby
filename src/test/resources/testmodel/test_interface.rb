@@ -694,18 +694,18 @@ module Testmodel
       return @j_del.methodWithNullJsonArrayReturn() != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn().encode) : nil
     end
     def method_with_json_params(json_object,json_array)
-      if false
-        if false
-          return @j_del.methodWithJsonParams(nil,nil)
+      if json_object == nil || json_object.class == Hash
+        if json_array == nil || json_array.class == Array
+          return @j_del.methodWithJsonParams(json_object != nil ? Vertx::Util::Utils.to_json_object(json_object) : nil,json_array != nil ? Vertx::Util::Utils.to_json_array(json_array) : nil)
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_null_json_params(json_object,json_array)
-      if false
-        if false
-          return @j_del.methodWithNullJsonParams(nil,nil)
+      if json_object == nil || json_object.class == Hash
+        if json_array == nil || json_array.class == Array
+          return @j_del.methodWithNullJsonParams(json_object != nil ? Vertx::Util::Utils.to_json_object(json_object) : nil,json_array != nil ? Vertx::Util::Utils.to_json_array(json_array) : nil)
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -714,7 +714,7 @@ module Testmodel
     def method_with_handler_json(json_object_handler,json_array_handler)
       if json_object_handler != nil && json_object_handler.class == Proc
         if json_array_handler != nil && json_array_handler.class == Proc
-          return @j_del.methodWithHandlerJson(nil,nil)
+          return @j_del.methodWithHandlerJson((Proc.new { |event| json_object_handler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| json_array_handler.call(event != nil ? JSON.parse(event.encode) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -723,7 +723,7 @@ module Testmodel
     def method_with_handler_null_json(json_object_handler,json_array_handler)
       if json_object_handler != nil && json_object_handler.class == Proc
         if json_array_handler != nil && json_array_handler.class == Proc
-          return @j_del.methodWithHandlerNullJson(nil,nil)
+          return @j_del.methodWithHandlerNullJson((Proc.new { |event| json_object_handler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| json_array_handler.call(event != nil ? JSON.parse(event.encode) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -731,25 +731,25 @@ module Testmodel
     end
     def method_with_handler_async_result_json_object(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultJsonObject(nil)
+        return @j_del.methodWithHandlerAsyncResultJsonObject((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_null_json_object(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultNullJsonObject(nil)
+        return @j_del.methodWithHandlerAsyncResultNullJsonObject((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_json_array(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultJsonArray(nil)
+        return @j_del.methodWithHandlerAsyncResultJsonArray((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_null_json_array(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultNullJsonArray(nil)
+        return @j_del.methodWithHandlerAsyncResultNullJsonArray((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
