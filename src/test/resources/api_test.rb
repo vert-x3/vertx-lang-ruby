@@ -636,3 +636,8 @@ def test_method_with_generic_return()
   Assert.assert_equals(ret.class, Array)
   Assert.assert_equals(ret, ["foo","bar","wib"])
 end
+
+def test_fluent_method()
+  ret = $obj.fluent_method("bar")
+  Assert.assert_equals(ret, $obj)
+end

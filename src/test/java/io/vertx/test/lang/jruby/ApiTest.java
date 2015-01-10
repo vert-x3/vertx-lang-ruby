@@ -286,6 +286,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_generic_return");
   }
 
+  @Test
+  public void testFluentMethod() {
+    runTest("test_fluent_method");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }
