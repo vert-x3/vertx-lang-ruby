@@ -236,6 +236,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_method_with_handler_generic_user_type");
   }
 
+  @Test
+  public void testMethodWithHandlerAsyncResultGenericUserType() {
+    runTest("test_method_with_handler_async_result_generic_user_type");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

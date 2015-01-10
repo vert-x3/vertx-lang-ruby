@@ -501,3 +501,20 @@ def test_method_with_handler_generic_user_type()
   run_test({"key" => "key_value"}) { |value| Assert.assert_equals(value, {"key" => "key_value"}) }
   run_test(["foo","bar","juu"]) { |value| Assert.assert_equals(value, ["foo","bar","juu"]) }
 end
+
+def test_method_with_handler_async_result_generic_user_type()
+  def run_test(value, &assert)
+    count = 0
+    $obj.method_with_handler_async_result_generic_user_type(value, Proc.new { |err,refedObj|
+      Assert.assert_nil(err)
+      Assert.assert_not_nil(refedObj)
+      Assert.assert_equals(refedObj.class, Testmodel::GenericRefedInterface)
+      assert.call(refedObj.get_value)
+      count += 1
+    })
+    Assert.assert_equals(1, count)
+  end
+  run_test("string_value") { |value| Assert.assert_equals(value, "string_value") }
+  run_test({"key" => "key_value"}) { |value| Assert.assert_equals(value, {"key" => "key_value"}) }
+  run_test(["foo","bar","juu"]) { |value| Assert.assert_equals(value, ["foo","bar","juu"]) }
+end
