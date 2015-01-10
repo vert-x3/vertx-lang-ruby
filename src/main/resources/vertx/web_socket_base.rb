@@ -100,10 +100,16 @@ module Vertx
       return @j_del.close()
     end
     def remote_address()
-      return Vertx::SocketAddress.new(@j_del.remoteAddress())
+        if @cached_remoteAddress != nil
+          return @cached_remoteAddress
+        end
+      return @cached_remoteAddress = Vertx::SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return Vertx::SocketAddress.new(@j_del.localAddress())
+        if @cached_localAddress != nil
+          return @cached_localAddress
+        end
+      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
     end
   end
   class WebSocketBaseImpl

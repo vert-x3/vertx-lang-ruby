@@ -18,7 +18,10 @@ module Vertx
       return Vertx::MultiMap.new(@j_del.headers())
     end
     def body()
-      return Vertx::Util::Utils.from_object(@j_del.body())
+        if @cached_body != nil
+          return @cached_body
+        end
+      return @cached_body = Vertx::Util::Utils.from_object(@j_del.body())
     end
     def reply_address()
       return @j_del.replyAddress()

@@ -46,10 +46,16 @@ module Vertx
       return @j_del.isContinuation()
     end
     def text_data()
-      return @j_del.textData()
+        if @cached_textData != nil
+          return @cached_textData
+        end
+      return @cached_textData = @j_del.textData()
     end
     def binary_data()
-      return Vertx::Buffer.new(@j_del.binaryData())
+        if @cached_binaryData != nil
+          return @cached_binaryData
+        end
+      return @cached_binaryData = Vertx::Buffer.new(@j_del.binaryData())
     end
     def is_final()
       return @j_del.isFinal()

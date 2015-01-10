@@ -49,13 +49,22 @@ module Vertx
       return @j_del.statusMessage()
     end
     def headers()
-      return Vertx::MultiMap.new(@j_del.headers())
+        if @cached_headers != nil
+          return @cached_headers
+        end
+      return @cached_headers = Vertx::MultiMap.new(@j_del.headers())
     end
     def trailers()
-      return Vertx::MultiMap.new(@j_del.trailers())
+        if @cached_trailers != nil
+          return @cached_trailers
+        end
+      return @cached_trailers = Vertx::MultiMap.new(@j_del.trailers())
     end
     def cookies()
-      return @j_del.cookies().to_a.map { |elt| elt }
+        if @cached_cookies != nil
+          return @cached_cookies
+        end
+      return @cached_cookies = @j_del.cookies().to_a.map { |elt| elt }
     end
     def body_handler(body_handler)
       if body_handler != nil && body_handler.class == Proc
@@ -65,7 +74,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def net_socket()
-      return Vertx::NetSocket.new(@j_del.netSocket())
+        if @cached_netSocket != nil
+          return @cached_netSocket
+        end
+      return @cached_netSocket = Vertx::NetSocket.new(@j_del.netSocket())
     end
   end
 end

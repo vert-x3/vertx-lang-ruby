@@ -62,19 +62,34 @@ module Vertx
       return @j_del.query()
     end
     def response()
-      return Vertx::HttpServerResponse.new(@j_del.response())
+        if @cached_response != nil
+          return @cached_response
+        end
+      return @cached_response = Vertx::HttpServerResponse.new(@j_del.response())
     end
     def headers()
-      return Vertx::MultiMap.new(@j_del.headers())
+        if @cached_headers != nil
+          return @cached_headers
+        end
+      return @cached_headers = Vertx::MultiMap.new(@j_del.headers())
     end
     def params()
-      return Vertx::MultiMap.new(@j_del.params())
+        if @cached_params != nil
+          return @cached_params
+        end
+      return @cached_params = Vertx::MultiMap.new(@j_del.params())
     end
     def remote_address()
-      return Vertx::SocketAddress.new(@j_del.remoteAddress())
+        if @cached_remoteAddress != nil
+          return @cached_remoteAddress
+        end
+      return @cached_remoteAddress = Vertx::SocketAddress.new(@j_del.remoteAddress())
     end
     def local_address()
-      return Vertx::SocketAddress.new(@j_del.localAddress())
+        if @cached_localAddress != nil
+          return @cached_localAddress
+        end
+      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
     end
     def absolute_uri()
       return @j_del.absoluteURI()
@@ -87,7 +102,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def net_socket()
-      return Vertx::NetSocket.new(@j_del.netSocket())
+        if @cached_netSocket != nil
+          return @cached_netSocket
+        end
+      return @cached_netSocket = Vertx::NetSocket.new(@j_del.netSocket())
     end
     def set_expect_multipart(expect)
       if expect != nil && (expect.class == TrueClass || expect.class == FalseClass)
@@ -107,7 +125,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def form_attributes()
-      return Vertx::MultiMap.new(@j_del.formAttributes())
+        if @cached_formAttributes != nil
+          return @cached_formAttributes
+        end
+      return @cached_formAttributes = Vertx::MultiMap.new(@j_del.formAttributes())
     end
     def upgrade()
       return Vertx::ServerWebSocket.new(@j_del.upgrade())

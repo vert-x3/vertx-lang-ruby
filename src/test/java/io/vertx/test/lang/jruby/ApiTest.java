@@ -296,6 +296,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_static_factory_method");
   }
 
+  @Test
+  public void testMethodWithCachedReturn() {
+    runTest("test_method_with_cached_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

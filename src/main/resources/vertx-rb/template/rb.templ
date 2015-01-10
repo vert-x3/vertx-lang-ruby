@@ -205,7 +205,16 @@
 @{indent}@{genMethodCall(method,generic)}\n
 @{indent}return self\n
 @else{}
-@{indent}return @{genConvReturn(method.returnType, genMethodCall(method,generic))}\n
+	@if{method.cacheReturn}
+		@code{cacheKey="@cached_" + method.name}
+		@code{cacheDecl=cacheKey + " = "}
+		@{indent}  if @{cacheKey} != nil\n
+		@{indent}    return @{cacheKey}\n
+		@{indent}  end\n
+	@else{}
+		@code{cacheDecl=""}
+	@end{}
+@{indent}return @{cacheDecl}@{genConvReturn(method.returnType, genMethodCall(method,generic))}\n
 @end{}
 @end{}
 

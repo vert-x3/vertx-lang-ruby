@@ -647,3 +647,17 @@ def test_static_factory_method()
   Assert.assert_equals(ret.class, Testmodel::RefedInterface1)
   Assert.assert_equals(ret.get_string, "bar")
 end
+
+def test_method_with_cached_return()
+  ret = $obj.method_with_cached_return("bar")
+  ret2 = $obj.method_with_cached_return("bar")
+  Assert.assert_equals ret, ret2
+  ret3 = $obj.method_with_cached_return("bar")
+  Assert.assert_equals ret, ret3
+  Assert.assert_equals ret.get_string, "bar"
+  Assert.assert_equals ret2.get_string, "bar"
+  Assert.assert_equals ret3.get_string, "bar"
+  ret.set_string "foo"
+  Assert.assert_equals ret2.get_string, "foo"
+  Assert.assert_equals ret3.get_string, "foo"
+end

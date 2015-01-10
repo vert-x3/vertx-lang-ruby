@@ -80,7 +80,10 @@ module Vertx
       return @j_del.close()
     end
     def local_address()
-      return Vertx::SocketAddress.new(@j_del.localAddress())
+        if @cached_localAddress != nil
+          return @cached_localAddress
+        end
+      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
     end
     def listen_multicast_group(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
         if param_1 != nil && param_1.class == String

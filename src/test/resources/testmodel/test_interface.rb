@@ -674,7 +674,10 @@ module Testmodel
     end
     def method_with_cached_return(foo)
       if foo != nil && foo.class == String
-        return Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
+          if @cached_methodWithCachedReturn != nil
+            return @cached_methodWithCachedReturn
+          end
+        return @cached_methodWithCachedReturn = Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
       end
       raise ArgumentError, 'dispatch error'
     end

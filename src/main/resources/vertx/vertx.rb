@@ -89,10 +89,16 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def file_system()
-      return Vertx::FileSystem.new(@j_del.fileSystem())
+        if @cached_fileSystem != nil
+          return @cached_fileSystem
+        end
+      return @cached_fileSystem = Vertx::FileSystem.new(@j_del.fileSystem())
     end
     def event_bus()
-      return Vertx::EventBus.new(@j_del.eventBus())
+        if @cached_eventBus != nil
+          return @cached_eventBus
+        end
+      return @cached_eventBus = Vertx::EventBus.new(@j_del.eventBus())
     end
     def create_dns_client(port,host)
       if port != nil && port.class == Fixnum
@@ -104,7 +110,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def shared_data()
-      return Vertx::SharedData.new(@j_del.sharedData())
+        if @cached_sharedData != nil
+          return @cached_sharedData
+        end
+      return @cached_sharedData = Vertx::SharedData.new(@j_del.sharedData())
     end
     def set_timer(delay,handler)
       if delay != nil && delay.class == Fixnum
