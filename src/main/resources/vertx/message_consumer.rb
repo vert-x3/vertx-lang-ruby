@@ -34,7 +34,7 @@ module Vertx
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(nil)
+        @j_del.endHandler(end_handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -59,13 +59,13 @@ module Vertx
     end
     def completion_handler(completion_handler)
       if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.completionHandler(nil)
+        return @j_del.completionHandler((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
     def unregister(completion_handler=nil)
       if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.unregister(nil)
+        return @j_del.unregister((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
       return @j_del.unregister()
     end

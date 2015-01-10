@@ -446,3 +446,31 @@ def test_method_with_handler_async_result_user_types()
   })
   Assert.assert_equals(1, count)
 end
+
+def test_method_with_handler_void()
+  count = 0
+  $obj.method_with_handler_void(Proc.new { |val|
+    Assert.assert_nil(val)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_void()
+  count = 0
+  $obj.method_with_handler_async_result_void(false, Proc.new { |err|
+    Assert.assert_nil(err)
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end
+
+def test_method_with_handler_async_result_void_fails()
+  count = 0
+  $obj.method_with_handler_async_result_void(true, Proc.new { |err|
+    Assert.assert_not_nil err
+    Assert.assert_equals(err.message, "foo!")
+    count += 1
+  })
+  Assert.assert_equals(1, count)
+end

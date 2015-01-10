@@ -21,11 +21,11 @@ module Vertx
         if param_1 != nil && (param_1.class == Hash || param_1.class == Array)
             if param_2 != nil && (param_2.class == Hash || param_2.class == Array)
                 if param_3 != nil && param_3.class == Proc
-                  return @j_del.put(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),nil)
+                  return @j_del.put(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
                 end
                 if param_3 != nil && param_3.class == Fixnum
                     if param_4 != nil && param_4.class == Proc
-                      return @j_del.put(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),param_3,nil)
+                      return @j_del.put(Vertx::Util::Utils.to_object(param_1),Vertx::Util::Utils.to_object(param_2),param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil) }))
                     end
                   raise ArgumentError, 'dispatch error'
                 end
@@ -103,7 +103,7 @@ module Vertx
     end
     def clear(result_handler)
       if result_handler != nil && result_handler.class == Proc
-        return @j_del.clear(nil)
+        return @j_del.clear((Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end

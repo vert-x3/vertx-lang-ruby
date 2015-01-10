@@ -25,7 +25,7 @@ module Vertx
     end
     def close(completion_handler)
       if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.close(nil)
+        return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end

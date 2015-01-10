@@ -527,14 +527,14 @@ module Testmodel
     end
     def method_with_handler_void(handler)
       if handler != nil && handler.class == Proc
-        return @j_del.methodWithHandlerVoid(nil)
+        return @j_del.methodWithHandlerVoid(handler)
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_handler_async_result_void(send_failure,handler)
       if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultVoid(send_failure,nil)
+          return @j_del.methodWithHandlerAsyncResultVoid(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end

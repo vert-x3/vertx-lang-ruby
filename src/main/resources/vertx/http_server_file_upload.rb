@@ -26,7 +26,7 @@ module Vertx
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(nil)
+        @j_del.endHandler(end_handler)
         return self
       end
       raise ArgumentError, 'dispatch error'

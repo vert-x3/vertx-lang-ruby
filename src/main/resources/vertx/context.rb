@@ -10,7 +10,7 @@ module Vertx
     end
     def run_on_context(action)
       if action != nil && action.class == Proc
-        return @j_del.runOnContext(nil)
+        return @j_del.runOnContext(action)
       end
       raise ArgumentError, 'dispatch error'
     end

@@ -29,7 +29,7 @@ module Vertx
     end
     def drain_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.drainHandler(nil)
+        @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'

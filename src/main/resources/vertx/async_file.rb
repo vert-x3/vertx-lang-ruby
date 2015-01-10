@@ -31,7 +31,7 @@ module Vertx
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(nil)
+        @j_del.endHandler(end_handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -40,7 +40,7 @@ module Vertx
       if buffer != nil && buffer.class.method_defined?(:j_del)
         if position != nil && position.class == Fixnum
           if handler != nil && handler.class == Proc
-            @j_del.write(buffer.j_del,position,nil)
+            @j_del.write(buffer.j_del,position,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, 'dispatch error'
@@ -59,7 +59,7 @@ module Vertx
     end
     def drain_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.drainHandler(nil)
+        @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -73,7 +73,7 @@ module Vertx
     end
     def close(handler=nil)
       if handler != nil && handler.class == Proc
-        return @j_del.close(nil)
+        return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
       return @j_del.close()
     end
@@ -98,7 +98,7 @@ module Vertx
     end
     def flush(handler=nil)
       if handler != nil && handler.class == Proc
-        @j_del.flush(nil)
+        @j_del.flush((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
         return self
       end
       @j_del.flush()

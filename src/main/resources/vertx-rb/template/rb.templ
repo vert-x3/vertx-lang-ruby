@@ -82,11 +82,15 @@
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection || eventKind == CLASS_API) {
         return "(Proc.new { |event| " + name + ".call(" + genConvReturn(eventType, "event") + ") })";
+      } else if (eventKind == CLASS_VOID) {
+        return name;
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
         if (resultKind.basic || resultKind == CLASS_OPTIONS || resultKind.collection || resultKind == CLASS_API) {
           return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
+        } else if (resultKind == CLASS_VOID) {
+          return "(Proc.new { |ar| " + name + ".call(ar.failed ? ar.cause : nil) })";
         }
       }
     } else if (kind == CLASS_API) {

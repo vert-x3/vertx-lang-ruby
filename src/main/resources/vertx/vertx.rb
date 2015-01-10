@@ -143,13 +143,13 @@ module Vertx
     end
     def run_on_context(action)
       if action != nil && action.class == Proc
-        return @j_del.runOnContext(nil)
+        return @j_del.runOnContext(action)
       end
       raise ArgumentError, 'dispatch error'
     end
     def close(completion_handler=nil)
       if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.close(nil)
+        return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
       return @j_del.close()
     end
@@ -171,7 +171,7 @@ module Vertx
     def undeploy_verticle(deployment_id,completion_handler=nil)
       if deployment_id != nil && deployment_id.class == String
         if completion_handler != nil && completion_handler.class == Proc
-          return @j_del.undeployVerticle(deployment_id,nil)
+          return @j_del.undeployVerticle(deployment_id,(Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
         end
         return @j_del.undeployVerticle(deployment_id)
       end

@@ -47,7 +47,7 @@ module Vertx
     end
     def drain_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.drainHandler(nil)
+        @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -69,7 +69,7 @@ module Vertx
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(nil)
+        @j_del.endHandler(end_handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -105,7 +105,7 @@ module Vertx
     end
     def continue_handler(handler)
       if handler != nil && handler.class == Proc
-        @j_del.continueHandler(nil)
+        @j_del.continueHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
