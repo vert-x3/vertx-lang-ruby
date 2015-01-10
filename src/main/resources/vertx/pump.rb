@@ -10,13 +10,13 @@ module Vertx
     def j_del
       @j_del
     end
-    def pump(rs,ws,write_queue_max_size=nil)
+    def self.pump(rs,ws,write_queue_max_size=nil)
       if rs != nil && rs.class.method_defined?(:j_del)
         if ws != nil && ws.class.method_defined?(:j_del)
           if write_queue_max_size != nil && write_queue_max_size.class == Fixnum
-            return Vertx::Pump.new(@j_del.pump(rs.j_del,ws.j_del,write_queue_max_size))
+            return Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del,write_queue_max_size))
           end
-          return Vertx::Pump.new(@j_del.pump(rs.j_del,ws.j_del))
+          return Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del))
         end
         raise ArgumentError, 'dispatch error'
       end

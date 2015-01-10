@@ -64,11 +64,10 @@
       } else {
         name = param.getName(CASE_SNAKE);
       }
-      var type = param.type;
-      s += genConvParam(type, name);
+      s += genConvParam(param.type, name);
       index += 1;
     }
-    return "@j_del." + method.getName() + "(" + s + ")";
+    return (method.staticMethod ? genJavaClassFqn(type.raw) : "@j_del") + "." + method.getName() + "(" + s + ")";
   }
 }
 
@@ -196,6 +195,9 @@
   def genRubyClassFqn(type) {
     return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
   }
+  def genJavaClassFqn(type) {
+    return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
+  }
 }
 
 @declare{'foobarjuu'}
@@ -247,6 +249,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 	@foreach{methods:methodsByName.values()}
 
 		@code{methodName=methods[0].getName(CASE_SNAKE)}
+		@code{methodDecl=(methods[0].staticMethod ? "self." : "") + methodName}
 		@code{trie = new java.util.HashMap()}
 		@code{methodMap = new java.util.IdentityHashMap()}
 		@foreach{method:methods}
@@ -256,7 +259,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 
 		@if{kind == 0 || kind == 1}
 		@code{lastMethod=methods[methods.size() - 1]}
-    def @{methodName}(
+    def @{methodDecl}(
 		@foreach{param:lastMethod.params}
 			@{param.getName(CASE_SNAKE)}@if{!methods[0].params.contains(param)}=nil@end{}
 		@end{","}
@@ -312,7 +315,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 	@end{}
 @end{}
 
-    def @{methodName}(@foreach{index:trieHeight(trie)}param_@{(index + 1)}=nil@end{","})\n
+    def @{methodDecl}(@foreach{index:trieHeight(trie)}param_@{(index + 1)}=nil@end{","})\n
 			@includeNamed{'foobar'}
     end\n
 

@@ -9,28 +9,28 @@ module Vertx
     def j_del
       @j_del
     end
-    def binary_frame(data,is_final)
+    def self.binary_frame(data,is_final)
       if data != nil && data.class.method_defined?(:j_del)
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return Vertx::WebSocketFrame.new(@j_del.binaryFrame(data.j_del,is_final))
+          return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.binaryFrame(data.j_del,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def text_frame(str,is_final)
+    def self.text_frame(str,is_final)
       if str != nil && str.class == String
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return Vertx::WebSocketFrame.new(@j_del.textFrame(str,is_final))
+          return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.textFrame(str,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def continuation_frame(data,is_final)
+    def self.continuation_frame(data,is_final)
       if data != nil && data.class.method_defined?(:j_del)
         if is_final != nil && (is_final.class == TrueClass || is_final.class == FalseClass)
-          return Vertx::WebSocketFrame.new(@j_del.continuationFrame(data.j_del,is_final))
+          return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.continuationFrame(data.j_del,is_final))
         end
         raise ArgumentError, 'dispatch error'
       end

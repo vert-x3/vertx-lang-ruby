@@ -666,9 +666,9 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def static_factory_method(foo)
+    def self.static_factory_method(foo)
       if foo != nil && foo.class == String
-        return Testmodel::RefedInterface1.new(@j_del.staticFactoryMethod(foo))
+        return Testmodel::RefedInterface1.new(Java::IoVertxCodegenTestmodel::TestInterface.staticFactoryMethod(foo))
       end
       raise ArgumentError, 'dispatch error'
     end

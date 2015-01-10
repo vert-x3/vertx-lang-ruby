@@ -291,6 +291,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_fluent_method");
   }
 
+  @Test
+  public void testStaticFactoryMethod() {
+    runTest("test_static_factory_method");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

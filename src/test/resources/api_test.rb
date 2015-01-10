@@ -641,3 +641,9 @@ def test_fluent_method()
   ret = $obj.fluent_method("bar")
   Assert.assert_equals(ret, $obj)
 end
+
+def test_static_factory_method()
+  ret = Testmodel::TestInterface.static_factory_method("bar")
+  Assert.assert_equals(ret.class, Testmodel::RefedInterface1)
+  Assert.assert_equals(ret.get_string, "bar")
+end

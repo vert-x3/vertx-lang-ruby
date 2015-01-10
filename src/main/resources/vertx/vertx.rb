@@ -37,23 +37,23 @@ module Vertx
     def metrics()
       return nil
     end
-    def vertx(options=nil)
+    def self.vertx(options=nil)
       if options == nil || options.class == Hash
-        return Vertx::Vertx.new(@j_del.vertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
-      return Vertx::Vertx.new(@j_del.vertx())
+      return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx())
     end
-    def clustered_vertx(options,result_handler)
+    def self.clustered_vertx(options,result_handler)
       if options == nil || options.class == Hash
         if result_handler != nil && result_handler.class == Proc
-          return @j_del.clusteredVertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
+          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def current_context()
-      return Vertx::Context.new(@j_del.currentContext())
+    def self.current_context()
+      return Vertx::Context.new(Java::IoVertxCore::Vertx.currentContext())
     end
     def get_or_create_context()
       return Vertx::Context.new(@j_del.getOrCreateContext())
