@@ -9,10 +9,86 @@ module Vertx
           JsonObject.new(JSON.generate(object))
         elsif object.is_a? Array
           JsonArray.new(JSON.generate(object))
-        elsif object.is_a? String
-          object
         else
-          raise "conversion of #{object.class} not implemented"
+          # Best effort, we let jruby handle the conversion
+          object
+        end
+      end
+      def self.to_string(val)
+        if val != nil && val.class == String
+          val
+        else
+          raise ArgumentError, 'Only String accepted'
+        end
+      end
+      def self.to_long(val)
+        if val != nil && val.class == Fixnum
+          Java::JavaLang::Long.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
+      def self.to_integer(val)
+        if val != nil && val.class == Fixnum
+          Java::JavaLang::Integer.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
+      def self.to_short(val)
+        if val != nil && val.class == Fixnum
+          Java::JavaLang::Short.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
+      def self.to_byte(val)
+        if val != nil && val.class == Fixnum
+          Java::JavaLang::Byte.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
+      def self.to_character(val)
+        if val != nil && val.class == Fixnum
+          Java::JavaLang::Character.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
+      def self.to_boolean(val)
+        if val
+          true
+        else
+          false
+        end
+      end
+      def self.to_float(val)
+        if val != nil && val.class == Float
+          Java::JavaLang::Float.new(val)
+        else
+          raise ArgumentError, 'Only Float accepted'
+        end
+      end
+      def self.to_double(val)
+        if val != nil && val.class == Float
+          Java::JavaLang::Double.new(val)
+        else
+          raise ArgumentError, 'Only Float accepted'
+        end
+      end
+      def self.to_json_object(val)
+        if val != nil && val.is_a?(Hash)
+          JsonObject.new(JSON.generate(val))
+        else
+          raise ArgumentError, 'Only Hash accepted'
+        end
+      end
+      def self.to_json_array(val)
+        if val.is_a? Array
+          return to_json_object({:key=>val}).getJsonArray('key')
+        else
+          raise ArgumentError, 'Only Array accepted'
         end
       end
       def self.from_object(object)
@@ -23,19 +99,19 @@ module Vertx
           object
         end
       end
-      def self.to_json_object(hash)
-        if hash.is_a? Hash
-          JsonObject.new(JSON.generate(hash))
-        else
-          raise "Not a json object #{hash}"
-        end
+    end
+    class HashProxy < Hash
+      def initialize
+        super
       end
-      def self.to_json_array(array)
-        if array.is_a? Array
-          return to_json_object({"key"=>array}).getJsonArray("key")
-        else
-          raise "Not a json array: #{array}"
-        end
+      def [](key)
+        val = super(key)
+        puts "getting #{key} = #{val}"
+        val
+      end
+      def []=(key,val)
+        super(key,val)
+        puts "putting #{key}=#{val}"
       end
     end
   end

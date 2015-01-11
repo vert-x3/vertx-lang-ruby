@@ -19,7 +19,7 @@ module Vertx
       return @j_del.metricBaseName()
     end
     def metrics()
-      return nil
+      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def request(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil)
         if param_1 != nil && param_1.class == String

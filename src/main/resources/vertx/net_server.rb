@@ -16,7 +16,7 @@ module Vertx
       return @j_del.metricBaseName()
     end
     def metrics()
-      return nil
+      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def connect_stream()
       return Vertx::NetSocketStream.new(@j_del.connectStream())

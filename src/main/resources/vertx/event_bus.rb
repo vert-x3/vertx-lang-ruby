@@ -22,7 +22,7 @@ module Vertx
       return @j_del.metricBaseName()
     end
     def metrics()
-      return nil
+      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def close(completion_handler)
       if completion_handler != nil && completion_handler.class == Proc

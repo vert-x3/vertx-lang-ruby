@@ -755,36 +755,78 @@ module Testmodel
     end
     def method_with_map_return(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_map_string_return(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapStringReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_map_long_return(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapLongReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_long(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_integer_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapIntegerReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_integer(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_short_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapShortReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_short(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_byte_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapByteReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_byte(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_character_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapCharacterReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_character(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_boolean_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapBooleanReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_boolean(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_float_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapFloatReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_float(val) })
+      end
+      raise ArgumentError, 'dispatch error'
+    end
+    def method_with_map_double_return(handler)
+      if handler != nil && handler.class == Proc
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapDoubleReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_double(val) })
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_map_json_object_return(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonObjectReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_map_json_array_return(handler)
       if handler != nil && handler.class == Proc
-        return nil
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonArrayReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_array(val) })
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_null_map_return()
-      return nil
+      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithNullMapReturn(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
     end
     def method_with_list_string_return()
       return @j_del.methodWithListStringReturn().to_a.map { |elt| elt }

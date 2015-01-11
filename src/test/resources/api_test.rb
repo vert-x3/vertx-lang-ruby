@@ -725,3 +725,187 @@ def test_enum_return()
   ret = $obj.method_with_enum_return("JULIEN")
   Assert.assert_equals("JULIEN", ret)
 end
+
+def test_map_return()
+  readLog = []
+  writeLog = []
+  map = $obj.method_with_map_return(Proc.new { |op|
+    if op =~ /put\([^,]+,[^\)]+\)/ || op =~ /remove\([^\)]+\)/ || op == "clear()"
+      writeLog.push op
+    elsif op == "size()" || op =~ /get\([^\)]+\)/ || op == "entrySet()"
+      readLog.push op
+    else
+      raise "unsupported #{op}"
+    end
+  })
+  map["foo"] = "bar"
+  Assert.assert_equals writeLog, ["put(foo,bar)"]
+  readLog.clear
+  writeLog.clear
+  Assert.assert_equals map["foo"], "bar"
+  Assert.assert_not_nil readLog.index("get(foo)")
+  Assert.assert_equals writeLog, []
+  map["wibble"] = "quux"
+  readLog.clear
+  writeLog.clear
+  Assert.assert_equals map.size, 2
+  Assert.assert_equals map["wibble"], "quux"
+  Assert.assert_not_nil readLog.index("size()")
+  Assert.assert_equals writeLog, []
+  readLog.clear
+  writeLog.clear
+  map.delete("wibble")
+  Assert.assert_equals writeLog, ["remove(wibble)"]
+  Assert.assert_equals map.size, 1
+  map["blah"] = "123"
+  key_count = 0
+  readLog.clear
+  writeLog.clear
+  map.each { |k,v|
+    if key_count == 0
+      Assert.assert_equals k, "foo"
+      Assert.assert_equals v, "bar"
+      key_count += 1
+    else
+      Assert.assert_equals k, "blah"
+      Assert.assert_equals v, "123"
+    end
+  }
+  Assert.assert_not_nil readLog.index("entrySet()")
+  Assert.assert_equals writeLog, []
+  readLog.clear
+  writeLog.clear
+  map.clear
+  Assert.assert_equals writeLog, ["clear()"]
+end
+
+def test_map_string_return()
+  map = $obj.method_with_map_string_return(Proc.new {})
+  val = map["foo"]
+  Assert.assert_equals val.class, String
+  Assert.assert_equals val, "bar"
+  map["juu"] = "daa"
+  Assert.assert_equals map, {"foo"=>"bar","juu"=>"daa"}
+  Assert.assert_argument_error { map["wibble"] = 123 }
+  Assert.assert_equals map, {"foo"=>"bar","juu"=>"daa"}
+end
+
+def test_map_json_object_return()
+  map = $obj.method_with_map_json_object_return(Proc.new {})
+  json = map["foo"]
+  Assert.assert_equals json.class, Hash
+  Assert.assert_equals json["wibble"], "eek"
+  map["bar"] = {"juu"=>"daa"}
+  Assert.assert_equals map, {"foo"=>{"wibble"=>"eek"},"bar"=>{"juu"=>"daa"}}
+  Assert.assert_argument_error { map["juu"] = 123 }
+  Assert.assert_equals map, {"foo"=>{"wibble"=>"eek"},"bar"=>{"juu"=>"daa"}}
+end
+
+def test_map_json_array_return()
+  map = $obj.method_with_map_json_array_return(Proc.new {})
+  arr = map["foo"]
+  Assert.assert_equals arr.class, Array
+  Assert.assert_equals arr, ["wibble"]
+  map["bar"] = ["spidey"]
+  Assert.assert_equals map, {"foo"=>["wibble"],"bar"=>["spidey"]}
+  Assert.assert_argument_error { map["juu"] = 123 }
+  Assert.assert_equals map, {"foo"=>["wibble"],"bar"=>["spidey"]}
+end
+
+def test_map_long_return()
+  map = $obj.method_with_map_long_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Fixnum
+  Assert.assert_equals num, 123
+  map["bar"] = 321
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+end
+
+def test_map_integer_return()
+  map = $obj.method_with_map_integer_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Fixnum
+  Assert.assert_equals num, 123
+  map["bar"] = 321
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+end
+
+def test_map_short_return()
+  map = $obj.method_with_map_short_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Fixnum
+  Assert.assert_equals num, 123
+  map["bar"] = 321
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>123,"bar"=>321}
+end
+
+def test_map_byte_return()
+  map = $obj.method_with_map_byte_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Fixnum
+  Assert.assert_equals num, 123
+  map["bar"] = 12
+  Assert.assert_equals map, {"foo"=>123,"bar"=>12}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>123,"bar"=>12}
+end
+
+def test_map_character_return()
+  map = $obj.method_with_map_character_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Fixnum
+  Assert.assert_equals num, 88
+  map["bar"] = 89
+  Assert.assert_equals map, {"foo"=>88,"bar"=>89}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>88,"bar"=>89}
+end
+
+def test_map_boolean_return()
+  map = $obj.method_with_map_boolean_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, TrueClass
+  Assert.assert_equals num, true
+  map["bar"] = false
+  Assert.assert_equals map, {"foo"=>true,"bar"=>false}
+  map["juu"] = "something"
+  map["daa"] = nil
+  Assert.assert_equals map, {"foo"=>true,"bar"=>false,"juu"=>true,"daa"=>false}
+end
+
+def test_map_float_return()
+  map = $obj.method_with_map_float_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Float
+  Assert.assert_equals num, 0.123
+  map["bar"] = 0.321
+  Assert.assert_equals map["foo"], 0.123
+  Assert.assert_equals map["bar"], 0.321
+  Assert.assert_equals map.keys.sort, ["bar","foo"]
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map["foo"], 0.123
+  Assert.assert_equals map["bar"], 0.321
+  Assert.assert_equals map.keys.sort, ["bar","foo"]
+end
+
+def test_map_double_return()
+  map = $obj.method_with_map_double_return(Proc.new {})
+  num = map["foo"]
+  Assert.assert_equals num.class, Float
+  Assert.assert_equals num, 0.123
+  map["bar"] = 0.321
+  Assert.assert_equals map, {"foo"=>0.123,"bar"=>0.321}
+  Assert.assert_argument_error { map["juu"] = "something" }
+  Assert.assert_equals map, {"foo"=>0.123,"bar"=>0.321}
+end
+
+def test_map_null_return()
+  map = $obj.method_with_null_map_return
+  Assert.assert_nil map
+end

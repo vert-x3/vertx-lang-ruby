@@ -351,6 +351,71 @@ public class ApiTest extends RubyTestBase {
     runTest("test_enum_return");
   }
 
+  @Test
+  public void testMapReturn() {
+    runTest("test_map_return");
+  }
+
+  @Test
+  public void testMapStringReturn() {
+    runTest("test_map_string_return");
+  }
+
+  @Test
+  public void testMapJsonObjectReturn() {
+    runTest("test_map_json_object_return");
+  }
+
+  @Test
+  public void testMapJsonArrayReturn() {
+    runTest("test_map_json_array_return");
+  }
+
+  @Test
+  public void testMapIntegerReturn() {
+    runTest("test_map_integer_return");
+  }
+
+  @Test
+  public void testMapShortReturn() {
+    runTest("test_map_short_return");
+  }
+
+  @Test
+  public void testMapByteReturn() {
+    runTest("test_map_byte_return");
+  }
+
+  @Test
+  public void testMapCharacterReturn() {
+    runTest("test_map_character_return");
+  }
+
+  @Test
+  public void testMapBooleanReturn() {
+    runTest("test_map_boolean_return");
+  }
+
+  @Test
+  public void testMapFloatReturn() {
+    runTest("test_map_float_return");
+  }
+
+  @Test
+  public void testMapDoubleReturn() {
+    runTest("test_map_double_return");
+  }
+
+  @Test
+  public void testMapLongReturn() {
+    runTest("test_map_long_return");
+  }
+
+  @Test
+  public void testMapNullReturn() {
+    runTest("test_map_null_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

@@ -16,6 +16,15 @@
 }
 
 @code{
+  def genRubyClassFqn(type) {
+    return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
+  }
+  def genJavaClassFqn(type) {
+    return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
+  }
+}
+
+@code{
   def typeCheckPred(name, type) {
     var kind = type.kind;
     if (kind == CLASS_STRING || kind == CLASS_ENUM) {
@@ -128,6 +137,36 @@
       } else if (kind == CLASS_SET) {
         var elementType = type.args[0];
         return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
+      } else if (kind == CLASS_MAP) {
+        var valueType = type.args[1];
+        var valueKind = valueType.kind;
+        var toJava = "to_object";
+        if (valueKind == CLASS_JSON_OBJECT) {
+          toJava = "to_json_object";
+        } else if (valueKind == CLASS_JSON_ARRAY) {
+          toJava = "to_json_array";
+        } else if (valueKind.basic) {
+          if (valueKind == CLASS_STRING) {
+            toJava = "to_string";
+          } else if (valueType.name == 'java.lang.Long') {
+            toJava = "to_long";
+          } else if (valueType.name == 'java.lang.Integer') {
+            toJava = "to_integer";
+          } else if (valueType.name == 'java.lang.Short') {
+            toJava = "to_short";
+          } else if (valueType.name == 'java.lang.Byte') {
+            toJava = "to_byte";
+          } else if (valueType.name == 'java.lang.Character') {
+            toJava = "to_character";
+          } else if (valueType.name == 'java.lang.Boolean') {
+            toJava = "to_boolean";
+          } else if (valueType.name == 'java.lang.Float') {
+            toJava = "to_float";
+          } else if (valueType.name == 'java.lang.Double') {
+            toJava = "to_double";
+          }
+        }
+        return "Java::IoVertxLangJruby::Helper.adaptingMap(" + expr + ", Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
         return type.raw.module.getName(CASE_CAMEL) + "::"  + type.raw.simpleName + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
       } else if (kind.json) {
@@ -197,15 +236,6 @@
       }
       return max;
     }
-  }
-}
-
-@code{
-  def genRubyClassFqn(type) {
-    return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
-  }
-  def genJavaClassFqn(type) {
-    return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
   }
 }
 
