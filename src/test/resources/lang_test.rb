@@ -21,19 +21,19 @@ def test_linear_overload
   Assert.equals(obj.j_del.getCalled, 'method()')
 
   obj = create
-  obj.method "first_value"
+  obj.method 'first_value'
   Assert.equals(obj.j_del.getCalled, 'method(first_value)')
 
   obj = create
-  Assert.argument_error { obj.method "first_value", "second_value" }
+  Assert.argument_error { obj.method 'first_value', 'second_value' }
   Assert.equals(obj.j_del.getCalled, nil)
 
   obj = create
-  obj.method "first_value", "second_value", "third_value"
+  obj.method 'first_value', 'second_value', 'third_value'
   Assert.equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value)')
 
   obj = create
-  obj.method "first_value", "second_value", "third_value", "forth_value"
+  obj.method 'first_value', 'second_value', "third_value", 'forth_value'
   Assert.equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value,forth_value)')
 
 end
@@ -49,7 +49,7 @@ def test_multi_overload
   Assert.equals(obj.j_del.getCalled, 'method()')
 
   obj = create
-  obj.method "foo_value"
+  obj.method 'foo_value'
   Assert.equals(obj.j_del.getCalled, 'method(foo=foo_value)')
 
   obj = create
