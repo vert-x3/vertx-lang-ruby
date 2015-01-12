@@ -1,25 +1,3 @@
-include_class 'io.vertx.core.datagram.DatagramSocket'
-include_class 'io.vertx.core.http.HttpServer'
-include_class 'io.vertx.core.Context'
-include_class 'io.vertx.core.Future'
-include_class 'io.vertx.core.shareddata.SharedData'
-include_class 'io.vertx.core.dns.DnsClient'
-include_class 'io.vertx.core.TimeoutStream'
-include_class 'io.vertx.core.eventbus.EventBus'
-include_class 'io.vertx.core.metrics.Measured'
-include_class 'io.vertx.core.net.NetServer'
-include_class 'io.vertx.core.file.FileSystem'
-include_class 'io.vertx.core.net.NetClient'
-include_class 'io.vertx.core.http.HttpClient'
-include_class 'io.vertx.core.VertxOptions'
-include_class 'io.vertx.core.VertxOptions'
-include_class 'io.vertx.core.net.NetServerOptions'
-include_class 'io.vertx.core.net.NetClientOptions'
-include_class 'io.vertx.core.http.HttpServerOptions'
-include_class 'io.vertx.core.http.HttpClientOptions'
-include_class 'io.vertx.core.datagram.DatagramSocketOptions'
-include_class 'io.vertx.core.DeploymentOptions'
-include_class 'io.vertx.core.DeploymentOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Vertx
 module Vertx
@@ -39,14 +17,14 @@ module Vertx
     end
     def self.vertx(options=nil)
       if options == nil || options.class == Hash
-        return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(options != nil ? Java::IoVertxCore::VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx)
     end
     def self.clustered_vertx(options,result_handler)
       if options == nil || options.class == Hash
         if result_handler != nil && result_handler.class == Proc
-          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
+          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? Java::IoVertxCore::VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -60,31 +38,31 @@ module Vertx
     end
     def create_net_server(options)
       if options == nil || options.class == Hash
-        return Vertx::NetServer.new(@j_del.createNetServer(options != nil ? NetServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::NetServer.new(@j_del.createNetServer(options != nil ? Java::IoVertxCoreNet::NetServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_net_client(options)
       if options == nil || options.class == Hash
-        return Vertx::NetClient.new(@j_del.createNetClient(options != nil ? NetClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::NetClient.new(@j_del.createNetClient(options != nil ? Java::IoVertxCoreNet::NetClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_http_server(options)
       if options == nil || options.class == Hash
-        return Vertx::HttpServer.new(@j_del.createHttpServer(options != nil ? HttpServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::HttpServer.new(@j_del.createHttpServer(options != nil ? Java::IoVertxCoreHttp::HttpServerOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_http_client(options)
       if options == nil || options.class == Hash
-        return Vertx::HttpClient.new(@j_del.createHttpClient(options != nil ? HttpClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::HttpClient.new(@j_del.createHttpClient(options != nil ? Java::IoVertxCoreHttp::HttpClientOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
     def create_datagram_socket(options)
       if options == nil || options.class == Hash
-        return Vertx::DatagramSocket.new(@j_del.createDatagramSocket(options != nil ? DatagramSocketOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+        return Vertx::DatagramSocket.new(@j_del.createDatagramSocket(options != nil ? Java::IoVertxCoreDatagram::DatagramSocketOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -167,9 +145,9 @@ module Vertx
         if param_1 != nil && param_1.class == String
             if param_2 == nil || param_2.class == Hash
                 if param_3 != nil && param_3.class == Proc
-                  return @j_del.deployVerticle(param_1,param_2 != nil ? DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+                  return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
                 end
-              return @j_del.deployVerticle(param_1,param_2 != nil ? DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
+              return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
             end
             if param_2 != nil && param_2.class == Proc
               return @j_del.deployVerticle(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))

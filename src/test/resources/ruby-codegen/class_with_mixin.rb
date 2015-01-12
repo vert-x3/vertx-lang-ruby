@@ -1,4 +1,3 @@
-include_class 'io.vertx.test.support.Mixin'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.ClassWithMixin
 module RubyCodegen

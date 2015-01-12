@@ -1,9 +1,3 @@
-include_class 'io.vertx.core.file.AsyncFile'
-include_class 'io.vertx.core.buffer.Buffer'
-include_class 'io.vertx.core.file.FileSystemProps'
-include_class 'io.vertx.core.file.FileProps'
-include_class 'io.vertx.core.file.OpenOptions'
-include_class 'io.vertx.core.file.OpenOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.FileSystem
 module Vertx
@@ -469,7 +463,7 @@ module Vertx
       if path != nil && path.class == String
         if options == nil || options.class == Hash
           if handler != nil && handler.class == Proc
-            @j_del.open(path,options != nil ? OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::AsyncFile.new(ar.result) : nil) }))
+            @j_del.open(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::AsyncFile.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, 'dispatch error'
@@ -481,7 +475,7 @@ module Vertx
     def open_blocking(path,options)
       if path != nil && path.class == String
         if options == nil || options.class == Hash
-          return Vertx::AsyncFile.new(@j_del.openBlocking(path,options != nil ? OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return Vertx::AsyncFile.new(@j_del.openBlocking(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
         raise ArgumentError, 'dispatch error'
       end

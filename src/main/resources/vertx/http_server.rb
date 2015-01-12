@@ -1,8 +1,3 @@
-include_class 'io.vertx.core.http.HttpServerRequest'
-include_class 'io.vertx.core.http.ServerWebSocket'
-include_class 'io.vertx.core.metrics.Measured'
-include_class 'io.vertx.core.http.HttpServerRequestStream'
-include_class 'io.vertx.core.http.ServerWebSocketStream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServer
 module Vertx

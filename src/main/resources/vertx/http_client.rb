@@ -1,9 +1,3 @@
-include_class 'io.vertx.core.http.HttpClientRequest'
-include_class 'io.vertx.core.http.HttpClientResponse'
-include_class 'io.vertx.core.metrics.Measured'
-include_class 'io.vertx.core.http.WebSocketStream'
-include_class 'io.vertx.core.MultiMap'
-include_class 'io.vertx.core.http.WebSocket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClient
 module Vertx

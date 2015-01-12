@@ -133,7 +133,7 @@
     } else if (kind == CLASS_OBJECT) {
       return "Vertx::Util::Utils.to_object(" + name + ")";
     } else if (kind == CLASS_OPTIONS) {
-      return name + " != nil ? " + type.simpleName + ".new(Vertx::Util::Utils.to_json_object(" + name + ")) : nil";
+      return name + " != nil ? " + genJavaClassFqn(type) + ".new(Vertx::Util::Utils.to_json_object(" + name + ")) : nil";
     } else if (kind == CLASS_JSON_OBJECT) {
       return name + " != nil ? " + "Vertx::Util::Utils.to_json_object(" + name + ") : nil";
     } else if (kind == CLASS_JSON_ARRAY) {
@@ -290,13 +290,6 @@
 @end{}
 @end{}
 
-@comment{"Generate the include_class"}
-@foreach{referencedType : referencedTypes}
-include_class '@{referencedType.name}'\n
-@end{}
-@foreach{optionType: referencedOptionsTypes}
-include_class '@{optionType.name}'\n
-@end{}
 require 'vertx/util/utils.rb'\n
 
 @declare{'initializer'}

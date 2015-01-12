@@ -1,11 +1,3 @@
-include_class 'io.vertx.core.http.ServerWebSocket'
-include_class 'io.vertx.core.http.HttpServerFileUpload'
-include_class 'io.vertx.core.buffer.Buffer'
-include_class 'io.vertx.core.http.HttpServerResponse'
-include_class 'io.vertx.core.streams.ReadStream'
-include_class 'io.vertx.core.MultiMap'
-include_class 'io.vertx.core.net.SocketAddress'
-include_class 'io.vertx.core.net.NetSocket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerRequest
 module Vertx

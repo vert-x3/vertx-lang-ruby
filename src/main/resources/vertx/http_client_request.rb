@@ -1,8 +1,3 @@
-include_class 'io.vertx.core.http.HttpClientResponse'
-include_class 'io.vertx.core.buffer.Buffer'
-include_class 'io.vertx.core.streams.WriteStream'
-include_class 'io.vertx.core.streams.ReadStream'
-include_class 'io.vertx.core.MultiMap'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientRequest
 module Vertx

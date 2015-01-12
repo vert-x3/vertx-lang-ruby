@@ -1,4 +1,3 @@
-include_class 'io.vertx.core.buffer.Buffer'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocketFrame
 module Vertx

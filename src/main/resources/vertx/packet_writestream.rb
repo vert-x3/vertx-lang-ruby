@@ -1,5 +1,3 @@
-include_class 'io.vertx.core.buffer.Buffer'
-include_class 'io.vertx.core.streams.WriteStream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.PacketWritestream
 module Vertx

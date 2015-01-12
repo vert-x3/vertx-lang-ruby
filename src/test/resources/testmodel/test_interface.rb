@@ -1,10 +1,3 @@
-include_class 'io.vertx.codegen.testmodel.GenericRefedInterface'
-include_class 'io.vertx.codegen.testmodel.RefedInterface1'
-include_class 'io.vertx.codegen.testmodel.SuperInterface1'
-include_class 'io.vertx.codegen.testmodel.RefedInterface2'
-include_class 'io.vertx.codegen.testmodel.SuperInterface2'
-include_class 'io.vertx.codegen.testmodel.TestOptions'
-include_class 'io.vertx.codegen.testmodel.TestOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel
@@ -241,13 +234,13 @@ module Testmodel
     end
     def method_with_options_param(options)
       if options == nil || options.class == Hash
-        return @j_del.methodWithOptionsParam(options != nil ? TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        return @j_del.methodWithOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
       end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_null_options_param(options)
       if options == nil || options.class == Hash
-        return @j_del.methodWithNullOptionsParam(options != nil ? TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        return @j_del.methodWithNullOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
       end
       raise ArgumentError, 'dispatch error'
     end

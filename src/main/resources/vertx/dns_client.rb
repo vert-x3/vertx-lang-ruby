@@ -1,5 +1,3 @@
-include_class 'io.vertx.core.dns.MxRecord'
-include_class 'io.vertx.core.dns.SrvRecord'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.dns.DnsClient
 module Vertx

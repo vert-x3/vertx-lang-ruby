@@ -1,5 +1,3 @@
-include_class 'io.vertx.core.streams.WriteStream'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageProducer<T>
 module Vertx
@@ -44,7 +42,7 @@ module Vertx
     end
     def delivery_options(options)
       if options == nil || options.class == Hash
-        @j_del.deliveryOptions(options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        @j_del.deliveryOptions(options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
         return self
       end
       raise ArgumentError, 'dispatch error'

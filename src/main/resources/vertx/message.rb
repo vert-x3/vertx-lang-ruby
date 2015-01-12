@@ -1,6 +1,3 @@
-include_class 'io.vertx.core.MultiMap'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.Message<T>
 module Vertx
@@ -30,9 +27,9 @@ module Vertx
         if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
             if param_2 == nil || param_2.class == Hash
                 if param_3 != nil && param_3.class == Proc
-                  return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
+                  return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
                 end
-              return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
+              return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
             end
             if param_2 != nil && param_2.class == Proc
               return @j_del.reply(Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))

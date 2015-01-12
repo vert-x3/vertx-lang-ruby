@@ -1,12 +1,3 @@
-include_class 'io.vertx.core.metrics.Measured'
-include_class 'io.vertx.core.eventbus.Message'
-include_class 'io.vertx.core.eventbus.MessageConsumer'
-include_class 'io.vertx.core.eventbus.MessageProducer'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
-include_class 'io.vertx.core.eventbus.DeliveryOptions'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.EventBus
 module Vertx
@@ -35,10 +26,10 @@ module Vertx
             if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
                 if param_3 == nil || param_3.class == Hash
                     if param_4 != nil && param_4.class == Proc
-                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
+                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
                       return self
                     end
-                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
+                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
                   return self
                 end
                 if param_3 != nil && param_3.class == Proc
@@ -56,7 +47,7 @@ module Vertx
       if address != nil && address.class == String
         if message != nil && (message.class == String  ||message.class == Hash || message.class == Array)
           if options == nil || options.class == Hash
-            @j_del.publish(address,Vertx::Util::Utils.to_object(message),options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+            @j_del.publish(address,Vertx::Util::Utils.to_object(message),options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
             return self
           end
           @j_del.publish(address,Vertx::Util::Utils.to_object(message))
@@ -87,7 +78,7 @@ module Vertx
     def sender(address,options=nil)
       if address != nil && address.class == String
         if options == nil || options.class == Hash
-          return Vertx::MessageProducer.new(@j_del.sender(address,options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return Vertx::MessageProducer.new(@j_del.sender(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
         return Vertx::MessageProducer.new(@j_del.sender(address))
       end
@@ -96,7 +87,7 @@ module Vertx
     def publisher(address,options=nil)
       if address != nil && address.class == String
         if options == nil || options.class == Hash
-          return Vertx::MessageProducer.new(@j_del.publisher(address,options != nil ? DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return Vertx::MessageProducer.new(@j_del.publisher(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
         end
         return Vertx::MessageProducer.new(@j_del.publisher(address))
       end

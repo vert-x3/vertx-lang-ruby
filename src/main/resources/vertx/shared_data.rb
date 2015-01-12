@@ -1,7 +1,3 @@
-include_class 'io.vertx.core.shareddata.AsyncMap'
-include_class 'io.vertx.core.shareddata.Lock'
-include_class 'io.vertx.core.shareddata.LocalMap'
-include_class 'io.vertx.core.shareddata.Counter'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.SharedData
 module Vertx
