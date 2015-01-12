@@ -22,14 +22,14 @@ module Vertx
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def handler(&handler)
       if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def pause()
       @j_del.pause
@@ -44,7 +44,7 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def write(param_1,param_2=nil)
       if param_1.class.method_defined?(:j_del)
@@ -59,21 +59,21 @@ module Vertx
         @j_del.write(param_1)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling write(param_1,param_2)"
     end
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     def drain_handler(&handler)
       if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     def write_handler_id()
       @j_del.writeHandlerID
@@ -87,7 +87,7 @@ module Vertx
         @j_del.sendFile(filename)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
     end
     def remote_address()
         if @cached_remote_address != nil
@@ -109,14 +109,14 @@ module Vertx
         @j_del.closeHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
     end
     def upgrade_to_ssl(&handler)
       if handler.class == Proc
         @j_del.upgradeToSsl(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling upgrade_to_ssl(handler)"
     end
     def is_ssl()
       @j_del.isSsl

@@ -12,7 +12,7 @@ module Vertx
       if action.class == Proc
         return @j_del.runOnContext(action)
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument action=#{action} when calling run_on_context(action)"
     end
     def deployment_id()
       @j_del.deploymentID
@@ -36,22 +36,22 @@ module Vertx
       if key.class == String
         return Vertx::Util::Utils.from_object(@j_del.get(key))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
     def put(key,value)
       if key.class == String
         if value.class == String  ||value.class == Hash || value.class == Array
           return @j_del.put(key,Vertx::Util::Utils.to_object(value))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument value=#{value} when calling put(key,value)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument key=#{key} when calling put(key,value)"
     end
     def remove(key)
       if key.class == String
         return @j_del.remove(key)
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument key=#{key} when calling remove(key)"
     end
   end
 end

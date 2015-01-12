@@ -24,11 +24,11 @@ module Vertx
             @j_del.connect(port,host,(Proc.new { |ar| connectHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetSocket.new(ar.result) : nil) }))
             return self
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument connectHandler=#{connectHandler} when calling connect(port,host,connectHandler)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument host=#{host} when calling connect(port,host,connectHandler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument port=#{port} when calling connect(port,host,connectHandler)"
     end
     def close()
       @j_del.close

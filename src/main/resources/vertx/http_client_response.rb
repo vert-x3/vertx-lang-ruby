@@ -22,14 +22,14 @@ module Vertx
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def handler(&handler)
       if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def pause()
       @j_del.pause
@@ -40,7 +40,7 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def status_code()
       @j_del.statusCode
@@ -71,7 +71,7 @@ module Vertx
         @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
     def net_socket()
         if @cached_net_socket != nil

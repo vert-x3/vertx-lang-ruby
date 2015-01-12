@@ -30,11 +30,11 @@ module Vertx
               @j_del.send(param_1.j_del,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling send(param_1,param_2,param_3,param_4,param_5)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling send(param_1,param_2,param_3,param_4,param_5)"
       end
       if param_1.class == String
         if param_2.class == String
@@ -44,11 +44,11 @@ module Vertx
                 @j_del.send(param_1,param_2,param_3,param_4,(Proc.new { |ar| param_5.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
                 return self
               end
-              raise ArgumentError, 'dispatch error'
+              raise ArgumentError, "Invalid argument param_5=#{param_5} when calling send(param_1,param_2,param_3,param_4,param_5)"
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling send(param_1,param_2,param_3,param_4,param_5)"
         end
         if param_2.class == Fixnum
           if param_3.class == String
@@ -56,22 +56,22 @@ module Vertx
               @j_del.send(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling send(param_1,param_2,param_3,param_4,param_5)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling send(param_1,param_2,param_3,param_4,param_5)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling send(param_1,param_2,param_3,param_4,param_5)"
     end
     def sender(port,host)
       if port.class == Fixnum
         if host.class == String
           return Vertx::PacketWritestream.new(@j_del.sender(port,host))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument host=#{host} when calling sender(port,host)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument port=#{port} when calling sender(port,host)"
     end
     def close(&handler)
       if handler.class == Proc
@@ -97,13 +97,13 @@ module Vertx
               @j_del.listenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
     end
     def unlisten_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
@@ -117,13 +117,13 @@ module Vertx
               @j_del.unlistenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
     end
     def block_multicast_group(param_1,param_2,param_3,&param_4)
       if param_1.class == String
@@ -137,13 +137,13 @@ module Vertx
               @j_del.blockMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
     end
     def listen(port,host,&handler)
       if port.class == Fixnum
@@ -152,11 +152,11 @@ module Vertx
             @j_del.listen(port,host,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
             return self
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument handler=#{handler} when calling listen(port,host,handler)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument host=#{host} when calling listen(port,host,handler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument port=#{port} when calling listen(port,host,handler)"
     end
     def pause()
       @j_del.pause
@@ -171,21 +171,21 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def handler(&handler)
       if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::DatagramPacket.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def exception_handler(&handler)
       if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
   end
 end

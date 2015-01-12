@@ -12,7 +12,7 @@ module Testmodel
       if value.class == String  ||value.class == Hash || value.class == Array
         return @j_del.setValue(Vertx::Util::Utils.to_object(value))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument value=#{value} when calling set_value(value)"
     end
     def get_value()
       Vertx::Util::Utils.from_object(@j_del.getValue)

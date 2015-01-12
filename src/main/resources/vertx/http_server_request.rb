@@ -22,14 +22,14 @@ module Vertx
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def handler(&handler)
       if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def pause()
       @j_del.pause
@@ -44,7 +44,7 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def version()
       @j_del.version.name
@@ -99,7 +99,7 @@ module Vertx
         @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
     def net_socket()
         if @cached_net_socket != nil
@@ -112,7 +112,7 @@ module Vertx
         @j_del.setExpectMultipart(expect)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument expect=#{expect} when calling set_expect_multipart(expect)"
     end
     def is_expect_multipart()
       @j_del.isExpectMultipart
@@ -122,7 +122,7 @@ module Vertx
         @j_del.uploadHandler((Proc.new { |event| uploadHandler.call(Vertx::HttpServerFileUpload.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument uploadHandler=#{uploadHandler} when calling upload_handler(uploadHandler)"
     end
     def form_attributes()
         if @cached_form_attributes != nil

@@ -37,16 +37,16 @@ module Vertx
         end
         return @j_del.reply(Vertx::Util::Utils.to_object(param_1))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling reply(param_1,param_2,param_3)"
     end
     def fail(failureCode,message)
       if failureCode.class == Fixnum
         if message.class == String
           return @j_del.fail(failureCode,message)
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument message=#{message} when calling fail(failureCode,message)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument failureCode=#{failureCode} when calling fail(failureCode,message)"
     end
   end
 end

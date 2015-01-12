@@ -20,7 +20,7 @@ module Vertx
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def write(param_1,param_2=nil)
       if param_1.class.method_defined?(:j_del)
@@ -35,21 +35,21 @@ module Vertx
         @j_del.write(param_1)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling write(param_1,param_2)"
     end
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     def drain_handler(&handler)
       if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     def get_status_code()
       @j_del.getStatusCode
@@ -59,7 +59,7 @@ module Vertx
         @j_del.setStatusCode(statusCode)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument statusCode=#{statusCode} when calling set_status_code(statusCode)"
     end
     def get_status_message()
       @j_del.getStatusMessage
@@ -69,14 +69,14 @@ module Vertx
         @j_del.setStatusMessage(statusMessage)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument statusMessage=#{statusMessage} when calling set_status_message(statusMessage)"
     end
     def set_chunked(chunked)
       if chunked.class == TrueClass || chunked.class == FalseClass
         @j_del.setChunked(chunked)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument chunked=#{chunked} when calling set_chunked(chunked)"
     end
     def is_chunked()
       @j_del.isChunked
@@ -93,9 +93,9 @@ module Vertx
           @j_del.putHeader(name,value)
           return self
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument value=#{value} when calling put_header(name,value)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument name=#{name} when calling put_header(name,value)"
     end
     def trailers()
         if @cached_trailers != nil
@@ -109,16 +109,16 @@ module Vertx
           @j_del.putTrailer(name,value)
           return self
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument value=#{value} when calling put_trailer(name,value)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument name=#{name} when calling put_trailer(name,value)"
     end
     def close_handler(&handler)
       if handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
     end
     def end(param_1=nil,param_2=nil)
       if param_1.class.method_defined?(:j_del)
@@ -141,7 +141,7 @@ module Vertx
         @j_del.sendFile(filename)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
     end
     def close()
       @j_del.close
@@ -157,14 +157,14 @@ module Vertx
         @j_del.headersEndHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling headers_end_handler(handler)"
     end
     def body_end_handler(&handler)
       if handler.class == Proc
         @j_del.bodyEndHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling body_end_handler(handler)"
     end
   end
 end

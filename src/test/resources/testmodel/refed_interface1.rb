@@ -16,7 +16,7 @@ module Testmodel
         @j_del.setString(str)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument str=#{str} when calling set_string(str)"
     end
   end
 end

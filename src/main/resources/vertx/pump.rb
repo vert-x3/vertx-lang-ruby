@@ -18,16 +18,16 @@ module Vertx
           end
           return Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument ws=#{ws} when calling pump(rs,ws,writeQueueMaxSize)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument rs=#{rs} when calling pump(rs,ws,writeQueueMaxSize)"
     end
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     def start()
       @j_del.start

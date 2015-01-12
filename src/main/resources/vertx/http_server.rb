@@ -27,7 +27,7 @@ module Vertx
       if handler.class == Proc
         return Vertx::HttpServer.new(@j_del.requestHandler((Proc.new { |event| handler.call(Vertx::HttpServerRequest.new(event)) })))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling request_handler(handler)"
     end
     def websocket_stream()
       Vertx::ServerWebSocketStream.new(@j_del.websocketStream)
@@ -36,7 +36,7 @@ module Vertx
       if handler.class == Proc
         return Vertx::HttpServer.new(@j_del.websocketHandler((Proc.new { |event| handler.call(Vertx::ServerWebSocket.new(event)) })))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling websocket_handler(handler)"
     end
     def listen(&listenHandler)
       if listenHandler.class == Proc

@@ -42,14 +42,14 @@ module Vertx
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def handler(&handler)
       if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def pause()
       @j_del.pause
@@ -64,56 +64,56 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def write(data)
       if data.class.method_defined?(:j_del)
         @j_del.write(data.j_del)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     def drain_handler(&handler)
       if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     def write_frame(frame)
       if frame.class.method_defined?(:j_del)
         @j_del.writeFrame(frame.j_del)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument frame=#{frame} when calling write_frame(frame)"
     end
     def write_message(data)
       if data.class.method_defined?(:j_del)
         @j_del.writeMessage(data.j_del)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument data=#{data} when calling write_message(data)"
     end
     def close_handler(&handler)
       if handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
     end
     def frame_handler(&handler)
       if handler.class == Proc
         @j_del.frameHandler((Proc.new { |event| handler.call(Vertx::WebSocketFrame.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"
     end
   end
 end

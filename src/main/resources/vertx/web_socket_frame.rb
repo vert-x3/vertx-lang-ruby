@@ -14,27 +14,27 @@ module Vertx
         if isFinal.class == TrueClass || isFinal.class == FalseClass
           return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.binaryFrame(data.j_del,isFinal))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument isFinal=#{isFinal} when calling binary_frame(data,isFinal)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument data=#{data} when calling binary_frame(data,isFinal)"
     end
     def self.text_frame(str,isFinal)
       if str.class == String
         if isFinal.class == TrueClass || isFinal.class == FalseClass
           return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.textFrame(str,isFinal))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument isFinal=#{isFinal} when calling text_frame(str,isFinal)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument str=#{str} when calling text_frame(str,isFinal)"
     end
     def self.continuation_frame(data,isFinal)
       if data.class.method_defined?(:j_del)
         if isFinal.class == TrueClass || isFinal.class == FalseClass
           return Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.continuationFrame(data.j_del,isFinal))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument isFinal=#{isFinal} when calling continuation_frame(data,isFinal)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument data=#{data} when calling continuation_frame(data,isFinal)"
     end
     def is_text()
       @j_del.isText

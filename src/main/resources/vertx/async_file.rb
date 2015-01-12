@@ -21,7 +21,7 @@ module Vertx
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     def pause()
       @j_del.pause
@@ -36,7 +36,7 @@ module Vertx
         @j_del.endHandler(endHandler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def write(buffer,position=nil,&handler)
       if buffer.class.method_defined?(:j_del)
@@ -45,33 +45,33 @@ module Vertx
             @j_del.write(buffer.j_del,position,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument handler=#{handler} when calling write(buffer,position,handler)"
         end
         @j_del.write(buffer.j_del)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument buffer=#{buffer} when calling write(buffer,position,handler)"
     end
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     def drain_handler(&handler)
       if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     def exception_handler(&handler)
       if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     def close(&handler)
       if handler.class == Proc
@@ -88,15 +88,15 @@ module Vertx
                 @j_del.read(buffer.j_del,offset,position,length,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
                 return self
               end
-              raise ArgumentError, 'dispatch error'
+              raise ArgumentError, "Invalid argument handler=#{handler} when calling read(buffer,offset,position,length,handler)"
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument length=#{length} when calling read(buffer,offset,position,length,handler)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument position=#{position} when calling read(buffer,offset,position,length,handler)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument offset=#{offset} when calling read(buffer,offset,position,length,handler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument buffer=#{buffer} when calling read(buffer,offset,position,length,handler)"
     end
     def flush(&handler)
       if handler.class == Proc
@@ -111,14 +111,14 @@ module Vertx
         @j_del.setReadPos(readPos)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument readPos=#{readPos} when calling set_read_pos(readPos)"
     end
     def set_write_pos(readPos)
       if readPos.class == Fixnum
         @j_del.setWritePos(readPos)
         return self
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument readPos=#{readPos} when calling set_write_pos(readPos)"
     end
   end
 end

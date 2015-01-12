@@ -452,7 +452,8 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@if{methodMap.containsKey(trie)}
 		@includeNamed{"genMethodDispatchFragment";method=methodMap.get(trie);indent=("    " + genIndent());generic=(kind == 2);last=(_trie.size() == 0)}
 	@else{}
-		@{genIndent()}    raise ArgumentError, 'dispatch error'\n
+		@code{arg=params.get(_trie.size())}
+		@{genIndent()}    raise ArgumentError, "Invalid argument @{arg}=#{@{arg}} when calling @{methodName}(@foreach{param:params}@{param}@end{","})"\n
 	@end{}
 @end{}
 

@@ -37,13 +37,13 @@ module Vertx
               end
               return Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4))
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling request(param_1,param_2,param_3,param_4,param_5)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling request(param_1,param_2,param_3,param_4,param_5)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling request(param_1,param_2,param_3,param_4,param_5)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling request(param_1,param_2,param_3,param_4,param_5)"
     end
     def websocket(port,host,requestURI,headers=nil,version=nil,subProtocols=nil)
       if port.class == Fixnum
@@ -60,11 +60,11 @@ module Vertx
             end
             return Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI))
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument requestURI=#{requestURI} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument host=#{host} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument port=#{port} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
     end
     def connect_websocket(param_1,param_2,param_3,param_4,param_5=nil,param_6=nil,&param_7)
       if param_1.class == Fixnum
@@ -85,19 +85,19 @@ module Vertx
                   if param_7.class == Proc
                     return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| param_7.call(Vertx::WebSocket.new(event)) })))
                   end
-                  raise ArgumentError, 'dispatch error'
+                  raise ArgumentError, "Invalid argument param_7=#{param_7} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
                 end
-                raise ArgumentError, 'dispatch error'
+                raise ArgumentError, "Invalid argument param_6=#{param_6} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
               end
-              raise ArgumentError, 'dispatch error'
+              raise ArgumentError, "Invalid argument param_5=#{param_5} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument param_4=#{param_4} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument param_3=#{param_3} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
     end
     def close()
       @j_del.close

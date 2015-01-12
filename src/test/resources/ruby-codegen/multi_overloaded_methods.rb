@@ -16,7 +16,7 @@ module RubyCodegen
         if param_2.class == TrueClass || param_2.class == FalseClass
           return @j_del.method(param_1,param_2)
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling method(param_1,param_2)"
       end
       @j_del.method
     end

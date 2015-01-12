@@ -17,7 +17,7 @@ module RubyCodegen
             end
             return @j_del.method(foo,bar,juu)
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument juu=#{juu} when calling method(foo,bar,juu,daa)"
         end
         return @j_del.method(foo)
       end

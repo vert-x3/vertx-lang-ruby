@@ -36,55 +36,55 @@ module RubyCodegen
                                                       if _yield.class == String
                                                         return @j_del.method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
                                                       end
-                                                      raise ArgumentError, 'dispatch error'
+                                                      raise ArgumentError, "Invalid argument _yield=#{_yield} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                                     end
-                                                    raise ArgumentError, 'dispatch error'
+                                                    raise ArgumentError, "Invalid argument _when=#{_when} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                                   end
-                                                  raise ArgumentError, 'dispatch error'
+                                                  raise ArgumentError, "Invalid argument _until=#{_until} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                                 end
-                                                raise ArgumentError, 'dispatch error'
+                                                raise ArgumentError, "Invalid argument _unless=#{_unless} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                               end
-                                              raise ArgumentError, 'dispatch error'
+                                              raise ArgumentError, "Invalid argument _undef=#{_undef} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                             end
-                                            raise ArgumentError, 'dispatch error'
+                                            raise ArgumentError, "Invalid argument _then=#{_then} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                           end
-                                          raise ArgumentError, 'dispatch error'
+                                          raise ArgumentError, "Invalid argument _self=#{_self} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                         end
-                                        raise ArgumentError, 'dispatch error'
+                                        raise ArgumentError, "Invalid argument _retry=#{_retry} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                       end
-                                      raise ArgumentError, 'dispatch error'
+                                      raise ArgumentError, "Invalid argument _rescue=#{_rescue} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                     end
-                                    raise ArgumentError, 'dispatch error'
+                                    raise ArgumentError, "Invalid argument _redo=#{_redo} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                   end
-                                  raise ArgumentError, 'dispatch error'
+                                  raise ArgumentError, "Invalid argument _or=#{_or} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                                 end
-                                raise ArgumentError, 'dispatch error'
+                                raise ArgumentError, "Invalid argument _not=#{_not} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                               end
-                              raise ArgumentError, 'dispatch error'
+                              raise ArgumentError, "Invalid argument _nil=#{_nil} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                             end
-                            raise ArgumentError, 'dispatch error'
+                            raise ArgumentError, "Invalid argument _next=#{_next} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                           end
-                          raise ArgumentError, 'dispatch error'
+                          raise ArgumentError, "Invalid argument _module=#{_module} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                         end
-                        raise ArgumentError, 'dispatch error'
+                        raise ArgumentError, "Invalid argument _in=#{_in} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                       end
-                      raise ArgumentError, 'dispatch error'
+                      raise ArgumentError, "Invalid argument _ensure=#{_ensure} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                     end
-                    raise ArgumentError, 'dispatch error'
+                    raise ArgumentError, "Invalid argument _end=#{_end} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                   end
-                  raise ArgumentError, 'dispatch error'
+                  raise ArgumentError, "Invalid argument _END=#{_END} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
                 end
-                raise ArgumentError, 'dispatch error'
+                raise ArgumentError, "Invalid argument _elsif=#{_elsif} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
               end
-              raise ArgumentError, 'dispatch error'
+              raise ArgumentError, "Invalid argument _def=#{_def} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
             end
-            raise ArgumentError, 'dispatch error'
+            raise ArgumentError, "Invalid argument _begin=#{_begin} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument _BEGIN=#{_BEGIN} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument _and=#{_and} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument _alias=#{_alias} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
     end
   end
 end

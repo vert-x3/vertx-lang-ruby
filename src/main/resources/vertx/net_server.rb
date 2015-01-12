@@ -25,7 +25,7 @@ module Vertx
       if handler.class == Proc
         return Vertx::NetServer.new(@j_del.connectHandler((Proc.new { |event| handler.call(Vertx::NetSocket.new(event)) })))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling connect_handler(handler)"
     end
     def listen(&listenHandler)
       if listenHandler.class == Proc

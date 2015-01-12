@@ -12,43 +12,43 @@ module Vertx
       if resultHandler.class == Proc
         return @j_del.get((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get(resultHandler)"
     end
     def increment_and_get(&resultHandler)
       if resultHandler.class == Proc
         return @j_del.incrementAndGet((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling increment_and_get(resultHandler)"
     end
     def get_and_increment(&resultHandler)
       if resultHandler.class == Proc
         return @j_del.getAndIncrement((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get_and_increment(resultHandler)"
     end
     def decrement_and_get(&resultHandler)
       if resultHandler.class == Proc
         return @j_del.decrementAndGet((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling decrement_and_get(resultHandler)"
     end
     def add_and_get(value,&resultHandler)
       if value.class == Fixnum
         if resultHandler.class == Proc
           return @j_del.addAndGet(value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling add_and_get(value,resultHandler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument value=#{value} when calling add_and_get(value,resultHandler)"
     end
     def get_and_add(value,&resultHandler)
       if value.class == Fixnum
         if resultHandler.class == Proc
           return @j_del.getAndAdd(value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get_and_add(value,resultHandler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument value=#{value} when calling get_and_add(value,resultHandler)"
     end
     def compare_and_set(expected,value,&resultHandler)
       if expected.class == Fixnum
@@ -56,11 +56,11 @@ module Vertx
           if resultHandler.class == Proc
             return @j_del.compareAndSet(expected,value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           end
-          raise ArgumentError, 'dispatch error'
+          raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling compare_and_set(expected,value,resultHandler)"
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument value=#{value} when calling compare_and_set(expected,value,resultHandler)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument expected=#{expected} when calling compare_and_set(expected,value,resultHandler)"
     end
   end
 end

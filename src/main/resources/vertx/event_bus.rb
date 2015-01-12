@@ -23,7 +23,7 @@ module Vertx
       if completionHandler.class == Proc
         return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument completionHandler=#{completionHandler} when calling close(completionHandler)"
     end
     def send(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
@@ -43,9 +43,9 @@ module Vertx
           @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
           return self
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument param_2=#{param_2} when calling send(param_1,param_2,param_3,param_4)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling send(param_1,param_2,param_3,param_4)"
     end
     def publish(address,message,options=nil)
       if address.class == String
@@ -57,9 +57,9 @@ module Vertx
           @j_del.publish(address,Vertx::Util::Utils.to_object(message))
           return self
         end
-        raise ArgumentError, 'dispatch error'
+        raise ArgumentError, "Invalid argument message=#{message} when calling publish(address,message,options)"
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument address=#{address} when calling publish(address,message,options)"
     end
     def consumer(address,&handler)
       if address.class == String
@@ -68,7 +68,7 @@ module Vertx
         end
         return Vertx::MessageConsumer.new(@j_del.consumer(address))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument address=#{address} when calling consumer(address,handler)"
     end
     def local_consumer(address,&handler)
       if address.class == String
@@ -77,7 +77,7 @@ module Vertx
         end
         return Vertx::MessageConsumer.new(@j_del.localConsumer(address))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument address=#{address} when calling local_consumer(address,handler)"
     end
     def sender(address,options=nil)
       if address.class == String
@@ -86,7 +86,7 @@ module Vertx
         end
         return Vertx::MessageProducer.new(@j_del.sender(address))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument address=#{address} when calling sender(address,options)"
     end
     def publisher(address,options=nil)
       if address.class == String
@@ -95,7 +95,7 @@ module Vertx
         end
         return Vertx::MessageProducer.new(@j_del.publisher(address))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument address=#{address} when calling publisher(address,options)"
     end
   end
 end

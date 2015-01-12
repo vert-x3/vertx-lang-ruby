@@ -21,7 +21,7 @@ module Vertx
       if failureMessage.class == String
         return Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failureMessage))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument failureMessage=#{failureMessage} when calling failed_future(failureMessage)"
     end
     def is_complete()
       @j_del.isComplete
@@ -30,7 +30,7 @@ module Vertx
       if handler.class == Proc
         return @j_del.setHandler((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling set_handler(handler)"
     end
     def complete(result=nil)
       if result.class == String  ||result.class == Hash || result.class == Array
@@ -42,7 +42,7 @@ module Vertx
       if failureMessage.class == String
         return @j_del.fail(failureMessage)
       end
-      raise ArgumentError, 'dispatch error'
+      raise ArgumentError, "Invalid argument failureMessage=#{failureMessage} when calling fail(failureMessage)"
     end
   end
 end
