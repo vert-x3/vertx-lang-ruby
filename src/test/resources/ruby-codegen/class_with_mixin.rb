@@ -1,3 +1,4 @@
+require 'ruby-codegen/mixin'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.ClassWithMixin
 module RubyCodegen

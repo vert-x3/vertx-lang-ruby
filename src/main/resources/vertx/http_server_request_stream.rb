@@ -1,3 +1,5 @@
+require 'vertx/http_server_request'
+require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerRequestStream
 module Vertx

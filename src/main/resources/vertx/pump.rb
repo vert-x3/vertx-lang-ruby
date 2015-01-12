@@ -1,3 +1,5 @@
+require 'vertx/write_stream'
+require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.Pump
 module Vertx

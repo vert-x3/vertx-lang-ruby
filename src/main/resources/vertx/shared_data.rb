@@ -1,3 +1,7 @@
+require 'vertx/async_map'
+require 'vertx/lock'
+require 'vertx/local_map'
+require 'vertx/counter'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.SharedData
 module Vertx

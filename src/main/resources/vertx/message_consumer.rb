@@ -1,3 +1,5 @@
+require 'vertx/read_stream'
+require 'vertx/message'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageConsumer<T>
 module Vertx

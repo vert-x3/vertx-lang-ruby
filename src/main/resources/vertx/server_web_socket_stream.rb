@@ -1,3 +1,5 @@
+require 'vertx/server_web_socket'
+require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.ServerWebSocketStream
 module Vertx

@@ -1,3 +1,8 @@
+require 'vertx/web_socket_base'
+require 'vertx/buffer'
+require 'vertx/multi_map'
+require 'vertx/web_socket_frame'
+require 'vertx/socket_address'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.ServerWebSocket
 module Vertx

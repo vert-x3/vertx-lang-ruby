@@ -1,3 +1,5 @@
+require 'vertx/mx_record'
+require 'vertx/srv_record'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.dns.DnsClient
 module Vertx

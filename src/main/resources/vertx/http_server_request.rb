@@ -1,3 +1,11 @@
+require 'vertx/server_web_socket'
+require 'vertx/http_server_file_upload'
+require 'vertx/buffer'
+require 'vertx/http_server_response'
+require 'vertx/read_stream'
+require 'vertx/multi_map'
+require 'vertx/socket_address'
+require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerRequest
 module Vertx

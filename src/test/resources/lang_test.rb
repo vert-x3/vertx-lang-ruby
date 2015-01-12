@@ -9,6 +9,7 @@ require 'ruby-codegen/class_with_mixin'
 java_import 'io.vertx.test.support.LinearOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.MultiOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.ClassWithMixinImpl'
+java_import 'io.vertx.test.support.ReferencingTypeImpl'
 
 def test_linear_overload
   def create
@@ -72,5 +73,17 @@ def test_mixin_inheritance
   Assert.equals(obj.is_a?(RubyCodegen::ClassWithMixin), true)
   Assert.equals(obj.is_a?(RubyCodegen::Mixin), true)
   Assert.equals(obj.is_a?(RubyCodegen::SuperMixin), true)
+end
 
+def test_include
+  begin
+    RubyCodegen::ReferencedType
+    raise "We should not reference RubyCodegen::ReferencedType"
+  rescue NameError
+    # ignore
+  end
+  require 'ruby-codegen/referencing_type'
+  obj = RubyCodegen::ReferencingType.new(ReferencingTypeImpl.new)
+  referenced = obj.get_referenced
+  Assert.equals referenced.some_method, 'someMethodValue'
 end

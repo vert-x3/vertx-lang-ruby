@@ -1,3 +1,8 @@
+require 'vertx/http_server_request'
+require 'vertx/server_web_socket'
+require 'vertx/measured'
+require 'vertx/http_server_request_stream'
+require 'vertx/server_web_socket_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServer
 module Vertx

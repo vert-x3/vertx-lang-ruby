@@ -1,3 +1,5 @@
+require 'vertx/buffer'
+require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerFileUpload
 module Vertx

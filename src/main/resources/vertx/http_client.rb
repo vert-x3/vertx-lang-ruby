@@ -1,3 +1,9 @@
+require 'vertx/http_client_request'
+require 'vertx/http_client_response'
+require 'vertx/measured'
+require 'vertx/web_socket_stream'
+require 'vertx/multi_map'
+require 'vertx/web_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClient
 module Vertx

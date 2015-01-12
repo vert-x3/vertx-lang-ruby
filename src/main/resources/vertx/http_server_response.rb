@@ -1,3 +1,6 @@
+require 'vertx/buffer'
+require 'vertx/write_stream'
+require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerResponse
 module Vertx

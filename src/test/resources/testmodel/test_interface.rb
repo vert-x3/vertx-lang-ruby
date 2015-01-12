@@ -1,3 +1,8 @@
+require 'testmodel/generic_refed_interface'
+require 'testmodel/refed_interface1'
+require 'testmodel/super_interface1'
+require 'testmodel/refed_interface2'
+require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel

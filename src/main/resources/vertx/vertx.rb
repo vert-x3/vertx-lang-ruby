@@ -1,3 +1,16 @@
+require 'vertx/datagram_socket'
+require 'vertx/http_server'
+require 'vertx/context'
+require 'vertx/future'
+require 'vertx/shared_data'
+require 'vertx/dns_client'
+require 'vertx/timeout_stream'
+require 'vertx/event_bus'
+require 'vertx/measured'
+require 'vertx/net_server'
+require 'vertx/file_system'
+require 'vertx/net_client'
+require 'vertx/http_client'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Vertx
 module Vertx

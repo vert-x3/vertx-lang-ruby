@@ -19,6 +19,9 @@
   def genRubyClassFqn(type) {
     return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
   }
+  def genRubyClassInclude(type) {
+    return type.module.getName(CASE_KEBAB) + "/" + type.getSimpleName(CASE_SNAKE);
+  }
   def genJavaClassFqn(type) {
     return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
   }
@@ -290,6 +293,10 @@
 @end{}
 @end{}
 
+@comment{"Generate the require"}
+@foreach{referencedType : referencedTypes}
+require '@{genRubyClassInclude(referencedType.raw)}'\n
+@end{}
 require 'vertx/util/utils.rb'\n
 
 @declare{'initializer'}

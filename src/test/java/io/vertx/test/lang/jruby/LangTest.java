@@ -22,6 +22,11 @@ public class LangTest extends RubyTestBase {
     runTest("test_mixin_inheritance");
   }
 
+  @Test
+  public void testInclude() {
+    runTest("test_include");
+  }
+
   private void runTest(String testName) {
     runTest("lang_test", testName);
   }

@@ -1,3 +1,9 @@
+require 'vertx/packet_writestream'
+require 'vertx/buffer'
+require 'vertx/measured'
+require 'vertx/datagram_packet'
+require 'vertx/read_stream'
+require 'vertx/socket_address'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.DatagramSocket
 module Vertx

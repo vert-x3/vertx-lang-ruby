@@ -1,3 +1,7 @@
+require 'vertx/async_file'
+require 'vertx/buffer'
+require 'vertx/file_system_props'
+require 'vertx/file_props'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.FileSystem
 module Vertx

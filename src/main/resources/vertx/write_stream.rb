@@ -1,3 +1,4 @@
+require 'vertx/stream_base'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.WriteStream<T>
 module Vertx

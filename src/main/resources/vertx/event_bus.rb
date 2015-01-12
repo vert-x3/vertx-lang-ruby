@@ -1,3 +1,7 @@
+require 'vertx/measured'
+require 'vertx/message'
+require 'vertx/message_consumer'
+require 'vertx/message_producer'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.EventBus
 module Vertx
