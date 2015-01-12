@@ -1,21 +1,4 @@
 @code{
-  /* todo : have this in codegen and not here */
-  def dashedSeparatedNameToCamelCase(name) {
-    var index = name.indexOf("-");
-    var head;
-    var tail;
-    if (index == -1) {
-      head = name;
-      tail = "";
-    } else {
-      head = name.substring(0, index);
-      tail = dashedSeparatedNameToCamelCase(name.substring(index + 1));
-    }
-    return Character.toUpperCase(head.charAt(0)) + head.substring(1) + tail;
-  }
-}
-
-@code{
   def genRubyClassFqn(type) {
     return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
   }
@@ -312,7 +295,7 @@ require 'vertx/util/utils.rb'\n
 @end{}
 
 # Generated from @{type.name}\n
-module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
+module @{type.raw.module.getName(CASE_CAMEL)}\n
 
 @if{concrete}
   class @{type.raw.simpleName}@if{concreteSuperTypes.size() == 1} < @{genRubyClassFqn(concreteSuperTypes[0].raw)}@end{}\n
