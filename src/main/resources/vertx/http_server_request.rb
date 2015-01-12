@@ -18,14 +18,14 @@ module Vertx
       @j_del
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
@@ -40,7 +40,7 @@ module Vertx
       self
     end
     def end_handler(&endHandler)
-      if endHandler != nil && endHandler.class == Proc
+      if endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end
@@ -95,7 +95,7 @@ module Vertx
       @j_del.absoluteURI
     end
     def body_handler(&bodyHandler)
-      if bodyHandler != nil && bodyHandler.class == Proc
+      if bodyHandler.class == Proc
         @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
       end
@@ -108,7 +108,7 @@ module Vertx
       @cached_net_socket = Vertx::NetSocket.new(@j_del.netSocket)
     end
     def set_expect_multipart(expect)
-      if expect != nil && (expect.class == TrueClass || expect.class == FalseClass)
+      if expect.class == TrueClass || expect.class == FalseClass
         @j_del.setExpectMultipart(expect)
         return self
       end
@@ -118,7 +118,7 @@ module Vertx
       @j_del.isExpectMultipart
     end
     def upload_handler(&uploadHandler)
-      if uploadHandler != nil && uploadHandler.class == Proc
+      if uploadHandler.class == Proc
         @j_del.uploadHandler((Proc.new { |event| uploadHandler.call(Vertx::HttpServerFileUpload.new(event)) }))
         return self
       end

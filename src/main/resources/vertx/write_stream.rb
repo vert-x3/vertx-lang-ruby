@@ -5,21 +5,21 @@ module Vertx
   module WriteStream
     include Vertx::StreamBase
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(data)
-      if data != nil && (data.class == String  ||data.class == Hash || data.class == Array)
+      if data.class == String  ||data.class == Hash || data.class == Array
         @j_del.write(Vertx::Util::Utils.to_object(data))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
@@ -29,7 +29,7 @@ module Vertx
       @j_del.writeQueueFull
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end

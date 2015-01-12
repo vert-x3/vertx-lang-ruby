@@ -11,14 +11,14 @@ module Vertx
       @j_del
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(event) }))
         return self
       end
@@ -33,7 +33,7 @@ module Vertx
       self
     end
     def end_handler(&endHandler)
-      if endHandler != nil && endHandler.class == Proc
+      if endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end

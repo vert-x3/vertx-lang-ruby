@@ -15,28 +15,28 @@ module Vertx
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(data)
-      if data != nil && data.class.method_defined?(:j_del)
+      if data.class.method_defined?(:j_del)
         @j_del.write(data.j_del)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end

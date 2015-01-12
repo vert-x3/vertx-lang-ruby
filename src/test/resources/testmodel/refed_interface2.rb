@@ -6,7 +6,7 @@ module Testmodel
       @j_del.getString
     end
     def set_string(str)
-      if str != nil && str.class == String
+      if str.class == String
         @j_del.setString(str)
         return self
       end

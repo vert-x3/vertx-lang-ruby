@@ -9,8 +9,8 @@ module RubyCodegen
       @j_del
     end
     def do_something(s=nil,&callback)
-      if s != nil && s.class == String
-        if callback != nil && callback.class == Proc
+      if s.class == String
+        if callback.class == Proc
           return @j_del.doSomething(s,(Proc.new { |event| callback.call(event) }))
         end
         return @j_del.doSomething(s)

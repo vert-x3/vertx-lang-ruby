@@ -25,14 +25,14 @@ module Vertx
       @j_del.replyAddress
     end
     def reply(param_1,param_2=nil,&param_3)
-      if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
+      if param_1.class == String  ||param_1.class == Hash || param_1.class == Array
         if param_2 == nil || param_2.class == Hash
-          if param_3 != nil && param_3.class == Proc
+          if param_3.class == Proc
             return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
           end
           return @j_del.reply(Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
         end
-        if param_2 != nil && param_2.class == Proc
+        if param_2.class == Proc
           return @j_del.reply(Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
         end
         return @j_del.reply(Vertx::Util::Utils.to_object(param_1))
@@ -40,8 +40,8 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def fail(failureCode,message)
-      if failureCode != nil && failureCode.class == Fixnum
-        if message != nil && message.class == String
+      if failureCode.class == Fixnum
+        if message.class == String
           return @j_del.fail(failureCode,message)
         end
         raise ArgumentError, 'dispatch error'

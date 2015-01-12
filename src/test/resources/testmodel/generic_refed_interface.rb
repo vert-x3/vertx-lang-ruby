@@ -9,7 +9,7 @@ module Testmodel
       @j_del
     end
     def set_value(value)
-      if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
+      if value.class == String  ||value.class == Hash || value.class == Array
         return @j_del.setValue(Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, 'dispatch error'

@@ -16,19 +16,19 @@ module Vertx
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(param_1,param_2=nil)
-      if param_1 != nil && param_1.class.method_defined?(:j_del)
+      if param_1.class.method_defined?(:j_del)
         @j_del.write(param_1.j_del)
         return self
       end
-      if param_1 != nil && param_1.class == String
-        if param_2 != nil && param_2.class == String
+      if param_1.class == String
+        if param_2.class == String
           @j_del.write(param_1,param_2)
           return self
         end
@@ -38,14 +38,14 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
@@ -55,7 +55,7 @@ module Vertx
       @j_del.getStatusCode
     end
     def set_status_code(statusCode)
-      if statusCode != nil && statusCode.class == Fixnum
+      if statusCode.class == Fixnum
         @j_del.setStatusCode(statusCode)
         return self
       end
@@ -65,14 +65,14 @@ module Vertx
       @j_del.getStatusMessage
     end
     def set_status_message(statusMessage)
-      if statusMessage != nil && statusMessage.class == String
+      if statusMessage.class == String
         @j_del.setStatusMessage(statusMessage)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def set_chunked(chunked)
-      if chunked != nil && (chunked.class == TrueClass || chunked.class == FalseClass)
+      if chunked.class == TrueClass || chunked.class == FalseClass
         @j_del.setChunked(chunked)
         return self
       end
@@ -88,8 +88,8 @@ module Vertx
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
-      if name != nil && name.class == String
-        if value != nil && value.class == String
+      if name.class == String
+        if value.class == String
           @j_del.putHeader(name,value)
           return self
         end
@@ -104,8 +104,8 @@ module Vertx
       @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
     end
     def put_trailer(name,value)
-      if name != nil && name.class == String
-        if value != nil && value.class == String
+      if name.class == String
+        if value.class == String
           @j_del.putTrailer(name,value)
           return self
         end
@@ -114,18 +114,18 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def close_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def end(param_1=nil,param_2=nil)
-      if param_1 != nil && param_1.class.method_defined?(:j_del)
+      if param_1.class.method_defined?(:j_del)
         return @j_del.end(param_1.j_del)
       end
-      if param_1 != nil && param_1.class == String
-        if param_2 != nil && param_2.class == String
+      if param_1.class == String
+        if param_2.class == String
           return @j_del.end(param_1,param_2)
         end
         return @j_del.end(param_1)
@@ -133,8 +133,8 @@ module Vertx
       @j_del.end
     end
     def send_file(filename,&resultHandler)
-      if filename != nil && filename.class == String
-        if resultHandler != nil && resultHandler.class == Proc
+      if filename.class == String
+        if resultHandler.class == Proc
           @j_del.sendFile(filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
           return self
         end
@@ -153,14 +153,14 @@ module Vertx
       @j_del.headWritten
     end
     def headers_end_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.headersEndHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def body_end_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.bodyEndHandler(handler)
         return self
       end

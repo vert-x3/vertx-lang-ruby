@@ -19,19 +19,19 @@ module Vertx
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(param_1,param_2=nil)
-      if param_1 != nil && param_1.class.method_defined?(:j_del)
+      if param_1.class.method_defined?(:j_del)
         @j_del.write(param_1.j_del)
         return self
       end
-      if param_1 != nil && param_1.class == String
-        if param_2 != nil && param_2.class == String
+      if param_1.class == String
+        if param_2.class == String
           @j_del.write(param_1,param_2)
           return self
         end
@@ -41,21 +41,21 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::HttpClientResponse.new(event)) }))
         return self
       end
@@ -70,14 +70,14 @@ module Vertx
       self
     end
     def end_handler(&endHandler)
-      if endHandler != nil && endHandler.class == Proc
+      if endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def set_chunked(chunked)
-      if chunked != nil && (chunked.class == TrueClass || chunked.class == FalseClass)
+      if chunked.class == TrueClass || chunked.class == FalseClass
         @j_del.setChunked(chunked)
         return self
       end
@@ -99,8 +99,8 @@ module Vertx
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
-      if name != nil && name.class == String
-        if value != nil && value.class == String
+      if name.class == String
+        if value.class == String
           @j_del.putHeader(name,value)
           return self
         end
@@ -109,7 +109,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def continue_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.continueHandler(handler)
         return self
       end
@@ -120,11 +120,11 @@ module Vertx
       self
     end
     def end(param_1=nil,param_2=nil)
-      if param_1 != nil && param_1.class.method_defined?(:j_del)
+      if param_1.class.method_defined?(:j_del)
         return @j_del.end(param_1.j_del)
       end
-      if param_1 != nil && param_1.class == String
-        if param_2 != nil && param_2.class == String
+      if param_1.class == String
+        if param_2.class == String
           return @j_del.end(param_1,param_2)
         end
         return @j_del.end(param_1)
@@ -132,7 +132,7 @@ module Vertx
       @j_del.end
     end
     def set_timeout(timeoutMs)
-      if timeoutMs != nil && timeoutMs.class == Fixnum
+      if timeoutMs.class == Fixnum
         @j_del.setTimeout(timeoutMs)
         return self
       end

@@ -9,14 +9,14 @@ module Vertx
       @j_del
     end
     def get(key)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
         return Vertx::Util::Utils.from_object(@j_del.get(Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, 'dispatch error'
     end
     def put(key,value)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
+        if value.class == String  ||value.class == Hash || value.class == Array
           return Vertx::Util::Utils.from_object(@j_del.put(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, 'dispatch error'
@@ -24,7 +24,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def remove(key)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
         return Vertx::Util::Utils.from_object(@j_del.remove(Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, 'dispatch error'
@@ -39,8 +39,8 @@ module Vertx
       @j_del.isEmpty
     end
     def put_if_absent(key,value)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
+        if value.class == String  ||value.class == Hash || value.class == Array
           return Vertx::Util::Utils.from_object(@j_del.putIfAbsent(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, 'dispatch error'
@@ -48,8 +48,8 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def remove_if_present(key,value)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
+        if value.class == String  ||value.class == Hash || value.class == Array
           return @j_del.removeIfPresent(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(value))
         end
         raise ArgumentError, 'dispatch error'
@@ -57,9 +57,9 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def replace_if_present(key,oldValue,newValue)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if oldValue != nil && (oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array)
-          if newValue != nil && (newValue.class == String  ||newValue.class == Hash || newValue.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
+        if oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array
+          if newValue.class == String  ||newValue.class == Hash || newValue.class == Array
             return @j_del.replaceIfPresent(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(oldValue),Vertx::Util::Utils.to_object(newValue))
           end
           raise ArgumentError, 'dispatch error'
@@ -69,8 +69,8 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def replace(key,value)
-      if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if value != nil && (value.class == String  ||value.class == Hash || value.class == Array)
+      if key.class == String  ||key.class == Hash || key.class == Array
+        if value.class == String  ||value.class == Hash || value.class == Array
           return Vertx::Util::Utils.from_object(@j_del.replace(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, 'dispatch error'

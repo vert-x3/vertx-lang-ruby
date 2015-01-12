@@ -9,10 +9,10 @@ module RubyCodegen
       @j_del
     end
     def method(foo=nil,bar=nil,juu=nil,daa=nil)
-      if foo != nil && foo.class == String
-        if bar != nil && bar.class == String
-          if juu != nil && juu.class == String
-            if daa != nil && daa.class == String
+      if foo.class == String
+        if bar.class == String
+          if juu.class == String
+            if daa.class == String
               return @j_del.method(foo,bar,juu,daa)
             end
             return @j_del.method(foo,bar,juu)

@@ -17,7 +17,7 @@ module Vertx
       @j_del.writeQueueFull
     end
     def handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
@@ -32,16 +32,16 @@ module Vertx
       self
     end
     def end_handler(&endHandler)
-      if endHandler != nil && endHandler.class == Proc
+      if endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(buffer,position=nil,&handler)
-      if buffer != nil && buffer.class.method_defined?(:j_del)
-        if position != nil && position.class == Fixnum
-          if handler != nil && handler.class == Proc
+      if buffer.class.method_defined?(:j_del)
+        if position.class == Fixnum
+          if handler.class == Proc
             @j_del.write(buffer.j_del,position,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
@@ -53,38 +53,38 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def close(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
       @j_del.close
     end
     def read(buffer,offset,position,length,&handler)
-      if buffer != nil && buffer.class.method_defined?(:j_del)
-        if offset != nil && offset.class == Fixnum
-          if position != nil && position.class == Fixnum
-            if length != nil && length.class == Fixnum
-              if handler != nil && handler.class == Proc
+      if buffer.class.method_defined?(:j_del)
+        if offset.class == Fixnum
+          if position.class == Fixnum
+            if length.class == Fixnum
+              if handler.class == Proc
                 @j_del.read(buffer.j_del,offset,position,length,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
                 return self
               end
@@ -99,7 +99,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def flush(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.flush((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
         return self
       end
@@ -107,14 +107,14 @@ module Vertx
       self
     end
     def set_read_pos(readPos)
-      if readPos != nil && readPos.class == Fixnum
+      if readPos.class == Fixnum
         @j_del.setReadPos(readPos)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def set_write_pos(readPos)
-      if readPos != nil && readPos.class == Fixnum
+      if readPos.class == Fixnum
         @j_del.setWritePos(readPos)
         return self
       end

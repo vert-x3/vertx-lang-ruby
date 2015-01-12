@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 module Vertx
   module StreamBase
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end

@@ -76,7 +76,7 @@
   def genTypeCheckPredicate(expr, type) {
     var kind = type.kind;
     if (kind == CLASS_STRING || kind == CLASS_ENUM) {
-      return expr + " != nil && " + expr + ".class == String";
+      return expr + ".class == String";
     } else if (kind.basic) {
       var typeName = type.name;
       if (typeName == "byte" || typeName == "java.lang.Byte" ||
@@ -84,31 +84,31 @@
           typeName == "int" || typeName == "java.lang.Integer" ||
           typeName == "char" || typeName == "java.lang.Character" ||
           typeName == "long" || typeName == "java.lang.Long") {
-        return expr + " != nil && " + expr + ".class == Fixnum";
+        return expr + ".class == Fixnum";
       }
       if (typeName == "float" || typeName == "java.lang.Float" ||
           typeName == "double" || typeName == "java.lang.Double") {
-        return expr + " != nil && " + expr + ".class == Float";
+        return expr + ".class == Float";
       }
       if (typeName == "boolean" || typeName == "java.lang.Boolean") {
-        return expr + " != nil && (" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
+        return expr + ".class == TrueClass || " + expr + ".class == FalseClass";
       }
     } else if (kind == CLASS_OBJECT) {
-      return expr + " != nil && (" + expr + ".class == String  ||" + expr + ".class == Hash || " + expr + ".class == Array)"
+      return expr + ".class == String  ||" + expr + ".class == Hash || " + expr + ".class == Array"
     } else if (kind == CLASS_API) {
-      return expr + " != nil && " + expr + ".class.method_defined?(:j_del)";
+      return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER) {
-      return expr + " != nil && " + expr + ".class == Proc";
+      return expr + ".class == Proc";
     } else if (kind == CLASS_OPTIONS || kind == CLASS_JSON_OBJECT) {
       return expr + " == nil || " + expr + ".class == Hash";
     } else if (kind == CLASS_JSON_ARRAY) {
       return expr + " == nil || " + expr + ".class == Array";
     } else if (kind == CLASS_LIST) {
-      return expr + " != nil && " + expr + ".class == Array";
+      return expr + ".class == Array";
     } else if (kind == CLASS_SET) {
-      return expr + " != nil && " + expr + ".class == Set";
+      return expr + ".class == Set";
     } else if (kind == CLASS_MAP) {
-      return expr + " != nil && " + expr + ".class == Hash";
+      return expr + ".class == Hash";
     }
     return "false";
   }
@@ -278,15 +278,15 @@
    * gives {int:{},String:{String)} that generates the Ruby code
    *
    * def self.buffer(param_1=nil,param_2=nil)
-   *     if param_1 != nil && param_1.class == String
-   *         if param_2 != nil && param_2.class == String
-   *           return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
-   *         end
-   *       return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+   *   if param_1.class == String
+   *     if param_2.class == String
+   *       return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
    *     end
-   *     if param_1 != nil && param_1.class == Fixnum
-   *       return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
-   *     end
+   *     return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+   *   end
+   *   if param_1.class == Fixnum
+   *     return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+   *   end
    *   return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
    * end
    *

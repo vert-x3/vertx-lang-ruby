@@ -9,11 +9,11 @@ module RubyCodegen
       @j_del
     end
     def method(param_1=nil,param_2=nil)
-      if param_1 != nil && param_1.class == String
+      if param_1.class == String
         return @j_del.method(param_1)
       end
-      if param_1 != nil && param_1.class == Fixnum
-        if param_2 != nil && (param_2.class == TrueClass || param_2.class == FalseClass)
+      if param_1.class == Fixnum
+        if param_2.class == TrueClass || param_2.class == FalseClass
           return @j_del.method(param_1,param_2)
         end
         raise ArgumentError, 'dispatch error'

@@ -18,14 +18,14 @@ module Vertx
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
       end
@@ -40,19 +40,19 @@ module Vertx
       self
     end
     def end_handler(&endHandler)
-      if endHandler != nil && endHandler.class == Proc
+      if endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def write(param_1,param_2=nil)
-      if param_1 != nil && param_1.class.method_defined?(:j_del)
+      if param_1.class.method_defined?(:j_del)
         @j_del.write(param_1.j_del)
         return self
       end
-      if param_1 != nil && param_1.class == String
-        if param_2 != nil && param_2.class == String
+      if param_1.class == String
+        if param_2.class == String
           @j_del.write(param_1,param_2)
           return self
         end
@@ -62,14 +62,14 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def set_write_queue_max_size(maxSize)
-      if maxSize != nil && maxSize.class == Fixnum
+      if maxSize.class == Fixnum
         @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def drain_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
@@ -79,8 +79,8 @@ module Vertx
       @j_del.writeHandlerID
     end
     def send_file(filename,&resultHandler)
-      if filename != nil && filename.class == String
-        if resultHandler != nil && resultHandler.class == Proc
+      if filename.class == String
+        if resultHandler.class == Proc
           @j_del.sendFile(filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
           return self
         end
@@ -105,14 +105,14 @@ module Vertx
       @j_del.close
     end
     def close_handler(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def upgrade_to_ssl(&handler)
-      if handler != nil && handler.class == Proc
+      if handler.class == Proc
         @j_del.upgradeToSsl(handler)
         return self
       end
