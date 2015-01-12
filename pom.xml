@@ -86,6 +86,13 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-core</artifactId>
+      <type>test-jar</type>
+      <version>${vertx.version}</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
@@ -211,6 +218,9 @@
                 <outputDirectory>${project.basedir}/src/test</outputDirectory>
               </optionMap>
               <sourceDirectory>${project.build.directory}/sources/codegen</sourceDirectory>
+              <excludes>
+                <exclude>io/vertx/test/lang/jruby/**</exclude>
+              </excludes>
               <additionalSourceDirectories>
                 <additionalSourceDirectory>${project.basedir}/src/test/java</additionalSourceDirectory>
               </additionalSourceDirectories>

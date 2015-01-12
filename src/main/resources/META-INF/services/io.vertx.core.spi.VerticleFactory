@@ -1,1 +1,1 @@
-io.vertx.lang.jruby.RubyVerticleFactory
+io.vertx.lang.jruby.JRubyVerticleFactory

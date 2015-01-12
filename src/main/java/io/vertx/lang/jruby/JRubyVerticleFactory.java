@@ -19,10 +19,13 @@ package io.vertx.lang.jruby;
 import io.vertx.core.Verticle;
 import io.vertx.core.spi.VerticleFactory;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class RubyVerticleFactory implements VerticleFactory {
+public class JRubyVerticleFactory implements VerticleFactory {
 
   @Override
   public String prefix() {
@@ -31,6 +34,6 @@ public class RubyVerticleFactory implements VerticleFactory {
 
   @Override
   public Verticle createVerticle(String verticleName, ClassLoader classLoader) throws Exception {
-    throw new UnsupportedOperationException("todo");
+    return new JRubyVerticle(classLoader, verticleName);
   }
 }
