@@ -973,3 +973,8 @@ def test_set_vertx_gen_return()
   ret.each { |elt| Assert.assert_class(elt, Testmodel::RefedInterface1) }
   Assert.assert_equals(ret.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
 end
+
+def test_throwable_return()
+  ret = $obj.method_with_throwable_return "bogies"
+  Assert.assert_equals("bogies", ret.message)
+end

@@ -466,6 +466,11 @@ public class ApiTest extends RubyTestBase {
     runTest("test_set_vertx_gen_return");
   }
 
+  @Test
+  public void testThrowableReturn() {
+    runTest("test_throwable_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }
