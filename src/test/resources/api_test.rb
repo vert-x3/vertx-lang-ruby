@@ -1,12 +1,12 @@
 require 'java'
-require "assert"
+require 'assert'
 require 'set'
-require "testmodel/super_interface1"
-require "testmodel/super_interface2"
-require "testmodel/test_interface"
-require "testmodel/refed_interface1"
-require "testmodel/refed_interface2"
-require "testmodel/generic_refed_interface"
+require 'testmodel/super_interface1'
+require 'testmodel/super_interface2'
+require 'testmodel/test_interface'
+require 'testmodel/refed_interface1'
+require 'testmodel/refed_interface2'
+require 'testmodel/generic_refed_interface'
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
 java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
@@ -54,32 +54,32 @@ end
 
 def test_method_with_handler_async_result_basic_types_fails()
   count = 0
-  $obj.method_with_handler_async_result_byte(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_short(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_integer(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_long(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_float(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_double(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_boolean(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_character(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
-  $obj.method_with_handler_async_result_string(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, "foobar!"); count += 1 })
+  $obj.method_with_handler_async_result_byte(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_short(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_integer(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_long(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_float(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_double(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_boolean(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_character(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
+  $obj.method_with_handler_async_result_string(true, Proc.new { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 })
   Assert.equals(count, 9)
 end
 
 def test_method_with_user_types()
-  $refed_obj.set_string("aardvarks")
+  $refed_obj.set_string('aardvarks')
   $obj.method_with_user_types($refed_obj)
 end
 
 def test_object_param()
-  json_obj = {:foo => "hello", :bar => 123}
-  $obj.method_with_object_param("JsonObject", json_obj)
-  json_arr = ["foo", "bar", "wib"]
-  $obj.method_with_object_param("JsonArray", json_arr)
+  json_obj = {:foo => 'hello', :bar => 123}
+  $obj.method_with_object_param('JsonObject', json_obj)
+  json_arr = ['foo', 'bar', 'wib']
+  $obj.method_with_object_param('JsonArray', json_arr)
 end
 
 def test_options_param()
-  options = {:foo => "hello", :bar => 123, :wibble => 1.23}
+  options = {:foo => 'hello', :bar => 123, :wibble => 1.23}
   $obj.method_with_options_param(options)
 end
 
@@ -89,28 +89,28 @@ end
 
 def test_method_with_handler_options()
   count = 0
-  $obj.method_with_handler_options(Proc.new { |event| Assert.equals(event, {"foo" => "foo", "bar" => 123, "wibble" => 0.0}); count += 1 })
+  $obj.method_with_handler_options(Proc.new { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 })
   Assert.equals(count, 1)
 end
 
 def test_method_with_handler_async_result_options()
   count = 0
-  $obj.method_with_handler_async_result_options(false, Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, {"foo" => "foo", "bar" => 123, "wibble" => 0.0}); count += 1 })
+  $obj.method_with_handler_async_result_options(false, Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 })
   Assert.equals(count, 1)
 end
 
 def test_method_with_handler_async_result_options_fails()
   count = 0
-  $obj.method_with_handler_async_result_options(true, Proc.new { |err,val| Assert.is_nil(val); Assert.is_not_nil(err); Assert.equals(err.message, "foobar!"); count += 1 })
+  $obj.method_with_handler_async_result_options(true, Proc.new { |err,val| Assert.is_nil(val); Assert.is_not_nil(err); Assert.equals(err.message, 'foobar!'); count += 1 })
   Assert.equals(count, 1)
 end
 
 def test_method_with_handler_list_and_set()
   count = 0
   $obj.method_with_handler_list_and_set(
-      Proc.new { |val| Assert.equals(val, ["foo","bar","wibble"]); count += 1 },
+      Proc.new { |val| Assert.equals(val, ['foo','bar','wibble']); count += 1 },
       Proc.new { |val| Assert.equals(val, [5,12,100]); count += 1 },
-      Proc.new { |val| Assert.equals(val, Set.new(["foo","bar","wibble"])); count += 1 },
+      Proc.new { |val| Assert.equals(val, Set.new(['foo','bar','wibble'])); count += 1 },
       Proc.new { |val| Assert.equals(val, Set.new([5,12,100])); count += 1 }
   )
   Assert.equals(4, count)
@@ -118,9 +118,9 @@ end
 
 def test_method_with_handler_async_result_list_and_set()
   count = 0
-  $obj.method_with_handler_async_result_list_string(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, ["foo","bar","wibble"]); count += 1 })
+  $obj.method_with_handler_async_result_list_string(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, ['foo','bar','wibble']); count += 1 })
   $obj.method_with_handler_async_result_list_integer(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, [5,12,100]); count += 1 })
-  $obj.method_with_handler_async_result_set_string(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, Set.new(["foo","bar","wibble"])); count += 1 })
+  $obj.method_with_handler_async_result_set_string(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, Set.new(['foo','bar','wibble'])); count += 1 })
   $obj.method_with_handler_async_result_set_integer(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, Set.new([5,12,100])); count += 1 })
   Assert.equals(4, count)
 end
@@ -131,9 +131,9 @@ def test_method_with_handler_list_vertx_gen()
      Assert.equals(val.class, Array)
      Assert.equals(val.size, 2)
      Assert.equals(val[0].class, Testmodel::RefedInterface1)
-     Assert.equals(val[0].get_string, "foo")
+     Assert.equals(val[0].get_string, 'foo')
      Assert.equals(val[1].class, Testmodel::RefedInterface1)
-     Assert.equals(val[1].get_string, "bar")
+     Assert.equals(val[1].get_string, 'bar')
      count += 1
   })
   Assert.equals(1, count)
@@ -145,9 +145,9 @@ def test_method_with_handler_list_abstract_vertx_gen()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].is_a?(Testmodel::RefedInterface2), true)
-    Assert.equals(val[0].get_string, "abstractfoo")
+    Assert.equals(val[0].get_string, 'abstractfoo')
     Assert.equals(val[1].is_a?(Testmodel::RefedInterface2), true)
-    Assert.equals(val[1].get_string, "abstractbar")
+    Assert.equals(val[1].get_string, 'abstractbar')
     count += 1
   })
   Assert.equals(1, count)
@@ -160,9 +160,9 @@ def test_method_with_handler_async_result_list_vertx_gen()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].class, Testmodel::RefedInterface1)
-    Assert.equals(val[0].get_string, "foo")
+    Assert.equals(val[0].get_string, 'foo')
     Assert.equals(val[1].class, Testmodel::RefedInterface1)
-    Assert.equals(val[1].get_string, "bar")
+    Assert.equals(val[1].get_string, 'bar')
     count += 1
   })
   Assert.equals(1, count)
@@ -175,9 +175,9 @@ def test_method_with_handler_async_result_list_abstract_vertx_gen()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].is_a?(Testmodel::RefedInterface2), true)
-    Assert.equals(val[0].get_string, "abstractfoo")
+    Assert.equals(val[0].get_string, 'abstractfoo')
     Assert.equals(val[1].is_a?(Testmodel::RefedInterface2), true)
-    Assert.equals(val[1].get_string, "abstractbar")
+    Assert.equals(val[1].get_string, 'abstractbar')
     count += 1
   })
   Assert.equals(1, count)
@@ -189,7 +189,7 @@ def test_method_with_handler_set_vertx_gen()
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 2)
     val.each { |elt| Assert.equals(elt.class, Testmodel::RefedInterface1) }
-    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(['foo','bar']))
     count += 1
   })
   Assert.equals(1, count)
@@ -201,7 +201,7 @@ def test_method_with_handler_set_abstract_vertx_gen()
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 2)
     val.each { |elt| Assert.equals(elt.is_a?(Testmodel::RefedInterface2), true) }
-    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(["abstractfoo","abstractbar"]))
+    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(['abstractfoo','abstractbar']))
     count += 1
   })
   Assert.equals(1, count)
@@ -214,7 +214,7 @@ def test_method_with_handler_async_result_set_vertx_gen()
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 2)
     val.each { |elt| Assert.equals(elt.class, Testmodel::RefedInterface1) }
-    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(['foo','bar']))
     count += 1
   })
   Assert.equals(1, count)
@@ -227,7 +227,7 @@ def test_method_with_handler_async_result_set_abstract_vertx_gen()
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 2)
     val.each { |elt| Assert.equals(elt.is_a?(Testmodel::RefedInterface2), true) }
-    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(["abstractfoo","abstractbar"]))
+    Assert.equals(val.map { |o| o.get_string }.to_set, Set.new(['abstractfoo','abstractbar']))
     count += 1
   })
   Assert.equals(1, count)
@@ -239,9 +239,9 @@ def test_method_with_handler_list_json_object()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].class, Hash)
-    Assert.equals(val[0], {"cheese" => "stilton"})
+    Assert.equals(val[0], {'cheese' => 'stilton'})
     Assert.equals(val[1].class, Hash)
-    Assert.equals(val[1], {"socks" => "tartan"})
+    Assert.equals(val[1], {'socks' => 'tartan'})
     count += 1
   })
   Assert.equals(1, count)
@@ -265,9 +265,9 @@ def test_method_with_async_result_handler_list_json_object()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].class, Hash)
-    Assert.equals(val[0], {"cheese" => "stilton"})
+    Assert.equals(val[0], {'cheese' => 'stilton'})
     Assert.equals(val[1].class, Hash)
-    Assert.equals(val[1], {"socks" => "tartan"})
+    Assert.equals(val[1], {'socks' => 'tartan'})
     count += 1
   })
   Assert.equals(1, count)
@@ -290,7 +290,7 @@ def test_method_with_handler_set_json_object()
   $obj.method_with_handler_set_json_object(Proc.new { |val|
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Hash), true) }
-    Assert.equals(val, Set.new([{"cheese" => "stilton"},{"socks" => "tartan"}]))
+    Assert.equals(val, Set.new([{'cheese' => 'stilton'},{'socks' => 'tartan'}]))
     count += 1
   })
   Assert.equals(1, count)
@@ -313,7 +313,7 @@ def test_method_with_async_result_handler_set_json_object()
     Assert.is_nil(err)
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Hash), true) }
-    Assert.equals(val, Set.new([{"cheese" => "stilton"},{"socks" => "tartan"}]))
+    Assert.equals(val, Set.new([{'cheese' => 'stilton'},{'socks' => 'tartan'}]))
     count += 1
   })
   Assert.equals(1, count)
@@ -337,9 +337,9 @@ def test_method_with_handler_list_json_array()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].class, Array)
-    Assert.equals(val[0], ["green","blue"])
+    Assert.equals(val[0], ['green','blue'])
     Assert.equals(val[1].class, Array)
-    Assert.equals(val[1], ["yellow","purple"])
+    Assert.equals(val[1], ['yellow','purple'])
     count += 1
   })
   Assert.equals(1, count)
@@ -363,9 +363,9 @@ def test_method_with_async_result_handler_list_json_array()
     Assert.equals(val.class, Array)
     Assert.equals(val.size, 2)
     Assert.equals(val[0].class, Array)
-    Assert.equals(val[0], ["green","blue"])
+    Assert.equals(val[0], ['green','blue'])
     Assert.equals(val[1].class, Array)
-    Assert.equals(val[1], ["yellow","purple"])
+    Assert.equals(val[1], ['yellow','purple'])
     count += 1
   })
   Assert.equals(1, count)
@@ -388,7 +388,7 @@ def test_method_with_handler_set_json_array()
   $obj.method_with_handler_set_json_array(Proc.new { |val|
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Array), true) }
-    Assert.equals(val, Set.new([["green","blue"],["yellow","purple"]]))
+    Assert.equals(val, Set.new([['green','blue'],['yellow','purple']]))
     count += 1
   })
   Assert.equals(1, count)
@@ -411,7 +411,7 @@ def test_method_with_async_result_handler_set_json_array()
     Assert.is_nil(err)
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Array), true) }
-    Assert.equals(val, Set.new([["green","blue"],["yellow","purple"]]))
+    Assert.equals(val, Set.new([['green','blue'],['yellow','purple']]))
     count += 1
   })
   Assert.equals(1, count)
@@ -433,7 +433,7 @@ def test_method_with_handler_user_types()
   count = 0
   $obj.method_with_handler_user_types(Proc.new { |val|
     Assert.equals(val.class, Testmodel::RefedInterface1)
-    Assert.equals(val.get_string, "echidnas")
+    Assert.equals(val.get_string, 'echidnas')
     count += 1
   })
   Assert.equals(1, count)
@@ -444,7 +444,7 @@ def test_method_with_handler_async_result_user_types()
   $obj.method_with_handler_async_result_user_types(Proc.new { |err,val|
     Assert.is_nil(err)
     Assert.equals(val.class, Testmodel::RefedInterface1)
-    Assert.equals(val.get_string, "cheetahs")
+    Assert.equals(val.get_string, 'cheetahs')
     count += 1
   })
   Assert.equals(1, count)
@@ -472,7 +472,7 @@ def test_method_with_handler_async_result_void_fails()
   count = 0
   $obj.method_with_handler_async_result_void(true, Proc.new { |err|
     Assert.is_not_nil err
-    Assert.equals(err.message, "foo!")
+    Assert.equals(err.message, 'foo!')
     count += 1
   })
   Assert.equals(1, count)
@@ -482,7 +482,7 @@ def test_method_with_handler_throwable()
   count = 0
   $obj.method_with_handler_throwable(Proc.new { |err|
     Assert.is_not_nil err
-    Assert.equals(err.message, "cheese!")
+    Assert.equals(err.message, 'cheese!')
     count += 1
   })
   Assert.equals(1, count)
@@ -499,9 +499,9 @@ def test_method_with_handler_generic_user_type()
     })
     Assert.equals(1, count)
   end
-  run_test("string_value") { |value| Assert.equals(value, "string_value") }
-  run_test({"key" => "key_value"}) { |value| Assert.equals(value, {"key" => "key_value"}) }
-  run_test(["foo","bar","juu"]) { |value| Assert.equals(value, ["foo","bar","juu"]) }
+  run_test('string_value') { |value| Assert.equals(value, 'string_value') }
+  run_test({'key' => 'key_value'}) { |value| Assert.equals(value, {'key' => 'key_value'}) }
+  run_test(['foo','bar','juu']) { |value| Assert.equals(value, ['foo','bar','juu']) }
 end
 
 def test_method_with_handler_async_result_generic_user_type()
@@ -516,44 +516,44 @@ def test_method_with_handler_async_result_generic_user_type()
     })
     Assert.equals(1, count)
   end
-  run_test("string_value") { |value| Assert.equals(value, "string_value") }
-  run_test({"key" => "key_value"}) { |value| Assert.equals(value, {"key" => "key_value"}) }
-  run_test(["foo","bar","juu"]) { |value| Assert.equals(value, ["foo","bar","juu"]) }
+  run_test('string_value') { |value| Assert.equals(value, 'string_value') }
+  run_test({'key' => 'key_value'}) { |value| Assert.equals(value, {'key' => 'key_value'}) }
+  run_test(['foo','bar','juu']) { |value| Assert.equals(value, ['foo','bar','juu']) }
 end
 
 def test_method_with_generic_param()
-  $obj.method_with_generic_param "String", "foo"
-  $obj.method_with_generic_param "JsonObject", {"foo"=>"hello","bar"=>123}
-  $obj.method_with_generic_param "JsonArray", ["foo", "bar", "wib"]
+  $obj.method_with_generic_param 'String', 'foo'
+  $obj.method_with_generic_param 'JsonObject', {'foo'=>'hello','bar'=>123}
+  $obj.method_with_generic_param 'JsonArray', ['foo', 'bar', 'wib']
 end
 
 def test_method_with_generic_handler()
   count = 0
-  $obj.method_with_generic_handler("String", Proc.new { |val| Assert.equals(val.class, String); Assert.equals(val, "foo"); count += 1 })
+  $obj.method_with_generic_handler('String', Proc.new { |val| Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler("Ref", Proc.new { |val| Assert.equals(val.getString, "bar"); count += 1 })
+  $obj.method_with_generic_handler('Ref', Proc.new { |val| Assert.equals(val.getString, 'bar'); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler("JsonObject", Proc.new { |val| Assert.equals(val.class, Hash); Assert.equals(val, {"foo"=>"hello","bar"=>123}); count += 1 })
+  $obj.method_with_generic_handler('JsonObject', Proc.new { |val| Assert.equals(val.class, Hash); Assert.equals(val, {'foo'=>'hello','bar'=>123}); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler("JsonArray", Proc.new { |val| Assert.equals(val.class, Array); Assert.equals(val, ["foo","bar","wib"]); count += 1 })
+  $obj.method_with_generic_handler('JsonArray', Proc.new { |val| Assert.equals(val.class, Array); Assert.equals(val, ['foo','bar','wib']); count += 1 })
   Assert.equals(1, count)
 end
 
 def test_method_with_generic_handler_async_result()
   count = 0
-  $obj.method_with_generic_handler_async_result("String", Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, String); Assert.equals(val, "foo"); count += 1 })
+  $obj.method_with_generic_handler_async_result('String', Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler_async_result("Ref", Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.getString, "bar"); count += 1 })
+  $obj.method_with_generic_handler_async_result('Ref', Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.getString, 'bar'); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler_async_result("JsonObject", Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, Hash); Assert.equals(val, {"foo"=>"hello","bar"=>123}); count += 1 })
+  $obj.method_with_generic_handler_async_result('JsonObject', Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, Hash); Assert.equals(val, {'foo'=>'hello','bar'=>123}); count += 1 })
   Assert.equals(1, count)
   count = 0
-  $obj.method_with_generic_handler_async_result("JsonArray", Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, Array); Assert.equals(val, ["foo","bar","wib"]); count += 1 })
+  $obj.method_with_generic_handler_async_result('JsonArray', Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val.class, Array); Assert.equals(val, ['foo','bar','wib']); count += 1 })
   Assert.equals(1, count)
 end
 
@@ -584,40 +584,40 @@ def test_basic_returns()
   Assert.equals(ret, 89)
   ret = $obj.method_with_string_return
   Assert.equals(ret.class, String)
-  Assert.equals(ret, "orangutan")
+  Assert.equals(ret, 'orangutan')
 end
 
 def test_vertx_gen_return()
   ret = $obj.method_with_vertx_gen_return
   Assert.equals(ret.class, Testmodel::RefedInterface1)
-  Assert.equals(ret.get_string, "chaffinch")
+  Assert.equals(ret.get_string, 'chaffinch')
 end
 
 def test_abstract_vertx_gen_return()
   ret = $obj.method_with_abstract_vertx_gen_return
   Assert.equals(ret.is_a?(Testmodel::RefedInterface2), true)
-  Assert.equals(ret.get_string, "abstractchaffinch")
+  Assert.equals(ret.get_string, 'abstractchaffinch')
 end
 
 def test_overloaded_methods()
-  $refed_obj.set_string("dog")
+  $refed_obj.set_string('dog')
   called = false
-  ret = $obj.overloaded_method("cat", $refed_obj)
-  Assert.equals(ret, "meth1")
-  ret = $obj.overloaded_method("cat", $refed_obj, 12345, Proc.new { |animal| Assert.equals(animal, "giraffe") ; called = true })
-  Assert.equals(ret, "meth2")
+  ret = $obj.overloaded_method('cat', $refed_obj)
+  Assert.equals(ret, 'meth1')
+  ret = $obj.overloaded_method('cat', $refed_obj, 12345, Proc.new { |animal| Assert.equals(animal, 'giraffe') ; called = true })
+  Assert.equals(ret, 'meth2')
   Assert.equals(called, true)
   called = false
   # for some reason animal is sometimes equals to giraffe and sometimes empty
-  ret = $obj.overloaded_method("cat", Proc.new { |animal| called = true })
-  Assert.equals(ret, "meth3")
+  ret = $obj.overloaded_method('cat', Proc.new { |animal| called = true })
+  Assert.equals(ret, 'meth3')
   Assert.equals(called, true)
   called = false
-  ret = $obj.overloaded_method("cat", $refed_obj, Proc.new { |animal| Assert.equals(animal, "giraffe") ; called = true })
-  Assert.equals(ret, "meth4")
+  ret = $obj.overloaded_method('cat', $refed_obj, Proc.new { |animal| Assert.equals(animal, 'giraffe') ; called = true })
+  Assert.equals(ret, 'meth4')
   Assert.equals(called, true)
-  Assert.argument_error { $obj.overloaded_method "cat" }
-  Assert.argument_error { $obj.overloaded_method "cat", $refed_obj, 12345, Proc.new({}) }
+  Assert.argument_error { $obj.overloaded_method 'cat' }
+  Assert.argument_error { $obj.overloaded_method 'cat', $refed_obj, 12345, Proc.new({}) }
   Assert.argument_error { $obj.overloaded_method Proc.new({}) }
 end
 
@@ -629,44 +629,44 @@ def test_super_interfaces()
 end
 
 def test_method_with_generic_return()
-  ret = $obj.method_with_generic_return("JsonObject")
+  ret = $obj.method_with_generic_return('JsonObject')
   Assert.equals(ret.class, Hash)
-  Assert.equals(ret, {"foo"=>"hello","bar"=>123})
-  ret = $obj.method_with_generic_return("JsonArray")
+  Assert.equals(ret, {'foo'=>'hello','bar'=>123})
+  ret = $obj.method_with_generic_return('JsonArray')
   Assert.equals(ret.class, Array)
-  Assert.equals(ret, ["foo","bar","wib"])
+  Assert.equals(ret, ['foo','bar','wib'])
 end
 
 def test_fluent_method()
-  ret = $obj.fluent_method("bar")
+  ret = $obj.fluent_method('bar')
   Assert.equals(ret, $obj)
 end
 
 def test_static_factory_method()
-  ret = Testmodel::TestInterface.static_factory_method("bar")
+  ret = Testmodel::TestInterface.static_factory_method('bar')
   Assert.equals(ret.class, Testmodel::RefedInterface1)
-  Assert.equals(ret.get_string, "bar")
+  Assert.equals(ret.get_string, 'bar')
 end
 
 def test_method_with_cached_return()
-  ret = $obj.method_with_cached_return("bar")
-  ret2 = $obj.method_with_cached_return("bar")
+  ret = $obj.method_with_cached_return('bar')
+  ret2 = $obj.method_with_cached_return('bar')
   Assert.equals ret, ret2
-  ret3 = $obj.method_with_cached_return("bar")
+  ret3 = $obj.method_with_cached_return('bar')
   Assert.equals ret, ret3
-  Assert.equals ret.get_string, "bar"
-  Assert.equals ret2.get_string, "bar"
-  Assert.equals ret3.get_string, "bar"
-  ret.set_string "foo"
-  Assert.equals ret2.get_string, "foo"
-  Assert.equals ret3.get_string, "foo"
+  Assert.equals ret.get_string, 'bar'
+  Assert.equals ret2.get_string, 'bar'
+  Assert.equals ret3.get_string, 'bar'
+  ret.set_string 'foo'
+  Assert.equals ret2.get_string, 'foo'
+  Assert.equals ret3.get_string, 'foo'
 end
 
 def test_json_returns()
   ret = $obj.method_with_json_object_return
-  Assert.equals(ret, {"cheese"=>"stilton"})
+  Assert.equals(ret, {'cheese'=>'stilton'})
   ret = $obj.method_with_json_array_return
-  Assert.equals(ret, ["socks","shoes"])
+  Assert.equals(ret, ['socks','shoes'])
 end
 
 def test_null_json_returns()
@@ -677,7 +677,7 @@ def test_null_json_returns()
 end
 
 def test_json_params()
-  $obj.method_with_json_params({"cat" => "lion", "cheese" => "cheddar"}, ["house", "spider"])
+  $obj.method_with_json_params({'cat' => 'lion', 'cheese' => 'cheddar'}, ['house', 'spider'])
 end
 
 def test_null_json_params()
@@ -687,8 +687,8 @@ end
 def test_json_handler_params()
   count = 0
   $obj.method_with_handler_json(
-      Proc.new { |val| Assert.equals(val, {"cheese"=>"stilton"}); count += 1 },
-      Proc.new { |val| Assert.equals(val, ["socks","shoes"]); count += 1 }
+      Proc.new { |val| Assert.equals(val, {'cheese'=>'stilton'}); count += 1 },
+      Proc.new { |val| Assert.equals(val, ['socks','shoes']); count += 1 }
   )
   Assert.equals(2, count)
 end
@@ -704,8 +704,8 @@ end
 
 def test_json_handler_async_result_params()
   count = 0
-  $obj.method_with_handler_async_result_json_object(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, {"cheese"=>"stilton"}); count += 1 })
-  $obj.method_with_handler_async_result_json_array(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, ["socks","shoes"]); count += 1 })
+  $obj.method_with_handler_async_result_json_object(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, {'cheese'=>'stilton'}); count += 1 })
+  $obj.method_with_handler_async_result_json_array(Proc.new { |err,val| Assert.is_nil(err); Assert.equals(val, ['socks','shoes']); count += 1 })
   Assert.equals(2, count)
 end
 
@@ -717,192 +717,192 @@ def test_null_json_handler_async_result_params()
 end
 
 def test_enum_param()
-  ret = $obj.method_with_enum_param("sausages", "TIM")
-  Assert.equals(ret, "sausagesTIM")
+  ret = $obj.method_with_enum_param('sausages', 'TIM')
+  Assert.equals(ret, 'sausagesTIM')
 end
 
 def test_enum_return()
-  ret = $obj.method_with_enum_return("JULIEN")
-  Assert.equals("JULIEN", ret)
+  ret = $obj.method_with_enum_return('JULIEN')
+  Assert.equals('JULIEN', ret)
 end
 
 def test_map_return()
   readLog = []
   writeLog = []
   map = $obj.method_with_map_return(Proc.new { |op|
-    if op =~ /put\([^,]+,[^\)]+\)/ || op =~ /remove\([^\)]+\)/ || op == "clear()"
+    if op =~ /put\([^,]+,[^\)]+\)/ || op =~ /remove\([^\)]+\)/ || op == 'clear()'
       writeLog.push op
-    elsif op == "size()" || op =~ /get\([^\)]+\)/ || op == "entrySet()"
+    elsif op == 'size()' || op =~ /get\([^\)]+\)/ || op == 'entrySet()'
       readLog.push op
     else
       raise "unsupported #{op}"
     end
   })
-  map["foo"] = "bar"
-  Assert.equals writeLog, ["put(foo,bar)"]
+  map['foo'] = 'bar'
+  Assert.equals writeLog, ['put(foo,bar)']
   readLog.clear
   writeLog.clear
-  Assert.equals map["foo"], "bar"
-  Assert.is_not_nil readLog.index("get(foo)")
+  Assert.equals map['foo'], 'bar'
+  Assert.is_not_nil readLog.index('get(foo)')
   Assert.equals writeLog, []
-  map["wibble"] = "quux"
+  map['wibble'] = 'quux'
   readLog.clear
   writeLog.clear
   Assert.equals map.size, 2
-  Assert.equals map["wibble"], "quux"
-  Assert.is_not_nil readLog.index("size()")
+  Assert.equals map['wibble'], 'quux'
+  Assert.is_not_nil readLog.index('size()')
   Assert.equals writeLog, []
   readLog.clear
   writeLog.clear
-  map.delete("wibble")
-  Assert.equals writeLog, ["remove(wibble)"]
+  map.delete('wibble')
+  Assert.equals writeLog, ['remove(wibble)']
   Assert.equals map.size, 1
-  map["blah"] = "123"
+  map['blah'] = '123'
   key_count = 0
   readLog.clear
   writeLog.clear
   map.each { |k,v|
     if key_count == 0
-      Assert.equals k, "foo"
-      Assert.equals v, "bar"
+      Assert.equals k, 'foo'
+      Assert.equals v, 'bar'
       key_count += 1
     else
-      Assert.equals k, "blah"
-      Assert.equals v, "123"
+      Assert.equals k, 'blah'
+      Assert.equals v, '123'
     end
   }
-  Assert.is_not_nil readLog.index("entrySet()")
+  Assert.is_not_nil readLog.index('entrySet()')
   Assert.equals writeLog, []
   readLog.clear
   writeLog.clear
   map.clear
-  Assert.equals writeLog, ["clear()"]
+  Assert.equals writeLog, ['clear()']
 end
 
 def test_map_string_return()
   map = $obj.method_with_map_string_return(Proc.new {})
-  val = map["foo"]
+  val = map['foo']
   Assert.equals val.class, String
-  Assert.equals val, "bar"
-  map["juu"] = "daa"
-  Assert.equals map, {"foo"=>"bar","juu"=>"daa"}
-  Assert.argument_error { map["wibble"] = 123 }
-  Assert.equals map, {"foo"=>"bar","juu"=>"daa"}
+  Assert.equals val, 'bar'
+  map['juu'] = 'daa'
+  Assert.equals map, {'foo'=>'bar','juu'=>'daa'}
+  Assert.argument_error { map['wibble'] = 123 }
+  Assert.equals map, {'foo'=>'bar','juu'=>'daa'}
 end
 
 def test_map_json_object_return()
   map = $obj.method_with_map_json_object_return(Proc.new {})
-  json = map["foo"]
+  json = map['foo']
   Assert.equals json.class, Hash
-  Assert.equals json["wibble"], "eek"
-  map["bar"] = {"juu"=>"daa"}
-  Assert.equals map, {"foo"=>{"wibble"=>"eek"},"bar"=>{"juu"=>"daa"}}
-  Assert.argument_error { map["juu"] = 123 }
-  Assert.equals map, {"foo"=>{"wibble"=>"eek"},"bar"=>{"juu"=>"daa"}}
+  Assert.equals json['wibble'], 'eek'
+  map['bar'] = {'juu'=>'daa'}
+  Assert.equals map, {'foo'=>{'wibble'=>'eek'},'bar'=>{'juu'=>'daa'}}
+  Assert.argument_error { map['juu'] = 123 }
+  Assert.equals map, {'foo'=>{'wibble'=>'eek'},'bar'=>{'juu'=>'daa'}}
 end
 
 def test_map_json_array_return()
   map = $obj.method_with_map_json_array_return(Proc.new {})
-  arr = map["foo"]
+  arr = map['foo']
   Assert.equals arr.class, Array
-  Assert.equals arr, ["wibble"]
-  map["bar"] = ["spidey"]
-  Assert.equals map, {"foo"=>["wibble"],"bar"=>["spidey"]}
-  Assert.argument_error { map["juu"] = 123 }
-  Assert.equals map, {"foo"=>["wibble"],"bar"=>["spidey"]}
+  Assert.equals arr, ['wibble']
+  map['bar'] = ['spidey']
+  Assert.equals map, {'foo'=>['wibble'],'bar'=>['spidey']}
+  Assert.argument_error { map['juu'] = 123 }
+  Assert.equals map, {'foo'=>['wibble'],'bar'=>['spidey']}
 end
 
 def test_map_long_return()
   map = $obj.method_with_map_long_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Fixnum
   Assert.equals num, 123
-  map["bar"] = 321
-  Assert.equals map, {"foo"=>123,"bar"=>321}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>123,"bar"=>321}
+  map['bar'] = 321
+  Assert.equals map, {'foo'=>123,'bar'=>321}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
 def test_map_integer_return()
   map = $obj.method_with_map_integer_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Fixnum
   Assert.equals num, 123
-  map["bar"] = 321
-  Assert.equals map, {"foo"=>123,"bar"=>321}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>123,"bar"=>321}
+  map['bar'] = 321
+  Assert.equals map, {'foo'=>123,'bar'=>321}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
 def test_map_short_return()
   map = $obj.method_with_map_short_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Fixnum
   Assert.equals num, 123
-  map["bar"] = 321
-  Assert.equals map, {"foo"=>123,"bar"=>321}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>123,"bar"=>321}
+  map['bar'] = 321
+  Assert.equals map, {'foo'=>123,'bar'=>321}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
 def test_map_byte_return()
   map = $obj.method_with_map_byte_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Fixnum
   Assert.equals num, 123
-  map["bar"] = 12
-  Assert.equals map, {"foo"=>123,"bar"=>12}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>123,"bar"=>12}
+  map['bar'] = 12
+  Assert.equals map, {'foo'=>123,'bar'=>12}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>123,'bar'=>12}
 end
 
 def test_map_character_return()
   map = $obj.method_with_map_character_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Fixnum
   Assert.equals num, 88
-  map["bar"] = 89
-  Assert.equals map, {"foo"=>88,"bar"=>89}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>88,"bar"=>89}
+  map['bar'] = 89
+  Assert.equals map, {'foo'=>88,'bar'=>89}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>88,'bar'=>89}
 end
 
 def test_map_boolean_return()
   map = $obj.method_with_map_boolean_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, TrueClass
   Assert.equals num, true
-  map["bar"] = false
-  Assert.equals map, {"foo"=>true,"bar"=>false}
-  map["juu"] = "something"
-  map["daa"] = nil
-  Assert.equals map, {"foo"=>true,"bar"=>false,"juu"=>true,"daa"=>false}
+  map['bar'] = false
+  Assert.equals map, {'foo'=>true,'bar'=>false}
+  map['juu'] = 'something'
+  map['daa'] = nil
+  Assert.equals map, {'foo'=>true,'bar'=>false,'juu'=>true,'daa'=>false}
 end
 
 def test_map_float_return()
   map = $obj.method_with_map_float_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Float
   Assert.equals num, 0.123
-  map["bar"] = 0.321
-  Assert.equals map["foo"], 0.123
-  Assert.equals map["bar"], 0.321
-  Assert.equals map.keys.sort, ["bar","foo"]
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map["foo"], 0.123
-  Assert.equals map["bar"], 0.321
-  Assert.equals map.keys.sort, ["bar","foo"]
+  map['bar'] = 0.321
+  Assert.equals map['foo'], 0.123
+  Assert.equals map['bar'], 0.321
+  Assert.equals map.keys.sort, ['bar','foo']
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map['foo'], 0.123
+  Assert.equals map['bar'], 0.321
+  Assert.equals map.keys.sort, ['bar','foo']
 end
 
 def test_map_double_return()
   map = $obj.method_with_map_double_return(Proc.new {})
-  num = map["foo"]
+  num = map['foo']
   Assert.equals num.class, Float
   Assert.equals num, 0.123
-  map["bar"] = 0.321
-  Assert.equals map, {"foo"=>0.123,"bar"=>0.321}
-  Assert.argument_error { map["juu"] = "something" }
-  Assert.equals map, {"foo"=>0.123,"bar"=>0.321}
+  map['bar'] = 0.321
+  Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
+  Assert.argument_error { map['juu'] = 'something' }
+  Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
 end
 
 def test_map_null_return()
@@ -913,7 +913,7 @@ end
 def test_list_string_return()
   ret = $obj.method_with_list_string_return
   Assert.has_class ret, Array
-  Assert.equals ret, ["foo","bar","wibble"]
+  Assert.equals ret, ['foo','bar','wibble']
 end
 
 def test_list_long_return()
@@ -946,7 +946,7 @@ end
 def test_set_string_return()
   ret = $obj.method_with_set_string_return
   Assert.has_class ret, Set
-  Assert.equals ret, Set.new(["foo","bar","wibble"])
+  Assert.equals ret, Set.new(['foo','bar','wibble'])
 end
 
 def test_set_long_return()
@@ -971,17 +971,17 @@ def test_set_vertx_gen_return()
   ret = $obj.method_with_set_vertx_gen_return
   Assert.has_class ret, Set
   ret.each { |elt| Assert.has_class(elt, Testmodel::RefedInterface1) }
-  Assert.equals(ret.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+  Assert.equals(ret.map { |o| o.get_string }.to_set, Set.new(['foo','bar']))
 end
 
 def test_throwable_return()
-  ret = $obj.method_with_throwable_return "bogies"
-  Assert.equals("bogies", ret.message)
+  ret = $obj.method_with_throwable_return 'bogies'
+  Assert.equals('bogies', ret.message)
 end
 
 def test_method_with_list_params()
   $obj.method_with_list_params(
-    ["foo", "bar"],
+    ['foo', 'bar'],
     [2, 3],
     [12, 13],
     [1234, 1345],
@@ -994,7 +994,7 @@ end
 
 def test_method_with_set_params()
   $obj.method_with_set_params(
-      Set.new(["foo", "bar"]),
+      Set.new(['foo', 'bar']),
       Set.new([2, 3]),
       Set.new([12, 13]),
       Set.new([1234, 1345]),
