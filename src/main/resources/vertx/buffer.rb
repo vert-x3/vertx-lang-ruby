@@ -62,22 +62,22 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def get_buffer(start,end)
+    def get_buffer(start,_end)
       if start != nil && start.class == Fixnum
-        if end != nil && end.class == Fixnum
-          return Vertx::Buffer.new(@j_del.getBuffer(start,end))
+        if _end != nil && _end.class == Fixnum
+          return Vertx::Buffer.new(@j_del.getBuffer(start,_end))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def get_string(start,end,enc=nil)
+    def get_string(start,_end,enc=nil)
       if start != nil && start.class == Fixnum
-        if end != nil && end.class == Fixnum
+        if _end != nil && _end.class == Fixnum
           if enc != nil && enc.class == String
-            return @j_del.getString(start,end,enc)
+            return @j_del.getString(start,_end,enc)
           end
-          return @j_del.getString(start,end)
+          return @j_del.getString(start,_end)
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -247,10 +247,10 @@ module Vertx
     def copy()
       Vertx::Buffer.new(@j_del.copy)
     end
-    def slice(start=nil,end=nil)
+    def slice(start=nil,_end=nil)
       if start != nil && start.class == Fixnum
-        if end != nil && end.class == Fixnum
-          return Vertx::Buffer.new(@j_del.slice(start,end))
+        if _end != nil && _end.class == Fixnum
+          return Vertx::Buffer.new(@j_del.slice(start,_end))
         end
         raise ArgumentError, 'dispatch error'
       end

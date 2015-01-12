@@ -27,6 +27,11 @@ public class LangTest extends RubyTestBase {
     runTest("test_include");
   }
 
+  @Test
+  public void testReservedWords() {
+    runTest("test_reserved_words");
+  }
+
   private void runTest(String testName) {
     runTest("lang_test", testName);
   }

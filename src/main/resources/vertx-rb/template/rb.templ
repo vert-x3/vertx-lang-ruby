@@ -28,6 +28,45 @@
     return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
   }
 
+  /* Ruby reserved words */
+  var reservedWords = new java.util.HashSet();
+  reservedWords.add("alias");
+  reservedWords.add("and");
+  reservedWords.add("BEGIN");
+  reservedWords.add("begin");
+  reservedWords.add("def");
+  reservedWords.add("elsif");
+  reservedWords.add("END");
+  reservedWords.add("end");
+  reservedWords.add("ensure");
+  reservedWords.add("in");
+  reservedWords.add("module");
+  reservedWords.add("next");
+  reservedWords.add("nil");
+  reservedWords.add("not");
+  reservedWords.add("or");
+  reservedWords.add("redo");
+  reservedWords.add("rescue");
+  reservedWords.add("retry");
+  reservedWords.add("self");
+  reservedWords.add("then");
+  reservedWords.add("undef");
+  reservedWords.add("unless");
+  reservedWords.add("until");
+  reservedWords.add("when");
+  reservedWords.add("yield");
+
+  /*
+   * Generate a correct ruby name that does not clash with an identifier.
+   */
+  def genRubyName(name) {
+    if (reservedWords.contains(name)) {
+      return "_" + name
+    } else {
+      return name;
+    }
+  }
+
   /*
    * Returns the predicate for the specified type and expression that validates a Ruby object can be converted
    * to a specified Java object.
@@ -388,7 +427,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{params=new java.util.ArrayList()}
 		@foreach{index:trieHeight(trie)}
 			@if{kind == 0 || kind == 1}
-				@code{params.add(methods[methods.size() - 1].params[index].name)}
+				@code{params.add(genRubyName(methods[methods.size() - 1].params[index].name))}
 			@else{}
 				@code{params.add("param_" + (index + 1))}
 			@end{}

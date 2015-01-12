@@ -5,11 +5,14 @@ require 'ruby-codegen/multi_overloaded_methods'
 require 'ruby-codegen/super_mixin'
 require 'ruby-codegen/mixin'
 require 'ruby-codegen/class_with_mixin'
+require 'ruby-codegen/reserved_word_params'
 
 java_import 'io.vertx.test.support.LinearOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.MultiOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.ClassWithMixinImpl'
 java_import 'io.vertx.test.support.ReferencingTypeImpl'
+java_import 'io.vertx.test.support.ReferencingTypeImpl'
+java_import 'io.vertx.test.support.ReservedWordParamsImpl'
 
 def test_linear_overload
   def create
@@ -86,4 +89,14 @@ def test_include
   obj = RubyCodegen::ReferencingType.new(ReferencingTypeImpl.new)
   referenced = obj.get_referenced
   Assert.equals referenced.some_method, 'someMethodValue'
+end
+
+def test_reserved_words
+  obj = RubyCodegen::ReservedWordParams.new(ReservedWordParamsImpl.new)
+  ret = obj.method("a", "b", "c", "d", "e",
+                   "f", "g", "h", "i", "j",
+                   "k", "l", "m", "n", "o",
+                   "p", "q", "r", "s", "t",
+                   "u", "v", "w", "x", "y")
+  Assert.equals ret, "abcdefghijklmnopqrstuvwxy"
 end
