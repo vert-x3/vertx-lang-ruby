@@ -18,23 +18,23 @@ def test_linear_overload
 
   obj = create
   obj.method
-  Assert.assert_equals(obj.j_del.getCalled, 'method()')
+  Assert.equals(obj.j_del.getCalled, 'method()')
 
   obj = create
   obj.method "first_value"
-  Assert.assert_equals(obj.j_del.getCalled, 'method(first_value)')
+  Assert.equals(obj.j_del.getCalled, 'method(first_value)')
 
   obj = create
-  Assert.assert_argument_error { obj.method "first_value", "second_value" }
-  Assert.assert_equals(obj.j_del.getCalled, nil)
+  Assert.argument_error { obj.method "first_value", "second_value" }
+  Assert.equals(obj.j_del.getCalled, nil)
 
   obj = create
   obj.method "first_value", "second_value", "third_value"
-  Assert.assert_equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value)')
+  Assert.equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value)')
 
   obj = create
   obj.method "first_value", "second_value", "third_value", "forth_value"
-  Assert.assert_equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value,forth_value)')
+  Assert.equals(obj.j_del.getCalled, 'method(first_value,second_value,third_value,forth_value)')
 
 end
 
@@ -46,31 +46,31 @@ def test_multi_overload
 
   obj = create
   obj.method
-  Assert.assert_equals(obj.j_del.getCalled, 'method()')
+  Assert.equals(obj.j_del.getCalled, 'method()')
 
   obj = create
   obj.method "foo_value"
-  Assert.assert_equals(obj.j_del.getCalled, 'method(foo=foo_value)')
+  Assert.equals(obj.j_del.getCalled, 'method(foo=foo_value)')
 
   obj = create
-  Assert.assert_argument_error { obj.method 123 }
-  Assert.assert_equals(obj.j_del.getCalled, nil)
+  Assert.argument_error { obj.method 123 }
+  Assert.equals(obj.j_del.getCalled, nil)
 
   obj = create
   obj.method 123, true
-  Assert.assert_equals(obj.j_del.getCalled, 'method(bar=123,juu=true)')
+  Assert.equals(obj.j_del.getCalled, 'method(bar=123,juu=true)')
 
   obj = create
-  Assert.assert_argument_error { obj.method 123, 'some_string' }
-  Assert.assert_equals(obj.j_del.getCalled, nil)
+  Assert.argument_error { obj.method 123, 'some_string' }
+  Assert.equals(obj.j_del.getCalled, nil)
 
 end
 
 def test_mixin_inheritance
   impl = ClassWithMixinImpl.new
   obj = RubyCodegen::ClassWithMixin.new impl
-  Assert.assert_equals(obj.is_a?(RubyCodegen::ClassWithMixin), true)
-  Assert.assert_equals(obj.is_a?(RubyCodegen::Mixin), true)
-  Assert.assert_equals(obj.is_a?(RubyCodegen::SuperMixin), true)
+  Assert.equals(obj.is_a?(RubyCodegen::ClassWithMixin), true)
+  Assert.equals(obj.is_a?(RubyCodegen::Mixin), true)
+  Assert.equals(obj.is_a?(RubyCodegen::SuperMixin), true)
 
 end
