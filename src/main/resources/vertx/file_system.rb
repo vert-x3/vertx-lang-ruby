@@ -194,7 +194,7 @@ module Vertx
     def props(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.props(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
+          @j_del.props(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling props(path,handler)"
@@ -203,14 +203,14 @@ module Vertx
     end
     def props_blocking(path)
       if path.class == String
-        return Vertx::FileProps.new(@j_del.propsBlocking(path))
+        return ::Vertx::FileProps.new(@j_del.propsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props_blocking(path)"
     end
     def lprops(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.lprops(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
+          @j_del.lprops(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling lprops(path,handler)"
@@ -219,7 +219,7 @@ module Vertx
     end
     def lprops_blocking(path)
       if path.class == String
-        return Vertx::FileProps.new(@j_del.lpropsBlocking(path))
+        return ::Vertx::FileProps.new(@j_del.lpropsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops_blocking(path)"
     end
@@ -427,7 +427,7 @@ module Vertx
     def read_file(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.readFile(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
+          @j_del.readFile(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Buffer.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling read_file(path,handler)"
@@ -436,7 +436,7 @@ module Vertx
     end
     def read_file_blocking(path)
       if path.class == String
-        return Vertx::Buffer.new(@j_del.readFileBlocking(path))
+        return ::Vertx::Buffer.new(@j_del.readFileBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file_blocking(path)"
     end
@@ -467,7 +467,7 @@ module Vertx
       if path.class == String
         if options == nil || options.class == Hash
           if handler.class == Proc
-            @j_del.open(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::AsyncFile.new(ar.result) : nil) }))
+            @j_del.open(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling open(path,options,handler)"
@@ -479,7 +479,7 @@ module Vertx
     def open_blocking(path,options)
       if path.class == String
         if options == nil || options.class == Hash
-          return Vertx::AsyncFile.new(@j_del.openBlocking(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return ::Vertx::AsyncFile.new(@j_del.openBlocking(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
         end
         raise ArgumentError, "Invalid argument options=#{options} when calling open_blocking(path,options)"
       end
@@ -532,7 +532,7 @@ module Vertx
     def fs_props(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.fsProps(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileSystemProps.new(ar.result) : nil) }))
+          @j_del.fsProps(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileSystemProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling fs_props(path,handler)"
@@ -541,7 +541,7 @@ module Vertx
     end
     def fs_props_blocking(path)
       if path.class == String
-        return Vertx::FileSystemProps.new(@j_del.fsPropsBlocking(path))
+        return ::Vertx::FileSystemProps.new(@j_del.fsPropsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling fs_props_blocking(path)"
     end

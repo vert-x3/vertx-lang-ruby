@@ -4,7 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetSocketStream
 module Vertx
   class NetSocketStream
-    include Vertx::ReadStream
+    include ::Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -20,7 +20,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::NetSocket.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"

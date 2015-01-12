@@ -8,7 +8,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClient
 module Vertx
   class HttpClient
-    include Vertx::Measured
+    include ::Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end
@@ -19,23 +19,23 @@ module Vertx
       @j_del.metricBaseName
     end
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
       if param_1.class == String
         if param_2.class == String
           if param_3.class == Proc
-            return Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |event| param_3.call(Vertx::HttpClientResponse.new(event)) })))
+            return ::Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |event| param_3.call(::Vertx::HttpClientResponse.new(event)) })))
           end
-          return Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2))
+          return ::Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2))
         end
         if param_2.class == Fixnum
           if param_3.class == String
             if param_4.class == String
               if param_5.class == Proc
-                return Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4,(Proc.new { |event| param_5.call(Vertx::HttpClientResponse.new(event)) })))
+                return ::Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4,(Proc.new { |event| param_5.call(::Vertx::HttpClientResponse.new(event)) })))
               end
-              return Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4))
+              return ::Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4))
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling request(param_1,param_2,param_3,param_4,param_5)"
           end
@@ -52,13 +52,13 @@ module Vertx
             if headers.class.method_defined?(:j_del)
               if version.class == String
                 if subProtocols.class == String
-                  return Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(version),subProtocols))
+                  return ::Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(version),subProtocols))
                 end
-                return Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(version)))
+                return ::Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(version)))
               end
-              return Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del))
+              return ::Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del))
             end
-            return Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI))
+            return ::Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI))
           end
           raise ArgumentError, "Invalid argument requestURI=#{requestURI} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
         end
@@ -71,19 +71,19 @@ module Vertx
         if param_2.class == String
           if param_3.class == String
             if param_4.class == Proc
-              return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,(Proc.new { |event| param_4.call(Vertx::WebSocket.new(event)) })))
+              return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,(Proc.new { |event| param_4.call(::Vertx::WebSocket.new(event)) })))
             end
             if param_4.class.method_defined?(:j_del)
               if param_5.class == Proc
-                return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| param_5.call(Vertx::WebSocket.new(event)) })))
+                return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| param_5.call(::Vertx::WebSocket.new(event)) })))
               end
               if param_5.class == String
                 if param_6.class == Proc
-                  return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| param_6.call(Vertx::WebSocket.new(event)) })))
+                  return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| param_6.call(::Vertx::WebSocket.new(event)) })))
                 end
                 if param_6.class == String
                   if param_7.class == Proc
-                    return Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| param_7.call(Vertx::WebSocket.new(event)) })))
+                    return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| param_7.call(::Vertx::WebSocket.new(event)) })))
                   end
                   raise ArgumentError, "Invalid argument param_7=#{param_7} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
                 end

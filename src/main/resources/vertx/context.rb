@@ -34,14 +34,14 @@ module Vertx
     end
     def get(key)
       if key.class == String
-        return Vertx::Util::Utils.from_object(@j_del.get(key))
+        return ::Vertx::Util::Utils.from_object(@j_del.get(key))
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
     def put(key,value)
       if key.class == String
         if value.class == String  ||value.class == Hash || value.class == Array
-          return @j_del.put(key,Vertx::Util::Utils.to_object(value))
+          return @j_del.put(key,::Vertx::Util::Utils.to_object(value))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling put(key,value)"
       end

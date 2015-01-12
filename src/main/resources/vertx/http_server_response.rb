@@ -5,7 +5,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerResponse
 module Vertx
   class HttpServerResponse
-    include Vertx::WriteStream
+    include ::Vertx::WriteStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -85,7 +85,7 @@ module Vertx
       if @cached_headers != nil
         return @cached_headers
       end
-      @cached_headers = Vertx::MultiMap.new(@j_del.headers)
+      @cached_headers = ::Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
       if name.class == String
@@ -101,7 +101,7 @@ module Vertx
       if @cached_trailers != nil
         return @cached_trailers
       end
-      @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
+      @cached_trailers = ::Vertx::MultiMap.new(@j_del.trailers)
     end
     def put_trailer(name,value)
       if name.class == String

@@ -8,8 +8,8 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.DatagramSocket
 module Vertx
   class DatagramSocket
-    include Vertx::ReadStream
-    include Vertx::Measured
+    include ::Vertx::ReadStream
+    include ::Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end
@@ -20,14 +20,14 @@ module Vertx
       @j_del.metricBaseName
     end
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     def send(param_1,param_2,param_3,param_4,&param_5)
       if param_1.class.method_defined?(:j_del)
         if param_2.class == Fixnum
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.send(param_1.j_del,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+              @j_del.send(param_1.j_del,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -41,7 +41,7 @@ module Vertx
           if param_3.class == Fixnum
             if param_4.class == String
               if param_5.class == Proc
-                @j_del.send(param_1,param_2,param_3,param_4,(Proc.new { |ar| param_5.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+                @j_del.send(param_1,param_2,param_3,param_4,(Proc.new { |ar| param_5.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
                 return self
               end
               raise ArgumentError, "Invalid argument param_5=#{param_5} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -53,7 +53,7 @@ module Vertx
         if param_2.class == Fixnum
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.send(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+              @j_del.send(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -67,7 +67,7 @@ module Vertx
     def sender(port,host)
       if port.class == Fixnum
         if host.class == String
-          return Vertx::PacketWritestream.new(@j_del.sender(port,host))
+          return ::Vertx::PacketWritestream.new(@j_del.sender(port,host))
         end
         raise ArgumentError, "Invalid argument host=#{host} when calling sender(port,host)"
       end
@@ -83,18 +83,18 @@ module Vertx
       if @cached_local_address != nil
         return @cached_local_address
       end
-      @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
+      @cached_local_address = ::Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def listen_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.listenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+          @j_del.listenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.listenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+              @j_del.listenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
@@ -108,13 +108,13 @@ module Vertx
     def unlisten_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.unlistenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+          @j_del.unlistenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.unlistenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+              @j_del.unlistenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
@@ -129,12 +129,12 @@ module Vertx
       if param_1.class == String
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.blockMulticastGroup(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+            @j_del.blockMulticastGroup(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
             return self
           end
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.blockMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+              @j_del.blockMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
@@ -149,7 +149,7 @@ module Vertx
       if port.class == Fixnum
         if host.class == String
           if handler.class == Proc
-            @j_del.listen(port,host,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
+            @j_del.listen(port,host,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling listen(port,host,handler)"
@@ -175,7 +175,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::DatagramPacket.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::DatagramPacket.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"

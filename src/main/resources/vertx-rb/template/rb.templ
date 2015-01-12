@@ -7,7 +7,7 @@
    * @param type the type
    */
   def genRubyClassFqn(type) {
-    return type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
+    return "::" + type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
   }
   /*
    * Returns the Ruby file name include for a given Vert.x Api interface
@@ -145,17 +145,17 @@
     var kind = type.kind;
     if (kind.basic) {
       if (type.name == "byte" || type.name == "java.lang.Byte") {
-        return "Vertx::Util::Utils.to_byte(" + expr + ")";
+        return "::Vertx::Util::Utils.to_byte(" + expr + ")";
       } else if (type.name == "short" || type.name == "java.lang.Short") {
-        return "Vertx::Util::Utils.to_short(" + expr + ")";
+        return "::Vertx::Util::Utils.to_short(" + expr + ")";
       } else if (type.name == "integer" || type.name == "java.lang.Integer") {
-        return "Vertx::Util::Utils.to_integer(" + expr + ")";
+        return "::Vertx::Util::Utils.to_integer(" + expr + ")";
       } else if (type.name == "float" || type.name == "java.lang.Float") {
         /* not tested */
-        return "Vertx::Util::Utils.to_float(" + expr + ")";
+        return "::Vertx::Util::Utils.to_float(" + expr + ")";
       } else if (type.name == "double" || type.name == "java.lang.Double") {
         /* not tested */
-        return "Vertx::Util::Utils.to_double(" + expr + ")";
+        return "::Vertx::Util::Utils.to_double(" + expr + ")";
       } else {
         return expr;
       }
@@ -180,13 +180,13 @@
     } else if (kind == CLASS_API) {
       return expr + ".j_del";
     } else if (kind == CLASS_OBJECT) {
-      return "Vertx::Util::Utils.to_object(" + expr + ")";
+      return "::Vertx::Util::Utils.to_object(" + expr + ")";
     } else if (kind == CLASS_OPTIONS) {
-      return expr + " != nil ? " + genJavaClassFqn(type) + ".new(Vertx::Util::Utils.to_json_object(" + expr + ")) : nil";
+      return expr + " != nil ? " + genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + ")) : nil";
     } else if (kind == CLASS_JSON_OBJECT) {
-      return expr + " != nil ? " + "Vertx::Util::Utils.to_json_object(" + expr + ") : nil";
+      return expr + " != nil ? " + "::Vertx::Util::Utils.to_json_object(" + expr + ") : nil";
     } else if (kind == CLASS_JSON_ARRAY) {
-      return expr + " != nil ? " + "Vertx::Util::Utils.to_json_array(" + expr + ") : nil";
+      return expr + " != nil ? " + "::Vertx::Util::Utils.to_json_array(" + expr + ") : nil";
     } else if (kind == CLASS_ENUM) {
       return genJavaClassFqn(type) + ".valueOf(" + expr + ")";
     } else if (kind == CLASS_LIST) {
@@ -251,13 +251,13 @@
             toJava = "to_double";
           }
         }
-        return "Java::IoVertxLangJruby::Helper.adaptingMap(" + expr + ", Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils." + toJava + "(val) })";
+        return "Java::IoVertxLangJruby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
-        return type.raw.module.getName(CASE_CAMEL) + "::"  + type.raw.simpleName + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
+        return genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {
-        return "Vertx::Util::Utils.from_object(" + expr + ")";
+        return "::Vertx::Util::Utils.from_object(" + expr + ")";
       } else if (kind == CLASS_ENUM) {
         return expr + ".name";
       }

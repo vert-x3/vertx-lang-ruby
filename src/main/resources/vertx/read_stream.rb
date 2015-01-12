@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.ReadStream<T>
 module Vertx
   module ReadStream
-    include Vertx::StreamBase
+    include ::Vertx::StreamBase
     def exception_handler(&handler)
       if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
@@ -13,7 +13,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::Util::Utils.from_object(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"

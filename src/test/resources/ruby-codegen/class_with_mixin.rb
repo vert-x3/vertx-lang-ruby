@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.ClassWithMixin
 module RubyCodegen
   class ClassWithMixin
-    include RubyCodegen::Mixin
+    include ::RubyCodegen::Mixin
     def initialize(j_del)
       @j_del = j_del
     end

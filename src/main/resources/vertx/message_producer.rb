@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageProducer<T>
 module Vertx
   class MessageProducer
-    include Vertx::WriteStream
+    include ::Vertx::WriteStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -22,7 +22,7 @@ module Vertx
     end
     def write(data)
       if data.class == String  ||data.class == Hash || data.class == Array
-        @j_del.write(Vertx::Util::Utils.to_object(data))
+        @j_del.write(::Vertx::Util::Utils.to_object(data))
         return self
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
@@ -43,7 +43,7 @@ module Vertx
     end
     def delivery_options(options)
       if options == nil || options.class == Hash
-        @j_del.deliveryOptions(options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        @j_del.deliveryOptions(options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
         return self
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling delivery_options(options)"

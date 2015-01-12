@@ -10,12 +10,12 @@ module Testmodel
     end
     def set_value(value)
       if value.class == String  ||value.class == Hash || value.class == Array
-        return @j_del.setValue(Vertx::Util::Utils.to_object(value))
+        return @j_del.setValue(::Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling set_value(value)"
     end
     def get_value
-      Vertx::Util::Utils.from_object(@j_del.getValue)
+      ::Vertx::Util::Utils.from_object(@j_del.getValue)
     end
   end
 end

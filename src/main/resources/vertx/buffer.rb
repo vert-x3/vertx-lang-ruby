@@ -11,14 +11,14 @@ module Vertx
     def self.buffer(param_1=nil,param_2=nil)
       if param_1.class == String
         if param_2.class == String
-          return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
+          return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
         end
-        return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
       end
       if param_1.class == Fixnum
-        return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
       end
-      Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
+      ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
     end
     def to_string(enc)
       if enc.class == String
@@ -65,7 +65,7 @@ module Vertx
     def get_buffer(start,_end)
       if start.class == Fixnum
         if _end.class == Fixnum
-          return Vertx::Buffer.new(@j_del.getBuffer(start,_end))
+          return ::Vertx::Buffer.new(@j_del.getBuffer(start,_end))
         end
         raise ArgumentError, "Invalid argument _end=#{_end} when calling get_buffer(start,_end)"
       end
@@ -99,7 +99,7 @@ module Vertx
     end
     def append_byte(b)
       if b.class == Fixnum
-        @j_del.appendByte(Vertx::Util::Utils.to_byte(b))
+        @j_del.appendByte(::Vertx::Util::Utils.to_byte(b))
         return self
       end
       raise ArgumentError, "Invalid argument b=#{b} when calling append_byte(b)"
@@ -120,21 +120,21 @@ module Vertx
     end
     def append_short(s)
       if s.class == Fixnum
-        @j_del.appendShort(Vertx::Util::Utils.to_short(s))
+        @j_del.appendShort(::Vertx::Util::Utils.to_short(s))
         return self
       end
       raise ArgumentError, "Invalid argument s=#{s} when calling append_short(s)"
     end
     def append_float(f)
       if f.class == Float
-        @j_del.appendFloat(Vertx::Util::Utils.to_float(f))
+        @j_del.appendFloat(::Vertx::Util::Utils.to_float(f))
         return self
       end
       raise ArgumentError, "Invalid argument f=#{f} when calling append_float(f)"
     end
     def append_double(d)
       if d.class == Float
-        @j_del.appendDouble(Vertx::Util::Utils.to_double(d))
+        @j_del.appendDouble(::Vertx::Util::Utils.to_double(d))
         return self
       end
       raise ArgumentError, "Invalid argument d=#{d} when calling append_double(d)"
@@ -153,7 +153,7 @@ module Vertx
     def set_byte(pos,b)
       if pos.class == Fixnum
         if b.class == Fixnum
-          @j_del.setByte(pos,Vertx::Util::Utils.to_byte(b))
+          @j_del.setByte(pos,::Vertx::Util::Utils.to_byte(b))
           return self
         end
         raise ArgumentError, "Invalid argument b=#{b} when calling set_byte(pos,b)"
@@ -183,7 +183,7 @@ module Vertx
     def set_double(pos,d)
       if pos.class == Fixnum
         if d.class == Float
-          @j_del.setDouble(pos,Vertx::Util::Utils.to_double(d))
+          @j_del.setDouble(pos,::Vertx::Util::Utils.to_double(d))
           return self
         end
         raise ArgumentError, "Invalid argument d=#{d} when calling set_double(pos,d)"
@@ -193,7 +193,7 @@ module Vertx
     def set_float(pos,f)
       if pos.class == Fixnum
         if f.class == Float
-          @j_del.setFloat(pos,Vertx::Util::Utils.to_float(f))
+          @j_del.setFloat(pos,::Vertx::Util::Utils.to_float(f))
           return self
         end
         raise ArgumentError, "Invalid argument f=#{f} when calling set_float(pos,f)"
@@ -203,7 +203,7 @@ module Vertx
     def set_short(pos,s)
       if pos.class == Fixnum
         if s.class == Fixnum
-          @j_del.setShort(pos,Vertx::Util::Utils.to_short(s))
+          @j_del.setShort(pos,::Vertx::Util::Utils.to_short(s))
           return self
         end
         raise ArgumentError, "Invalid argument s=#{s} when calling set_short(pos,s)"
@@ -245,16 +245,16 @@ module Vertx
       @j_del.length
     end
     def copy
-      Vertx::Buffer.new(@j_del.copy)
+      ::Vertx::Buffer.new(@j_del.copy)
     end
     def slice(start=nil,_end=nil)
       if start.class == Fixnum
         if _end.class == Fixnum
-          return Vertx::Buffer.new(@j_del.slice(start,_end))
+          return ::Vertx::Buffer.new(@j_del.slice(start,_end))
         end
         raise ArgumentError, "Invalid argument _end=#{_end} when calling slice(start,_end)"
       end
-      Vertx::Buffer.new(@j_del.slice)
+      ::Vertx::Buffer.new(@j_del.slice)
     end
   end
 end

@@ -4,7 +4,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageConsumer<T>
 module Vertx
   class MessageConsumer
-    include Vertx::ReadStream
+    include ::Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -20,7 +20,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::Message.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Message.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -41,7 +41,7 @@ module Vertx
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     def body_stream
-      Vertx::ReadStreamImpl.new(@j_del.bodyStream)
+      ::Vertx::ReadStreamImpl.new(@j_del.bodyStream)
     end
     def is_registered
       @j_del.isRegistered
@@ -51,7 +51,7 @@ module Vertx
     end
     def set_max_buffered_messages(maxBufferedMessages)
       if maxBufferedMessages.class == Fixnum
-        return Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(maxBufferedMessages))
+        return ::Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(maxBufferedMessages))
       end
       raise ArgumentError, "Invalid argument maxBufferedMessages=#{maxBufferedMessages} when calling set_max_buffered_messages(maxBufferedMessages)"
     end

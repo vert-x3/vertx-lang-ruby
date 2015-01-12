@@ -6,7 +6,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocket
 module Vertx
   class WebSocket
-    include Vertx::WebSocketBase
+    include ::Vertx::WebSocketBase
     def initialize(j_del)
       @j_del = j_del
     end
@@ -29,13 +29,13 @@ module Vertx
       if @cached_remote_address != nil
         return @cached_remote_address
       end
-      @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
+      @cached_remote_address = ::Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address
       if @cached_local_address != nil
         return @cached_local_address
       end
-      @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
+      @cached_local_address = ::Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def exception_handler(&handler)
       if handler.class == Proc
@@ -46,7 +46,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -110,7 +110,7 @@ module Vertx
     end
     def frame_handler(&handler)
       if handler.class == Proc
-        @j_del.frameHandler((Proc.new { |event| handler.call(Vertx::WebSocketFrame.new(event)) }))
+        @j_del.frameHandler((Proc.new { |event| handler.call(::Vertx::WebSocketFrame.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"

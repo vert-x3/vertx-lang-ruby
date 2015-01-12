@@ -6,7 +6,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.EventBus
 module Vertx
   class EventBus
-    include Vertx::Measured
+    include ::Vertx::Measured
     def initialize(j_del)
       @j_del = j_del
     end
@@ -17,7 +17,7 @@ module Vertx
       @j_del.metricBaseName
     end
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     def close(&completionHandler)
       if completionHandler.class == Proc
@@ -30,17 +30,17 @@ module Vertx
         if param_2.class == String  ||param_2.class == Hash || param_2.class == Array
           if param_3 == nil || param_3.class == Hash
             if param_4.class == Proc
-              @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
+              @j_del.send(param_1,::Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
               return self
             end
-            @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
+            @j_del.send(param_1,::Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_3)) : nil)
             return self
           end
           if param_3.class == Proc
-            @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
+            @j_del.send(param_1,::Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
             return self
           end
-          @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
+          @j_del.send(param_1,::Vertx::Util::Utils.to_object(param_2))
           return self
         end
         raise ArgumentError, "Invalid argument param_2=#{param_2} when calling send(param_1,param_2,param_3,param_4)"
@@ -51,10 +51,10 @@ module Vertx
       if address.class == String
         if message.class == String  ||message.class == Hash || message.class == Array
           if options == nil || options.class == Hash
-            @j_del.publish(address,Vertx::Util::Utils.to_object(message),options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+            @j_del.publish(address,::Vertx::Util::Utils.to_object(message),options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
             return self
           end
-          @j_del.publish(address,Vertx::Util::Utils.to_object(message))
+          @j_del.publish(address,::Vertx::Util::Utils.to_object(message))
           return self
         end
         raise ArgumentError, "Invalid argument message=#{message} when calling publish(address,message,options)"
@@ -64,36 +64,36 @@ module Vertx
     def consumer(address,&handler)
       if address.class == String
         if handler.class == Proc
-          return Vertx::MessageConsumer.new(@j_del.consumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))
+          return ::Vertx::MessageConsumer.new(@j_del.consumer(address,(Proc.new { |event| handler.call(::Vertx::Message.new(event)) })))
         end
-        return Vertx::MessageConsumer.new(@j_del.consumer(address))
+        return ::Vertx::MessageConsumer.new(@j_del.consumer(address))
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling consumer(address,handler)"
     end
     def local_consumer(address,&handler)
       if address.class == String
         if handler.class == Proc
-          return Vertx::MessageConsumer.new(@j_del.localConsumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))
+          return ::Vertx::MessageConsumer.new(@j_del.localConsumer(address,(Proc.new { |event| handler.call(::Vertx::Message.new(event)) })))
         end
-        return Vertx::MessageConsumer.new(@j_del.localConsumer(address))
+        return ::Vertx::MessageConsumer.new(@j_del.localConsumer(address))
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling local_consumer(address,handler)"
     end
     def sender(address,options=nil)
       if address.class == String
         if options == nil || options.class == Hash
-          return Vertx::MessageProducer.new(@j_del.sender(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return ::Vertx::MessageProducer.new(@j_del.sender(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
         end
-        return Vertx::MessageProducer.new(@j_del.sender(address))
+        return ::Vertx::MessageProducer.new(@j_del.sender(address))
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling sender(address,options)"
     end
     def publisher(address,options=nil)
       if address.class == String
         if options == nil || options.class == Hash
-          return Vertx::MessageProducer.new(@j_del.publisher(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
+          return ::Vertx::MessageProducer.new(@j_del.publisher(address,options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
         end
-        return Vertx::MessageProducer.new(@j_del.publisher(address))
+        return ::Vertx::MessageProducer.new(@j_del.publisher(address))
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling publisher(address,options)"
     end

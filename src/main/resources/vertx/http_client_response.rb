@@ -6,7 +6,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientResponse
 module Vertx
   class HttpClientResponse
-    include Vertx::ReadStream
+    include ::Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -26,7 +26,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -52,13 +52,13 @@ module Vertx
       if @cached_headers != nil
         return @cached_headers
       end
-      @cached_headers = Vertx::MultiMap.new(@j_del.headers)
+      @cached_headers = ::Vertx::MultiMap.new(@j_del.headers)
     end
     def trailers
       if @cached_trailers != nil
         return @cached_trailers
       end
-      @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
+      @cached_trailers = ::Vertx::MultiMap.new(@j_del.trailers)
     end
     def cookies
       if @cached_cookies != nil
@@ -68,7 +68,7 @@ module Vertx
     end
     def body_handler(&bodyHandler)
       if bodyHandler.class == Proc
-        @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
+        @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
@@ -77,7 +77,7 @@ module Vertx
       if @cached_net_socket != nil
         return @cached_net_socket
       end
-      @cached_net_socket = Vertx::NetSocket.new(@j_del.netSocket)
+      @cached_net_socket = ::Vertx::NetSocket.new(@j_del.netSocket)
     end
   end
 end

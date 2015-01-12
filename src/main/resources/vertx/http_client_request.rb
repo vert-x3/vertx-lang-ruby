@@ -7,8 +7,8 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientRequest
 module Vertx
   class HttpClientRequest
-    include Vertx::WriteStream
-    include Vertx::ReadStream
+    include ::Vertx::WriteStream
+    include ::Vertx::ReadStream
     def initialize(j_del)
       @j_del = j_del
     end
@@ -56,7 +56,7 @@ module Vertx
     end
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(Vertx::HttpClientResponse.new(event)) }))
+        @j_del.handler((Proc.new { |event| handler.call(::Vertx::HttpClientResponse.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -96,7 +96,7 @@ module Vertx
       if @cached_headers != nil
         return @cached_headers
       end
-      @cached_headers = Vertx::MultiMap.new(@j_del.headers)
+      @cached_headers = ::Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
       if name.class == String

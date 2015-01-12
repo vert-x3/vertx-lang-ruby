@@ -73,7 +73,7 @@ module Vertx
     def resolve_mx(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Vertx::MxRecord.new(elt) } : nil) }))
+          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::MxRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_mx(name,handler)"
@@ -113,7 +113,7 @@ module Vertx
     def resolve_srv(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Vertx::SrvRecord.new(elt) } : nil) }))
+          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::SrvRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_srv(name,handler)"

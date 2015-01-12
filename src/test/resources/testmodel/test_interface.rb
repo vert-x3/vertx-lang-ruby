@@ -6,8 +6,8 @@ require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel
-  class TestInterface < Testmodel::SuperInterface1
-    include Testmodel::SuperInterface2
+  class TestInterface < ::Testmodel::SuperInterface1
+    include ::Testmodel::SuperInterface2
     def initialize(j_del)
       super(j_del)
       @j_del = j_del
@@ -25,7 +25,7 @@ module Testmodel
                   if bool.class == TrueClass || bool.class == FalseClass
                     if ch.class == Fixnum
                       if str.class == String
-                        return @j_del.otherSuperMethodWithBasicParams(Vertx::Util::Utils.to_byte(b),Vertx::Util::Utils.to_short(s),i,l,Vertx::Util::Utils.to_float(f),Vertx::Util::Utils.to_double(d),bool,ch,str)
+                        return @j_del.otherSuperMethodWithBasicParams(::Vertx::Util::Utils.to_byte(b),::Vertx::Util::Utils.to_short(s),i,l,::Vertx::Util::Utils.to_float(f),::Vertx::Util::Utils.to_double(d),bool,ch,str)
                       end
                       raise ArgumentError, "Invalid argument str=#{str} when calling other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
                     end
@@ -55,7 +55,7 @@ module Testmodel
                   if bool.class == TrueClass || bool.class == FalseClass
                     if ch.class == Fixnum
                       if str.class == String
-                        return @j_del.methodWithBasicParams(Vertx::Util::Utils.to_byte(b),Vertx::Util::Utils.to_short(s),i,l,Vertx::Util::Utils.to_float(f),Vertx::Util::Utils.to_double(d),bool,ch,str)
+                        return @j_del.methodWithBasicParams(::Vertx::Util::Utils.to_byte(b),::Vertx::Util::Utils.to_short(s),i,l,::Vertx::Util::Utils.to_float(f),::Vertx::Util::Utils.to_double(d),bool,ch,str)
                       end
                       raise ArgumentError, "Invalid argument str=#{str} when calling method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
                     end
@@ -84,7 +84,7 @@ module Testmodel
                 if d.class == Float
                   if bool.class == TrueClass || bool.class == FalseClass
                     if ch.class == Fixnum
-                      return @j_del.methodWithBasicBoxedParams(Vertx::Util::Utils.to_byte(b),Vertx::Util::Utils.to_short(s),Vertx::Util::Utils.to_integer(i),l,Vertx::Util::Utils.to_float(f),Vertx::Util::Utils.to_double(d),bool,ch)
+                      return @j_del.methodWithBasicBoxedParams(::Vertx::Util::Utils.to_byte(b),::Vertx::Util::Utils.to_short(s),::Vertx::Util::Utils.to_integer(i),l,::Vertx::Util::Utils.to_float(f),::Vertx::Util::Utils.to_double(d),bool,ch)
                     end
                     raise ArgumentError, "Invalid argument ch=#{ch} when calling method_with_basic_boxed_params(b,s,i,l,f,d,bool,ch)"
                   end
@@ -231,7 +231,7 @@ module Testmodel
     def method_with_object_param(str,obj)
       if str.class == String
         if obj.class == String  ||obj.class == Hash || obj.class == Array
-          return @j_del.methodWithObjectParam(str,Vertx::Util::Utils.to_object(obj))
+          return @j_del.methodWithObjectParam(str,::Vertx::Util::Utils.to_object(obj))
         end
         raise ArgumentError, "Invalid argument obj=#{obj} when calling method_with_object_param(str,obj)"
       end
@@ -239,13 +239,13 @@ module Testmodel
     end
     def method_with_options_param(options)
       if options == nil || options.class == Hash
-        return @j_del.methodWithOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        return @j_del.methodWithOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling method_with_options_param(options)"
     end
     def method_with_null_options_param(options)
       if options == nil || options.class == Hash
-        return @j_del.methodWithNullOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil)
+        return @j_del.methodWithNullOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling method_with_null_options_param(options)"
     end
@@ -258,7 +258,7 @@ module Testmodel
                 if listJsonObject.class == Array
                   if listJsonArray.class == Array
                     if listVertxGen.class == Array
-                      return @j_del.methodWithListParams(listString.map { |element| element },listByte.map { |element| Vertx::Util::Utils.to_byte(element) },listShort.map { |element| Vertx::Util::Utils.to_short(element) },listInt.map { |element| Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil },listJsonArray.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil },listVertxGen.map { |element| element.j_del })
+                      return @j_del.methodWithListParams(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_object(element) : nil },listJsonArray.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_array(element) : nil },listVertxGen.map { |element| element.j_del })
                     end
                     raise ArgumentError, "Invalid argument listVertxGen=#{listVertxGen} when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)"
                   end
@@ -285,7 +285,7 @@ module Testmodel
                 if setJsonObject.class == Set
                   if setJsonArray.class == Set
                     if setVertxGen.class == Set
-                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
+                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
                     end
                     raise ArgumentError, "Invalid argument setVertxGen=#{setVertxGen} when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)"
                   end
@@ -312,7 +312,7 @@ module Testmodel
                 if mapJsonObject.class == Hash
                   if mapJsonArray.class == Hash
                     if mapVertxGen.class == Hash
-                      return @j_del.methodWithMapParams(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[mapJsonArray.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
+                      return @j_del.methodWithMapParams(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,::Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,::Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,::Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,v != nil ? ::Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[mapJsonArray.map { |k,v| [k,v != nil ? ::Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
                     end
                     raise ArgumentError, "Invalid argument mapVertxGen=#{mapVertxGen} when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
                   end
@@ -371,25 +371,25 @@ module Testmodel
     end
     def method_with_handler_list_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }) }))
+        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_vertx_gen(listHandler)"
     end
     def method_with_handler_set_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }) }))
+        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_vertx_gen(listHandler)"
     end
     def method_with_handler_list_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
+        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_abstract_vertx_gen(listHandler)"
     end
     def method_with_handler_set_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
+        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_abstract_vertx_gen(listHandler)"
     end
@@ -443,25 +443,25 @@ module Testmodel
     end
     def method_with_handler_async_result_list_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_vertx_gen(listHandler)"
     end
     def method_with_handler_async_result_set_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_vertx_gen(listHandler)"
     end
     def method_with_handler_async_result_list_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_abstract_vertx_gen(listHandler)"
     end
     def method_with_handler_async_result_set_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_abstract_vertx_gen(listHandler)"
     end
@@ -515,13 +515,13 @@ module Testmodel
     end
     def method_with_handler_user_types(&handler)
       if handler.class == Proc
-        return @j_del.methodWithHandlerUserTypes((Proc.new { |event| handler.call(Testmodel::RefedInterface1.new(event)) }))
+        return @j_del.methodWithHandlerUserTypes((Proc.new { |event| handler.call(::Testmodel::RefedInterface1.new(event)) }))
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_user_types(handler)"
     end
     def method_with_handler_async_result_user_types(&handler)
       if handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultUserTypes((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Testmodel::RefedInterface1.new(ar.result) : nil) }))
+        return @j_del.methodWithHandlerAsyncResultUserTypes((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::RefedInterface1.new(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_user_types(handler)"
     end
@@ -555,7 +555,7 @@ module Testmodel
     def method_with_handler_generic_user_type(value,&handler)
       if value.class == String  ||value.class == Hash || value.class == Array
         if handler.class == Proc
-          return @j_del.methodWithHandlerGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |event| handler.call(Testmodel::GenericRefedInterface.new(event)) }))
+          return @j_del.methodWithHandlerGenericUserType(::Vertx::Util::Utils.to_object(value),(Proc.new { |event| handler.call(::Testmodel::GenericRefedInterface.new(event)) }))
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_generic_user_type(value,handler)"
       end
@@ -564,7 +564,7 @@ module Testmodel
     def method_with_handler_async_result_generic_user_type(value,&handler)
       if value.class == String  ||value.class == Hash || value.class == Array
         if handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultGenericUserType(Vertx::Util::Utils.to_object(value),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
+          return @j_del.methodWithHandlerAsyncResultGenericUserType(::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_generic_user_type(value,handler)"
       end
@@ -598,10 +598,10 @@ module Testmodel
       @j_del.methodWithStringReturn
     end
     def method_with_vertx_gen_return
-      Testmodel::RefedInterface1.new(@j_del.methodWithVertxGenReturn)
+      ::Testmodel::RefedInterface1.new(@j_del.methodWithVertxGenReturn)
     end
     def method_with_abstract_vertx_gen_return
-      Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn)
+      ::Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn)
     end
     def overloaded_method(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
@@ -626,14 +626,14 @@ module Testmodel
     end
     def method_with_generic_return(type)
       if type.class == String
-        return Vertx::Util::Utils.from_object(@j_del.methodWithGenericReturn(type))
+        return ::Vertx::Util::Utils.from_object(@j_del.methodWithGenericReturn(type))
       end
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_return(type)"
     end
     def method_with_generic_param(type,u)
       if type.class == String
         if u.class == String  ||u.class == Hash || u.class == Array
-          return @j_del.methodWithGenericParam(type,Vertx::Util::Utils.to_object(u))
+          return @j_del.methodWithGenericParam(type,::Vertx::Util::Utils.to_object(u))
         end
         raise ArgumentError, "Invalid argument u=#{u} when calling method_with_generic_param(type,u)"
       end
@@ -642,7 +642,7 @@ module Testmodel
     def method_with_generic_handler(type,&handler)
       if type.class == String
         if handler.class == Proc
-          return @j_del.methodWithGenericHandler(type,(Proc.new { |event| handler.call(Vertx::Util::Utils.from_object(event)) }))
+          return @j_del.methodWithGenericHandler(type,(Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }))
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_generic_handler(type,handler)"
       end
@@ -651,7 +651,7 @@ module Testmodel
     def method_with_generic_handler_async_result(type,&asyncResultHandler)
       if type.class == String
         if asyncResultHandler.class == Proc
-          return @j_del.methodWithGenericHandlerAsyncResult(type,(Proc.new { |ar| asyncResultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
+          return @j_del.methodWithGenericHandlerAsyncResult(type,(Proc.new { |ar| asyncResultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, "Invalid argument asyncResultHandler=#{asyncResultHandler} when calling method_with_generic_handler_async_result(type,asyncResultHandler)"
       end
@@ -666,7 +666,7 @@ module Testmodel
     end
     def self.static_factory_method(foo)
       if foo.class == String
-        return Testmodel::RefedInterface1.new(Java::IoVertxCodegenTestmodel::TestInterface.staticFactoryMethod(foo))
+        return ::Testmodel::RefedInterface1.new(Java::IoVertxCodegenTestmodel::TestInterface.staticFactoryMethod(foo))
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling static_factory_method(foo)"
     end
@@ -675,7 +675,7 @@ module Testmodel
         if @cached_method_with_cached_return != nil
           return @cached_method_with_cached_return
         end
-        return @cached_method_with_cached_return = Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
+        return @cached_method_with_cached_return = ::Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling method_with_cached_return(foo)"
     end
@@ -694,7 +694,7 @@ module Testmodel
     def method_with_json_params(jsonObject,jsonArray)
       if jsonObject == nil || jsonObject.class == Hash
         if jsonArray == nil || jsonArray.class == Array
-          return @j_del.methodWithJsonParams(jsonObject != nil ? Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? Vertx::Util::Utils.to_json_array(jsonArray) : nil)
+          return @j_del.methodWithJsonParams(jsonObject != nil ? ::Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? ::Vertx::Util::Utils.to_json_array(jsonArray) : nil)
         end
         raise ArgumentError, "Invalid argument jsonArray=#{jsonArray} when calling method_with_json_params(jsonObject,jsonArray)"
       end
@@ -703,7 +703,7 @@ module Testmodel
     def method_with_null_json_params(jsonObject,jsonArray)
       if jsonObject == nil || jsonObject.class == Hash
         if jsonArray == nil || jsonArray.class == Array
-          return @j_del.methodWithNullJsonParams(jsonObject != nil ? Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? Vertx::Util::Utils.to_json_array(jsonArray) : nil)
+          return @j_del.methodWithNullJsonParams(jsonObject != nil ? ::Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? ::Vertx::Util::Utils.to_json_array(jsonArray) : nil)
         end
         raise ArgumentError, "Invalid argument jsonArray=#{jsonArray} when calling method_with_null_json_params(jsonObject,jsonArray)"
       end
@@ -753,78 +753,78 @@ module Testmodel
     end
     def method_with_map_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_return(handler)"
     end
     def method_with_map_string_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapStringReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapStringReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_string_return(handler)"
     end
     def method_with_map_long_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapLongReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_long(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapLongReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_long(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_long_return(handler)"
     end
     def method_with_map_integer_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapIntegerReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_integer(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapIntegerReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_integer(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_integer_return(handler)"
     end
     def method_with_map_short_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapShortReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_short(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapShortReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_short(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_short_return(handler)"
     end
     def method_with_map_byte_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapByteReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_byte(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapByteReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_byte(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_byte_return(handler)"
     end
     def method_with_map_character_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapCharacterReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_character(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapCharacterReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_character(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_character_return(handler)"
     end
     def method_with_map_boolean_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapBooleanReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_boolean(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapBooleanReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_boolean(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_boolean_return(handler)"
     end
     def method_with_map_float_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapFloatReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_float(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapFloatReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_float(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_float_return(handler)"
     end
     def method_with_map_double_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapDoubleReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_double(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapDoubleReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_double(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_double_return(handler)"
     end
     def method_with_map_json_object_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonObjectReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonObjectReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_json_object_return(handler)"
     end
     def method_with_map_json_array_return(&handler)
       if handler.class == Proc
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonArrayReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_array(val) })
+        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonArrayReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_json_array_return(handler)"
     end
     def method_with_null_map_return
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithNullMapReturn, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithNullMapReturn, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
     end
     def method_with_list_string_return
       @j_del.methodWithListStringReturn.to_a.map { |elt| elt }
@@ -833,7 +833,7 @@ module Testmodel
       @j_del.methodWithListLongReturn.to_a.map { |elt| elt }
     end
     def method_with_list_vertx_gen_return
-      @j_del.methodWithListVertxGenReturn.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }
+      @j_del.methodWithListVertxGenReturn.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_list_json_object_return
       @j_del.methodWithListJsonObjectReturn.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
@@ -851,7 +851,7 @@ module Testmodel
       @j_del.methodWithSetLongReturn.to_set.map! { |elt| elt }
     end
     def method_with_set_vertx_gen_return
-      @j_del.methodWithSetVertxGenReturn.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }
+      @j_del.methodWithSetVertxGenReturn.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) }
     end
     def method_with_set_json_object_return
       @j_del.methodWithSetJsonObjectReturn.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }

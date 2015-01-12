@@ -14,9 +14,9 @@ module Vertx
       if rs.class.method_defined?(:j_del)
         if ws.class.method_defined?(:j_del)
           if writeQueueMaxSize.class == Fixnum
-            return Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del,writeQueueMaxSize))
+            return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del,writeQueueMaxSize))
           end
-          return Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del))
+          return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del))
         end
         raise ArgumentError, "Invalid argument ws=#{ws} when calling pump(rs,ws,writeQueueMaxSize)"
       end

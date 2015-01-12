@@ -9,17 +9,17 @@ module Vertx
       @j_del
     end
     def self.future
-      Vertx::Future.new(Java::IoVertxCore::Future.future)
+      ::Vertx::Future.new(Java::IoVertxCore::Future.future)
     end
     def self.succeeded_future(result=nil)
       if result.class == String  ||result.class == Hash || result.class == Array
-        return Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture(Vertx::Util::Utils.to_object(result)))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture(::Vertx::Util::Utils.to_object(result)))
       end
-      Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture)
+      ::Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture)
     end
     def self.failed_future(failureMessage)
       if failureMessage.class == String
-        return Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failureMessage))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failureMessage))
       end
       raise ArgumentError, "Invalid argument failureMessage=#{failureMessage} when calling failed_future(failureMessage)"
     end
@@ -28,13 +28,13 @@ module Vertx
     end
     def set_handler(&handler)
       if handler.class == Proc
-        return @j_del.setHandler((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.setHandler((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling set_handler(handler)"
     end
     def complete(result=nil)
       if result.class == String  ||result.class == Hash || result.class == Array
-        return @j_del.complete(Vertx::Util::Utils.to_object(result))
+        return @j_del.complete(::Vertx::Util::Utils.to_object(result))
       end
       @j_del.complete
     end

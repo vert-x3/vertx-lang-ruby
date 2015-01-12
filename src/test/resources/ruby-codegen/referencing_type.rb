@@ -10,7 +10,7 @@ module RubyCodegen
       @j_del
     end
     def get_referenced
-      RubyCodegen::ReferencedType.new(@j_del.getReferenced)
+      ::RubyCodegen::ReferencedType.new(@j_del.getReferenced)
     end
   end
 end

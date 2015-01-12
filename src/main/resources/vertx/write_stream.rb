@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.WriteStream<T>
 module Vertx
   module WriteStream
-    include Vertx::StreamBase
+    include ::Vertx::StreamBase
     def exception_handler(&handler)
       if handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
@@ -13,7 +13,7 @@ module Vertx
     end
     def write(data)
       if data.class == String  ||data.class == Hash || data.class == Array
-        @j_del.write(Vertx::Util::Utils.to_object(data))
+        @j_del.write(::Vertx::Util::Utils.to_object(data))
         return self
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
