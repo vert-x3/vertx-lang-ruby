@@ -19,32 +19,32 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def close(completion_handler)
-      if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def close(completionHandler)
+      if completionHandler != nil && completionHandler.class == Proc
+        return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
-                if param_3 == nil || param_3.class == Hash
-                    if param_4 != nil && param_4.class == Proc
-                      @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
-                      return self
-                    end
-                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
-                  return self
-                end
-                if param_3 != nil && param_3.class == Proc
-                  @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
-                  return self
-                end
-              @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
+    def send(param_1,param_2,param_3=nil,param_4=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
+          if param_3 == nil || param_3.class == Hash
+            if param_4 != nil && param_4.class == Proc
+              @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
               return self
             end
-          raise ArgumentError, 'dispatch error'
+            @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),param_3 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(Vertx::Util::Utils.to_json_object(param_3)) : nil)
+            return self
+          end
+          if param_3 != nil && param_3.class == Proc
+            @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Message.new(ar.result) : nil) }))
+            return self
+          end
+          @j_del.send(param_1,Vertx::Util::Utils.to_object(param_2))
+          return self
         end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def publish(address,message,options=nil)

@@ -9,16 +9,16 @@ module Vertx
       @j_del
     end
     def self.buffer(param_1=nil,param_2=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == String
-              return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
-            end
-          return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == String
+          return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1,param_2))
         end
-        if param_1 != nil && param_1.class == Fixnum
-          return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
-        end
-      return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
+        return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+      end
+      if param_1 != nil && param_1.class == Fixnum
+        return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
+      end
+      Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
     end
     def to_string(enc)
       if enc != nil && enc.class == String

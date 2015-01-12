@@ -22,24 +22,24 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def write(param_1=nil,param_2=nil)
-        if param_1 != nil && param_1.class.method_defined?(:j_del)
-          @j_del.write(param_1.j_del)
+    def write(param_1,param_2=nil)
+      if param_1 != nil && param_1.class.method_defined?(:j_del)
+        @j_del.write(param_1.j_del)
+        return self
+      end
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == String
+          @j_del.write(param_1,param_2)
           return self
         end
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == String
-              @j_del.write(param_1,param_2)
-              return self
-            end
-          @j_del.write(param_1)
-          return self
-        end
+        @j_del.write(param_1)
+        return self
+      end
       raise ArgumentError, 'dispatch error'
     end
-    def set_write_queue_max_size(max_size)
-      if max_size != nil && max_size.class == Fixnum
-        @j_del.setWriteQueueMaxSize(max_size)
+    def set_write_queue_max_size(maxSize)
+      if maxSize != nil && maxSize.class == Fixnum
+        @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -54,9 +54,9 @@ module Vertx
     def get_status_code()
       @j_del.getStatusCode
     end
-    def set_status_code(status_code)
-      if status_code != nil && status_code.class == Fixnum
-        @j_del.setStatusCode(status_code)
+    def set_status_code(statusCode)
+      if statusCode != nil && statusCode.class == Fixnum
+        @j_del.setStatusCode(statusCode)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -64,9 +64,9 @@ module Vertx
     def get_status_message()
       @j_del.getStatusMessage
     end
-    def set_status_message(status_message)
-      if status_message != nil && status_message.class == String
-        @j_del.setStatusMessage(status_message)
+    def set_status_message(statusMessage)
+      if statusMessage != nil && statusMessage.class == String
+        @j_del.setStatusMessage(statusMessage)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -121,21 +121,21 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def end(param_1=nil,param_2=nil)
-        if param_1 != nil && param_1.class.method_defined?(:j_del)
-          return @j_del.end(param_1.j_del)
+      if param_1 != nil && param_1.class.method_defined?(:j_del)
+        return @j_del.end(param_1.j_del)
+      end
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == String
+          return @j_del.end(param_1,param_2)
         end
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == String
-              return @j_del.end(param_1,param_2)
-            end
-          return @j_del.end(param_1)
-        end
-      return @j_del.end
+        return @j_del.end(param_1)
+      end
+      @j_del.end
     end
-    def send_file(filename,result_handler=nil)
+    def send_file(filename,resultHandler=nil)
       if filename != nil && filename.class == String
-        if result_handler != nil && result_handler.class == Proc
-          @j_del.sendFile(filename,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil) }))
+        if resultHandler != nil && resultHandler.class == Proc
+          @j_del.sendFile(filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         @j_del.sendFile(filename)

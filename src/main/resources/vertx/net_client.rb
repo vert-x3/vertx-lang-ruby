@@ -17,11 +17,11 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def connect(port,host,connect_handler)
+    def connect(port,host,connectHandler)
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
-          if connect_handler != nil && connect_handler.class == Proc
-            @j_del.connect(port,host,(Proc.new { |ar| connect_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetSocket.new(ar.result) : nil) }))
+          if connectHandler != nil && connectHandler.class == Proc
+            @j_del.connect(port,host,(Proc.new { |ar| connectHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetSocket.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, 'dispatch error'

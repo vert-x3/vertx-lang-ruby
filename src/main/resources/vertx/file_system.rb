@@ -133,12 +133,12 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def chmod_recursive(path,perms,dir_perms,handler)
+    def chmod_recursive(path,perms,dirPerms,handler)
       if path != nil && path.class == String
         if perms != nil && perms.class == String
-          if dir_perms != nil && dir_perms.class == String
+          if dirPerms != nil && dirPerms.class == String
             if handler != nil && handler.class == Proc
-              @j_del.chmodRecursive(path,perms,dir_perms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+              @j_del.chmodRecursive(path,perms,dirPerms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
               return self
             end
             raise ArgumentError, 'dispatch error'
@@ -149,11 +149,11 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def chmod_recursive_blocking(path,perms,dir_perms)
+    def chmod_recursive_blocking(path,perms,dirPerms)
       if path != nil && path.class == String
         if perms != nil && perms.class == String
-          if dir_perms != nil && dir_perms.class == String
-            @j_del.chmodRecursiveBlocking(path,perms,dir_perms)
+          if dirPerms != nil && dirPerms.class == String
+            @j_del.chmodRecursiveBlocking(path,perms,dirPerms)
             return self
           end
           raise ArgumentError, 'dispatch error'
@@ -342,21 +342,21 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def mkdir(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == Proc
-              @j_del.mkdir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
-              return self
-            end
-            if param_2 != nil && param_2.class == String
-                if param_3 != nil && param_3.class == Proc
-                  @j_del.mkdir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
-                  return self
-                end
-              raise ArgumentError, 'dispatch error'
-            end
+    def mkdir(param_1,param_2,param_3=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == Proc
+          @j_del.mkdir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          return self
+        end
+        if param_2 != nil && param_2.class == String
+          if param_3 != nil && param_3.class == Proc
+            @j_del.mkdir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            return self
+          end
           raise ArgumentError, 'dispatch error'
         end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def mkdir_blocking(path,perms=nil)
@@ -370,21 +370,21 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def mkdirs(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == Proc
-              @j_del.mkdirs(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
-              return self
-            end
-            if param_2 != nil && param_2.class == String
-                if param_3 != nil && param_3.class == Proc
-                  @j_del.mkdirs(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
-                  return self
-                end
-              raise ArgumentError, 'dispatch error'
-            end
+    def mkdirs(param_1,param_2,param_3=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == Proc
+          @j_del.mkdirs(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          return self
+        end
+        if param_2 != nil && param_2.class == String
+          if param_3 != nil && param_3.class == Proc
+            @j_del.mkdirs(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            return self
+          end
           raise ArgumentError, 'dispatch error'
         end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def mkdirs_blocking(path,perms=nil)
@@ -398,21 +398,21 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def read_dir(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == Proc
-              @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
-              return self
-            end
-            if param_2 != nil && param_2.class == String
-                if param_3 != nil && param_3.class == Proc
-                  @j_del.readDir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
-                  return self
-                end
-              raise ArgumentError, 'dispatch error'
-            end
+    def read_dir(param_1,param_2,param_3=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == Proc
+          @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          return self
+        end
+        if param_2 != nil && param_2.class == String
+          if param_3 != nil && param_3.class == Proc
+            @j_del.readDir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+            return self
+          end
           raise ArgumentError, 'dispatch error'
         end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def read_dir_blocking(path,filter=nil)
@@ -485,21 +485,21 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def create_file(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == Proc
-              @j_del.createFile(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
-              return self
-            end
-            if param_2 != nil && param_2.class == String
-                if param_3 != nil && param_3.class == Proc
-                  @j_del.createFile(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
-                  return self
-                end
-              raise ArgumentError, 'dispatch error'
-            end
+    def create_file(param_1,param_2,param_3=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == Proc
+          @j_del.createFile(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          return self
+        end
+        if param_2 != nil && param_2.class == String
+          if param_3 != nil && param_3.class == Proc
+            @j_del.createFile(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            return self
+          end
           raise ArgumentError, 'dispatch error'
         end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def create_file_blocking(path,perms=nil)

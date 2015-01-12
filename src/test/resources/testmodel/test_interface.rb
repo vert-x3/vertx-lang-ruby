@@ -102,17 +102,17 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_basic_types(byte_handler,short_handler,int_handler,long_handler,float_handler,double_handler,boolean_handler,char_handler,string_handler)
-      if byte_handler != nil && byte_handler.class == Proc
-        if short_handler != nil && short_handler.class == Proc
-          if int_handler != nil && int_handler.class == Proc
-            if long_handler != nil && long_handler.class == Proc
-              if float_handler != nil && float_handler.class == Proc
-                if double_handler != nil && double_handler.class == Proc
-                  if boolean_handler != nil && boolean_handler.class == Proc
-                    if char_handler != nil && char_handler.class == Proc
-                      if string_handler != nil && string_handler.class == Proc
-                        return @j_del.methodWithHandlerBasicTypes((Proc.new { |event| byte_handler.call(event) }),(Proc.new { |event| short_handler.call(event) }),(Proc.new { |event| int_handler.call(event) }),(Proc.new { |event| long_handler.call(event) }),(Proc.new { |event| float_handler.call(event) }),(Proc.new { |event| double_handler.call(event) }),(Proc.new { |event| boolean_handler.call(event) }),(Proc.new { |event| char_handler.call(event) }),(Proc.new { |event| string_handler.call(event) }))
+    def method_with_handler_basic_types(byteHandler,shortHandler,intHandler,longHandler,floatHandler,doubleHandler,booleanHandler,charHandler,stringHandler)
+      if byteHandler != nil && byteHandler.class == Proc
+        if shortHandler != nil && shortHandler.class == Proc
+          if intHandler != nil && intHandler.class == Proc
+            if longHandler != nil && longHandler.class == Proc
+              if floatHandler != nil && floatHandler.class == Proc
+                if doubleHandler != nil && doubleHandler.class == Proc
+                  if booleanHandler != nil && booleanHandler.class == Proc
+                    if charHandler != nil && charHandler.class == Proc
+                      if stringHandler != nil && stringHandler.class == Proc
+                        return @j_del.methodWithHandlerBasicTypes((Proc.new { |event| byteHandler.call(event) }),(Proc.new { |event| shortHandler.call(event) }),(Proc.new { |event| intHandler.call(event) }),(Proc.new { |event| longHandler.call(event) }),(Proc.new { |event| floatHandler.call(event) }),(Proc.new { |event| doubleHandler.call(event) }),(Proc.new { |event| booleanHandler.call(event) }),(Proc.new { |event| charHandler.call(event) }),(Proc.new { |event| stringHandler.call(event) }))
                       end
                       raise ArgumentError, 'dispatch error'
                     end
@@ -132,91 +132,91 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_byte(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_byte(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultByte(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultByte(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_short(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_short(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultShort(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultShort(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_integer(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_integer(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultInteger(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultInteger(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_long(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_long(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultLong(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultLong(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_float(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_float(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultFloat(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultFloat(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_double(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_double(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultDouble(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultDouble(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_boolean(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_boolean(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultBoolean(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultBoolean(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_character(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_character(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultCharacter(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultCharacter(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_string(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_string(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultString(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return @j_del.methodWithHandlerAsyncResultString(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_options(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_options(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultOptions(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? JSON.parse(ar.result.toJson.encode) : nil) }))
+          return @j_del.methodWithHandlerAsyncResultOptions(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? JSON.parse(ar.result.toJson.encode) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -249,16 +249,16 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_list_params(list_string,list_byte,list_short,list_int,list_long,list_json_object,list_json_array,list_vertx_gen)
-      if list_string != nil && list_string.class == Array
-        if list_byte != nil && list_byte.class == Array
-          if list_short != nil && list_short.class == Array
-            if list_int != nil && list_int.class == Array
-              if list_long != nil && list_long.class == Array
-                if list_json_object != nil && list_json_object.class == Array
-                  if list_json_array != nil && list_json_array.class == Array
-                    if list_vertx_gen != nil && list_vertx_gen.class == Array
-                      return @j_del.methodWithListParams(list_string.map { |element| element },list_byte.map { |element| Vertx::Util::Utils.to_byte(element) },list_short.map { |element| Vertx::Util::Utils.to_short(element) },list_int.map { |element| Vertx::Util::Utils.to_integer(element) },list_long.map { |element| element },list_json_object.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil },list_json_array.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil },list_vertx_gen.map { |element| element.j_del })
+    def method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)
+      if listString != nil && listString.class == Array
+        if listByte != nil && listByte.class == Array
+          if listShort != nil && listShort.class == Array
+            if listInt != nil && listInt.class == Array
+              if listLong != nil && listLong.class == Array
+                if listJsonObject != nil && listJsonObject.class == Array
+                  if listJsonArray != nil && listJsonArray.class == Array
+                    if listVertxGen != nil && listVertxGen.class == Array
+                      return @j_del.methodWithListParams(listString.map { |element| element },listByte.map { |element| Vertx::Util::Utils.to_byte(element) },listShort.map { |element| Vertx::Util::Utils.to_short(element) },listInt.map { |element| Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil },listJsonArray.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil },listVertxGen.map { |element| element.j_del })
                     end
                     raise ArgumentError, 'dispatch error'
                   end
@@ -276,16 +276,16 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_set_params(set_string,set_byte,set_short,set_int,set_long,set_json_object,set_json_array,set_vertx_gen)
-      if set_string != nil && set_string.class == Set
-        if set_byte != nil && set_byte.class == Set
-          if set_short != nil && set_short.class == Set
-            if set_int != nil && set_int.class == Set
-              if set_long != nil && set_long.class == Set
-                if set_json_object != nil && set_json_object.class == Set
-                  if set_json_array != nil && set_json_array.class == Set
-                    if set_vertx_gen != nil && set_vertx_gen.class == Set
-                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(set_string.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(set_byte.map { |element| Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(set_short.map { |element| Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(set_int.map { |element| Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(set_long.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(set_json_object.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(set_json_array.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(set_vertx_gen.map { |element| element.j_del }))
+    def method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)
+      if setString != nil && setString.class == Set
+        if setByte != nil && setByte.class == Set
+          if setShort != nil && setShort.class == Set
+            if setInt != nil && setInt.class == Set
+              if setLong != nil && setLong.class == Set
+                if setJsonObject != nil && setJsonObject.class == Set
+                  if setJsonArray != nil && setJsonArray.class == Set
+                    if setVertxGen != nil && setVertxGen.class == Set
+                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
                     end
                     raise ArgumentError, 'dispatch error'
                   end
@@ -303,16 +303,16 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_map_params(map_string,map_byte,map_short,map_int,map_long,map_json_object,map_json_array,map_vertx_gen)
-      if map_string != nil && map_string.class == Hash
-        if map_byte != nil && map_byte.class == Hash
-          if map_short != nil && map_short.class == Hash
-            if map_int != nil && map_int.class == Hash
-              if map_long != nil && map_long.class == Hash
-                if map_json_object != nil && map_json_object.class == Hash
-                  if map_json_array != nil && map_json_array.class == Hash
-                    if map_vertx_gen != nil && map_vertx_gen.class == Hash
-                      return @j_del.methodWithMapParams(Hash[map_string.map { |k,v| [k,v] }],Hash[map_byte.map { |k,v| [k,Vertx::Util::Utils.to_byte(v)] }],Hash[map_short.map { |k,v| [k,Vertx::Util::Utils.to_short(v)] }],Hash[map_int.map { |k,v| [k,Vertx::Util::Utils.to_integer(v)] }],Hash[map_long.map { |k,v| [k,v] }],Hash[map_json_object.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[map_json_array.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[map_vertx_gen.map { |k,v| [k,v.j_del] }])
+    def method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)
+      if mapString != nil && mapString.class == Hash
+        if mapByte != nil && mapByte.class == Hash
+          if mapShort != nil && mapShort.class == Hash
+            if mapInt != nil && mapInt.class == Hash
+              if mapLong != nil && mapLong.class == Hash
+                if mapJsonObject != nil && mapJsonObject.class == Hash
+                  if mapJsonArray != nil && mapJsonArray.class == Hash
+                    if mapVertxGen != nil && mapVertxGen.class == Hash
+                      return @j_del.methodWithMapParams(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[mapJsonArray.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
                     end
                     raise ArgumentError, 'dispatch error'
                   end
@@ -330,12 +330,12 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_and_set(list_string_handler,list_int_handler,set_string_handler,set_int_handler)
-      if list_string_handler != nil && list_string_handler.class == Proc
-        if list_int_handler != nil && list_int_handler.class == Proc
-          if set_string_handler != nil && set_string_handler.class == Proc
-            if set_int_handler != nil && set_int_handler.class == Proc
-              return @j_del.methodWithHandlerListAndSet((Proc.new { |event| list_string_handler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| list_int_handler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| set_string_handler.call(event.to_set.map! { |elt| elt }) }),(Proc.new { |event| set_int_handler.call(event.to_set.map! { |elt| elt }) }))
+    def method_with_handler_list_and_set(listStringHandler,listIntHandler,setStringHandler,setIntHandler)
+      if listStringHandler != nil && listStringHandler.class == Proc
+        if listIntHandler != nil && listIntHandler.class == Proc
+          if setStringHandler != nil && setStringHandler.class == Proc
+            if setIntHandler != nil && setIntHandler.class == Proc
+              return @j_del.methodWithHandlerListAndSet((Proc.new { |event| listStringHandler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| listIntHandler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| setStringHandler.call(event.to_set.map! { |elt| elt }) }),(Proc.new { |event| setIntHandler.call(event.to_set.map! { |elt| elt }) }))
             end
             raise ArgumentError, 'dispatch error'
           end
@@ -369,147 +369,147 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }) }))
+    def method_with_handler_list_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }) }))
+    def method_with_handler_set_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_abstract_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
+    def method_with_handler_list_abstract_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_abstract_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
+    def method_with_handler_set_abstract_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetAbstractVertxGen((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_list_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListJsonObject((Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_null_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListNullJsonObject((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_list_null_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListNullJsonObject((Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_set_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetJsonObject((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_null_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetNullJsonObject((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_set_null_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetNullJsonObject((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_list_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListJsonArray((Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_list_null_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerListNullJsonArray((Proc.new { |event| list_handler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_list_null_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerListNullJsonArray((Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_set_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetJsonArray((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_set_null_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerSetNullJsonArray((Proc.new { |event| list_handler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+    def method_with_handler_set_null_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerSetNullJsonArray((Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
+    def method_with_handler_async_result_list_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
+    def method_with_handler_async_result_set_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_abstract_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+    def method_with_handler_async_result_list_abstract_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_abstract_vertx_gen(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+    def method_with_handler_async_result_set_abstract_vertx_gen(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetAbstractVertxGen((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_list_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListJsonObject((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_null_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_list_null_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListNullJsonObject((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_set_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetJsonObject((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_null_json_object(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetNullJsonObject((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_set_null_json_object(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetNullJsonObject((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_list_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListJsonArray((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_list_null_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultListNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_list_null_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultListNullJsonArray((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_set_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetJsonArray((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_set_null_json_array(list_handler)
-      if list_handler != nil && list_handler.class == Proc
-        return @j_del.methodWithHandlerAsyncResultSetNullJsonArray((Proc.new { |ar| list_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+    def method_with_handler_async_result_set_null_json_array(listHandler)
+      if listHandler != nil && listHandler.class == Proc
+        return @j_del.methodWithHandlerAsyncResultSetNullJsonArray((Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -531,10 +531,10 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_async_result_void(send_failure,handler)
-      if send_failure != nil && (send_failure.class == TrueClass || send_failure.class == FalseClass)
+    def method_with_handler_async_result_void(sendFailure,handler)
+      if sendFailure != nil && (sendFailure.class == TrueClass || sendFailure.class == FalseClass)
         if handler != nil && handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultVoid(send_failure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+          return @j_del.methodWithHandlerAsyncResultVoid(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -603,25 +603,25 @@ module Testmodel
     def method_with_abstract_vertx_gen_return()
       Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn)
     end
-    def overloaded_method(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == Proc
-              return @j_del.overloadedMethod(param_1,(Proc.new { |event| param_2.call(event) }))
-            end
-            if param_2 != nil && param_2.class.method_defined?(:j_del)
-                if param_3 != nil && param_3.class == Proc
-                  return @j_del.overloadedMethod(param_1,param_2.j_del,(Proc.new { |event| param_3.call(event) }))
-                end
-                if param_3 != nil && param_3.class == Fixnum
-                    if param_4 != nil && param_4.class == Proc
-                      return @j_del.overloadedMethod(param_1,param_2.j_del,param_3,(Proc.new { |event| param_4.call(event) }))
-                    end
-                  raise ArgumentError, 'dispatch error'
-                end
-              return @j_del.overloadedMethod(param_1,param_2.j_del)
-            end
-          raise ArgumentError, 'dispatch error'
+    def overloaded_method(param_1,param_2,param_3=nil,param_4=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == Proc
+          return @j_del.overloadedMethod(param_1,(Proc.new { |event| param_2.call(event) }))
         end
+        if param_2 != nil && param_2.class.method_defined?(:j_del)
+          if param_3 != nil && param_3.class == Proc
+            return @j_del.overloadedMethod(param_1,param_2.j_del,(Proc.new { |event| param_3.call(event) }))
+          end
+          if param_3 != nil && param_3.class == Fixnum
+            if param_4 != nil && param_4.class == Proc
+              return @j_del.overloadedMethod(param_1,param_2.j_del,param_3,(Proc.new { |event| param_4.call(event) }))
+            end
+            raise ArgumentError, 'dispatch error'
+          end
+          return @j_del.overloadedMethod(param_1,param_2.j_del)
+        end
+        raise ArgumentError, 'dispatch error'
+      end
       raise ArgumentError, 'dispatch error'
     end
     def method_with_generic_return(type)
@@ -648,10 +648,10 @@ module Testmodel
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_generic_handler_async_result(type,async_result_handler)
+    def method_with_generic_handler_async_result(type,asyncResultHandler)
       if type != nil && type.class == String
-        if async_result_handler != nil && async_result_handler.class == Proc
-          return @j_del.methodWithGenericHandlerAsyncResult(type,(Proc.new { |ar| async_result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        if asyncResultHandler != nil && asyncResultHandler.class == Proc
+          return @j_del.methodWithGenericHandlerAsyncResult(type,(Proc.new { |ar| asyncResultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -691,37 +691,37 @@ module Testmodel
     def method_with_null_json_array_return()
       @j_del.methodWithNullJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn.encode) : nil
     end
-    def method_with_json_params(json_object,json_array)
-      if json_object == nil || json_object.class == Hash
-        if json_array == nil || json_array.class == Array
-          return @j_del.methodWithJsonParams(json_object != nil ? Vertx::Util::Utils.to_json_object(json_object) : nil,json_array != nil ? Vertx::Util::Utils.to_json_array(json_array) : nil)
+    def method_with_json_params(jsonObject,jsonArray)
+      if jsonObject == nil || jsonObject.class == Hash
+        if jsonArray == nil || jsonArray.class == Array
+          return @j_del.methodWithJsonParams(jsonObject != nil ? Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? Vertx::Util::Utils.to_json_array(jsonArray) : nil)
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_null_json_params(json_object,json_array)
-      if json_object == nil || json_object.class == Hash
-        if json_array == nil || json_array.class == Array
-          return @j_del.methodWithNullJsonParams(json_object != nil ? Vertx::Util::Utils.to_json_object(json_object) : nil,json_array != nil ? Vertx::Util::Utils.to_json_array(json_array) : nil)
+    def method_with_null_json_params(jsonObject,jsonArray)
+      if jsonObject == nil || jsonObject.class == Hash
+        if jsonArray == nil || jsonArray.class == Array
+          return @j_del.methodWithNullJsonParams(jsonObject != nil ? Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? Vertx::Util::Utils.to_json_array(jsonArray) : nil)
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_json(json_object_handler,json_array_handler)
-      if json_object_handler != nil && json_object_handler.class == Proc
-        if json_array_handler != nil && json_array_handler.class == Proc
-          return @j_del.methodWithHandlerJson((Proc.new { |event| json_object_handler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| json_array_handler.call(event != nil ? JSON.parse(event.encode) : nil) }))
+    def method_with_handler_json(jsonObjectHandler,jsonArrayHandler)
+      if jsonObjectHandler != nil && jsonObjectHandler.class == Proc
+        if jsonArrayHandler != nil && jsonArrayHandler.class == Proc
+          return @j_del.methodWithHandlerJson((Proc.new { |event| jsonObjectHandler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| jsonArrayHandler.call(event != nil ? JSON.parse(event.encode) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_handler_null_json(json_object_handler,json_array_handler)
-      if json_object_handler != nil && json_object_handler.class == Proc
-        if json_array_handler != nil && json_array_handler.class == Proc
-          return @j_del.methodWithHandlerNullJson((Proc.new { |event| json_object_handler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| json_array_handler.call(event != nil ? JSON.parse(event.encode) : nil) }))
+    def method_with_handler_null_json(jsonObjectHandler,jsonArrayHandler)
+      if jsonObjectHandler != nil && jsonObjectHandler.class == Proc
+        if jsonArrayHandler != nil && jsonArrayHandler.class == Proc
+          return @j_del.methodWithHandlerNullJson((Proc.new { |event| jsonObjectHandler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| jsonArrayHandler.call(event != nil ? JSON.parse(event.encode) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -862,24 +862,24 @@ module Testmodel
     def method_with_null_set_return()
       @j_del.methodWithNullSetReturn.to_set.map! { |elt| elt }
     end
-    def method_with_enum_param(str_val,weirdo)
-      if str_val != nil && str_val.class == String
+    def method_with_enum_param(strVal,weirdo)
+      if strVal != nil && strVal.class == String
         if weirdo != nil && weirdo.class == String
-          return @j_del.methodWithEnumParam(str_val,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(weirdo))
+          return @j_del.methodWithEnumParam(strVal,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(weirdo))
         end
         raise ArgumentError, 'dispatch error'
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_enum_return(str_val)
-      if str_val != nil && str_val.class == String
-        return @j_del.methodWithEnumReturn(str_val).name
+    def method_with_enum_return(strVal)
+      if strVal != nil && strVal.class == String
+        return @j_del.methodWithEnumReturn(strVal).name
       end
       raise ArgumentError, 'dispatch error'
     end
-    def method_with_throwable_return(str_val)
-      if str_val != nil && str_val.class == String
-        return @j_del.methodWithThrowableReturn(str_val)
+    def method_with_throwable_return(strVal)
+      if strVal != nil && strVal.class == String
+        return @j_del.methodWithThrowableReturn(strVal)
       end
       raise ArgumentError, 'dispatch error'
     end

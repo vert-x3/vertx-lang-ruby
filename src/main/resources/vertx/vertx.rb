@@ -34,10 +34,10 @@ module Vertx
       end
       Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx)
     end
-    def self.clustered_vertx(options,result_handler)
+    def self.clustered_vertx(options,resultHandler)
       if options == nil || options.class == Hash
-        if result_handler != nil && result_handler.class == Proc
-          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? Java::IoVertxCore::VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
+        if resultHandler != nil && resultHandler.class == Proc
+          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? Java::IoVertxCore::VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end
@@ -148,43 +148,43 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def close(completion_handler=nil)
-      if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def close(completionHandler=nil)
+      if completionHandler != nil && completionHandler.class == Proc
+        return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       @j_del.close
     end
-    def deploy_verticle(param_1=nil,param_2=nil,param_3=nil)
-        if param_1 != nil && param_1.class == String
-            if param_2 == nil || param_2.class == Hash
-                if param_3 != nil && param_3.class == Proc
-                  return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
-                end
-              return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
-            end
-            if param_2 != nil && param_2.class == Proc
-              return @j_del.deployVerticle(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
-            end
-          return @j_del.deployVerticle(param_1)
+    def deploy_verticle(param_1,param_2=nil,param_3=nil)
+      if param_1 != nil && param_1.class == String
+        if param_2 == nil || param_2.class == Hash
+          if param_3 != nil && param_3.class == Proc
+            return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          end
+          return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(Vertx::Util::Utils.to_json_object(param_2)) : nil)
         end
+        if param_2 != nil && param_2.class == Proc
+          return @j_del.deployVerticle(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        end
+        return @j_del.deployVerticle(param_1)
+      end
       raise ArgumentError, 'dispatch error'
     end
-    def undeploy_verticle(deployment_id,completion_handler=nil)
-      if deployment_id != nil && deployment_id.class == String
-        if completion_handler != nil && completion_handler.class == Proc
-          return @j_del.undeployVerticle(deployment_id,(Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def undeploy_verticle(deploymentID,completionHandler=nil)
+      if deploymentID != nil && deploymentID.class == String
+        if completionHandler != nil && completionHandler.class == Proc
+          return @j_del.undeployVerticle(deploymentID,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
         end
-        return @j_del.undeployVerticle(deployment_id)
+        return @j_del.undeployVerticle(deploymentID)
       end
       raise ArgumentError, 'dispatch error'
     end
     def deployments()
       @j_del.deployments.to_set.map! { |elt| elt }
     end
-    def execute_blocking(blocking_code_handler,result_handler)
-      if blocking_code_handler != nil && blocking_code_handler.class == Proc
-        if result_handler != nil && result_handler.class == Proc
-          return @j_del.executeBlocking((Proc.new { |event| blocking_code_handler.call(Vertx::Future.new(event)) }),(Proc.new { |ar| result_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
+    def execute_blocking(blockingCodeHandler,resultHandler)
+      if blockingCodeHandler != nil && blockingCodeHandler.class == Proc
+        if resultHandler != nil && resultHandler.class == Proc
+          return @j_del.executeBlocking((Proc.new { |event| blockingCodeHandler.call(Vertx::Future.new(event)) }),(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
         end
         raise ArgumentError, 'dispatch error'
       end

@@ -56,11 +56,11 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def replace_if_present(key,old_value,new_value)
+    def replace_if_present(key,oldValue,newValue)
       if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
-        if old_value != nil && (old_value.class == String  ||old_value.class == Hash || old_value.class == Array)
-          if new_value != nil && (new_value.class == String  ||new_value.class == Hash || new_value.class == Array)
-            return @j_del.replaceIfPresent(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(old_value),Vertx::Util::Utils.to_object(new_value))
+        if oldValue != nil && (oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array)
+          if newValue != nil && (newValue.class == String  ||newValue.class == Hash || newValue.class == Array)
+            return @j_del.replaceIfPresent(Vertx::Util::Utils.to_object(key),Vertx::Util::Utils.to_object(oldValue),Vertx::Util::Utils.to_object(newValue))
           end
           raise ArgumentError, 'dispatch error'
         end

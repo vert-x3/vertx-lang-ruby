@@ -25,24 +25,24 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def write(param_1=nil,param_2=nil)
-        if param_1 != nil && param_1.class.method_defined?(:j_del)
-          @j_del.write(param_1.j_del)
+    def write(param_1,param_2=nil)
+      if param_1 != nil && param_1.class.method_defined?(:j_del)
+        @j_del.write(param_1.j_del)
+        return self
+      end
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == String
+          @j_del.write(param_1,param_2)
           return self
         end
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == String
-              @j_del.write(param_1,param_2)
-              return self
-            end
-          @j_del.write(param_1)
-          return self
-        end
+        @j_del.write(param_1)
+        return self
+      end
       raise ArgumentError, 'dispatch error'
     end
-    def set_write_queue_max_size(max_size)
-      if max_size != nil && max_size.class == Fixnum
-        @j_del.setWriteQueueMaxSize(max_size)
+    def set_write_queue_max_size(maxSize)
+      if maxSize != nil && maxSize.class == Fixnum
+        @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -69,9 +69,9 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -120,20 +120,20 @@ module Vertx
       self
     end
     def end(param_1=nil,param_2=nil)
-        if param_1 != nil && param_1.class.method_defined?(:j_del)
-          return @j_del.end(param_1.j_del)
+      if param_1 != nil && param_1.class.method_defined?(:j_del)
+        return @j_del.end(param_1.j_del)
+      end
+      if param_1 != nil && param_1.class == String
+        if param_2 != nil && param_2.class == String
+          return @j_del.end(param_1,param_2)
         end
-        if param_1 != nil && param_1.class == String
-            if param_2 != nil && param_2.class == String
-              return @j_del.end(param_1,param_2)
-            end
-          return @j_del.end(param_1)
-        end
-      return @j_del.end
+        return @j_del.end(param_1)
+      end
+      @j_del.end
     end
-    def set_timeout(timeout_ms)
-      if timeout_ms != nil && timeout_ms.class == Fixnum
-        @j_del.setTimeout(timeout_ms)
+    def set_timeout(timeoutMs)
+      if timeoutMs != nil && timeoutMs.class == Fixnum
+        @j_del.setTimeout(timeoutMs)
         return self
       end
       raise ArgumentError, 'dispatch error'

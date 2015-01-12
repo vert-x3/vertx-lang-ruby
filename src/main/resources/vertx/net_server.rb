@@ -27,17 +27,17 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def listen(listen_handler=nil)
-      if listen_handler != nil && listen_handler.class == Proc
-        @j_del.listen((Proc.new { |ar| listen_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetServer.new(ar.result) : nil) }))
+    def listen(listenHandler=nil)
+      if listenHandler != nil && listenHandler.class == Proc
+        @j_del.listen((Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
       @j_del.listen
       self
     end
-    def close(completion_handler=nil)
-      if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def close(completionHandler=nil)
+      if completionHandler != nil && completionHandler.class == Proc
+        return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       @j_del.close
     end

@@ -34,9 +34,9 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -48,9 +48,9 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def set_write_queue_max_size(max_size)
-      if max_size != nil && max_size.class == Fixnum
-        @j_del.setWriteQueueMaxSize(max_size)
+    def set_write_queue_max_size(maxSize)
+      if maxSize != nil && maxSize.class == Fixnum
+        @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'

@@ -35,9 +35,9 @@ module Vertx
       @j_del.pause
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -66,9 +66,9 @@ module Vertx
         end
       @cached_cookies = @j_del.cookies.to_a.map { |elt| elt }
     end
-    def body_handler(body_handler)
-      if body_handler != nil && body_handler.class == Proc
-        @j_del.bodyHandler((Proc.new { |event| body_handler.call(Vertx::Buffer.new(event)) }))
+    def body_handler(bodyHandler)
+      if bodyHandler != nil && bodyHandler.class == Proc
+        @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

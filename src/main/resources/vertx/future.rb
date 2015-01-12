@@ -17,9 +17,9 @@ module Vertx
       end
       Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture)
     end
-    def self.failed_future(failure_message)
-      if failure_message != nil && failure_message.class == String
-        return Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failure_message))
+    def self.failed_future(failureMessage)
+      if failureMessage != nil && failureMessage.class == String
+        return Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failureMessage))
       end
       raise ArgumentError, 'dispatch error'
     end
@@ -38,9 +38,9 @@ module Vertx
       end
       @j_del.complete
     end
-    def fail(failure_message)
-      if failure_message != nil && failure_message.class == String
-        return @j_del.fail(failure_message)
+    def fail(failureMessage)
+      if failureMessage != nil && failureMessage.class == String
+        return @j_del.fail(failureMessage)
       end
       raise ArgumentError, 'dispatch error'
     end

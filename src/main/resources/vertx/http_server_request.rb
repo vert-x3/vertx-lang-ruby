@@ -39,9 +39,9 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -94,9 +94,9 @@ module Vertx
     def absolute_uri()
       @j_del.absoluteURI
     end
-    def body_handler(body_handler)
-      if body_handler != nil && body_handler.class == Proc
-        @j_del.bodyHandler((Proc.new { |event| body_handler.call(Vertx::Buffer.new(event)) }))
+    def body_handler(bodyHandler)
+      if bodyHandler != nil && bodyHandler.class == Proc
+        @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -117,9 +117,9 @@ module Vertx
     def is_expect_multipart()
       @j_del.isExpectMultipart
     end
-    def upload_handler(upload_handler)
-      if upload_handler != nil && upload_handler.class == Proc
-        @j_del.uploadHandler((Proc.new { |event| upload_handler.call(Vertx::HttpServerFileUpload.new(event)) }))
+    def upload_handler(uploadHandler)
+      if uploadHandler != nil && uploadHandler.class == Proc
+        @j_del.uploadHandler((Proc.new { |event| uploadHandler.call(Vertx::HttpServerFileUpload.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'

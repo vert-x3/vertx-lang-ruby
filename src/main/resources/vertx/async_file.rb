@@ -31,14 +31,14 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def write(buffer=nil,position=nil,handler=nil)
+    def write(buffer,position=nil,handler=nil)
       if buffer != nil && buffer.class.method_defined?(:j_del)
         if position != nil && position.class == Fixnum
           if handler != nil && handler.class == Proc
@@ -47,14 +47,14 @@ module Vertx
           end
           raise ArgumentError, 'dispatch error'
         end
-        @j_del.write(data.j_del)
+        @j_del.write(buffer.j_del)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def set_write_queue_max_size(max_size)
-      if max_size != nil && max_size.class == Fixnum
-        @j_del.setWriteQueueMaxSize(max_size)
+    def set_write_queue_max_size(maxSize)
+      if maxSize != nil && maxSize.class == Fixnum
+        @j_del.setWriteQueueMaxSize(maxSize)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -106,16 +106,16 @@ module Vertx
       @j_del.flush
       self
     end
-    def set_read_pos(read_pos)
-      if read_pos != nil && read_pos.class == Fixnum
-        @j_del.setReadPos(read_pos)
+    def set_read_pos(readPos)
+      if readPos != nil && readPos.class == Fixnum
+        @j_del.setReadPos(readPos)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def set_write_pos(read_pos)
-      if read_pos != nil && read_pos.class == Fixnum
-        @j_del.setWritePos(read_pos)
+    def set_write_pos(readPos)
+      if readPos != nil && readPos.class == Fixnum
+        @j_del.setWritePos(readPos)
         return self
       end
       raise ArgumentError, 'dispatch error'

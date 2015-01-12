@@ -33,9 +33,9 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(end_handler)
-      if end_handler != nil && end_handler.class == Proc
-        @j_del.endHandler(end_handler)
+    def end_handler(endHandler)
+      if endHandler != nil && endHandler.class == Proc
+        @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -49,24 +49,24 @@ module Vertx
     def address()
       @j_del.address
     end
-    def set_max_buffered_messages(max_buffered_messages)
-      if max_buffered_messages != nil && max_buffered_messages.class == Fixnum
-        return Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(max_buffered_messages))
+    def set_max_buffered_messages(maxBufferedMessages)
+      if maxBufferedMessages != nil && maxBufferedMessages.class == Fixnum
+        return Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(maxBufferedMessages))
       end
       raise ArgumentError, 'dispatch error'
     end
     def get_max_buffered_messages()
       @j_del.getMaxBufferedMessages
     end
-    def completion_handler(completion_handler)
-      if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.completionHandler((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def completion_handler(completionHandler)
+      if completionHandler != nil && completionHandler.class == Proc
+        return @j_del.completionHandler((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def unregister(completion_handler=nil)
-      if completion_handler != nil && completion_handler.class == Proc
-        return @j_del.unregister((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
+    def unregister(completionHandler=nil)
+      if completionHandler != nil && completionHandler.class == Proc
+        return @j_del.unregister((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       @j_del.unregister
     end
