@@ -19,13 +19,13 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def close(completionHandler)
+    def close(&completionHandler)
       if completionHandler != nil && completionHandler.class == Proc
         return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def send(param_1,param_2,param_3=nil,param_4=nil)
+    def send(param_1,param_2,param_3=nil,&param_4)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
           if param_3 == nil || param_3.class == Hash
@@ -61,7 +61,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def consumer(address,handler=nil)
+    def consumer(address,&handler)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
           return Vertx::MessageConsumer.new(@j_del.consumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))
@@ -70,7 +70,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def local_consumer(address,handler=nil)
+    def local_consumer(address,&handler)
       if address != nil && address.class == String
         if handler != nil && handler.class == Proc
           return Vertx::MessageConsumer.new(@j_del.localConsumer(address,(Proc.new { |event| handler.call(Vertx::Message.new(event)) })))

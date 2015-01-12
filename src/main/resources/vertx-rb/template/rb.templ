@@ -415,6 +415,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 
 	@foreach{methods:methodsByName.values()}
 
+		@code{lastMethod=methods[methods.size()-1]}
 		@code{methodName=methods[0].getName(CASE_SNAKE)}
 		@code{methodDecl=(methods[0].staticMethod ? "self." : "") + methodName}
 		@code{trie = new java.util.HashMap()}
@@ -427,7 +428,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{params=new java.util.ArrayList()}
 		@foreach{index:trieHeight(trie)}
 			@if{kind == 0 || kind == 1}
-				@code{params.add(genRubyName(methods[methods.size() - 1].params[index].name))}
+				@code{params.add(genRubyName(lastMethod.params[index].name))}
 			@else{}
 				@code{params.add("param_" + (index + 1))}
 			@end{}
@@ -456,7 +457,12 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @end{}
 
     def @{methodDecl}(
-			@code{index=0}@foreach{param:params}@{param}@if{index++ >= methods[0].params.size()}=nil@end{}@end{","})\n
+			@code{index=0}@foreach{param:params}
+			@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}
+			@if{handler}&@end{}
+			@{param}
+			@if{index++ >= methods[0].params.size() && !handler}=nil@end{}
+			@end{","})\n
 			@includeNamed{'genMethodDispatch'}
     end\n
 

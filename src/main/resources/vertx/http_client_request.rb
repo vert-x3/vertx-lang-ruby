@@ -18,7 +18,7 @@ module Vertx
     def write_queue_full()
       @j_del.writeQueueFull
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
@@ -47,14 +47,14 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def drain_handler(handler)
+    def drain_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.drainHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::HttpClientResponse.new(event)) }))
         return self
@@ -69,7 +69,7 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
@@ -108,7 +108,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def continue_handler(handler)
+    def continue_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.continueHandler(handler)
         return self

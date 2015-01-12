@@ -34,7 +34,7 @@ module Vertx
       end
       Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx)
     end
-    def self.clustered_vertx(options,resultHandler)
+    def self.clustered_vertx(options,&resultHandler)
       if options == nil || options.class == Hash
         if resultHandler != nil && resultHandler.class == Proc
           return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? Java::IoVertxCore::VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Vertx.new(ar.result) : nil) }))
@@ -106,7 +106,7 @@ module Vertx
         end
       @cached_shared_data = Vertx::SharedData.new(@j_del.sharedData)
     end
-    def set_timer(delay,handler)
+    def set_timer(delay,&handler)
       if delay != nil && delay.class == Fixnum
         if handler != nil && handler.class == Proc
           return @j_del.setTimer(delay,(Proc.new { |event| handler.call(event) }))
@@ -121,7 +121,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def set_periodic(delay,handler)
+    def set_periodic(delay,&handler)
       if delay != nil && delay.class == Fixnum
         if handler != nil && handler.class == Proc
           return @j_del.setPeriodic(delay,(Proc.new { |event| handler.call(event) }))
@@ -142,19 +142,19 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def run_on_context(action)
+    def run_on_context(&action)
       if action != nil && action.class == Proc
         return @j_del.runOnContext(action)
       end
       raise ArgumentError, 'dispatch error'
     end
-    def close(completionHandler=nil)
+    def close(&completionHandler)
       if completionHandler != nil && completionHandler.class == Proc
         return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       @j_del.close
     end
-    def deploy_verticle(param_1,param_2=nil,param_3=nil)
+    def deploy_verticle(param_1,param_2=nil,&param_3)
       if param_1 != nil && param_1.class == String
         if param_2 == nil || param_2.class == Hash
           if param_3 != nil && param_3.class == Proc
@@ -169,7 +169,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def undeploy_verticle(deploymentID,completionHandler=nil)
+    def undeploy_verticle(deploymentID,&completionHandler)
       if deploymentID != nil && deploymentID.class == String
         if completionHandler != nil && completionHandler.class == Proc
           return @j_del.undeployVerticle(deploymentID,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
@@ -181,7 +181,7 @@ module Vertx
     def deployments()
       @j_del.deployments.to_set.map! { |elt| elt }
     end
-    def execute_blocking(blockingCodeHandler,resultHandler)
+    def execute_blocking(blockingCodeHandler,&resultHandler)
       if blockingCodeHandler != nil && blockingCodeHandler.class == Proc
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.executeBlocking((Proc.new { |event| blockingCodeHandler.call(Vertx::Future.new(event)) }),(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))

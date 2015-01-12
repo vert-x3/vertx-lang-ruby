@@ -32,6 +32,11 @@ public class LangTest extends RubyTestBase {
     runTest("test_reserved_words");
   }
 
+  @Test
+  public void testClosureCallback() {
+    runTest("test_closure_callback");
+  }
+
   private void runTest(String testName) {
     runTest("lang_test", testName);
   }

@@ -4,7 +4,7 @@ require 'vertx/util/utils.rb'
 module Vertx
   module WriteStream
     include Vertx::StreamBase
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
@@ -28,7 +28,7 @@ module Vertx
     def write_queue_full()
       @j_del.writeQueueFull
     end
-    def drain_handler(handler)
+    def drain_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.drainHandler(handler)
         return self

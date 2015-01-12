@@ -8,7 +8,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def get(k,resultHandler)
+    def get(k,&resultHandler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.get(Vertx::Util::Utils.to_object(k),(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
@@ -17,7 +17,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def put(param_1,param_2,param_3,param_4=nil)
+    def put(param_1,param_2,param_3,&param_4)
       if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
         if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
           if param_3 != nil && param_3.class == Proc
@@ -35,7 +35,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def put_if_absent(param_1,param_2,param_3,param_4=nil)
+    def put_if_absent(param_1,param_2,param_3,&param_4)
       if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
         if param_2 != nil && (param_2.class == String  ||param_2.class == Hash || param_2.class == Array)
           if param_3 != nil && param_3.class == Proc
@@ -53,7 +53,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def remove(k,resultHandler)
+    def remove(k,&resultHandler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.remove(Vertx::Util::Utils.to_object(k),(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
@@ -62,7 +62,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def remove_if_present(k,v,resultHandler)
+    def remove_if_present(k,v,&resultHandler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if v != nil && (v.class == String  ||v.class == Hash || v.class == Array)
           if resultHandler != nil && resultHandler.class == Proc
@@ -74,7 +74,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def replace(k,v,resultHandler)
+    def replace(k,v,&resultHandler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if v != nil && (v.class == String  ||v.class == Hash || v.class == Array)
           if resultHandler != nil && resultHandler.class == Proc
@@ -86,7 +86,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def replace_if_present(k,oldValue,newValue,resultHandler)
+    def replace_if_present(k,oldValue,newValue,&resultHandler)
       if k != nil && (k.class == String  ||k.class == Hash || k.class == Array)
         if oldValue != nil && (oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array)
           if newValue != nil && (newValue.class == String  ||newValue.class == Hash || newValue.class == Array)
@@ -101,13 +101,13 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def clear(resultHandler)
+    def clear(&resultHandler)
       if resultHandler != nil && resultHandler.class == Proc
         return @j_del.clear((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def size(resultHandler)
+    def size(&resultHandler)
       if resultHandler != nil && resultHandler.class == Proc
         return @j_del.size((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end

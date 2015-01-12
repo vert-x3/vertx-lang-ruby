@@ -17,14 +17,14 @@ module Vertx
     def j_del
       @j_del
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
@@ -39,7 +39,7 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
@@ -94,7 +94,7 @@ module Vertx
     def absolute_uri()
       @j_del.absoluteURI
     end
-    def body_handler(bodyHandler)
+    def body_handler(&bodyHandler)
       if bodyHandler != nil && bodyHandler.class == Proc
         @j_del.bodyHandler((Proc.new { |event| bodyHandler.call(Vertx::Buffer.new(event)) }))
         return self
@@ -117,7 +117,7 @@ module Vertx
     def is_expect_multipart()
       @j_del.isExpectMultipart
     end
-    def upload_handler(uploadHandler)
+    def upload_handler(&uploadHandler)
       if uploadHandler != nil && uploadHandler.class == Proc
         @j_del.uploadHandler((Proc.new { |event| uploadHandler.call(Vertx::HttpServerFileUpload.new(event)) }))
         return self

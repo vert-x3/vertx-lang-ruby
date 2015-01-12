@@ -23,7 +23,7 @@ module Vertx
     def request_stream()
       Vertx::HttpServerRequestStream.new(@j_del.requestStream)
     end
-    def request_handler(handler)
+    def request_handler(&handler)
       if handler != nil && handler.class == Proc
         return Vertx::HttpServer.new(@j_del.requestHandler((Proc.new { |event| handler.call(Vertx::HttpServerRequest.new(event)) })))
       end
@@ -32,13 +32,13 @@ module Vertx
     def websocket_stream()
       Vertx::ServerWebSocketStream.new(@j_del.websocketStream)
     end
-    def websocket_handler(handler)
+    def websocket_handler(&handler)
       if handler != nil && handler.class == Proc
         return Vertx::HttpServer.new(@j_del.websocketHandler((Proc.new { |event| handler.call(Vertx::ServerWebSocket.new(event)) })))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def listen(listenHandler=nil)
+    def listen(&listenHandler)
       if listenHandler != nil && listenHandler.class == Proc
         @j_del.listen((Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::HttpServer.new(ar.result) : nil) }))
         return self
@@ -46,7 +46,7 @@ module Vertx
       @j_del.listen
       self
     end
-    def close(completionHandler=nil)
+    def close(&completionHandler)
       if completionHandler != nil && completionHandler.class == Proc
         return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end

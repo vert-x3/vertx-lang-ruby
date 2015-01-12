@@ -11,14 +11,14 @@ module Vertx
     def j_del
       @j_del
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Message.new(event)) }))
         return self
@@ -33,7 +33,7 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
@@ -58,13 +58,13 @@ module Vertx
     def get_max_buffered_messages()
       @j_del.getMaxBufferedMessages
     end
-    def completion_handler(completionHandler)
+    def completion_handler(&completionHandler)
       if completionHandler != nil && completionHandler.class == Proc
         return @j_del.completionHandler((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, 'dispatch error'
     end
-    def unregister(completionHandler=nil)
+    def unregister(&completionHandler)
       if completionHandler != nil && completionHandler.class == Proc
         return @j_del.unregister((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end

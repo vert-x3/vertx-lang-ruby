@@ -37,14 +37,14 @@ module Vertx
         end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
@@ -59,7 +59,7 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
@@ -80,7 +80,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def drain_handler(handler)
+    def drain_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.drainHandler(handler)
         return self
@@ -101,14 +101,14 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def close_handler(handler)
+    def close_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def frame_handler(handler)
+    def frame_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.frameHandler((Proc.new { |event| handler.call(Vertx::WebSocketFrame.new(event)) }))
         return self

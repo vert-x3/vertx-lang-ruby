@@ -22,7 +22,7 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def send(param_1,param_2,param_3,param_4,param_5=nil)
+    def send(param_1,param_2,param_3,param_4,&param_5)
       if param_1 != nil && param_1.class.method_defined?(:j_del)
         if param_2 != nil && param_2.class == Fixnum
           if param_3 != nil && param_3.class == String
@@ -73,7 +73,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def close(handler=nil)
+    def close(&handler)
       if handler != nil && handler.class == Proc
         return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
@@ -85,7 +85,7 @@ module Vertx
         end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    def listen_multicast_group(param_1,param_2,param_3=nil,param_4=nil)
+    def listen_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.listenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
@@ -105,7 +105,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def unlisten_multicast_group(param_1,param_2,param_3=nil,param_4=nil)
+    def unlisten_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.unlistenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::DatagramSocket.new(ar.result) : nil) }))
@@ -125,7 +125,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def block_multicast_group(param_1,param_2,param_3,param_4=nil)
+    def block_multicast_group(param_1,param_2,param_3,&param_4)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == String
           if param_3 != nil && param_3.class == Proc
@@ -145,7 +145,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def listen(port,host,handler)
+    def listen(port,host,&handler)
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
           if handler != nil && handler.class == Proc
@@ -166,21 +166,21 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::DatagramPacket.new(event)) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self

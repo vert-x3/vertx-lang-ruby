@@ -14,7 +14,7 @@ module Vertx
     def write_queue_full()
       @j_del.writeQueueFull
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
@@ -35,7 +35,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def drain_handler(handler)
+    def drain_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.drainHandler(handler)
         return self

@@ -12,7 +12,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def get_cluster_wide_map(name,resultHandler)
+    def get_cluster_wide_map(name,&resultHandler)
       if name != nil && name.class == String
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.getClusterWideMap(name,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::AsyncMap.new(ar.result) : nil) }))
@@ -21,7 +21,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def get_lock(name,resultHandler)
+    def get_lock(name,&resultHandler)
       if name != nil && name.class == String
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.getLock(name,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Lock.new(ar.result) : nil) }))
@@ -30,7 +30,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def get_lock_with_timeout(name,timeout,resultHandler)
+    def get_lock_with_timeout(name,timeout,&resultHandler)
       if name != nil && name.class == String
         if timeout != nil && timeout.class == Fixnum
           if resultHandler != nil && resultHandler.class == Proc
@@ -42,7 +42,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def get_counter(name,resultHandler)
+    def get_counter(name,&resultHandler)
       if name != nil && name.class == String
         if resultHandler != nil && resultHandler.class == Proc
           return @j_del.getCounter(name,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Counter.new(ar.result) : nil) }))

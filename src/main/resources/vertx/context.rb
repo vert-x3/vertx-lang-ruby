@@ -8,7 +8,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def run_on_context(action)
+    def run_on_context(&action)
       if action != nil && action.class == Proc
         return @j_del.runOnContext(action)
       end

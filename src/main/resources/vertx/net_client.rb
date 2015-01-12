@@ -17,7 +17,7 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def connect(port,host,connectHandler)
+    def connect(port,host,&connectHandler)
       if port != nil && port.class == Fixnum
         if host != nil && host.class == String
           if connectHandler != nil && connectHandler.class == Proc

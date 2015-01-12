@@ -24,7 +24,7 @@ module Vertx
     def reply_address()
       @j_del.replyAddress
     end
-    def reply(param_1,param_2=nil,param_3=nil)
+    def reply(param_1,param_2=nil,&param_3)
       if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)
         if param_2 == nil || param_2.class == Hash
           if param_3 != nil && param_3.class == Proc

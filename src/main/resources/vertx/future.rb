@@ -26,7 +26,7 @@ module Vertx
     def is_complete()
       @j_del.isComplete
     end
-    def set_handler(handler)
+    def set_handler(&handler)
       if handler != nil && handler.class == Proc
         return @j_del.setHandler((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end

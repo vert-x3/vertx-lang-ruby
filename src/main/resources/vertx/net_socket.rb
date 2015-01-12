@@ -17,14 +17,14 @@ module Vertx
     def write_queue_full()
       @j_del.writeQueueFull
     end
-    def exception_handler(handler)
+    def exception_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def handler(handler)
+    def handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.handler((Proc.new { |event| handler.call(Vertx::Buffer.new(event)) }))
         return self
@@ -39,7 +39,7 @@ module Vertx
       @j_del.resume
       self
     end
-    def end_handler(endHandler)
+    def end_handler(&endHandler)
       if endHandler != nil && endHandler.class == Proc
         @j_del.endHandler(endHandler)
         return self
@@ -68,7 +68,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def drain_handler(handler)
+    def drain_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.drainHandler(handler)
         return self
@@ -78,7 +78,7 @@ module Vertx
     def write_handler_id()
       @j_del.writeHandlerID
     end
-    def send_file(filename,resultHandler=nil)
+    def send_file(filename,&resultHandler)
       if filename != nil && filename.class == String
         if resultHandler != nil && resultHandler.class == Proc
           @j_del.sendFile(filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
@@ -104,14 +104,14 @@ module Vertx
     def close()
       @j_del.close
     end
-    def close_handler(handler)
+    def close_handler(&handler)
       if handler != nil && handler.class == Proc
         @j_del.closeHandler(handler)
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
-    def upgrade_to_ssl(handler)
+    def upgrade_to_ssl(&handler)
       if handler != nil && handler.class == Proc
         @j_del.upgradeToSsl(handler)
         return self

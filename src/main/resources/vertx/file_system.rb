@@ -12,7 +12,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def copy(from,to,handler)
+    def copy(from,to,&handler)
       if from != nil && from.class == String
         if to != nil && to.class == String
           if handler != nil && handler.class == Proc
@@ -35,7 +35,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def copy_recursive(from,to,recursive,handler)
+    def copy_recursive(from,to,recursive,&handler)
       if from != nil && from.class == String
         if to != nil && to.class == String
           if recursive != nil && (recursive.class == TrueClass || recursive.class == FalseClass)
@@ -64,7 +64,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def move(from,to,handler)
+    def move(from,to,&handler)
       if from != nil && from.class == String
         if to != nil && to.class == String
           if handler != nil && handler.class == Proc
@@ -87,7 +87,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def truncate(path,len,handler)
+    def truncate(path,len,&handler)
       if path != nil && path.class == String
         if len != nil && len.class == Fixnum
           if handler != nil && handler.class == Proc
@@ -110,7 +110,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def chmod(path,perms,handler)
+    def chmod(path,perms,&handler)
       if path != nil && path.class == String
         if perms != nil && perms.class == String
           if handler != nil && handler.class == Proc
@@ -133,7 +133,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def chmod_recursive(path,perms,dirPerms,handler)
+    def chmod_recursive(path,perms,dirPerms,&handler)
       if path != nil && path.class == String
         if perms != nil && perms.class == String
           if dirPerms != nil && dirPerms.class == String
@@ -162,7 +162,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def chown(path,user,group,handler)
+    def chown(path,user,group,&handler)
       if path != nil && path.class == String
         if user != nil && user.class == String
           if group != nil && group.class == String
@@ -191,7 +191,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def props(path,handler)
+    def props(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.props(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
@@ -207,7 +207,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def lprops(path,handler)
+    def lprops(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.lprops(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileProps.new(ar.result) : nil) }))
@@ -223,7 +223,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def link(link,existing,handler)
+    def link(link,existing,&handler)
       if link != nil && link.class == String
         if existing != nil && existing.class == String
           if handler != nil && handler.class == Proc
@@ -246,7 +246,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def symlink(link,existing,handler)
+    def symlink(link,existing,&handler)
       if link != nil && link.class == String
         if existing != nil && existing.class == String
           if handler != nil && handler.class == Proc
@@ -269,7 +269,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def unlink(link,handler)
+    def unlink(link,&handler)
       if link != nil && link.class == String
         if handler != nil && handler.class == Proc
           @j_del.unlink(link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
@@ -286,7 +286,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def read_symlink(link,handler)
+    def read_symlink(link,&handler)
       if link != nil && link.class == String
         if handler != nil && handler.class == Proc
           @j_del.readSymlink(link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
@@ -302,7 +302,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def delete(path,handler)
+    def delete(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.delete(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
@@ -319,7 +319,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def delete_recursive(path,recursive,handler)
+    def delete_recursive(path,recursive,&handler)
       if path != nil && path.class == String
         if recursive != nil && (recursive.class == TrueClass || recursive.class == FalseClass)
           if handler != nil && handler.class == Proc
@@ -342,7 +342,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def mkdir(param_1,param_2,param_3=nil)
+    def mkdir(param_1,param_2,&param_3)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.mkdir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
@@ -370,7 +370,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def mkdirs(param_1,param_2,param_3=nil)
+    def mkdirs(param_1,param_2,&param_3)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.mkdirs(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
@@ -398,7 +398,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def read_dir(param_1,param_2,param_3=nil)
+    def read_dir(param_1,param_2,&param_3)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
@@ -424,7 +424,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def read_file(path,handler)
+    def read_file(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.readFile(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::Buffer.new(ar.result) : nil) }))
@@ -440,7 +440,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def write_file(path,data,handler)
+    def write_file(path,data,&handler)
       if path != nil && path.class == String
         if data != nil && data.class.method_defined?(:j_del)
           if handler != nil && handler.class == Proc
@@ -463,7 +463,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def open(path,options,handler)
+    def open(path,options,&handler)
       if path != nil && path.class == String
         if options == nil || options.class == Hash
           if handler != nil && handler.class == Proc
@@ -485,7 +485,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def create_file(param_1,param_2,param_3=nil)
+    def create_file(param_1,param_2,&param_3)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == Proc
           @j_del.createFile(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
@@ -513,7 +513,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def exists(path,handler)
+    def exists(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.exists(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
@@ -529,7 +529,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def fs_props(path,handler)
+    def fs_props(path,&handler)
       if path != nil && path.class == String
         if handler != nil && handler.class == Proc
           @j_del.fsProps(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::FileSystemProps.new(ar.result) : nil) }))

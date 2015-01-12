@@ -6,6 +6,7 @@ require 'ruby-codegen/super_mixin'
 require 'ruby-codegen/mixin'
 require 'ruby-codegen/class_with_mixin'
 require 'ruby-codegen/reserved_word_params'
+require 'ruby-codegen/method_with_closure'
 
 java_import 'io.vertx.test.support.LinearOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.MultiOverloadedMethodsImpl'
@@ -13,6 +14,7 @@ java_import 'io.vertx.test.support.ClassWithMixinImpl'
 java_import 'io.vertx.test.support.ReferencingTypeImpl'
 java_import 'io.vertx.test.support.ReferencingTypeImpl'
 java_import 'io.vertx.test.support.ReservedWordParamsImpl'
+java_import 'io.vertx.test.support.MethodWithClosureImpl'
 
 def test_linear_overload
   def create
@@ -93,10 +95,23 @@ end
 
 def test_reserved_words
   obj = RubyCodegen::ReservedWordParams.new(ReservedWordParamsImpl.new)
-  ret = obj.method("a", "b", "c", "d", "e",
-                   "f", "g", "h", "i", "j",
-                   "k", "l", "m", "n", "o",
-                   "p", "q", "r", "s", "t",
-                   "u", "v", "w", "x", "y")
-  Assert.equals ret, "abcdefghijklmnopqrstuvwxy"
+  ret = obj.method('a', 'b', 'c', 'd', 'e',
+                   'f', 'g', 'h', 'i', 'j',
+                   'k', 'l', 'm', 'n', 'o',
+                   'p', 'q', 'r', 's', 't',
+                   'u', 'v', 'w', 'x', 'y')
+  Assert.equals ret, 'abcdefghijklmnopqrstuvwxy'
+end
+
+def test_closure_callback
+  impl = MethodWithClosureImpl.new
+  obj = RubyCodegen::MethodWithClosure.new(impl)
+  obj.do_something
+  Assert.equals impl.getCalled, 'doSomething()'
+  obj.do_something 'arg_value'
+  Assert.equals impl.getCalled, 'doSomething(arg_value)'
+  val = nil
+  obj.do_something('arg_value') { |event| val = event }
+  Assert.equals val, 'the_callback_payload'
+  Assert.equals impl.getCalled, 'doSomething(arg_value,callback)'
 end

@@ -21,7 +21,7 @@ module Vertx
     def metrics()
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def request(param_1,param_2,param_3=nil,param_4=nil,param_5=nil)
+    def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
       if param_1 != nil && param_1.class == String
         if param_2 != nil && param_2.class == String
           if param_3 != nil && param_3.class == Proc
@@ -66,7 +66,7 @@ module Vertx
       end
       raise ArgumentError, 'dispatch error'
     end
-    def connect_websocket(param_1,param_2,param_3,param_4,param_5=nil,param_6=nil,param_7=nil)
+    def connect_websocket(param_1,param_2,param_3,param_4,param_5=nil,param_6=nil,&param_7)
       if param_1 != nil && param_1.class == Fixnum
         if param_2 != nil && param_2.class == String
           if param_3 != nil && param_3.class == String
