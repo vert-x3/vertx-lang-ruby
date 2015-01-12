@@ -62,33 +62,33 @@ module Vertx
       @j_del.query
     end
     def response
-        if @cached_response != nil
-          return @cached_response
-        end
+      if @cached_response != nil
+        return @cached_response
+      end
       @cached_response = Vertx::HttpServerResponse.new(@j_del.response)
     end
     def headers
-        if @cached_headers != nil
-          return @cached_headers
-        end
+      if @cached_headers != nil
+        return @cached_headers
+      end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def params
-        if @cached_params != nil
-          return @cached_params
-        end
+      if @cached_params != nil
+        return @cached_params
+      end
       @cached_params = Vertx::MultiMap.new(@j_del.params)
     end
     def remote_address
-        if @cached_remote_address != nil
-          return @cached_remote_address
-        end
+      if @cached_remote_address != nil
+        return @cached_remote_address
+      end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address
-        if @cached_local_address != nil
-          return @cached_local_address
-        end
+      if @cached_local_address != nil
+        return @cached_local_address
+      end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def absolute_uri
@@ -102,9 +102,9 @@ module Vertx
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
     def net_socket
-        if @cached_net_socket != nil
-          return @cached_net_socket
-        end
+      if @cached_net_socket != nil
+        return @cached_net_socket
+      end
       @cached_net_socket = Vertx::NetSocket.new(@j_del.netSocket)
     end
     def set_expect_multipart(expect)
@@ -125,9 +125,9 @@ module Vertx
       raise ArgumentError, "Invalid argument uploadHandler=#{uploadHandler} when calling upload_handler(uploadHandler)"
     end
     def form_attributes
-        if @cached_form_attributes != nil
-          return @cached_form_attributes
-        end
+      if @cached_form_attributes != nil
+        return @cached_form_attributes
+      end
       @cached_form_attributes = Vertx::MultiMap.new(@j_del.formAttributes)
     end
     def upgrade

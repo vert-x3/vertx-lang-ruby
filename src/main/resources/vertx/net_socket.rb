@@ -90,15 +90,15 @@ module Vertx
       raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
     end
     def remote_address
-        if @cached_remote_address != nil
-          return @cached_remote_address
-        end
+      if @cached_remote_address != nil
+        return @cached_remote_address
+      end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address
-        if @cached_local_address != nil
-          return @cached_local_address
-        end
+      if @cached_local_address != nil
+        return @cached_local_address
+      end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def close

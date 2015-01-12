@@ -82,9 +82,9 @@ module Vertx
       @j_del.isChunked
     end
     def headers
-        if @cached_headers != nil
-          return @cached_headers
-        end
+      if @cached_headers != nil
+        return @cached_headers
+      end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
@@ -98,9 +98,9 @@ module Vertx
       raise ArgumentError, "Invalid argument name=#{name} when calling put_header(name,value)"
     end
     def trailers
-        if @cached_trailers != nil
-          return @cached_trailers
-        end
+      if @cached_trailers != nil
+        return @cached_trailers
+      end
       @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
     end
     def put_trailer(name,value)

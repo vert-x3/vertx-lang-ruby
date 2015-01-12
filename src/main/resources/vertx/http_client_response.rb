@@ -49,21 +49,21 @@ module Vertx
       @j_del.statusMessage
     end
     def headers
-        if @cached_headers != nil
-          return @cached_headers
-        end
+      if @cached_headers != nil
+        return @cached_headers
+      end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def trailers
-        if @cached_trailers != nil
-          return @cached_trailers
-        end
+      if @cached_trailers != nil
+        return @cached_trailers
+      end
       @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
     end
     def cookies
-        if @cached_cookies != nil
-          return @cached_cookies
-        end
+      if @cached_cookies != nil
+        return @cached_cookies
+      end
       @cached_cookies = @j_del.cookies.to_a.map { |elt| elt }
     end
     def body_handler(&bodyHandler)
@@ -74,9 +74,9 @@ module Vertx
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
     def net_socket
-        if @cached_net_socket != nil
-          return @cached_net_socket
-        end
+      if @cached_net_socket != nil
+        return @cached_net_socket
+      end
       @cached_net_socket = Vertx::NetSocket.new(@j_del.netSocket)
     end
   end

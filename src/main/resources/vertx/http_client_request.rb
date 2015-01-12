@@ -93,9 +93,9 @@ module Vertx
       @j_del.uri
     end
     def headers
-        if @cached_headers != nil
-          return @cached_headers
-        end
+      if @cached_headers != nil
+        return @cached_headers
+      end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)

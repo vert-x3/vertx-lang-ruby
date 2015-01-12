@@ -672,9 +672,9 @@ module Testmodel
     end
     def method_with_cached_return(foo)
       if foo.class == String
-          if @cached_method_with_cached_return != nil
-            return @cached_method_with_cached_return
-          end
+        if @cached_method_with_cached_return != nil
+          return @cached_method_with_cached_return
+        end
         return @cached_method_with_cached_return = Testmodel::RefedInterface1.new(@j_del.methodWithCachedReturn(foo))
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling method_with_cached_return(foo)"

@@ -46,15 +46,15 @@ module Vertx
       @j_del.isContinuation
     end
     def text_data
-        if @cached_text_data != nil
-          return @cached_text_data
-        end
+      if @cached_text_data != nil
+        return @cached_text_data
+      end
       @cached_text_data = @j_del.textData
     end
     def binary_data
-        if @cached_binary_data != nil
-          return @cached_binary_data
-        end
+      if @cached_binary_data != nil
+        return @cached_binary_data
+      end
       @cached_binary_data = Vertx::Buffer.new(@j_del.binaryData)
     end
     def is_final

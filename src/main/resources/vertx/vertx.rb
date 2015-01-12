@@ -80,15 +80,15 @@ module Vertx
       raise ArgumentError, "Invalid argument options=#{options} when calling create_datagram_socket(options)"
     end
     def file_system
-        if @cached_file_system != nil
-          return @cached_file_system
-        end
+      if @cached_file_system != nil
+        return @cached_file_system
+      end
       @cached_file_system = Vertx::FileSystem.new(@j_del.fileSystem)
     end
     def event_bus
-        if @cached_event_bus != nil
-          return @cached_event_bus
-        end
+      if @cached_event_bus != nil
+        return @cached_event_bus
+      end
       @cached_event_bus = Vertx::EventBus.new(@j_del.eventBus)
     end
     def create_dns_client(port,host)
@@ -101,9 +101,9 @@ module Vertx
       raise ArgumentError, "Invalid argument port=#{port} when calling create_dns_client(port,host)"
     end
     def shared_data
-        if @cached_shared_data != nil
-          return @cached_shared_data
-        end
+      if @cached_shared_data != nil
+        return @cached_shared_data
+      end
       @cached_shared_data = Vertx::SharedData.new(@j_del.sharedData)
     end
     def set_timer(delay,&handler)

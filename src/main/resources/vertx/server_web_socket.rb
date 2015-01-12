@@ -27,15 +27,15 @@ module Vertx
       @j_del.close
     end
     def remote_address
-        if @cached_remote_address != nil
-          return @cached_remote_address
-        end
+      if @cached_remote_address != nil
+        return @cached_remote_address
+      end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address
-        if @cached_local_address != nil
-          return @cached_local_address
-        end
+      if @cached_local_address != nil
+        return @cached_local_address
+      end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def exception_handler(&handler)
@@ -126,9 +126,9 @@ module Vertx
       @j_del.query
     end
     def headers
-        if @cached_headers != nil
-          return @cached_headers
-        end
+      if @cached_headers != nil
+        return @cached_headers
+      end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def reject

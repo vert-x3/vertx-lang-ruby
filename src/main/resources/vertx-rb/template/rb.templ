@@ -369,9 +369,9 @@
 	@if{method.cacheReturn}
 		@code{cacheKey="@cached_" + method.getName(CASE_SNAKE)}
 		@code{cacheDecl=cacheKey + " = "}
-		@{indent}  if @{cacheKey} != nil\n
-		@{indent}    return @{cacheKey}\n
-		@{indent}  end\n
+		@{indent}if @{cacheKey} != nil\n
+		@{indent}  return @{cacheKey}\n
+		@{indent}end\n
 	@else{}
 		@code{cacheDecl=""}
 	@end{}
