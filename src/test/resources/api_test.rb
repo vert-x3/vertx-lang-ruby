@@ -978,3 +978,42 @@ def test_throwable_return()
   ret = $obj.method_with_throwable_return "bogies"
   Assert.assert_equals("bogies", ret.message)
 end
+
+def test_method_with_list_params()
+  $obj.method_with_list_params(
+    ["foo", "bar"],
+    [2, 3],
+    [12, 13],
+    [1234, 1345],
+    [123, 456],
+    [{'foo'=>'bar'}, {'eek'=>'wibble'}],
+    [['foo'], ['blah']],
+    [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')]
+  )
+end
+
+def test_method_with_set_params()
+  $obj.method_with_set_params(
+      Set.new(["foo", "bar"]),
+      Set.new([2, 3]),
+      Set.new([12, 13]),
+      Set.new([1234, 1345]),
+      Set.new([123, 456]),
+      Set.new([{'foo'=>'bar'}, {'eek'=>'wibble'}]),
+      Set.new([['foo'], ['blah']]),
+      Set.new([Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')])
+  )
+end
+
+def test_method_with_map_params()
+  $obj.method_with_map_params(
+      {'foo'=>'bar','eek'=>'wibble'},
+      {'foo'=>2,'eek'=>3},
+      {'foo'=>12,'eek'=>13},
+      {'foo'=>1234,'eek'=>1345},
+      {'foo'=>123,'eek'=>456},
+      {'foo'=>{'foo'=>'bar'},'eek'=>{'eek'=>'wibble'}},
+      {'foo'=>['foo'],'eek'=>['blah']},
+      {'foo'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'),'eek'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')}
+  )
+end

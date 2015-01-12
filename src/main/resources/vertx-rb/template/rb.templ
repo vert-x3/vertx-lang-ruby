@@ -55,6 +55,12 @@
       return name + " == nil || " + name + ".class == Hash";
     } else if (kind == CLASS_JSON_ARRAY) {
       return name + " == nil || " + name + ".class == Array";
+    } else if (kind == CLASS_LIST) {
+      return name + " == nil || " + name + ".class == Array";
+    } else if (kind == CLASS_SET) {
+      return name + " == nil || " + name + ".class == Set";
+    } else if (kind == CLASS_MAP) {
+      return name + " == nil || " + name + ".class == Hash";
     }
     return "false";
   }
@@ -85,7 +91,21 @@
   def genConvParam(type, name) {
     var kind = type.kind;
     if (kind.basic) {
-      return name;
+      if (type.name == "byte" || type.name == "java.lang.Byte") {
+        return "Vertx::Util::Utils.to_byte(" + name + ")";
+      } else if (type.name == "short" || type.name == "java.lang.Short") {
+        return "Vertx::Util::Utils.to_short(" + name + ")";
+      } else if (type.name == "integer" || type.name == "java.lang.Integer") {
+        return "Vertx::Util::Utils.to_integer(" + name + ")";
+      } else if (type.name == "float" || type.name == "java.lang.Float") {
+        /* not tested */
+        return "Vertx::Util::Utils.to_float(" + name + ")";
+      } else if (type.name == "double" || type.name == "java.lang.Double") {
+        /* not tested */
+        return "Vertx::Util::Utils.to_double(" + name + ")";
+      } else {
+        return name;
+      }
     } else if (kind == CLASS_HANDLER) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
@@ -116,6 +136,15 @@
       return name + " != nil ? " + "Vertx::Util::Utils.to_json_array(" + name + ") : nil";
     } else if (kind == CLASS_ENUM) {
       return genJavaClassFqn(type) + ".valueOf(" + name + ")";
+    } else if (kind == CLASS_LIST) {
+      var elementType = type.args[0];
+      return name + ".map { |element| " + genConvParam(elementType, "element") + " }";
+    } else if (kind == CLASS_SET) {
+      var elementType = type.args[0];
+      return "Java::JavaUtil::LinkedHashSet.new(" + name + ".map { |element| " + genConvParam(elementType, "element") + " })";
+    } else if (kind == CLASS_MAP) {
+      var valueType = type.args[1];
+      return "Hash[" + name + ".map { |k,v| [k," + genConvParam(valueType, "v") + "] }]";
     }
     return "nil";
   }

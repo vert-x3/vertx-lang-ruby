@@ -99,7 +99,7 @@ module Vertx
     end
     def append_byte(b)
       if b != nil && b.class == Fixnum
-        @j_del.appendByte(b)
+        @j_del.appendByte(Vertx::Util::Utils.to_byte(b))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -120,21 +120,21 @@ module Vertx
     end
     def append_short(s)
       if s != nil && s.class == Fixnum
-        @j_del.appendShort(s)
+        @j_del.appendShort(Vertx::Util::Utils.to_short(s))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def append_float(f)
       if f != nil && f.class == Float
-        @j_del.appendFloat(f)
+        @j_del.appendFloat(Vertx::Util::Utils.to_float(f))
         return self
       end
       raise ArgumentError, 'dispatch error'
     end
     def append_double(d)
       if d != nil && d.class == Float
-        @j_del.appendDouble(d)
+        @j_del.appendDouble(Vertx::Util::Utils.to_double(d))
         return self
       end
       raise ArgumentError, 'dispatch error'
@@ -153,7 +153,7 @@ module Vertx
     def set_byte(pos,b)
       if pos != nil && pos.class == Fixnum
         if b != nil && b.class == Fixnum
-          @j_del.setByte(pos,b)
+          @j_del.setByte(pos,Vertx::Util::Utils.to_byte(b))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -183,7 +183,7 @@ module Vertx
     def set_double(pos,d)
       if pos != nil && pos.class == Fixnum
         if d != nil && d.class == Float
-          @j_del.setDouble(pos,d)
+          @j_del.setDouble(pos,Vertx::Util::Utils.to_double(d))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -193,7 +193,7 @@ module Vertx
     def set_float(pos,f)
       if pos != nil && pos.class == Fixnum
         if f != nil && f.class == Float
-          @j_del.setFloat(pos,f)
+          @j_del.setFloat(pos,Vertx::Util::Utils.to_float(f))
           return self
         end
         raise ArgumentError, 'dispatch error'
@@ -203,7 +203,7 @@ module Vertx
     def set_short(pos,s)
       if pos != nil && pos.class == Fixnum
         if s != nil && s.class == Fixnum
-          @j_del.setShort(pos,s)
+          @j_del.setShort(pos,Vertx::Util::Utils.to_short(s))
           return self
         end
         raise ArgumentError, 'dispatch error'

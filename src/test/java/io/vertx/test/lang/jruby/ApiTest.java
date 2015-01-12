@@ -471,6 +471,21 @@ public class ApiTest extends RubyTestBase {
     runTest("test_throwable_return");
   }
 
+  @Test
+  public void testMethodWithListParams() {
+    runTest("test_method_with_list_params");
+  }
+
+  @Test
+  public void testMethodWithSetParams() {
+    runTest("test_method_with_set_params");
+  }
+
+  @Test
+  public void testMethodWithMapParams() {
+    runTest("test_method_with_map_params");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }

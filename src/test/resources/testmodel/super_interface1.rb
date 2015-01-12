@@ -18,7 +18,7 @@ module Testmodel
                   if bool != nil && (bool.class == TrueClass || bool.class == FalseClass)
                     if ch != nil && ch.class == Fixnum
                       if str != nil && str.class == String
-                        return @j_del.superMethodWithBasicParams(b,s,i,l,f,d,bool,ch,str)
+                        return @j_del.superMethodWithBasicParams(Vertx::Util::Utils.to_byte(b),Vertx::Util::Utils.to_short(s),i,l,Vertx::Util::Utils.to_float(f),Vertx::Util::Utils.to_double(d),bool,ch,str)
                       end
                       raise ArgumentError, 'dispatch error'
                     end
