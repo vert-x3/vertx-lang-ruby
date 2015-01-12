@@ -15,22 +15,22 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def deployment_id()
-      return @j_del.deploymentID()
+      @j_del.deploymentID
     end
     def config()
-      return @j_del.config() != nil ? JSON.parse(@j_del.config().encode) : nil
+      @j_del.config != nil ? JSON.parse(@j_del.config.encode) : nil
     end
     def process_args()
-      return @j_del.processArgs().to_a.map { |elt| elt }
+      @j_del.processArgs.to_a.map { |elt| elt }
     end
     def is_event_loop_context()
-      return @j_del.isEventLoopContext()
+      @j_del.isEventLoopContext
     end
     def is_worker()
-      return @j_del.isWorker()
+      @j_del.isWorker
     end
     def is_multi_threaded()
-      return @j_del.isMultiThreaded()
+      @j_del.isMultiThreaded
     end
     def get(key)
       if key != nil && key.class == String

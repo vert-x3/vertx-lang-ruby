@@ -26,12 +26,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc

@@ -3,7 +3,7 @@ require 'vertx/util/utils.rb'
 module RubyCodegen
   module SuperMixin
     def super_mixin_method()
-      return @j_del.superMixinMethod()
+      @j_del.superMixinMethod
     end
   end
   class SuperMixinImpl

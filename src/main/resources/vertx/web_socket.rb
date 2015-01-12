@@ -14,28 +14,28 @@ module Vertx
       @j_del
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def binary_handler_id()
-      return @j_del.binaryHandlerID()
+      @j_del.binaryHandlerID
     end
     def text_handler_id()
-      return @j_del.textHandlerID()
+      @j_del.textHandlerID
     end
     def close()
-      return @j_del.close()
+      @j_del.close
     end
     def remote_address()
-        if @cached_remoteAddress != nil
-          return @cached_remoteAddress
+        if @cached_remote_address != nil
+          return @cached_remote_address
         end
-      return @cached_remoteAddress = Vertx::SocketAddress.new(@j_del.remoteAddress())
+      @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address()
-        if @cached_localAddress != nil
-          return @cached_localAddress
+        if @cached_local_address != nil
+          return @cached_local_address
         end
-      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
+      @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
@@ -52,12 +52,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc

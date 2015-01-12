@@ -12,7 +12,7 @@ module Vertx
       @j_del
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc

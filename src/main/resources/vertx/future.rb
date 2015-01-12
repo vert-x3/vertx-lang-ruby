@@ -9,13 +9,13 @@ module Vertx
       @j_del
     end
     def self.future()
-      return Vertx::Future.new(Java::IoVertxCore::Future.future())
+      Vertx::Future.new(Java::IoVertxCore::Future.future)
     end
     def self.succeeded_future(result=nil)
       if result != nil && (result.class == String  ||result.class == Hash || result.class == Array)
         return Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture(Vertx::Util::Utils.to_object(result)))
       end
-      return Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture())
+      Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture)
     end
     def self.failed_future(failure_message)
       if failure_message != nil && failure_message.class == String
@@ -24,7 +24,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def is_complete()
-      return @j_del.isComplete()
+      @j_del.isComplete
     end
     def set_handler(handler)
       if handler != nil && handler.class == Proc
@@ -36,7 +36,7 @@ module Vertx
       if result != nil && (result.class == String  ||result.class == Hash || result.class == Array)
         return @j_del.complete(Vertx::Util::Utils.to_object(result))
       end
-      return @j_del.complete()
+      @j_del.complete
     end
     def fail(failure_message)
       if failure_message != nil && failure_message.class == String

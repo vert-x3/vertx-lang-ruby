@@ -13,13 +13,13 @@ module Vertx
       @j_del
     end
     def metric_base_name()
-      return @j_del.metricBaseName()
+      @j_del.metricBaseName
     end
     def metrics()
-      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def connect_stream()
-      return Vertx::NetSocketStream.new(@j_del.connectStream())
+      Vertx::NetSocketStream.new(@j_del.connectStream)
     end
     def connect_handler(handler)
       if handler != nil && handler.class == Proc
@@ -32,17 +32,17 @@ module Vertx
         @j_del.listen((Proc.new { |ar| listen_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
-      @j_del.listen()
-      return self
+      @j_del.listen
+      self
     end
     def close(completion_handler=nil)
       if completion_handler != nil && completion_handler.class == Proc
         return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.close()
+      @j_del.close
     end
     def actual_port()
-      return @j_del.actualPort()
+      @j_del.actualPort
     end
   end
 end

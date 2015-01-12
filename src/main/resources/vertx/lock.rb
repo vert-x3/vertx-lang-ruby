@@ -9,7 +9,7 @@ module Vertx
       @j_del
     end
     def release()
-      return @j_del.release()
+      @j_del.release
     end
   end
 end

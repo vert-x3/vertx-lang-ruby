@@ -33,12 +33,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def stream_to_file_system(filename)
       if filename != nil && filename.class == String
@@ -48,25 +48,25 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def filename()
-      return @j_del.filename()
+      @j_del.filename
     end
     def name()
-      return @j_del.name()
+      @j_del.name
     end
     def content_type()
-      return @j_del.contentType()
+      @j_del.contentType
     end
     def content_transfer_encoding()
-      return @j_del.contentTransferEncoding()
+      @j_del.contentTransferEncoding
     end
     def charset()
-      return @j_del.charset()
+      @j_del.charset
     end
     def size()
-      return @j_del.size()
+      @j_del.size
     end
     def is_size_available()
-      return @j_del.isSizeAvailable()
+      @j_del.isSizeAvailable
     end
   end
 end

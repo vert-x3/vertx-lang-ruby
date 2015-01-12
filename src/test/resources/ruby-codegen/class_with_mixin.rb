@@ -11,10 +11,10 @@ module RubyCodegen
       @j_del
     end
     def super_mixin_method()
-      return @j_del.superMixinMethod()
+      @j_del.superMixinMethod
     end
     def mixin_method()
-      return @j_del.mixinMethod()
+      @j_del.mixinMethod
     end
   end
 end

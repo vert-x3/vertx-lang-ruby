@@ -32,16 +32,16 @@ module Vertx
       @j_del
     end
     def metric_base_name()
-      return @j_del.metricBaseName()
+      @j_del.metricBaseName
     end
     def metrics()
-      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def self.vertx(options=nil)
       if options == nil || options.class == Hash
         return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(options != nil ? VertxOptions.new(Vertx::Util::Utils.to_json_object(options)) : nil))
       end
-      return Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx())
+      Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx)
     end
     def self.clustered_vertx(options,result_handler)
       if options == nil || options.class == Hash
@@ -53,10 +53,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def self.current_context()
-      return Vertx::Context.new(Java::IoVertxCore::Vertx.currentContext())
+      Vertx::Context.new(Java::IoVertxCore::Vertx.currentContext)
     end
     def get_or_create_context()
-      return Vertx::Context.new(@j_del.getOrCreateContext())
+      Vertx::Context.new(@j_del.getOrCreateContext)
     end
     def create_net_server(options)
       if options == nil || options.class == Hash
@@ -89,16 +89,16 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def file_system()
-        if @cached_fileSystem != nil
-          return @cached_fileSystem
+        if @cached_file_system != nil
+          return @cached_file_system
         end
-      return @cached_fileSystem = Vertx::FileSystem.new(@j_del.fileSystem())
+      @cached_file_system = Vertx::FileSystem.new(@j_del.fileSystem)
     end
     def event_bus()
-        if @cached_eventBus != nil
-          return @cached_eventBus
+        if @cached_event_bus != nil
+          return @cached_event_bus
         end
-      return @cached_eventBus = Vertx::EventBus.new(@j_del.eventBus())
+      @cached_event_bus = Vertx::EventBus.new(@j_del.eventBus)
     end
     def create_dns_client(port,host)
       if port != nil && port.class == Fixnum
@@ -110,10 +110,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def shared_data()
-        if @cached_sharedData != nil
-          return @cached_sharedData
+        if @cached_shared_data != nil
+          return @cached_shared_data
         end
-      return @cached_sharedData = Vertx::SharedData.new(@j_del.sharedData())
+      @cached_shared_data = Vertx::SharedData.new(@j_del.sharedData)
     end
     def set_timer(delay,handler)
       if delay != nil && delay.class == Fixnum
@@ -161,7 +161,7 @@ module Vertx
       if completion_handler != nil && completion_handler.class == Proc
         return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.close()
+      @j_del.close
     end
     def deploy_verticle(param_1=nil,param_2=nil,param_3=nil)
         if param_1 != nil && param_1.class == String
@@ -188,7 +188,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def deployments()
-      return @j_del.deployments().to_set.map! { |elt| elt }
+      @j_del.deployments.to_set.map! { |elt| elt }
     end
     def execute_blocking(blocking_code_handler,result_handler)
       if blocking_code_handler != nil && blocking_code_handler.class == Proc

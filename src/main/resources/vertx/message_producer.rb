@@ -12,7 +12,7 @@ module Vertx
       @j_del
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
@@ -50,7 +50,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def address()
-      return @j_del.address()
+      @j_del.address
     end
   end
 end

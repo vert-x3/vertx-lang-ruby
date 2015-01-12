@@ -30,15 +30,15 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def start()
-      @j_del.start()
-      return self
+      @j_del.start
+      self
     end
     def stop()
-      @j_del.stop()
-      return self
+      @j_del.stop
+      self
     end
     def number_pumped()
-      return @j_del.numberPumped()
+      @j_del.numberPumped
     end
   end
 end

@@ -3,10 +3,10 @@ require 'vertx/util/utils.rb'
 module Vertx
   module Measured
     def metric_base_name()
-      return @j_del.metricBaseName()
+      @j_del.metricBaseName
     end
     def metrics()
-      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
   end
   class MeasuredImpl

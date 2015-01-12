@@ -12,19 +12,19 @@ module Vertx
       @j_del
     end
     def address()
-      return @j_del.address()
+      @j_del.address
     end
     def headers()
-      return Vertx::MultiMap.new(@j_del.headers())
+      Vertx::MultiMap.new(@j_del.headers)
     end
     def body()
         if @cached_body != nil
           return @cached_body
         end
-      return @cached_body = Vertx::Util::Utils.from_object(@j_del.body())
+      @cached_body = Vertx::Util::Utils.from_object(@j_del.body)
     end
     def reply_address()
-      return @j_del.replyAddress()
+      @j_del.replyAddress
     end
     def reply(param_1=nil,param_2=nil,param_3=nil)
         if param_1 != nil && (param_1.class == String  ||param_1.class == Hash || param_1.class == Array)

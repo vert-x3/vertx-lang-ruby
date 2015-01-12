@@ -9,10 +9,10 @@ module Vertx
       @j_del
     end
     def host_address()
-      return @j_del.hostAddress()
+      @j_del.hostAddress
     end
     def host_port()
-      return @j_del.hostPort()
+      @j_del.hostPort
     end
   end
 end

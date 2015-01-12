@@ -26,12 +26,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
@@ -41,13 +41,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def body_stream()
-      return Vertx::ReadStreamImpl.new(@j_del.bodyStream())
+      Vertx::ReadStreamImpl.new(@j_del.bodyStream)
     end
     def is_registered()
-      return @j_del.isRegistered()
+      @j_del.isRegistered
     end
     def address()
-      return @j_del.address()
+      @j_del.address
     end
     def set_max_buffered_messages(max_buffered_messages)
       if max_buffered_messages != nil && max_buffered_messages.class == Fixnum
@@ -56,7 +56,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def get_max_buffered_messages()
-      return @j_del.getMaxBufferedMessages()
+      @j_del.getMaxBufferedMessages
     end
     def completion_handler(completion_handler)
       if completion_handler != nil && completion_handler.class == Proc
@@ -68,7 +68,7 @@ module Vertx
       if completion_handler != nil && completion_handler.class == Proc
         return @j_del.unregister((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.unregister()
+      @j_del.unregister
     end
   end
 end

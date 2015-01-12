@@ -70,20 +70,24 @@
   def genMethodCall(method,generic) {
     var s = "";
     var index = 1;
-    for (param : method.params) {
-      if (s.length() > 0) {
-        s += ",";
+    if (method.params.size() > 0) {
+      s = "";
+      for (param : method.params) {
+        if (s.length() > 0) {
+          s += ",";
+        }
+        var name = "";
+        if (generic) {
+          name = 'param_' + index;
+        } else {
+          name = param.getName(CASE_SNAKE);
+        }
+        s += genConvParam(param.type, name);
+        index += 1;
       }
-      var name = "";
-      if (generic) {
-        name = 'param_' + index;
-      } else {
-        name = param.getName(CASE_SNAKE);
-      }
-      s += genConvParam(param.type, name);
-      index += 1;
+      s = "(" + s + ")";
     }
-    return (method.staticMethod ? genJavaClassFqn(type.raw) : "@j_del") + "." + method.getName() + "(" + s + ")";
+    return (method.staticMethod ? genJavaClassFqn(type.raw) : "@j_del") + "." + method.getName() + s;
   }
 }
 
@@ -271,10 +275,10 @@
 @declare{'foobarjuu'}
 @if{method.fluent}
 @{indent}@{genMethodCall(method,generic)}\n
-@{indent}return self\n
+@{indent}@if{!last}return @end{}self\n
 @else{}
 	@if{method.cacheReturn}
-		@code{cacheKey="@cached_" + method.name}
+		@code{cacheKey="@cached_" + method.getName(CASE_SNAKE)}
 		@code{cacheDecl=cacheKey + " = "}
 		@{indent}  if @{cacheKey} != nil\n
 		@{indent}    return @{cacheKey}\n
@@ -282,7 +286,7 @@
 	@else{}
 		@code{cacheDecl=""}
 	@end{}
-@{indent}return @{cacheDecl}@{genConvReturn(method.returnType, genMethodCall(method,generic))}\n
+@{indent}@if{!last}return @end{}@{cacheDecl}@{genConvReturn(method.returnType, genMethodCall(method,generic))}\n
 @end{}
 @end{}
 
@@ -357,7 +361,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 				@end{}
 			@end{}
 			@if{found!=null}
-				@includeNamed{'foobarjuu';method=found;indent="        " + margin;generic=false}
+				@includeNamed{'foobarjuu';method=found;indent="        " + margin;generic=false;last=false}
 			@else{}
         @{margin}raise ArgumentError, 'dispatch error'\n
 			@end{}
@@ -365,7 +369,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 			@code{paramCount--}
 		@end{}
 		@if{methods[0].params.empty}
-			@includeNamed{'foobarjuu';method=methods[0];indent="      ";generic=false}
+			@includeNamed{'foobarjuu';method=methods[0];indent="      ";generic=false;last=true}
 		@else{}
       raise ArgumentError, 'dispatch error'\n
 		@end{}
@@ -386,7 +390,7 @@ module @{dashedSeparatedNameToCamelCase(type.raw.moduleName)}\n
 	@end{}
 	@code{trie=_trie.removeLast()}
 	@if{methodMap.containsKey(trie)}
-		@includeNamed{"foobarjuu";method=methodMap.get(trie);indent=("    " + genIndent());generic=true}
+		@includeNamed{"foobarjuu";method=methodMap.get(trie);indent=("    " + genIndent());generic=true;last=false}
 	@else{}
 		@{genIndent()}    raise ArgumentError, 'dispatch error'\n
 	@end{}

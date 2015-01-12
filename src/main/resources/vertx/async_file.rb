@@ -14,7 +14,7 @@ module Vertx
       @j_del
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def handler(handler)
       if handler != nil && handler.class == Proc
@@ -24,12 +24,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
@@ -77,7 +77,7 @@ module Vertx
       if handler != nil && handler.class == Proc
         return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.close()
+      @j_del.close
     end
     def read(buffer,offset,position,length,handler)
       if buffer != nil && buffer.class.method_defined?(:j_del)
@@ -103,8 +103,8 @@ module Vertx
         @j_del.flush((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
         return self
       end
-      @j_del.flush()
-      return self
+      @j_del.flush
+      self
     end
     def set_read_pos(read_pos)
       if read_pos != nil && read_pos.class == Fixnum

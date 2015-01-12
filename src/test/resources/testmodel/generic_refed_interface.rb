@@ -15,7 +15,7 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def get_value()
-      return Vertx::Util::Utils.from_object(@j_del.getValue())
+      Vertx::Util::Utils.from_object(@j_del.getValue)
     end
   end
 end

@@ -9,10 +9,10 @@ module Vertx
       @j_del
     end
     def priority()
-      return @j_del.priority()
+      @j_del.priority
     end
     def name()
-      return @j_del.name()
+      @j_del.name
     end
   end
 end

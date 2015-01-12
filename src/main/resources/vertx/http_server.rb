@@ -15,13 +15,13 @@ module Vertx
       @j_del
     end
     def metric_base_name()
-      return @j_del.metricBaseName()
+      @j_del.metricBaseName
     end
     def metrics()
-      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def request_stream()
-      return Vertx::HttpServerRequestStream.new(@j_del.requestStream())
+      Vertx::HttpServerRequestStream.new(@j_del.requestStream)
     end
     def request_handler(handler)
       if handler != nil && handler.class == Proc
@@ -30,7 +30,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def websocket_stream()
-      return Vertx::ServerWebSocketStream.new(@j_del.websocketStream())
+      Vertx::ServerWebSocketStream.new(@j_del.websocketStream)
     end
     def websocket_handler(handler)
       if handler != nil && handler.class == Proc
@@ -43,14 +43,14 @@ module Vertx
         @j_del.listen((Proc.new { |ar| listen_handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? Vertx::HttpServer.new(ar.result) : nil) }))
         return self
       end
-      @j_del.listen()
-      return self
+      @j_del.listen
+      self
     end
     def close(completion_handler=nil)
       if completion_handler != nil && completion_handler.class == Proc
         return @j_del.close((Proc.new { |ar| completion_handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.close()
+      @j_del.close
     end
   end
 end

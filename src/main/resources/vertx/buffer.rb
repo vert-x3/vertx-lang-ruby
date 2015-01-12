@@ -18,7 +18,7 @@ module Vertx
         if param_1 != nil && param_1.class == Fixnum
           return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer(param_1))
         end
-      return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer())
+      return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
     end
     def to_string(enc)
       if enc != nil && enc.class == String
@@ -242,10 +242,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def length()
-      return @j_del.length()
+      @j_del.length
     end
     def copy()
-      return Vertx::Buffer.new(@j_del.copy())
+      Vertx::Buffer.new(@j_del.copy)
     end
     def slice(start=nil,end=nil)
       if start != nil && start.class == Fixnum
@@ -254,7 +254,7 @@ module Vertx
         end
         raise ArgumentError, 'dispatch error'
       end
-      return Vertx::Buffer.new(@j_del.slice())
+      Vertx::Buffer.new(@j_del.slice)
     end
   end
 end

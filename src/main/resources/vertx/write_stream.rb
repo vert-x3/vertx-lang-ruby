@@ -26,7 +26,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def drain_handler(handler)
       if handler != nil && handler.class == Proc

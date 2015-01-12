@@ -27,10 +27,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def is_empty()
-      return @j_del.isEmpty()
+      @j_del.isEmpty
     end
     def names()
-      return @j_del.names().to_set.map! { |elt| elt }
+      @j_del.names.to_set.map! { |elt| elt }
     end
     def add(name,value)
       if name != nil && name.class == String
@@ -74,11 +74,11 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def clear()
-      @j_del.clear()
-      return self
+      @j_del.clear
+      self
     end
     def size()
-      return @j_del.size()
+      @j_del.size
     end
   end
 end

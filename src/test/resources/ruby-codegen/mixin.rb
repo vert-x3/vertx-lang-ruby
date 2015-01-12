@@ -5,10 +5,10 @@ module RubyCodegen
   module Mixin
     include RubyCodegen::SuperMixin
     def super_mixin_method()
-      return @j_del.superMixinMethod()
+      @j_del.superMixinMethod
     end
     def mixin_method()
-      return @j_del.mixinMethod()
+      @j_del.mixinMethod
     end
   end
   class MixinImpl

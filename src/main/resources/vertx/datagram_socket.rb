@@ -17,10 +17,10 @@ module Vertx
       @j_del
     end
     def metric_base_name()
-      return @j_del.metricBaseName()
+      @j_del.metricBaseName
     end
     def metrics()
-      return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics(), Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil)
         if param_1 != nil && param_1.class.method_defined?(:j_del)
@@ -77,13 +77,13 @@ module Vertx
       if handler != nil && handler.class == Proc
         return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
-      return @j_del.close()
+      @j_del.close
     end
     def local_address()
-        if @cached_localAddress != nil
-          return @cached_localAddress
+        if @cached_local_address != nil
+          return @cached_local_address
         end
-      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
+      @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def listen_multicast_group(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
         if param_1 != nil && param_1.class == String
@@ -159,12 +159,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc

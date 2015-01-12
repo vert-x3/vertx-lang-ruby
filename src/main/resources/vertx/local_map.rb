@@ -30,13 +30,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def clear()
-      return @j_del.clear()
+      @j_del.clear
     end
     def size()
-      return @j_del.size()
+      @j_del.size
     end
     def is_empty()
-      return @j_del.isEmpty()
+      @j_del.isEmpty
     end
     def put_if_absent(key,value)
       if key != nil && (key.class == String  ||key.class == Hash || key.class == Array)
@@ -78,7 +78,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def close()
-      return @j_del.close()
+      @j_del.close
     end
   end
 end

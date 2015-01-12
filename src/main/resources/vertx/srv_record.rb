@@ -9,25 +9,25 @@ module Vertx
       @j_del
     end
     def priority()
-      return @j_del.priority()
+      @j_del.priority
     end
     def weight()
-      return @j_del.weight()
+      @j_del.weight
     end
     def port()
-      return @j_del.port()
+      @j_del.port
     end
     def name()
-      return @j_del.name()
+      @j_del.name
     end
     def protocol()
-      return @j_del.protocol()
+      @j_del.protocol
     end
     def service()
-      return @j_del.service()
+      @j_del.service
     end
     def target()
-      return @j_del.target()
+      @j_del.target
     end
   end
 end

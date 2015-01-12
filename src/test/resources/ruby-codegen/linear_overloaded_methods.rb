@@ -21,7 +21,7 @@ module RubyCodegen
         end
         return @j_del.method(foo)
       end
-      return @j_del.method()
+      @j_del.method
     end
   end
 end

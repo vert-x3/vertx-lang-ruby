@@ -32,12 +32,12 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def pause()
-      @j_del.pause()
-      return self
+      @j_del.pause
+      self
     end
     def resume()
-      @j_del.resume()
-      return self
+      @j_del.resume
+      self
     end
     def end_handler(end_handler)
       if end_handler != nil && end_handler.class == Proc
@@ -47,52 +47,52 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def version()
-      return @j_del.version().name
+      @j_del.version.name
     end
     def method()
-      return @j_del.method().name
+      @j_del.method.name
     end
     def uri()
-      return @j_del.uri()
+      @j_del.uri
     end
     def path()
-      return @j_del.path()
+      @j_del.path
     end
     def query()
-      return @j_del.query()
+      @j_del.query
     end
     def response()
         if @cached_response != nil
           return @cached_response
         end
-      return @cached_response = Vertx::HttpServerResponse.new(@j_del.response())
+      @cached_response = Vertx::HttpServerResponse.new(@j_del.response)
     end
     def headers()
         if @cached_headers != nil
           return @cached_headers
         end
-      return @cached_headers = Vertx::MultiMap.new(@j_del.headers())
+      @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def params()
         if @cached_params != nil
           return @cached_params
         end
-      return @cached_params = Vertx::MultiMap.new(@j_del.params())
+      @cached_params = Vertx::MultiMap.new(@j_del.params)
     end
     def remote_address()
-        if @cached_remoteAddress != nil
-          return @cached_remoteAddress
+        if @cached_remote_address != nil
+          return @cached_remote_address
         end
-      return @cached_remoteAddress = Vertx::SocketAddress.new(@j_del.remoteAddress())
+      @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
     def local_address()
-        if @cached_localAddress != nil
-          return @cached_localAddress
+        if @cached_local_address != nil
+          return @cached_local_address
         end
-      return @cached_localAddress = Vertx::SocketAddress.new(@j_del.localAddress())
+      @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
     def absolute_uri()
-      return @j_del.absoluteURI()
+      @j_del.absoluteURI
     end
     def body_handler(body_handler)
       if body_handler != nil && body_handler.class == Proc
@@ -102,10 +102,10 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def net_socket()
-        if @cached_netSocket != nil
-          return @cached_netSocket
+        if @cached_net_socket != nil
+          return @cached_net_socket
         end
-      return @cached_netSocket = Vertx::NetSocket.new(@j_del.netSocket())
+      @cached_net_socket = Vertx::NetSocket.new(@j_del.netSocket)
     end
     def set_expect_multipart(expect)
       if expect != nil && (expect.class == TrueClass || expect.class == FalseClass)
@@ -115,7 +115,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def is_expect_multipart()
-      return @j_del.isExpectMultipart()
+      @j_del.isExpectMultipart
     end
     def upload_handler(upload_handler)
       if upload_handler != nil && upload_handler.class == Proc
@@ -125,13 +125,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def form_attributes()
-        if @cached_formAttributes != nil
-          return @cached_formAttributes
+        if @cached_form_attributes != nil
+          return @cached_form_attributes
         end
-      return @cached_formAttributes = Vertx::MultiMap.new(@j_del.formAttributes())
+      @cached_form_attributes = Vertx::MultiMap.new(@j_del.formAttributes)
     end
     def upgrade()
-      return Vertx::ServerWebSocket.new(@j_del.upgrade())
+      Vertx::ServerWebSocket.new(@j_del.upgrade)
     end
   end
 end

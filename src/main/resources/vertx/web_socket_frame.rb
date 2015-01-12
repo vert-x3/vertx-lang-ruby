@@ -37,28 +37,28 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def is_text()
-      return @j_del.isText()
+      @j_del.isText
     end
     def is_binary()
-      return @j_del.isBinary()
+      @j_del.isBinary
     end
     def is_continuation()
-      return @j_del.isContinuation()
+      @j_del.isContinuation
     end
     def text_data()
-        if @cached_textData != nil
-          return @cached_textData
+        if @cached_text_data != nil
+          return @cached_text_data
         end
-      return @cached_textData = @j_del.textData()
+      @cached_text_data = @j_del.textData
     end
     def binary_data()
-        if @cached_binaryData != nil
-          return @cached_binaryData
+        if @cached_binary_data != nil
+          return @cached_binary_data
         end
-      return @cached_binaryData = Vertx::Buffer.new(@j_del.binaryData())
+      @cached_binary_data = Vertx::Buffer.new(@j_del.binaryData)
     end
     def is_final()
-      return @j_del.isFinal()
+      @j_del.isFinal
     end
   end
 end

@@ -18,7 +18,7 @@ module RubyCodegen
             end
           raise ArgumentError, 'dispatch error'
         end
-      return @j_del.method()
+      return @j_del.method
     end
   end
 end

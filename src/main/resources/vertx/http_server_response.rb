@@ -13,7 +13,7 @@ module Vertx
       @j_del
     end
     def write_queue_full()
-      return @j_del.writeQueueFull()
+      @j_del.writeQueueFull
     end
     def exception_handler(handler)
       if handler != nil && handler.class == Proc
@@ -52,7 +52,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def get_status_code()
-      return @j_del.getStatusCode()
+      @j_del.getStatusCode
     end
     def set_status_code(status_code)
       if status_code != nil && status_code.class == Fixnum
@@ -62,7 +62,7 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def get_status_message()
-      return @j_del.getStatusMessage()
+      @j_del.getStatusMessage
     end
     def set_status_message(status_message)
       if status_message != nil && status_message.class == String
@@ -79,13 +79,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def is_chunked()
-      return @j_del.isChunked()
+      @j_del.isChunked
     end
     def headers()
         if @cached_headers != nil
           return @cached_headers
         end
-      return @cached_headers = Vertx::MultiMap.new(@j_del.headers())
+      @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
     def put_header(name,value)
       if name != nil && name.class == String
@@ -101,7 +101,7 @@ module Vertx
         if @cached_trailers != nil
           return @cached_trailers
         end
-      return @cached_trailers = Vertx::MultiMap.new(@j_del.trailers())
+      @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
     end
     def put_trailer(name,value)
       if name != nil && name.class == String
@@ -130,7 +130,7 @@ module Vertx
             end
           return @j_del.end(param_1)
         end
-      return @j_del.end()
+      return @j_del.end
     end
     def send_file(filename,result_handler=nil)
       if filename != nil && filename.class == String
@@ -144,13 +144,13 @@ module Vertx
       raise ArgumentError, 'dispatch error'
     end
     def close()
-      return @j_del.close()
+      @j_del.close
     end
     def ended()
-      return @j_del.ended()
+      @j_del.ended
     end
     def head_written()
-      return @j_del.headWritten()
+      @j_del.headWritten
     end
     def headers_end_handler(handler)
       if handler != nil && handler.class == Proc
