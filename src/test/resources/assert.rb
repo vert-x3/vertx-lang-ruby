@@ -29,6 +29,16 @@ module Assert
       end
     end
   end
+  def self.assert_class(actual, expected_class)
+    unless actual != nil && equals(actual.class, expected_class)
+      raise "Was expecting to have #{actual} to have type #{expected_class}"
+    end
+  end
+  def self.assert_is(actual, expected_type)
+    unless actual != nil && actual.is_a?(expected_type)
+      raise "Was expecting to have #{actual} to be instance of #{expected_type}"
+    end
+  end
   def self.assert_argument_error(&callback)
     failed = false
     begin

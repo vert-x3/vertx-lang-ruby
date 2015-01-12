@@ -909,3 +909,67 @@ def test_map_null_return()
   map = $obj.method_with_null_map_return
   Assert.assert_nil map
 end
+
+def test_list_string_return()
+  ret = $obj.method_with_list_string_return
+  Assert.assert_class ret, Array
+  Assert.assert_equals ret, ["foo","bar","wibble"]
+end
+
+def test_list_long_return()
+  ret = $obj.method_with_list_long_return
+  Assert.assert_class ret, Array
+  Assert.assert_equals ret, [123,456]
+end
+
+def test_list_json_object_return()
+  ret = $obj.method_with_list_json_object_return
+  Assert.assert_class ret, Array
+  Assert.assert_equals ret, [{'foo'=>'bar'},{'blah'=>'eek'}]
+end
+
+def test_list_json_array_return()
+  ret = $obj.method_with_list_json_array_return
+  Assert.assert_class ret, Array
+  Assert.assert_equals ret, [['foo'],['blah']]
+end
+
+def test_list_vertx_gen_return()
+  ret = $obj.method_with_list_vertx_gen_return
+  Assert.assert_class ret, Array
+  Assert.assert_class ret[0], Testmodel::RefedInterface1
+  Assert.assert_equals ret[0].get_string, 'foo'
+  Assert.assert_class ret[1], Testmodel::RefedInterface1
+  Assert.assert_equals ret[1].get_string, 'bar'
+end
+
+def test_set_string_return()
+  ret = $obj.method_with_set_string_return
+  Assert.assert_class ret, Set
+  Assert.assert_equals ret, Set.new(["foo","bar","wibble"])
+end
+
+def test_set_long_return()
+  ret = $obj.method_with_set_long_return
+  Assert.assert_class ret, Set
+  Assert.assert_equals ret, Set.new([123,456])
+end
+
+def test_set_json_object_return()
+  ret = $obj.method_with_set_json_object_return
+  Assert.assert_class ret, Set
+  Assert.assert_equals ret, Set.new([{'foo'=>'bar'},{'blah'=>'eek'}])
+end
+
+def test_set_json_array_return()
+  ret = $obj.method_with_set_json_array_return
+  Assert.assert_class ret, Set
+  Assert.assert_equals ret, Set.new([['foo'],['blah']])
+end
+
+def test_set_vertx_gen_return()
+  ret = $obj.method_with_set_vertx_gen_return
+  Assert.assert_class ret, Set
+  ret.each { |elt| Assert.assert_class(elt, Testmodel::RefedInterface1) }
+  Assert.assert_equals(ret.map { |o| o.get_string }.to_set, Set.new(["foo","bar"]))
+end

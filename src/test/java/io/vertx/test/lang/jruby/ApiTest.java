@@ -416,6 +416,56 @@ public class ApiTest extends RubyTestBase {
     runTest("test_map_null_return");
   }
 
+  @Test
+  public void testListStringReturn() {
+    runTest("test_list_string_return");
+  }
+
+  @Test
+  public void testListLongReturn() {
+    runTest("test_list_long_return");
+  }
+
+  @Test
+  public void testListJsonObjectReturn() {
+    runTest("test_list_json_object_return");
+  }
+
+  @Test
+  public void testListJsonArrayReturn() {
+    runTest("test_list_json_array_return");
+  }
+
+  @Test
+  public void testListVertxGenReturn() {
+    runTest("test_set_vertx_gen_return");
+  }
+
+  @Test
+  public void testSetStringReturn() {
+    runTest("test_set_string_return");
+  }
+
+  @Test
+  public void testSetLongReturn() {
+    runTest("test_set_long_return");
+  }
+
+  @Test
+  public void testSetJsonObjectReturn() {
+    runTest("test_set_json_object_return");
+  }
+
+  @Test
+  public void testSetJsonArrayReturn() {
+    runTest("test_set_json_array_return");
+  }
+
+  @Test
+  public void testSetVertxGenReturn() {
+    runTest("test_set_vertx_gen_return");
+  }
+
   private void runTest(String testName) {
     runTest("api_test", testName);
   }
