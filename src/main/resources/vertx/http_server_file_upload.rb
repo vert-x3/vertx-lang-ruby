@@ -32,11 +32,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -47,25 +47,25 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument filename=#{filename} when calling stream_to_file_system(filename)"
     end
-    def filename()
+    def filename
       @j_del.filename
     end
-    def name()
+    def name
       @j_del.name
     end
-    def content_type()
+    def content_type
       @j_del.contentType
     end
-    def content_transfer_encoding()
+    def content_transfer_encoding
       @j_del.contentTransferEncoding
     end
-    def charset()
+    def charset
       @j_del.charset
     end
-    def size()
+    def size
       @j_del.size
     end
-    def is_size_available()
+    def is_size_available
       @j_del.isSizeAvailable
     end
   end

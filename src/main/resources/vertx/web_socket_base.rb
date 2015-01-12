@@ -9,7 +9,7 @@ module Vertx
   module WebSocketBase
     include Vertx::ReadStream
     include Vertx::WriteStream
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
@@ -26,11 +26,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -62,10 +62,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    def binary_handler_id()
+    def binary_handler_id
       @j_del.binaryHandlerID
     end
-    def text_handler_id()
+    def text_handler_id
       @j_del.textHandlerID
     end
     def write_frame(frame)
@@ -96,16 +96,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"
     end
-    def close()
+    def close
       @j_del.close
     end
-    def remote_address()
+    def remote_address
         if @cached_remote_address != nil
           return @cached_remote_address
         end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
-    def local_address()
+    def local_address
         if @cached_local_address != nil
           return @cached_local_address
         end

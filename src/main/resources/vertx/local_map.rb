@@ -29,13 +29,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling remove(key)"
     end
-    def clear()
+    def clear
       @j_del.clear
     end
-    def size()
+    def size
       @j_del.size
     end
-    def is_empty()
+    def is_empty
       @j_del.isEmpty
     end
     def put_if_absent(key,value)
@@ -77,7 +77,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling replace(key,value)"
     end
-    def close()
+    def close
       @j_del.close
     end
   end

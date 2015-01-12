@@ -570,37 +570,37 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling method_with_handler_async_result_generic_user_type(value,handler)"
     end
-    def method_with_byte_return()
+    def method_with_byte_return
       @j_del.methodWithByteReturn
     end
-    def method_with_short_return()
+    def method_with_short_return
       @j_del.methodWithShortReturn
     end
-    def method_with_int_return()
+    def method_with_int_return
       @j_del.methodWithIntReturn
     end
-    def method_with_long_return()
+    def method_with_long_return
       @j_del.methodWithLongReturn
     end
-    def method_with_float_return()
+    def method_with_float_return
       @j_del.methodWithFloatReturn
     end
-    def method_with_double_return()
+    def method_with_double_return
       @j_del.methodWithDoubleReturn
     end
-    def method_with_boolean_return()
+    def method_with_boolean_return
       @j_del.methodWithBooleanReturn
     end
-    def method_with_char_return()
+    def method_with_char_return
       @j_del.methodWithCharReturn
     end
-    def method_with_string_return()
+    def method_with_string_return
       @j_del.methodWithStringReturn
     end
-    def method_with_vertx_gen_return()
+    def method_with_vertx_gen_return
       Testmodel::RefedInterface1.new(@j_del.methodWithVertxGenReturn)
     end
-    def method_with_abstract_vertx_gen_return()
+    def method_with_abstract_vertx_gen_return
       Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn)
     end
     def overloaded_method(param_1,param_2,param_3=nil,&param_4)
@@ -679,16 +679,16 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling method_with_cached_return(foo)"
     end
-    def method_with_json_object_return()
+    def method_with_json_object_return
       @j_del.methodWithJsonObjectReturn != nil ? JSON.parse(@j_del.methodWithJsonObjectReturn.encode) : nil
     end
-    def method_with_null_json_object_return()
+    def method_with_null_json_object_return
       @j_del.methodWithNullJsonObjectReturn != nil ? JSON.parse(@j_del.methodWithNullJsonObjectReturn.encode) : nil
     end
-    def method_with_json_array_return()
+    def method_with_json_array_return
       @j_del.methodWithJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithJsonArrayReturn.encode) : nil
     end
-    def method_with_null_json_array_return()
+    def method_with_null_json_array_return
       @j_del.methodWithNullJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn.encode) : nil
     end
     def method_with_json_params(jsonObject,jsonArray)
@@ -823,43 +823,43 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_json_array_return(handler)"
     end
-    def method_with_null_map_return()
+    def method_with_null_map_return
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithNullMapReturn, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_string(val) })
     end
-    def method_with_list_string_return()
+    def method_with_list_string_return
       @j_del.methodWithListStringReturn.to_a.map { |elt| elt }
     end
-    def method_with_list_long_return()
+    def method_with_list_long_return
       @j_del.methodWithListLongReturn.to_a.map { |elt| elt }
     end
-    def method_with_list_vertx_gen_return()
+    def method_with_list_vertx_gen_return
       @j_del.methodWithListVertxGenReturn.to_a.map { |elt| Testmodel::RefedInterface1.new(elt) }
     end
-    def method_with_list_json_object_return()
+    def method_with_list_json_object_return
       @j_del.methodWithListJsonObjectReturn.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    def method_with_list_json_array_return()
+    def method_with_list_json_array_return
       @j_del.methodWithListJsonArrayReturn.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    def method_with_null_list_return()
+    def method_with_null_list_return
       @j_del.methodWithNullListReturn.to_a.map { |elt| elt }
     end
-    def method_with_set_string_return()
+    def method_with_set_string_return
       @j_del.methodWithSetStringReturn.to_set.map! { |elt| elt }
     end
-    def method_with_set_long_return()
+    def method_with_set_long_return
       @j_del.methodWithSetLongReturn.to_set.map! { |elt| elt }
     end
-    def method_with_set_vertx_gen_return()
+    def method_with_set_vertx_gen_return
       @j_del.methodWithSetVertxGenReturn.to_set.map! { |elt| Testmodel::RefedInterface1.new(elt) }
     end
-    def method_with_set_json_object_return()
+    def method_with_set_json_object_return
       @j_del.methodWithSetJsonObjectReturn.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    def method_with_set_json_array_return()
+    def method_with_set_json_array_return
       @j_del.methodWithSetJsonArrayReturn.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    def method_with_null_set_return()
+    def method_with_null_set_return
       @j_del.methodWithNullSetReturn.to_set.map! { |elt| elt }
     end
     def method_with_enum_param(strVal,weirdo)

@@ -241,10 +241,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_string(pos,str,enc)"
     end
-    def length()
+    def length
       @j_del.length
     end
-    def copy()
+    def copy
       Vertx::Buffer.new(@j_del.copy)
     end
     def slice(start=nil,_end=nil)

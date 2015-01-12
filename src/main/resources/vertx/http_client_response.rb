@@ -13,7 +13,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -31,7 +31,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
@@ -42,25 +42,25 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    def status_code()
+    def status_code
       @j_del.statusCode
     end
-    def status_message()
+    def status_message
       @j_del.statusMessage
     end
-    def headers()
+    def headers
         if @cached_headers != nil
           return @cached_headers
         end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
-    def trailers()
+    def trailers
         if @cached_trailers != nil
           return @cached_trailers
         end
       @cached_trailers = Vertx::MultiMap.new(@j_del.trailers)
     end
-    def cookies()
+    def cookies
         if @cached_cookies != nil
           return @cached_cookies
         end
@@ -73,7 +73,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
-    def net_socket()
+    def net_socket
         if @cached_net_socket != nil
           return @cached_net_socket
         end

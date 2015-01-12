@@ -15,10 +15,10 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
@@ -99,7 +99,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
     end
-    def close()
+    def close
       @j_del.close
     end
   end

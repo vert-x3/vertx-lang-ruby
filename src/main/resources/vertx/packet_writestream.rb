@@ -11,7 +11,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)

@@ -8,7 +8,7 @@ module RubyCodegen
     def j_del
       @j_del
     end
-    def some_method()
+    def some_method
       @j_del.someMethod
     end
   end

@@ -10,7 +10,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
@@ -48,7 +48,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling delivery_options(options)"
     end
-    def address()
+    def address
       @j_del.address
     end
   end

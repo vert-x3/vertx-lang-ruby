@@ -457,13 +457,13 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
-    def @{methodDecl}(
+    def @{methodDecl}@if{params.size() > 0}(
 			@code{index=0}@foreach{param:params}
 			@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}
 			@if{handler}&@end{}
 			@{param}
 			@if{index++ >= methods[0].params.size() && !handler}=nil@end{}
-			@end{","})\n
+			@end{","})@end{}\n
 			@includeNamed{'genMethodDispatch'}
     end\n
 

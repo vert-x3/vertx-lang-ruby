@@ -18,11 +18,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end

@@ -16,10 +16,10 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def send(param_1,param_2,param_3,param_4,&param_5)
@@ -79,7 +79,7 @@ module Vertx
       end
       @j_del.close
     end
-    def local_address()
+    def local_address
         if @cached_local_address != nil
           return @cached_local_address
         end
@@ -158,11 +158,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling listen(port,host,handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end

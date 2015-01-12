@@ -14,22 +14,22 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument action=#{action} when calling run_on_context(action)"
     end
-    def deployment_id()
+    def deployment_id
       @j_del.deploymentID
     end
-    def config()
+    def config
       @j_del.config != nil ? JSON.parse(@j_del.config.encode) : nil
     end
-    def process_args()
+    def process_args
       @j_del.processArgs.to_a.map { |elt| elt }
     end
-    def is_event_loop_context()
+    def is_event_loop_context
       @j_del.isEventLoopContext
     end
-    def is_worker()
+    def is_worker
       @j_del.isWorker
     end
-    def is_multi_threaded()
+    def is_multi_threaded
       @j_del.isMultiThreaded
     end
     def get(key)

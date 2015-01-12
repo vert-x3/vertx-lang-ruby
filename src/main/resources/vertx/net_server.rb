@@ -12,13 +12,13 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def connect_stream()
+    def connect_stream
       Vertx::NetSocketStream.new(@j_del.connectStream)
     end
     def connect_handler(&handler)
@@ -41,7 +41,7 @@ module Vertx
       end
       @j_del.close
     end
-    def actual_port()
+    def actual_port
       @j_del.actualPort
     end
   end

@@ -13,7 +13,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def handler(&handler)
@@ -23,11 +23,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end

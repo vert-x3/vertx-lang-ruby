@@ -8,7 +8,7 @@ module Testmodel
     def j_del
       @j_del
     end
-    def get_string()
+    def get_string
       @j_del.getString
     end
     def set_string(str)

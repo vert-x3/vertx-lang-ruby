@@ -36,28 +36,28 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling continuation_frame(data,isFinal)"
     end
-    def is_text()
+    def is_text
       @j_del.isText
     end
-    def is_binary()
+    def is_binary
       @j_del.isBinary
     end
-    def is_continuation()
+    def is_continuation
       @j_del.isContinuation
     end
-    def text_data()
+    def text_data
         if @cached_text_data != nil
           return @cached_text_data
         end
       @cached_text_data = @j_del.textData
     end
-    def binary_data()
+    def binary_data
         if @cached_binary_data != nil
           return @cached_binary_data
         end
       @cached_binary_data = Vertx::Buffer.new(@j_del.binaryData)
     end
-    def is_final()
+    def is_final
       @j_del.isFinal
     end
   end

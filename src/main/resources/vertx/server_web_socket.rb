@@ -14,25 +14,25 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
-    def binary_handler_id()
+    def binary_handler_id
       @j_del.binaryHandlerID
     end
-    def text_handler_id()
+    def text_handler_id
       @j_del.textHandlerID
     end
-    def close()
+    def close
       @j_del.close
     end
-    def remote_address()
+    def remote_address
         if @cached_remote_address != nil
           return @cached_remote_address
         end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
-    def local_address()
+    def local_address
         if @cached_local_address != nil
           return @cached_local_address
         end
@@ -52,11 +52,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -116,22 +116,22 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"
     end
-    def uri()
+    def uri
       @j_del.uri
     end
-    def path()
+    def path
       @j_del.path
     end
-    def query()
+    def query
       @j_del.query
     end
-    def headers()
+    def headers
         if @cached_headers != nil
           return @cached_headers
         end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
-    def reject()
+    def reject
       @j_del.reject
       self
     end

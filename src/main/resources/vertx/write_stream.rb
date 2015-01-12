@@ -25,7 +25,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def drain_handler(&handler)

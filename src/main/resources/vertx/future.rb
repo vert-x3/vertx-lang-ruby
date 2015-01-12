@@ -8,7 +8,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def self.future()
+    def self.future
       Vertx::Future.new(Java::IoVertxCore::Future.future)
     end
     def self.succeeded_future(result=nil)
@@ -23,7 +23,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument failureMessage=#{failureMessage} when calling failed_future(failureMessage)"
     end
-    def is_complete()
+    def is_complete
       @j_del.isComplete
     end
     def set_handler(&handler)

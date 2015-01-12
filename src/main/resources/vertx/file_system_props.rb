@@ -8,13 +8,13 @@ module Vertx
     def j_del
       @j_del
     end
-    def total_space()
+    def total_space
       @j_del.totalSpace
     end
-    def unallocated_space()
+    def unallocated_space
       @j_del.unallocatedSpace
     end
-    def usable_space()
+    def usable_space
       @j_del.usableSpace
     end
   end

@@ -22,10 +22,10 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def self.vertx(options=nil)
@@ -43,10 +43,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling clustered_vertx(options,resultHandler)"
     end
-    def self.current_context()
+    def self.current_context
       Vertx::Context.new(Java::IoVertxCore::Vertx.currentContext)
     end
-    def get_or_create_context()
+    def get_or_create_context
       Vertx::Context.new(@j_del.getOrCreateContext)
     end
     def create_net_server(options)
@@ -79,13 +79,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_datagram_socket(options)"
     end
-    def file_system()
+    def file_system
         if @cached_file_system != nil
           return @cached_file_system
         end
       @cached_file_system = Vertx::FileSystem.new(@j_del.fileSystem)
     end
-    def event_bus()
+    def event_bus
         if @cached_event_bus != nil
           return @cached_event_bus
         end
@@ -100,7 +100,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling create_dns_client(port,host)"
     end
-    def shared_data()
+    def shared_data
         if @cached_shared_data != nil
           return @cached_shared_data
         end
@@ -178,7 +178,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument deploymentID=#{deploymentID} when calling undeploy_verticle(deploymentID,completionHandler)"
     end
-    def deployments()
+    def deployments
       @j_del.deployments.to_set.map! { |elt| elt }
     end
     def execute_blocking(blockingCodeHandler,&resultHandler)

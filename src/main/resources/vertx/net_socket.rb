@@ -14,7 +14,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
@@ -31,11 +31,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -75,7 +75,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    def write_handler_id()
+    def write_handler_id
       @j_del.writeHandlerID
     end
     def send_file(filename,&resultHandler)
@@ -89,19 +89,19 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
     end
-    def remote_address()
+    def remote_address
         if @cached_remote_address != nil
           return @cached_remote_address
         end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
-    def local_address()
+    def local_address
         if @cached_local_address != nil
           return @cached_local_address
         end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    def close()
+    def close
       @j_del.close
     end
     def close_handler(&handler)
@@ -118,7 +118,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling upgrade_to_ssl(handler)"
     end
-    def is_ssl()
+    def is_ssl
       @j_del.isSsl
     end
   end

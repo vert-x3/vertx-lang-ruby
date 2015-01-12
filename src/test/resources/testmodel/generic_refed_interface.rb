@@ -14,7 +14,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling set_value(value)"
     end
-    def get_value()
+    def get_value
       Vertx::Util::Utils.from_object(@j_del.getValue)
     end
   end

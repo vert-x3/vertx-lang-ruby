@@ -26,10 +26,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling contains(name)"
     end
-    def is_empty()
+    def is_empty
       @j_del.isEmpty
     end
-    def names()
+    def names
       @j_del.names.to_set.map! { |elt| elt }
     end
     def add(name,value)
@@ -73,11 +73,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling remove(name)"
     end
-    def clear()
+    def clear
       @j_del.clear
       self
     end
-    def size()
+    def size
       @j_del.size
     end
   end

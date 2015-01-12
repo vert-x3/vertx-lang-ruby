@@ -12,7 +12,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
@@ -51,7 +51,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    def get_status_code()
+    def get_status_code
       @j_del.getStatusCode
     end
     def set_status_code(statusCode)
@@ -61,7 +61,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument statusCode=#{statusCode} when calling set_status_code(statusCode)"
     end
-    def get_status_message()
+    def get_status_message
       @j_del.getStatusMessage
     end
     def set_status_message(statusMessage)
@@ -78,10 +78,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument chunked=#{chunked} when calling set_chunked(chunked)"
     end
-    def is_chunked()
+    def is_chunked
       @j_del.isChunked
     end
-    def headers()
+    def headers
         if @cached_headers != nil
           return @cached_headers
         end
@@ -97,7 +97,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling put_header(name,value)"
     end
-    def trailers()
+    def trailers
         if @cached_trailers != nil
           return @cached_trailers
         end
@@ -143,13 +143,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
     end
-    def close()
+    def close
       @j_del.close
     end
-    def ended()
+    def ended
       @j_del.ended
     end
-    def head_written()
+    def head_written
       @j_del.headWritten
     end
     def headers_end_handler(&handler)

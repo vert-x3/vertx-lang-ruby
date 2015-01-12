@@ -25,11 +25,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -40,13 +40,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    def body_stream()
+    def body_stream
       Vertx::ReadStreamImpl.new(@j_del.bodyStream)
     end
-    def is_registered()
+    def is_registered
       @j_del.isRegistered
     end
-    def address()
+    def address
       @j_del.address
     end
     def set_max_buffered_messages(maxBufferedMessages)
@@ -55,7 +55,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxBufferedMessages=#{maxBufferedMessages} when calling set_max_buffered_messages(maxBufferedMessages)"
     end
-    def get_max_buffered_messages()
+    def get_max_buffered_messages
       @j_del.getMaxBufferedMessages
     end
     def completion_handler(&completionHandler)

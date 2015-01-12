@@ -13,10 +13,10 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
     def close(&completionHandler)

@@ -31,11 +31,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -46,52 +46,52 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    def version()
+    def version
       @j_del.version.name
     end
-    def method()
+    def method
       @j_del.method.name
     end
-    def uri()
+    def uri
       @j_del.uri
     end
-    def path()
+    def path
       @j_del.path
     end
-    def query()
+    def query
       @j_del.query
     end
-    def response()
+    def response
         if @cached_response != nil
           return @cached_response
         end
       @cached_response = Vertx::HttpServerResponse.new(@j_del.response)
     end
-    def headers()
+    def headers
         if @cached_headers != nil
           return @cached_headers
         end
       @cached_headers = Vertx::MultiMap.new(@j_del.headers)
     end
-    def params()
+    def params
         if @cached_params != nil
           return @cached_params
         end
       @cached_params = Vertx::MultiMap.new(@j_del.params)
     end
-    def remote_address()
+    def remote_address
         if @cached_remote_address != nil
           return @cached_remote_address
         end
       @cached_remote_address = Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
-    def local_address()
+    def local_address
         if @cached_local_address != nil
           return @cached_local_address
         end
       @cached_local_address = Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    def absolute_uri()
+    def absolute_uri
       @j_del.absoluteURI
     end
     def body_handler(&bodyHandler)
@@ -101,7 +101,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
-    def net_socket()
+    def net_socket
         if @cached_net_socket != nil
           return @cached_net_socket
         end
@@ -114,7 +114,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument expect=#{expect} when calling set_expect_multipart(expect)"
     end
-    def is_expect_multipart()
+    def is_expect_multipart
       @j_del.isExpectMultipart
     end
     def upload_handler(&uploadHandler)
@@ -124,13 +124,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument uploadHandler=#{uploadHandler} when calling upload_handler(uploadHandler)"
     end
-    def form_attributes()
+    def form_attributes
         if @cached_form_attributes != nil
           return @cached_form_attributes
         end
       @cached_form_attributes = Vertx::MultiMap.new(@j_del.formAttributes)
     end
-    def upgrade()
+    def upgrade
       Vertx::ServerWebSocket.new(@j_del.upgrade)
     end
   end

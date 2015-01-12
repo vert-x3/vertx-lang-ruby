@@ -2,7 +2,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.RefedInterface2
 module Testmodel
   module RefedInterface2
-    def get_string()
+    def get_string
       @j_del.getString
     end
     def set_string(str)

@@ -15,7 +15,7 @@ module Vertx
     def j_del
       @j_del
     end
-    def write_queue_full()
+    def write_queue_full
       @j_del.writeQueueFull
     end
     def exception_handler(&handler)
@@ -61,11 +61,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    def pause()
+    def pause
       @j_del.pause
       self
     end
-    def resume()
+    def resume
       @j_del.resume
       self
     end
@@ -83,16 +83,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument chunked=#{chunked} when calling set_chunked(chunked)"
     end
-    def is_chunked()
+    def is_chunked
       @j_del.isChunked
     end
-    def method()
+    def method
       @j_del.method.name
     end
-    def uri()
+    def uri
       @j_del.uri
     end
-    def headers()
+    def headers
         if @cached_headers != nil
           return @cached_headers
         end
@@ -115,7 +115,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling continue_handler(handler)"
     end
-    def send_head()
+    def send_head
       @j_del.sendHead
       self
     end

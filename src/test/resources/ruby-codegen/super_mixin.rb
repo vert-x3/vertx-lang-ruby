@@ -2,7 +2,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.SuperMixin
 module RubyCodegen
   module SuperMixin
-    def super_mixin_method()
+    def super_mixin_method
       @j_del.superMixinMethod
     end
   end

@@ -14,13 +14,13 @@ module Vertx
     def j_del
       @j_del
     end
-    def metric_base_name()
+    def metric_base_name
       @j_del.metricBaseName
     end
-    def metrics()
+    def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| Vertx::Util::Utils.from_object(val) }, Proc.new { |val| Vertx::Util::Utils.to_json_object(val) })
     end
-    def request_stream()
+    def request_stream
       Vertx::HttpServerRequestStream.new(@j_del.requestStream)
     end
     def request_handler(&handler)
@@ -29,7 +29,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling request_handler(handler)"
     end
-    def websocket_stream()
+    def websocket_stream
       Vertx::ServerWebSocketStream.new(@j_del.websocketStream)
     end
     def websocket_handler(&handler)

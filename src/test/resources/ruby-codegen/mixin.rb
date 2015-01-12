@@ -4,10 +4,10 @@ require 'vertx/util/utils.rb'
 module RubyCodegen
   module Mixin
     include RubyCodegen::SuperMixin
-    def super_mixin_method()
+    def super_mixin_method
       @j_del.superMixinMethod
     end
-    def mixin_method()
+    def mixin_method
       @j_del.mixinMethod
     end
   end
