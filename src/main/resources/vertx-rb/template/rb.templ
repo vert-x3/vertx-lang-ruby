@@ -56,11 +56,11 @@
     } else if (kind == CLASS_JSON_ARRAY) {
       return name + " == nil || " + name + ".class == Array";
     } else if (kind == CLASS_LIST) {
-      return name + " == nil || " + name + ".class == Array";
+      return name + " != nil && " + name + ".class == Array";
     } else if (kind == CLASS_SET) {
-      return name + " == nil || " + name + ".class == Set";
+      return name + " != nil && " + name + ".class == Set";
     } else if (kind == CLASS_MAP) {
-      return name + " == nil || " + name + ".class == Hash";
+      return name + " != nil && " + name + ".class == Hash";
     }
     return "false";
   }

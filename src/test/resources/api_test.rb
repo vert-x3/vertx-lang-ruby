@@ -990,6 +990,7 @@ def test_method_with_list_params
     [['foo'], ['blah']],
     [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')]
   )
+  Assert.argument_error { $obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
 
 def test_method_with_set_params
@@ -1003,6 +1004,7 @@ def test_method_with_set_params
       Set.new([['foo'], ['blah']]),
       Set.new([Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')])
   )
+  Assert.argument_error { $obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
 
 def test_method_with_map_params
@@ -1016,4 +1018,5 @@ def test_method_with_map_params
       {'foo'=>['foo'],'eek'=>['blah']},
       {'foo'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'),'eek'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')}
   )
+  Assert.argument_error { $obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end

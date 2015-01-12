@@ -245,14 +245,14 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_list_params(list_string,list_byte,list_short,list_int,list_long,list_json_object,list_json_array,list_vertx_gen)
-      if list_string == nil || list_string.class == Array
-        if list_byte == nil || list_byte.class == Array
-          if list_short == nil || list_short.class == Array
-            if list_int == nil || list_int.class == Array
-              if list_long == nil || list_long.class == Array
-                if list_json_object == nil || list_json_object.class == Array
-                  if list_json_array == nil || list_json_array.class == Array
-                    if list_vertx_gen == nil || list_vertx_gen.class == Array
+      if list_string != nil && list_string.class == Array
+        if list_byte != nil && list_byte.class == Array
+          if list_short != nil && list_short.class == Array
+            if list_int != nil && list_int.class == Array
+              if list_long != nil && list_long.class == Array
+                if list_json_object != nil && list_json_object.class == Array
+                  if list_json_array != nil && list_json_array.class == Array
+                    if list_vertx_gen != nil && list_vertx_gen.class == Array
                       return @j_del.methodWithListParams(list_string.map { |element| element },list_byte.map { |element| Vertx::Util::Utils.to_byte(element) },list_short.map { |element| Vertx::Util::Utils.to_short(element) },list_int.map { |element| Vertx::Util::Utils.to_integer(element) },list_long.map { |element| element },list_json_object.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil },list_json_array.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil },list_vertx_gen.map { |element| element.j_del })
                     end
                     raise ArgumentError, 'dispatch error'
@@ -272,14 +272,14 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_set_params(set_string,set_byte,set_short,set_int,set_long,set_json_object,set_json_array,set_vertx_gen)
-      if set_string == nil || set_string.class == Set
-        if set_byte == nil || set_byte.class == Set
-          if set_short == nil || set_short.class == Set
-            if set_int == nil || set_int.class == Set
-              if set_long == nil || set_long.class == Set
-                if set_json_object == nil || set_json_object.class == Set
-                  if set_json_array == nil || set_json_array.class == Set
-                    if set_vertx_gen == nil || set_vertx_gen.class == Set
+      if set_string != nil && set_string.class == Set
+        if set_byte != nil && set_byte.class == Set
+          if set_short != nil && set_short.class == Set
+            if set_int != nil && set_int.class == Set
+              if set_long != nil && set_long.class == Set
+                if set_json_object != nil && set_json_object.class == Set
+                  if set_json_array != nil && set_json_array.class == Set
+                    if set_vertx_gen != nil && set_vertx_gen.class == Set
                       return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(set_string.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(set_byte.map { |element| Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(set_short.map { |element| Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(set_int.map { |element| Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(set_long.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(set_json_object.map { |element| element != nil ? Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(set_json_array.map { |element| element != nil ? Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(set_vertx_gen.map { |element| element.j_del }))
                     end
                     raise ArgumentError, 'dispatch error'
@@ -299,14 +299,14 @@ module Testmodel
       raise ArgumentError, 'dispatch error'
     end
     def method_with_map_params(map_string,map_byte,map_short,map_int,map_long,map_json_object,map_json_array,map_vertx_gen)
-      if map_string == nil || map_string.class == Hash
-        if map_byte == nil || map_byte.class == Hash
-          if map_short == nil || map_short.class == Hash
-            if map_int == nil || map_int.class == Hash
-              if map_long == nil || map_long.class == Hash
-                if map_json_object == nil || map_json_object.class == Hash
-                  if map_json_array == nil || map_json_array.class == Hash
-                    if map_vertx_gen == nil || map_vertx_gen.class == Hash
+      if map_string != nil && map_string.class == Hash
+        if map_byte != nil && map_byte.class == Hash
+          if map_short != nil && map_short.class == Hash
+            if map_int != nil && map_int.class == Hash
+              if map_long != nil && map_long.class == Hash
+                if map_json_object != nil && map_json_object.class == Hash
+                  if map_json_array != nil && map_json_array.class == Hash
+                    if map_vertx_gen != nil && map_vertx_gen.class == Hash
                       return @j_del.methodWithMapParams(Hash[map_string.map { |k,v| [k,v] }],Hash[map_byte.map { |k,v| [k,Vertx::Util::Utils.to_byte(v)] }],Hash[map_short.map { |k,v| [k,Vertx::Util::Utils.to_short(v)] }],Hash[map_int.map { |k,v| [k,Vertx::Util::Utils.to_integer(v)] }],Hash[map_long.map { |k,v| [k,v] }],Hash[map_json_object.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[map_json_array.map { |k,v| [k,v != nil ? Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[map_vertx_gen.map { |k,v| [k,v.j_del] }])
                     end
                     raise ArgumentError, 'dispatch error'
