@@ -1,7 +1,8 @@
 vertx-lang-jruby
 ========
 
-TODO:
+## todo list
 
-1. Everything
-
+- finish verticle deployment
+- generate ruby documentation
+- codegen ambiguity check
