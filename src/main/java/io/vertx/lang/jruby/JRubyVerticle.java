@@ -5,12 +5,15 @@ import io.vertx.core.Future;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import org.jruby.CompatVersion;
+import org.jruby.RubyInstanceConfig;
 import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.ScriptingContainer;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -41,6 +44,13 @@ public class JRubyVerticle implements Verticle {
   @Override
   public void start(Future<Void> startFuture) throws Exception {
     ScriptingContainer container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
+    RubyInstanceConfig config = container.getProvider().getRubyInstanceConfig();
+    String gemPath = context.config().getString("GEM_PATH");
+    if (gemPath != null) {
+      Map newEnv = new HashMap(config.getEnvironment());
+      newEnv.put("GEM_PATH", gemPath);
+      config.setEnvironment(newEnv);
+    }
     container.setCompatVersion(CompatVersion.RUBY1_9);
     container.setError(new PrintStream(new OutputStream() {
       @Override
@@ -48,6 +58,12 @@ public class JRubyVerticle implements Verticle {
         // > /dev/null
       }
     }));
+    String requireName;
+    if (verticleName.startsWith("rb:")) {
+      requireName = verticleName.substring(3);
+    } else {
+      requireName = verticleName;
+    }
     try {
       container.put("$_vertx", vertx);
       container.put("$_context", context);
@@ -57,7 +73,7 @@ public class JRubyVerticle implements Verticle {
       container.runScriptlet("$context=Vertx::Context.new($_context)");
       container.remove("$_vertx");
       container.remove("_context");
-      container.runScriptlet("require '" + verticleName + "'");
+      container.runScriptlet("require '" + requireName + "'");
       startFuture.complete();
     } catch (Throwable t) {
       startFuture.fail(t);

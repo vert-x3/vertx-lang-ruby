@@ -5,4 +5,3 @@ vertx-lang-jruby
 
 - finish verticle deployment
 - generate ruby documentation
-- codegen ambiguity check
