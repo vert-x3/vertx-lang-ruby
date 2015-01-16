@@ -16,28 +16,13 @@
 
 package io.vertx.lang.jruby;
 
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Verticle;
 import io.vertx.core.spi.VerticleFactory;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class JRubyVerticleFactory implements VerticleFactory {
-
-  @Override
-  public boolean requiresResolve() {
-    return true;
-  }
-
-  @Override
-  public String resolve(String identifier, DeploymentOptions deploymentOptions, ClassLoader classLoader) throws Exception {
-    System.out.println("Resolving " + identifier);
-    return identifier;
-  }
 
   @Override
   public String prefix() {
