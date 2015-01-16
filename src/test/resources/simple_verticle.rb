@@ -1,0 +1,1 @@
+Java::IoVertxTestLangJruby::DeployTest.deployed
