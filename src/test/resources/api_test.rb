@@ -85,7 +85,7 @@ def test_options_param
 end
 
 def test_method_with_null_options_param
-  $obj.method_with_null_options_param(nil);
+  Assert.argument_error { $obj.method_with_null_options_param(nil) }
 end
 
 def test_method_with_handler_options
@@ -682,7 +682,7 @@ def test_json_params
 end
 
 def test_null_json_params
-  $obj.method_with_null_json_params(nil, nil)
+  Assert.argument_error { $obj.method_with_null_json_params(nil, nil) }
 end
 
 def test_json_handler_params

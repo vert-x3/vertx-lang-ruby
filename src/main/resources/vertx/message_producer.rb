@@ -42,8 +42,8 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     def delivery_options(options)
-      if options == nil || options.class == Hash
-        @j_del.deliveryOptions(options != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
+      if options.class == Hash
+        @j_del.deliveryOptions(Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling delivery_options(options)"

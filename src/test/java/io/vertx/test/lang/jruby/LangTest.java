@@ -37,6 +37,11 @@ public class LangTest extends RubyTestBase {
     runTest("test_closure_callback");
   }
 
+  @Test
+  public void testOverloadWithOptions() {
+    runTest("test_overload_with_options");
+  }
+
   private void runTest(String testName) {
     runTest("lang_test", testName);
   }

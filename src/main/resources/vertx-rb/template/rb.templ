@@ -100,9 +100,9 @@
     } else if (kind == CLASS_HANDLER) {
       return expr + ".class == Proc";
     } else if (kind == CLASS_OPTIONS || kind == CLASS_JSON_OBJECT) {
-      return expr + " == nil || " + expr + ".class == Hash";
+      return expr + ".class == Hash";
     } else if (kind == CLASS_JSON_ARRAY) {
-      return expr + " == nil || " + expr + ".class == Array";
+      return expr + ".class == Array";
     } else if (kind == CLASS_LIST) {
       return expr + ".class == Array";
     } else if (kind == CLASS_SET) {
@@ -182,11 +182,11 @@
     } else if (kind == CLASS_OBJECT) {
       return "::Vertx::Util::Utils.to_object(" + expr + ")";
     } else if (kind == CLASS_OPTIONS) {
-      return expr + " != nil ? " + genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + ")) : nil";
+      return genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + "))";
     } else if (kind == CLASS_JSON_OBJECT) {
-      return expr + " != nil ? " + "::Vertx::Util::Utils.to_json_object(" + expr + ") : nil";
+      return "::Vertx::Util::Utils.to_json_object(" + expr + ")";
     } else if (kind == CLASS_JSON_ARRAY) {
-      return expr + " != nil ? " + "::Vertx::Util::Utils.to_json_array(" + expr + ") : nil";
+      return "::Vertx::Util::Utils.to_json_array(" + expr + ")";
     } else if (kind == CLASS_ENUM) {
       return genJavaClassFqn(type) + ".valueOf(" + expr + ")";
     } else if (kind == CLASS_LIST) {

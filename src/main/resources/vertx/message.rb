@@ -26,11 +26,11 @@ module Vertx
     end
     def reply(param_1,param_2=nil,&param_3)
       if param_1.class == String  ||param_1.class == Hash || param_1.class == Array
-        if param_2 == nil || param_2.class == Hash
+        if param_2.class == Hash
           if param_3.class == Proc
-            return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+            return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
           end
-          return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),param_2 != nil ? Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)) : nil)
+          return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
         end
         if param_2.class == Proc
           return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))

@@ -238,14 +238,14 @@ module Testmodel
       raise ArgumentError, "Invalid argument str=#{str} when calling method_with_object_param(str,obj)"
     end
     def method_with_options_param(options)
-      if options == nil || options.class == Hash
-        return @j_del.methodWithOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
+      if options.class == Hash
+        return @j_del.methodWithOptionsParam(Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling method_with_options_param(options)"
     end
     def method_with_null_options_param(options)
-      if options == nil || options.class == Hash
-        return @j_del.methodWithNullOptionsParam(options != nil ? Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil)
+      if options.class == Hash
+        return @j_del.methodWithNullOptionsParam(Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling method_with_null_options_param(options)"
     end
@@ -258,7 +258,7 @@ module Testmodel
                 if listJsonObject.class == Array
                   if listJsonArray.class == Array
                     if listVertxGen.class == Array
-                      return @j_del.methodWithListParams(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_object(element) : nil },listJsonArray.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_array(element) : nil },listVertxGen.map { |element| element.j_del })
+                      return @j_del.methodWithListParams(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) },listJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) },listVertxGen.map { |element| element.j_del })
                     end
                     raise ArgumentError, "Invalid argument listVertxGen=#{listVertxGen} when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)"
                   end
@@ -285,7 +285,7 @@ module Testmodel
                 if setJsonObject.class == Set
                   if setJsonArray.class == Set
                     if setVertxGen.class == Set
-                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_object(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| element != nil ? ::Vertx::Util::Utils.to_json_array(element) : nil }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
+                      return @j_del.methodWithSetParams(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
                     end
                     raise ArgumentError, "Invalid argument setVertxGen=#{setVertxGen} when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)"
                   end
@@ -312,7 +312,7 @@ module Testmodel
                 if mapJsonObject.class == Hash
                   if mapJsonArray.class == Hash
                     if mapVertxGen.class == Hash
-                      return @j_del.methodWithMapParams(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,::Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,::Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,::Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,v != nil ? ::Vertx::Util::Utils.to_json_object(v) : nil] }],Hash[mapJsonArray.map { |k,v| [k,v != nil ? ::Vertx::Util::Utils.to_json_array(v) : nil] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
+                      return @j_del.methodWithMapParams(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,::Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,::Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,::Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,::Vertx::Util::Utils.to_json_object(v)] }],Hash[mapJsonArray.map { |k,v| [k,::Vertx::Util::Utils.to_json_array(v)] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
                     end
                     raise ArgumentError, "Invalid argument mapVertxGen=#{mapVertxGen} when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
                   end
@@ -692,18 +692,18 @@ module Testmodel
       @j_del.methodWithNullJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn.encode) : nil
     end
     def method_with_json_params(jsonObject,jsonArray)
-      if jsonObject == nil || jsonObject.class == Hash
-        if jsonArray == nil || jsonArray.class == Array
-          return @j_del.methodWithJsonParams(jsonObject != nil ? ::Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? ::Vertx::Util::Utils.to_json_array(jsonArray) : nil)
+      if jsonObject.class == Hash
+        if jsonArray.class == Array
+          return @j_del.methodWithJsonParams(::Vertx::Util::Utils.to_json_object(jsonObject),::Vertx::Util::Utils.to_json_array(jsonArray))
         end
         raise ArgumentError, "Invalid argument jsonArray=#{jsonArray} when calling method_with_json_params(jsonObject,jsonArray)"
       end
       raise ArgumentError, "Invalid argument jsonObject=#{jsonObject} when calling method_with_json_params(jsonObject,jsonArray)"
     end
     def method_with_null_json_params(jsonObject,jsonArray)
-      if jsonObject == nil || jsonObject.class == Hash
-        if jsonArray == nil || jsonArray.class == Array
-          return @j_del.methodWithNullJsonParams(jsonObject != nil ? ::Vertx::Util::Utils.to_json_object(jsonObject) : nil,jsonArray != nil ? ::Vertx::Util::Utils.to_json_array(jsonArray) : nil)
+      if jsonObject.class == Hash
+        if jsonArray.class == Array
+          return @j_del.methodWithNullJsonParams(::Vertx::Util::Utils.to_json_object(jsonObject),::Vertx::Util::Utils.to_json_array(jsonArray))
         end
         raise ArgumentError, "Invalid argument jsonArray=#{jsonArray} when calling method_with_null_json_params(jsonObject,jsonArray)"
       end

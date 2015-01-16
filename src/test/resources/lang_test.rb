@@ -7,6 +7,7 @@ require 'ruby-codegen/mixin'
 require 'ruby-codegen/class_with_mixin'
 require 'ruby-codegen/reserved_word_params'
 require 'ruby-codegen/method_with_closure'
+require 'ruby-codegen/overload_with_options'
 
 java_import 'io.vertx.test.support.LinearOverloadedMethodsImpl'
 java_import 'io.vertx.test.support.MultiOverloadedMethodsImpl'
@@ -15,6 +16,7 @@ java_import 'io.vertx.test.support.ReferencingTypeImpl'
 java_import 'io.vertx.test.support.ReferencingTypeImpl'
 java_import 'io.vertx.test.support.ReservedWordParamsImpl'
 java_import 'io.vertx.test.support.MethodWithClosureImpl'
+java_import 'io.vertx.test.support.OverloadWithOptionsImpl'
 
 def test_linear_overload
   def create
@@ -114,4 +116,11 @@ def test_closure_callback
   obj.do_something('arg_value') { |event| val = event }
   Assert.equals val, 'the_callback_payload'
   Assert.equals impl.getCalled, 'doSomething(arg_value,callback)'
+end
+
+def test_overload_with_options
+  impl = OverloadWithOptionsImpl.new
+  obj = RubyCodegen::OverloadWithOptions.new(impl)
+  obj.method
+  Assert.equals impl.getCalled, 'method()'
 end

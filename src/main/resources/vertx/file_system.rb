@@ -465,9 +465,9 @@ module Vertx
     end
     def open(path,options,&handler)
       if path.class == String
-        if options == nil || options.class == Hash
+        if options.class == Hash
           if handler.class == Proc
-            @j_del.open(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
+            @j_del.open(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling open(path,options,handler)"
@@ -478,8 +478,8 @@ module Vertx
     end
     def open_blocking(path,options)
       if path.class == String
-        if options == nil || options.class == Hash
-          return ::Vertx::AsyncFile.new(@j_del.openBlocking(path,options != nil ? Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+        if options.class == Hash
+          return ::Vertx::AsyncFile.new(@j_del.openBlocking(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))))
         end
         raise ArgumentError, "Invalid argument options=#{options} when calling open_blocking(path,options)"
       end

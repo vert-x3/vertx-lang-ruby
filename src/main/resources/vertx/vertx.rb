@@ -29,15 +29,15 @@ module Vertx
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     def self.vertx(options=nil)
-      if options == nil || options.class == Hash
-        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(options != nil ? Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.vertx)
     end
     def self.clustered_vertx(options,&resultHandler)
-      if options == nil || options.class == Hash
+      if options.class == Hash
         if resultHandler.class == Proc
-          return Java::IoVertxCore::Vertx.clusteredVertx(options != nil ? Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Vertx.new(ar.result) : nil) }))
+          return Java::IoVertxCore::Vertx.clusteredVertx(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Vertx.new(ar.result) : nil) }))
         end
         raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling clustered_vertx(options,resultHandler)"
       end
@@ -50,32 +50,32 @@ module Vertx
       ::Vertx::Context.new(@j_del.getOrCreateContext)
     end
     def create_net_server(options)
-      if options == nil || options.class == Hash
-        return ::Vertx::NetServer.new(@j_del.createNetServer(options != nil ? Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::NetServer.new(@j_del.createNetServer(Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_net_server(options)"
     end
     def create_net_client(options)
-      if options == nil || options.class == Hash
-        return ::Vertx::NetClient.new(@j_del.createNetClient(options != nil ? Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::NetClient.new(@j_del.createNetClient(Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_net_client(options)"
     end
     def create_http_server(options)
-      if options == nil || options.class == Hash
-        return ::Vertx::HttpServer.new(@j_del.createHttpServer(options != nil ? Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::HttpServer.new(@j_del.createHttpServer(Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_http_server(options)"
     end
     def create_http_client(options)
-      if options == nil || options.class == Hash
-        return ::Vertx::HttpClient.new(@j_del.createHttpClient(options != nil ? Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::HttpClient.new(@j_del.createHttpClient(Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_http_client(options)"
     end
     def create_datagram_socket(options)
-      if options == nil || options.class == Hash
-        return ::Vertx::DatagramSocket.new(@j_del.createDatagramSocket(options != nil ? Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options)) : nil))
+      if options.class == Hash
+        return ::Vertx::DatagramSocket.new(@j_del.createDatagramSocket(Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling create_datagram_socket(options)"
     end
@@ -156,11 +156,11 @@ module Vertx
     end
     def deploy_verticle(param_1,param_2=nil,&param_3)
       if param_1.class == String
-        if param_2 == nil || param_2.class == Hash
+        if param_2.class == Hash
           if param_3.class == Proc
-            return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)) : nil,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+            return @j_del.deployVerticle(param_1,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           end
-          return @j_del.deployVerticle(param_1,param_2 != nil ? Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)) : nil)
+          return @j_del.deployVerticle(param_1,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
         end
         if param_2.class == Proc
           return @j_del.deployVerticle(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
