@@ -29,4 +29,13 @@ public class DeployTest extends VertxTestBase {
     });
     await();
   }
+
+  @Test
+  public void testDeployAbsentVerticle() {
+    vertx.deployVerticle("doesnotexists.rb", ar -> {
+      assertTrue(ar.failed());
+      testComplete();
+    });
+    await();
+  }
 }
