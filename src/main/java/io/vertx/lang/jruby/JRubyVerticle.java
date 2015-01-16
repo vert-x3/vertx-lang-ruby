@@ -4,10 +4,13 @@ import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
+import org.jruby.CompatVersion;
+import org.jruby.embed.LocalContextScope;
+import org.jruby.embed.ScriptingContainer;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -37,24 +40,32 @@ public class JRubyVerticle implements Verticle {
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
-    ScriptEngineManager manager = new ScriptEngineManager();
-    ScriptEngine engine = manager.getEngineByName("jruby");
+    ScriptingContainer container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
+    container.setCompatVersion(CompatVersion.RUBY1_9);
+    container.setError(new PrintStream(new OutputStream() {
+      @Override
+      public void write(int b) throws IOException {
+        // > /dev/null
+      }
+    }));
     try {
-      engine.put("_vertx", vertx);
-      engine.put("_context", context);
-      engine.eval("require 'vertx/vertx'");
-      engine.eval("$vertx=Vertx::Vertx.new($_vertx)");
-      engine.eval("require 'vertx/context'");
-      engine.eval("$context=Vertx::Context.new($_context)");
-      engine.eval("require '" + verticleName + "'");
+      container.put("$_vertx", vertx);
+      container.put("$_context", context);
+      container.runScriptlet("require 'vertx/vertx'");
+      container.runScriptlet("$vertx=Vertx::Vertx.new($_vertx)");
+      container.runScriptlet("require 'vertx/context'");
+      container.runScriptlet("$context=Vertx::Context.new($_context)");
+      container.remove("$_vertx");
+      container.remove("_context");
+      container.runScriptlet("require '" + verticleName + "'");
       startFuture.complete();
-    } catch (ScriptException e) {
-      startFuture.fail(e);
+    } catch (Throwable t) {
+      startFuture.fail(t);
     }
   }
 
   @Override
   public void stop(Future<Void> stopFuture) throws Exception {
-
+    stopFuture.complete();
   }
 }
