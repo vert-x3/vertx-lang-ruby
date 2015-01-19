@@ -131,4 +131,76 @@ public class DeployTest extends VertxTestBase {
     });
     await();
   }
+
+  @Test
+  public void testVerticleRaisingErrorInRun() {
+    vertx.deployVerticle("verticle_raising_error_in_run.rb", ar -> {
+      assertFalse(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(0, startedCount);
+      assertEquals(0, stoppedCount);
+      testComplete();
+    });
+    await();
+  }
+
+  @Test
+  public void testVerticleRaisingErrorInStart() {
+    vertx.deployVerticle("verticle_raising_error_in_start.rb", ar -> {
+      assertFalse(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      testComplete();
+    });
+    await();
+  }
+
+  @Test
+  public void testVerticleRaisingErrorInStop() {
+    vertx.deployVerticle("verticle_raising_error_in_stop.rb", ar -> {
+      assertTrue(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      vertx.undeployVerticle(ar.result(), ar2 -> {
+        assertTrue(ar.succeeded());
+        assertEquals(1, deployedCount);
+        assertEquals(1, startedCount);
+        assertEquals(1, stoppedCount);
+        testComplete();
+      });
+    });
+    await();
+  }
+
+  @Test
+  public void testVerticleRaisingErrorInAsyncStart() {
+    vertx.deployVerticle("verticle_raising_error_in_async_start.rb", ar -> {
+      assertFalse(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      testComplete();
+    });
+    await();
+  }
+
+  @Test
+  public void testVerticleRaisingErrorInAsyncStop() {
+    vertx.deployVerticle("verticle_raising_error_in_async_stop.rb", ar -> {
+      assertTrue(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      vertx.undeployVerticle(ar.result(), ar2 -> {
+        assertTrue(ar.succeeded());
+        assertEquals(1, deployedCount);
+        assertEquals(1, startedCount);
+        assertEquals(1, stoppedCount);
+        testComplete();
+      });
+    });
+    await();
+  }
 }
