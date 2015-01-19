@@ -14,16 +14,26 @@ import java.io.File;
  */
 public class DeployTest extends VertxTestBase {
 
-  private static volatile int deployedCount = 0;
+  private static volatile int deployedCount;
+  private static volatile int startedCount;
+  private static volatile int stoppedCount;
 
   public static void deployed() {
     deployedCount++;
+  }
+  public static void started() {
+    startedCount++;
+  }
+  public static void stopped() {
+    stoppedCount++;
   }
 
   @Override
   public void setUp() throws Exception {
     super.setUp();
     deployedCount = 0;
+    startedCount = 0;
+    stoppedCount = 0;
   }
 
   @Test
@@ -82,6 +92,42 @@ public class DeployTest extends VertxTestBase {
         new DeploymentOptions().setConfig(new JsonObject().put("GEM_PATH", gemsDir.getAbsolutePath())),
         ar -> {
       assertTrue(ar.succeeded());
+    });
+    await();
+  }
+
+  @Test
+  public void testVerticleLifecycle() {
+    vertx.deployVerticle("lifecycle_verticle.rb", ar -> {
+      assertTrue(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      vertx.undeployVerticle(ar.result(), ar2 -> {
+        assertTrue(ar2.succeeded());
+        assertEquals(1, deployedCount);
+        assertEquals(1, startedCount);
+        assertEquals(1, stoppedCount);
+        testComplete();
+      });
+    });
+    await();
+  }
+
+  @Test
+  public void testAsyncVerticleLifecycle() {
+    vertx.deployVerticle("async_lifecycle_verticle.rb", ar -> {
+      assertTrue(ar.succeeded());
+      assertEquals(1, deployedCount);
+      assertEquals(1, startedCount);
+      assertEquals(0, stoppedCount);
+      vertx.undeployVerticle(ar.result(), ar2 -> {
+        assertTrue(ar2.succeeded());
+        assertEquals(1, deployedCount);
+        assertEquals(1, startedCount);
+        assertEquals(1, stoppedCount);
+        testComplete();
+      });
     });
     await();
   }
