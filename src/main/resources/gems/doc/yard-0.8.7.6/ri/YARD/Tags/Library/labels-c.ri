@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"labels:ETI" YARD::Tags::Library::labels;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"H@return [SymbolHash{Symbol=>String}] the map of tag names and their;To:RDoc::Markup::Verbatim;	[I"respective display labels.;T:@format0:
+@fileI"lib/yard/tags/library.rb;T:0@omit_headings_from_table_of_contents_below0T@I"YARD::Tags::Library;FcRDoc::NormalClass0

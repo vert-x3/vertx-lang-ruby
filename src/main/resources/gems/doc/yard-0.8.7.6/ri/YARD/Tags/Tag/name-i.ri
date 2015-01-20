@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"	name:ETI"YARD::Tags::Tag#name;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"4@return [String] a name associated with the tag;T:
+@fileI"lib/yard/tags/tag.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Tags::Tag;FcRDoc::NormalClass0

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"char_no:ETI"9YARD::Parser::Ruby::Legacy::RubyToken::Token#char_no;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"H@return [Integer] the character number in the file/stream the token;To:RDoc::Markup::Verbatim;	[I"is located.;T:@format0:
+@fileI",lib/yard/parser/ruby/legacy/ruby_lex.rb;T:0@omit_headings_from_table_of_contents_below0F@I"1YARD::Parser::Ruby::Legacy::RubyToken::Token;FcRDoc::NormalClass0

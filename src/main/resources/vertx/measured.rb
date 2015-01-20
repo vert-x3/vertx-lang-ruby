@@ -2,18 +2,28 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.metrics.Measured
 module Vertx
   module Measured
+    # THE METHOD DOC
+    #
+    # @return [String]: the return value (todo)
     def metric_base_name
       @j_del.metricBaseName
     end
+    # THE METHOD DOC
+    #
+    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
   end
   class MeasuredImpl
     include Measured
+    # @private
+    # @param j_del [::Vertx::Measured] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Vertx::Measured] the underlying java delegate
     def j_del
       @j_del
     end

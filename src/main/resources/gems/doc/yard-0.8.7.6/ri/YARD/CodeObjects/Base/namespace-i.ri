@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"namespace:ETI"&YARD::CodeObjects::Base#namespace;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"EThe namespace the object is defined in. If the object is in the ;TI"2top level namespace, this is {Registry.root} ;TI"3@return [NamespaceObject] the namespace object;T:
+@fileI""lib/yard/code_objects/base.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CodeObjects::Base;FcRDoc::NormalClass0

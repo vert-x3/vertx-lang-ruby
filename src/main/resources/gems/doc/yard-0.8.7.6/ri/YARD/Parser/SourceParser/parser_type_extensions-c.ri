@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"parser_type_extensions:ETI"7YARD::Parser::SourceParser::parser_type_extensions;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"@@return [Hash] a list of registered parser type extensions ;TI"@private ;TI"@since 0.5.6;T:
+@fileI"%lib/yard/parser/source_parser.rb;T:0@omit_headings_from_table_of_contents_below0T@I"YARD::Parser::SourceParser;FcRDoc::NormalClass0

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"aliases:ETI"/YARD::CodeObjects::NamespaceObject#aliases;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"GA hash containing two keys, :class and :instance, each containing ;TI".a hash of objects and their alias names. ;TI"%@return [Hash] a list of methods;T:
+@fileI".lib/yard/code_objects/namespace_object.rb;T:0@omit_headings_from_table_of_contents_below0F@I"'YARD::CodeObjects::NamespaceObject;FcRDoc::NormalClass0

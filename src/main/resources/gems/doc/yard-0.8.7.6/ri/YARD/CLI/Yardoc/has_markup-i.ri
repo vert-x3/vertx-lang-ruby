@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"has_markup:ETI"!YARD::CLI::Yardoc#has_markup;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I";@return [Boolean] whether markup option was specified ;TI"@since 0.7.0;T:
+@fileI"lib/yard/cli/yardoc.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Yardoc;FcRDoc::NormalClass0

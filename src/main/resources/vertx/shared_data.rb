@@ -6,12 +6,21 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.SharedData
 module Vertx
   class SharedData
+    # @private
+    # @param j_del [::Vertx::SharedData] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Vertx::SharedData] the underlying java delegate
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @param [String] name
+    # @param [Proc] resultHandler
+    # return [void]
     def get_cluster_wide_map(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -21,6 +30,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_cluster_wide_map(name,resultHandler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] name
+    # @param [Proc] resultHandler
+    # return [void]
     def get_lock(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -30,6 +44,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock(name,resultHandler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] name
+    # @param [Fixnum] timeout
+    # @param [Proc] resultHandler
+    # return [void]
     def get_lock_with_timeout(name,timeout,&resultHandler)
       if name.class == String
         if timeout.class == Fixnum
@@ -42,6 +62,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock_with_timeout(name,timeout,resultHandler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] name
+    # @param [Proc] resultHandler
+    # return [void]
     def get_counter(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -51,6 +76,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_counter(name,resultHandler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] name
+    # @return [::Vertx::LocalMap]: the return value (todo)
     def get_local_map(name)
       if name.class == String
         return ::Vertx::LocalMap.new(@j_del.getLocalMap(name))

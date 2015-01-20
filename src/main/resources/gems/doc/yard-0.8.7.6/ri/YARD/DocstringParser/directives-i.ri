@@ -1,0 +1,3 @@
+U:RDoc::Attr[iI"directives:ETI"%YARD::DocstringParser#directives;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"?@return [Array<Directive>] a list of directives identified;To:RDoc::Markup::Verbatim;	[I";by the parser. This list will not be passed on to the
+;TI"Docstring object.;T:@format0:
+@fileI"!lib/yard/docstring_parser.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::DocstringParser;FcRDoc::NormalClass0

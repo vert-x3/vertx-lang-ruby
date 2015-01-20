@@ -9,6 +9,65 @@
   def genRubyClassFqn(type) {
     return "::" + type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
   }
+
+  def genRubyDocType(type) {
+    var kind = type.kind;
+    if (kind == CLASS_OBJECT) {
+      return "Object";
+    } else if (kind == CLASS_JSON_OBJECT) {
+      return "Hash{String => Object}";
+    } else if (kind == CLASS_JSON_ARRAY) {
+      return "Array<String,Object>";
+    } else if (kind == CLASS_HANDLER) {
+      return "Proc";
+    } else if (kind.collection) {
+      if (kind == CLASS_LIST) {
+        return "Array<" + genRubyDocType(type.args[0]) + ">";
+      } else if (kind == CLASS_SET) {
+        return "Set<" + genRubyDocType(type.args[0]) + ">";
+      } else if (kind == CLASS_MAP) {
+        return "Hash{" + genRubyDocType(type.args[0]) + " => " + genRubyDocType(type.args[1]) + "}";
+      }
+    } else if (kind == CLASS_OPTIONS) {
+      return "Hash"; /* can we do something better ? */
+    } else if (kind == CLASS_ENUM) {
+      var buffer = "";
+      boolean index = 0;
+      for (value : type.values) {
+        if (index > 0) {
+          buffer += ",";
+        }
+        buffer += ":" + value;
+        index = index + 1;
+      }
+      return buffer;
+    } else if (kind.basic) {
+      if (kind == CLASS_STRING) {
+        return "String";
+      } else {
+        var typeName = type.name;
+        if (typeName == "byte" || typeName == "java.lang.Byte" ||
+            typeName == "short" || typeName == "java.lang.Short" ||
+            typeName == "int" || typeName == "java.lang.Integer" ||
+            typeName == "char" || typeName == "java.lang.Character" ||
+            typeName == "long" || typeName == "java.lang.Long") {
+          return "Fixnum";
+        }
+        if (typeName == "float" || typeName == "java.lang.Float" ||
+            typeName == "double" || typeName == "java.lang.Double") {
+          return "Float";
+        }
+        if (typeName == "boolean" || typeName == "java.lang.Boolean") {
+          return "true,false";
+        }
+      }
+    } else if (kind == CLASS_API) {
+      return genRubyClassFqn(type.raw);
+    }
+    System.out.println("Untranslated type " + type + " with kind " + kind);
+    return "Nil";
+  }
+
   /*
    * Returns the Ruby file name include for a given Vert.x Api interface
    * (for instance io.vertx.core.Vertx -> vertx/vertx), the generated name uses the module name
@@ -75,8 +134,10 @@
    */
   def genTypeCheckPredicate(expr, type) {
     var kind = type.kind;
-    if (kind == CLASS_STRING || kind == CLASS_ENUM) {
+    if (kind == CLASS_STRING) {
       return expr + ".class == String";
+    } else if (kind == CLASS_ENUM) {
+      return expr + ".class == Symbol";
     } else if (kind.basic) {
       var typeName = type.name;
       if (typeName == "byte" || typeName == "java.lang.Byte" ||
@@ -259,7 +320,7 @@
       } else if (kind == CLASS_OBJECT) {
         return "::Vertx::Util::Utils.from_object(" + expr + ")";
       } else if (kind == CLASS_ENUM) {
-        return expr + ".name";
+        return expr + ".name.intern";
       }
       return "nil";
     }
@@ -386,12 +447,16 @@ require '@{genRubyClassInclude(referencedType.raw)}'\n
 require 'vertx/util/utils.rb'\n
 
 @declare{'initializer'}
+    # @private\n
+    # @param j_del [@{genRubyClassFqn(type.raw)}] the java delegate\n
     def initialize(j_del)\n
 	@if{callSuper}
       super(j_del)\n
 	@end{}
       @j_del = j_del\n
     end\n
+    # @private\n
+    # @return [@{genRubyClassFqn(type.raw)}] the underlying java delegate\n
     def j_del\n
       @j_del\n
     end\n
@@ -457,6 +522,30 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
+@comment{""}
+@declare{'methodParamsTags'}
+	@foreach{param:methodParams}
+    # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)}\n
+	@end{}
+@end{}
+
+    # THE METHOD DOC\n
+    #\n
+@if{kind != 2}
+	@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
+@else{}
+	@foreach{method:methods}
+    # @overload @{method.name}(@foreach{param:method.params}@{param.name}@end{","})\n
+		@includeNamed{'methodParamsTags';methodParams=method.params;indent='  '}
+	@end{}
+@end{}
+@if{lastMethod.fluent}
+    # return [self]\n
+@else{lastMethod.returnType.simpleName == "void"}
+    # return [void]\n
+@else{}
+    # @return [@{genRubyDocType(lastMethod.returnType)}]: the return value (todo)\n
+@end{}
     def @{methodDecl}@if{params.size() > 0}(
 			@code{index=0}@foreach{param:params}
 			@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}

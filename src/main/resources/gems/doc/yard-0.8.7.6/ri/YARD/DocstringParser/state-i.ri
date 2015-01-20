@@ -1,0 +1,5 @@
+U:RDoc::Attr[iI"
+state:ETI" YARD::DocstringParser#state;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"B@return [OpenStruct] any arbitrary state to be passed between;To:RDoc::Markup::Verbatim;	[I"Btags during parsing. Mainly used by directives to coordinate
+;TI"Dbehaviour (so that directives can be aware of other directives
+;TI"used in a docstring).;T:@format0:
+@fileI"!lib/yard/docstring_parser.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::DocstringParser;FcRDoc::NormalClass0

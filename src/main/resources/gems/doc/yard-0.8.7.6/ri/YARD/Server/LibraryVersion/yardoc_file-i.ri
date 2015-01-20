@@ -1,0 +1,4 @@
+U:RDoc::Attr[iI"yardoc_file:ETI"-YARD::Server::LibraryVersion#yardoc_file;FI"RW;T:publico:RDoc::Markup::Document:@parts[	o:RDoc::Markup::Paragraph;	[I"M@return [String] the location of the yardoc file used to load the object;To:RDoc::Markup::Verbatim;	[I"information from.
+;T:@format0o;
+;	[I"O@return [nil] if no yardoc file exists yet. In this case, {#prepare!} will;To;;	[I"8be called on this library to build the yardoc file.;T;0:
+@fileI"'lib/yard/server/library_version.rb;T:0@omit_headings_from_table_of_contents_below0F@I"!YARD::Server::LibraryVersion;FcRDoc::NormalClass0

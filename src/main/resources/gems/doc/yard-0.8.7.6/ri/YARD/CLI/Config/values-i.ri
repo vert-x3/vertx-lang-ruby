@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"values:ETI"YARD::CLI::Config#values;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"S@return [Array, nil] the list of values to set (or single value), if modifying;T:
+@fileI"lib/yard/cli/config.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Config;FcRDoc::NormalClass0

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"factory:ETI" YARD::Tags::Library#factory;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"MA factory class to handle parsing of tags, defaults to {default_factory};T:
+@fileI"lib/yard/tags/library.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Tags::Library;FcRDoc::NormalClass0

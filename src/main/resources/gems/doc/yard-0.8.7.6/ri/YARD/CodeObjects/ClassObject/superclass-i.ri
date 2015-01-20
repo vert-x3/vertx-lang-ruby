@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"superclass:ETI".YARD::CodeObjects::ClassObject#superclass;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"LThe {ClassObject} that this class object inherits from in Ruby source. ;TI"L@return [ClassObject] a class object that is the superclass of this one;T:
+@fileI"*lib/yard/code_objects/class_object.rb;T:0@omit_headings_from_table_of_contents_below0F@I"#YARD::CodeObjects::ClassObject;FcRDoc::NormalClass0

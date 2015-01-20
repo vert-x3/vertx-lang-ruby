@@ -1,0 +1,5 @@
+U:RDoc::Attr[iI"verifier:ETI"$YARD::Rake::YardocTask#verifier;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"O@return [Verifier, Proc] an optional {Verifier} to run against all objects;To:RDoc::Markup::Verbatim;	[I"Mbeing generated. Any object that the verifier returns false for will be
+;TI"Gexcluded from documentation. This attribute can also be a lambda.
+;T:@format0o;
+;	[I"@see Verifier;T:
+@fileI"!lib/yard/rake/yardoc_task.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Rake::YardocTask;FcRDoc::NormalClass0

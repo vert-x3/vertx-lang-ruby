@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"basepath:ETI"5YARD::Serializers::FileSystemSerializer#basepath;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"%The base path to write data to. ;TI"!@return [String] a base path;T:
+@fileI"3lib/yard/serializers/file_system_serializer.rb;T:0@omit_headings_from_table_of_contents_below0F@I",YARD::Serializers::FileSystemSerializer;FcRDoc::NormalClass0

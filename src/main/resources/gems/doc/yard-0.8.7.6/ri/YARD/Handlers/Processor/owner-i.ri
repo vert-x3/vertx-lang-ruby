@@ -1,0 +1,5 @@
+U:RDoc::Attr[iI"
+owner:ETI"$YARD::Handlers::Processor#owner;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"E@return [CodeObjects::Base, nil] unlike the namespace, the owner;To:RDoc::Markup::Verbatim;	[I"Iis a non-namespace object that should be stored between statements.
+;TI"OFor instance, when parsing a method body, the {CodeObjects::MethodObject}
+;TI"Lis set as the owner, in case any extra method information is processed.;T:@format0:
+@fileI"#lib/yard/handlers/processor.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Handlers::Processor;FcRDoc::NormalClass0

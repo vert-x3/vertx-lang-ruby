@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"no_highlight:ETI"2YARD::Templates::TemplateOptions#no_highlight;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"+@deprecated use {#highlight} instead. ;TI"=@return [Boolean] whether highlighting should be ignored;T:
+@fileI"+lib/yard/templates/template_options.rb;T:0@omit_headings_from_table_of_contents_below0F@I"%YARD::Templates::TemplateOptions;FcRDoc::NormalClass0

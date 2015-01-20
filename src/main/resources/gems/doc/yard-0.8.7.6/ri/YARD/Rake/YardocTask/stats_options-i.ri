@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"stats_options:ETI")YARD::Rake::YardocTask#stats_options;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"%Options to pass to {CLI::Stats} ;TI"D@return [Array<String>] the options passed to the stats utility;T:
+@fileI"!lib/yard/rake/yardoc_task.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Rake::YardocTask;FcRDoc::NormalClass0

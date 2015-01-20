@@ -1,4 +1,6 @@
 require 'vertx/util/utils.rb'
+    # @param j_del [::Testmodel::SuperInterface1] the java delegate
+    # @private
 # Generated from io.vertx.codegen.testmodel.SuperInterface1
 module Testmodel
   class SuperInterface1
@@ -8,6 +10,18 @@ module Testmodel
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @param [Fixnum] b
+    # @param [Fixnum] s
+    # @param [Fixnum] i
+    # @param [Fixnum] l
+    # @param [Float] f
+    # @param [Float] d
+    # @param [true,false] bool
+    # @param [Fixnum] ch
+    # @param [String] str
+    # return [void]
     def super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)
       if b.class == Fixnum
         if s.class == Fixnum

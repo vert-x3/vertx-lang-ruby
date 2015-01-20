@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"expressions:ETI"YARD::Verifier#expressions;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"O@return [Array<String>] a list of all expressions the verifier checks for ;TI"@since 0.5.6;T:
+@fileI"lib/yard/verifier.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Verifier;FcRDoc::NormalClass0

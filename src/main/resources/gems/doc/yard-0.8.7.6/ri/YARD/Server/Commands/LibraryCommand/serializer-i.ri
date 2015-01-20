@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"serializer:ETI"6YARD::Server::Commands::LibraryCommand#serializer;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"L@return [Serializers::Base] the serializer used to perform file linking;T:
+@fileI"0lib/yard/server/commands/library_command.rb;T:0@omit_headings_from_table_of_contents_below0F@I"+YARD::Server::Commands::LibraryCommand;FcRDoc::NormalClass0

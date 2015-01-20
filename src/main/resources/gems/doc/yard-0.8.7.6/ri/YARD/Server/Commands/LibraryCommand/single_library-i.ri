@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"single_library:ETI":YARD::Server::Commands::LibraryCommand#single_library;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"I@return [Boolean] whether router should route for multiple libraries;T:
+@fileI"0lib/yard/server/commands/library_command.rb;T:0@omit_headings_from_table_of_contents_below0F@I"+YARD::Server::Commands::LibraryCommand;FcRDoc::NormalClass0

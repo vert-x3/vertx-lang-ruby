@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"libraries:ETI"$YARD::Server::Adapter#libraries;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"G@return [Hash{String=>Array<LibraryVersion>}] a map of libraries. ;TI"X@see LibraryVersion LibraryVersion for information on building a list of libraries ;TI"@see #add_library;T:
+@fileI"lib/yard/server/adapter.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Server::Adapter;FcRDoc::NormalClass0

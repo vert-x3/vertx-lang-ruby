@@ -1,0 +1,11 @@
+U:RDoc::Attr[iI"default_parser:ETI"$YARD::Docstring::default_parser;FI"RW;T:publico:RDoc::Markup::Document:@parts[
+o:RDoc::Markup::Paragraph;	[I"A@note Plugin developers should make sure to reset this value;To:RDoc::Markup::Verbatim;	[	I"6after parsing finishes. This can be done via the
+;TI"A{Parser::SourceParser.after_parse_list} callback. This will
+;TI">ensure that YARD can properly parse multiple projects in
+;TI"the same process.
+;T:@format0o;
+;	[I"D@return [Class<DocstringParser>] the parser class used to parse;To;;	[I">text and optional meta-data from docstrings. Defaults to
+;TI"{DocstringParser}.
+;T;0o;
+;	[I"@see DocstringParser ;TI"/@see Parser::SourceParser.after_parse_list;T:
+@fileI"lib/yard/docstring.rb;T:0@omit_headings_from_table_of_contents_below0T@ I"YARD::Docstring;FcRDoc::NormalClass0

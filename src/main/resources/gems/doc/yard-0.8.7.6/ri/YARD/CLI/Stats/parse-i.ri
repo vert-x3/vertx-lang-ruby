@@ -1,0 +1,3 @@
+U:RDoc::Attr[iI"
+parse:ETI"YARD::CLI::Stats#parse;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"9@return [Boolean] whether to parse and load registry;T:
+@fileI"lib/yard/cli/stats.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Stats;FcRDoc::NormalClass0

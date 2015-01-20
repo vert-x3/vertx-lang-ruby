@@ -1,0 +1,7 @@
+U:RDoc::Attr[iI"
+files:ETI"!YARD::Rake::YardocTask#files;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"PThe Ruby source files (and any extra documentation files separated by '-') ;TI"to process. ;TI"#@example Task files assignment;To:RDoc::Markup::Verbatim;	[I"'YARD::Rake::YardocTask.new do |t|
+;TI"W  t.files   = ['app   /*.rb', 'lib/   *.rb', '-', 'doc/FAQ.md', 'doc/Changes.md']
+;TI"	end
+;T:@format0o;
+;	[I",@return [Array<String>] a list of files;T:
+@fileI"!lib/yard/rake/yardoc_task.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Rake::YardocTask;FcRDoc::NormalClass0

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"as_list:ETI"YARD::CLI::Config#as_list;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"J@return [Boolean] whether the value being set should be inside a list;T:
+@fileI"lib/yard/cli/config.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Config;FcRDoc::NormalClass0

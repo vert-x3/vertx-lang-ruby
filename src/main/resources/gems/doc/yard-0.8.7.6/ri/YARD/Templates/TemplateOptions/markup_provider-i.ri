@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"markup_provider:ETI"5YARD::Templates::TemplateOptions#markup_provider;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"D@return [Class] the markup provider class for the markup format;T:
+@fileI"+lib/yard/templates/template_options.rb;T:0@omit_headings_from_table_of_contents_below0F@I"%YARD::Templates::TemplateOptions;FcRDoc::NormalClass0

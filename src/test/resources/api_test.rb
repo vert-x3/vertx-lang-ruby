@@ -718,13 +718,13 @@ def test_null_json_handler_async_result_params
 end
 
 def test_enum_param
-  ret = $obj.method_with_enum_param('sausages', 'TIM')
+  ret = $obj.method_with_enum_param('sausages', :TIM)
   Assert.equals(ret, 'sausagesTIM')
 end
 
 def test_enum_return
   ret = $obj.method_with_enum_return('JULIEN')
-  Assert.equals('JULIEN', ret)
+  Assert.equals(:JULIEN, ret)
 end
 
 def test_map_return

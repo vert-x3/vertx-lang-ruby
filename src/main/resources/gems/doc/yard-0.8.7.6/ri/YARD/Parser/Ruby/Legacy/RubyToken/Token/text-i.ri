@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"	text:ETI"6YARD::Parser::Ruby::Legacy::RubyToken::Token#text;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"*@return [String] the token text value;T:
+@fileI",lib/yard/parser/ruby/legacy/ruby_lex.rb;T:0@omit_headings_from_table_of_contents_below0F@I"1YARD::Parser::Ruby::Legacy::RubyToken::Token;FcRDoc::NormalClass0

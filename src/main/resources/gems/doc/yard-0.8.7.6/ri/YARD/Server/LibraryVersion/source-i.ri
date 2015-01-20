@@ -1,0 +1,6 @@
+U:RDoc::Attr[iI"source:ETI"(YARD::Server::LibraryVersion#source;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"M@return [Symbol] the source type representing where the yardoc should be;To:RDoc::Markup::Verbatim;	[I"Iloaded from. Defaults are +:disk+ and +:gem+, though custom sources
+;TI"Lmay be implemented. This value is used to inform {#prepare!} about how
+;TI"Qto load the necessary data in order to display documentation for an object.
+;T:@format0o;
+;	[I"`@see LibraryVersion LibraryVersion documentation for "Implementing a Custom Library Source";T:
+@fileI"'lib/yard/server/library_version.rb;T:0@omit_headings_from_table_of_contents_below0F@I"!YARD::Server::LibraryVersion;FcRDoc::NormalClass0

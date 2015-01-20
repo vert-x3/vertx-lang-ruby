@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"	name:ETI" YARD::Rake::YardocTask#name;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"The name of the task ;TI"#@return [String] the task name;T:
+@fileI"!lib/yard/rake/yardoc_task.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Rake::YardocTask;FcRDoc::NormalClass0

@@ -1,0 +1,4 @@
+U:RDoc::Attr[iI"	name:ETI"YARD::I18n::Locale#name;FI"R;T:publico:RDoc::Markup::Document:@parts[	o:RDoc::Markup::Paragraph;	[I"C@return [String] the name of the locale. It used IETF language;To:RDoc::Markup::Verbatim;	[I"?tag format +[language[_territory][.codeset][@modifier]]+.
+;T:@format0o;
+;	[I"1@see http://tools.ietf.org/rfc/bcp/bcp47.txt;To;;	[I",BCP 47 - Tags for Identifying Languages;T;0:
+@fileI"lib/yard/i18n/locale.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::I18n::Locale;FcRDoc::NormalClass0

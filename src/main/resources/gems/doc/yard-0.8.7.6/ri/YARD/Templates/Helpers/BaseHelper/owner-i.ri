@@ -1,0 +1,3 @@
+U:RDoc::Attr[iI"
+owner:ETI"/YARD::Templates::Helpers::BaseHelper#owner;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"N@return [CodeObjects::Base] the object representing the current generated;To:RDoc::Markup::Verbatim;	[I"Hpage. Might not be the current {#object} when inside sub-templates.;T:@format0:
+@fileI".lib/yard/templates/helpers/base_helper.rb;T:0@omit_headings_from_table_of_contents_below0F@I")YARD::Templates::Helpers::BaseHelper;FcRDoc::NormalModule0

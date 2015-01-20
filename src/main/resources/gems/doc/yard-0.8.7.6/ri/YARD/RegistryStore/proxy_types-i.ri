@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"proxy_types:ETI"$YARD::RegistryStore#proxy_types;FI"R;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I":@deprecated The registry no longer tracks proxy types;T:
+@fileI"lib/yard/registry_store.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::RegistryStore;FcRDoc::NormalClass0

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"scripts:ETI"YARD::CLI::Server#scripts;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"7@return [Array<String>] a list of scripts to load ;TI"@since 0.6.2;T:
+@fileI"lib/yard/cli/server.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Server;FcRDoc::NormalClass0

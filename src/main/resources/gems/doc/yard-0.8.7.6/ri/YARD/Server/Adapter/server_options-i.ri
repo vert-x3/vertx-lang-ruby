@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"server_options:ETI")YARD::Server::Adapter#server_options;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"H@return [Hash] a set of options to pass to the server backend. Note;To:RDoc::Markup::Verbatim;	[I"9that +:DocumentRoot+ also sets the {#document_root}.;T:@format0:
+@fileI"lib/yard/server/adapter.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Server::Adapter;FcRDoc::NormalClass0

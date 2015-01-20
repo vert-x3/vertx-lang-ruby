@@ -9,20 +9,51 @@ require 'vertx/util/utils.rb'
 module Vertx
   class HttpClient
     include ::Vertx::Measured
+    # @private
+    # @param j_del [::Vertx::HttpClient] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Vertx::HttpClient] the underlying java delegate
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @return [String]: the return value (todo)
     def metric_base_name
       @j_del.metricBaseName
     end
+    # THE METHOD DOC
+    #
+    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
+    # THE METHOD DOC
+    #
+    # @overload request(method,absoluteURI)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method
+    #   @param [String] absoluteURI
+    # @overload request(method,absoluteURI,responseHandler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method
+    #   @param [String] absoluteURI
+    #   @param [Proc] responseHandler
+    # @overload request(method,port,host,requestURI)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    # @overload request(method,port,host,requestURI,responseHandler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    #   @param [Proc] responseHandler
+    # @return [::Vertx::HttpClientRequest]: the return value (todo)
     def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
-      if param_1.class == String
+      if param_1.class == Symbol
         if param_2.class == String
           if param_3.class == Proc
             return ::Vertx::HttpClientRequest.new(@j_del.request(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |event| param_3.call(::Vertx::HttpClientResponse.new(event)) })))
@@ -45,12 +76,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling request(param_1,param_2,param_3,param_4,param_5)"
     end
+    # THE METHOD DOC
+    #
+    # @param [Fixnum] port
+    # @param [String] host
+    # @param [String] requestURI
+    # @param [::Vertx::MultiMap] headers
+    # @param [:V00,:V07,:V08,:V13] version
+    # @param [String] subProtocols
+    # @return [::Vertx::WebSocketStream]: the return value (todo)
     def websocket(port,host,requestURI,headers=nil,version=nil,subProtocols=nil)
       if port.class == Fixnum
         if host.class == String
           if requestURI.class == String
             if headers.class.method_defined?(:j_del)
-              if version.class == String
+              if version.class == Symbol
                 if subProtocols.class == String
                   return ::Vertx::WebSocketStream.new(@j_del.websocket(port,host,requestURI,headers.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(version),subProtocols))
                 end
@@ -66,6 +106,35 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
     end
+    # THE METHOD DOC
+    #
+    # @overload connectWebsocket(port,host,requestURI,wsConnect)
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    #   @param [Proc] wsConnect
+    # @overload connectWebsocket(port,host,requestURI,headers,wsConnect)
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    #   @param [::Vertx::MultiMap] headers
+    #   @param [Proc] wsConnect
+    # @overload connectWebsocket(port,host,requestURI,headers,version,wsConnect)
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    #   @param [::Vertx::MultiMap] headers
+    #   @param [:V00,:V07,:V08,:V13] version
+    #   @param [Proc] wsConnect
+    # @overload connectWebsocket(port,host,requestURI,headers,version,subProtocols,wsConnect)
+    #   @param [Fixnum] port
+    #   @param [String] host
+    #   @param [String] requestURI
+    #   @param [::Vertx::MultiMap] headers
+    #   @param [:V00,:V07,:V08,:V13] version
+    #   @param [String] subProtocols
+    #   @param [Proc] wsConnect
+    # @return [::Vertx::HttpClient]: the return value (todo)
     def connect_websocket(param_1,param_2,param_3,param_4,param_5=nil,param_6=nil,&param_7)
       if param_1.class == Fixnum
         if param_2.class == String
@@ -77,7 +146,7 @@ module Vertx
               if param_5.class == Proc
                 return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| param_5.call(::Vertx::WebSocket.new(event)) })))
               end
-              if param_5.class == String
+              if param_5.class == Symbol
                 if param_6.class == Proc
                   return ::Vertx::HttpClient.new(@j_del.connectWebsocket(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| param_6.call(::Vertx::WebSocket.new(event)) })))
                 end
@@ -99,6 +168,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
     end
+    # THE METHOD DOC
+    #
+    # return [void]
     def close
       @j_del.close
     end

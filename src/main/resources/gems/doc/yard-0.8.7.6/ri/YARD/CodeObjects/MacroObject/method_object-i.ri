@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"method_object:ETI"1YARD::CodeObjects::MacroObject#method_object;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"E@return [CodeObjects::Base] the method object that this macro is;To:RDoc::Markup::Verbatim;	[I"attached to.;T:@format0:
+@fileI"*lib/yard/code_objects/macro_object.rb;T:0@omit_headings_from_table_of_contents_below0F@I"#YARD::CodeObjects::MacroObject;FcRDoc::NormalClass0

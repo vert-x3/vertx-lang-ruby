@@ -1,4 +1,6 @@
 require 'vertx/util/utils.rb'
+    # @param j_del [::RubyCodegen::LinearOverloadedMethods] the java delegate
+    # @private
 # Generated from io.vertx.test.support.LinearOverloadedMethods
 module RubyCodegen
   class LinearOverloadedMethods
@@ -8,6 +10,13 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @param [String] foo
+    # @param [String] bar
+    # @param [String] juu
+    # @param [String] daa
+    # return [void]
     def method(foo=nil,bar=nil,juu=nil,daa=nil)
       if foo.class == String
         if bar.class == String

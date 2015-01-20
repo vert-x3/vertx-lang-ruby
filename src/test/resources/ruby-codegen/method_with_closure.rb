@@ -1,4 +1,6 @@
 require 'vertx/util/utils.rb'
+    # @param j_del [::RubyCodegen::MethodWithClosure] the java delegate
+    # @private
 # Generated from io.vertx.test.support.MethodWithClosure
 module RubyCodegen
   class MethodWithClosure
@@ -8,6 +10,11 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @param [String] s
+    # @param [Proc] callback
+    # return [void]
     def do_something(s=nil,&callback)
       if s.class == String
         if callback.class == Proc

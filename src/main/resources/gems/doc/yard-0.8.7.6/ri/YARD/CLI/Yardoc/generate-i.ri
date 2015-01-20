@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"generate:ETI"YARD::CLI::Yardoc#generate;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"1@return [Boolean] whether to generate output;T:
+@fileI"lib/yard/cli/yardoc.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Yardoc;FcRDoc::NormalClass0

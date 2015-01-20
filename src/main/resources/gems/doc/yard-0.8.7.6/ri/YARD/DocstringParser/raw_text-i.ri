@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"raw_text:ETI"#YARD::DocstringParser#raw_text;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I">@return [String] the complete input string to the parser.;T:
+@fileI"!lib/yard/docstring_parser.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::DocstringParser;FcRDoc::NormalClass0

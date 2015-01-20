@@ -6,12 +6,22 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.FileSystem
 module Vertx
   class FileSystem
+    # @private
+    # @param j_del [::Vertx::FileSystem] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Vertx::FileSystem] the underlying java delegate
     def j_del
       @j_del
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # @param [Proc] handler
+    # return [self]
     def copy(from,to,&handler)
       if from.class == String
         if to.class == String
@@ -25,6 +35,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy(from,to,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # return [self]
     def copy_blocking(from,to)
       if from.class == String
         if to.class == String
@@ -35,6 +50,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_blocking(from,to)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # @param [true,false] recursive
+    # @param [Proc] handler
+    # return [self]
     def copy_recursive(from,to,recursive,&handler)
       if from.class == String
         if to.class == String
@@ -51,6 +73,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_recursive(from,to,recursive,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # @param [true,false] recursive
+    # return [self]
     def copy_recursive_blocking(from,to,recursive)
       if from.class == String
         if to.class == String
@@ -64,6 +92,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_recursive_blocking(from,to,recursive)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # @param [Proc] handler
+    # return [self]
     def move(from,to,&handler)
       if from.class == String
         if to.class == String
@@ -77,6 +111,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling move(from,to,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] from
+    # @param [String] to
+    # return [self]
     def move_blocking(from,to)
       if from.class == String
         if to.class == String
@@ -87,6 +126,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling move_blocking(from,to)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Fixnum] len
+    # @param [Proc] handler
+    # return [self]
     def truncate(path,len,&handler)
       if path.class == String
         if len.class == Fixnum
@@ -100,6 +145,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling truncate(path,len,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Fixnum] len
+    # return [self]
     def truncate_blocking(path,len)
       if path.class == String
         if len.class == Fixnum
@@ -110,6 +160,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling truncate_blocking(path,len)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # @param [Proc] handler
+    # return [self]
     def chmod(path,perms,&handler)
       if path.class == String
         if perms.class == String
@@ -123,6 +179,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod(path,perms,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # return [self]
     def chmod_blocking(path,perms)
       if path.class == String
         if perms.class == String
@@ -133,6 +194,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_blocking(path,perms)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # @param [String] dirPerms
+    # @param [Proc] handler
+    # return [self]
     def chmod_recursive(path,perms,dirPerms,&handler)
       if path.class == String
         if perms.class == String
@@ -149,6 +217,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_recursive(path,perms,dirPerms,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # @param [String] dirPerms
+    # return [self]
     def chmod_recursive_blocking(path,perms,dirPerms)
       if path.class == String
         if perms.class == String
@@ -162,6 +236,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_recursive_blocking(path,perms,dirPerms)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] user
+    # @param [String] group
+    # @param [Proc] handler
+    # return [self]
     def chown(path,user,group,&handler)
       if path.class == String
         if user.class == String
@@ -178,6 +259,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chown(path,user,group,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] user
+    # @param [String] group
+    # return [self]
     def chown_blocking(path,user,group)
       if path.class == String
         if user.class == String
@@ -191,6 +278,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chown_blocking(path,user,group)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def props(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -201,12 +293,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @return [::Vertx::FileProps]: the return value (todo)
     def props_blocking(path)
       if path.class == String
         return ::Vertx::FileProps.new(@j_del.propsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props_blocking(path)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def lprops(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -217,12 +318,22 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @return [::Vertx::FileProps]: the return value (todo)
     def lprops_blocking(path)
       if path.class == String
         return ::Vertx::FileProps.new(@j_del.lpropsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops_blocking(path)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [String] existing
+    # @param [Proc] handler
+    # return [self]
     def link(link,existing,&handler)
       if link.class == String
         if existing.class == String
@@ -236,6 +347,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling link(link,existing,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [String] existing
+    # return [self]
     def link_blocking(link,existing)
       if link.class == String
         if existing.class == String
@@ -246,6 +362,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling link_blocking(link,existing)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [String] existing
+    # @param [Proc] handler
+    # return [self]
     def symlink(link,existing,&handler)
       if link.class == String
         if existing.class == String
@@ -259,6 +381,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling symlink(link,existing,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [String] existing
+    # return [self]
     def symlink_blocking(link,existing)
       if link.class == String
         if existing.class == String
@@ -269,6 +396,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling symlink_blocking(link,existing)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [Proc] handler
+    # return [self]
     def unlink(link,&handler)
       if link.class == String
         if handler.class == Proc
@@ -279,6 +411,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling unlink(link,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # return [self]
     def unlink_blocking(link)
       if link.class == String
         @j_del.unlinkBlocking(link)
@@ -286,6 +422,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling unlink_blocking(link)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @param [Proc] handler
+    # return [self]
     def read_symlink(link,&handler)
       if link.class == String
         if handler.class == Proc
@@ -296,12 +437,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling read_symlink(link,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] link
+    # @return [String]: the return value (todo)
     def read_symlink_blocking(link)
       if link.class == String
         return @j_del.readSymlinkBlocking(link)
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling read_symlink_blocking(link)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def delete(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -312,6 +462,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # return [self]
     def delete_blocking(path)
       if path.class == String
         @j_del.deleteBlocking(path)
@@ -319,6 +473,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_blocking(path)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [true,false] recursive
+    # @param [Proc] handler
+    # return [self]
     def delete_recursive(path,recursive,&handler)
       if path.class == String
         if recursive.class == TrueClass || recursive.class == FalseClass
@@ -332,6 +492,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_recursive(path,recursive,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [true,false] recursive
+    # return [self]
     def delete_recursive_blocking(path,recursive)
       if path.class == String
         if recursive.class == TrueClass || recursive.class == FalseClass
@@ -342,6 +507,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_recursive_blocking(path,recursive)"
     end
+    # THE METHOD DOC
+    #
+    # @overload mkdir(path,handler)
+    #   @param [String] path
+    #   @param [Proc] handler
+    # @overload mkdir(path,perms,handler)
+    #   @param [String] path
+    #   @param [String] perms
+    #   @param [Proc] handler
+    # return [self]
     def mkdir(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
@@ -359,6 +534,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling mkdir(param_1,param_2,param_3)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # return [self]
     def mkdir_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
@@ -370,6 +550,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdir_blocking(path,perms)"
     end
+    # THE METHOD DOC
+    #
+    # @overload mkdirs(path,handler)
+    #   @param [String] path
+    #   @param [Proc] handler
+    # @overload mkdirs(path,perms,handler)
+    #   @param [String] path
+    #   @param [String] perms
+    #   @param [Proc] handler
+    # return [self]
     def mkdirs(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
@@ -387,6 +577,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling mkdirs(param_1,param_2,param_3)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # return [self]
     def mkdirs_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
@@ -398,6 +593,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdirs_blocking(path,perms)"
     end
+    # THE METHOD DOC
+    #
+    # @overload readDir(path,handler)
+    #   @param [String] path
+    #   @param [Proc] handler
+    # @overload readDir(path,filter,handler)
+    #   @param [String] path
+    #   @param [String] filter
+    #   @param [Proc] handler
+    # return [self]
     def read_dir(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
@@ -415,6 +620,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling read_dir(param_1,param_2,param_3)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] filter
+    # @return [Array<String>]: the return value (todo)
     def read_dir_blocking(path,filter=nil)
       if path.class == String
         if filter.class == String
@@ -424,6 +634,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_dir_blocking(path,filter)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def read_file(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -434,12 +649,22 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @return [::Vertx::Buffer]: the return value (todo)
     def read_file_blocking(path)
       if path.class == String
         return ::Vertx::Buffer.new(@j_del.readFileBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file_blocking(path)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [::Vertx::Buffer] data
+    # @param [Proc] handler
+    # return [self]
     def write_file(path,data,&handler)
       if path.class == String
         if data.class.method_defined?(:j_del)
@@ -453,6 +678,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling write_file(path,data,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [::Vertx::Buffer] data
+    # return [self]
     def write_file_blocking(path,data)
       if path.class == String
         if data.class.method_defined?(:j_del)
@@ -463,6 +693,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling write_file_blocking(path,data)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Hash] options
+    # @param [Proc] handler
+    # return [self]
     def open(path,options,&handler)
       if path.class == String
         if options.class == Hash
@@ -476,6 +712,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling open(path,options,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Hash] options
+    # @return [::Vertx::AsyncFile]: the return value (todo)
     def open_blocking(path,options)
       if path.class == String
         if options.class == Hash
@@ -485,6 +726,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling open_blocking(path,options)"
     end
+    # THE METHOD DOC
+    #
+    # @overload createFile(path,handler)
+    #   @param [String] path
+    #   @param [Proc] handler
+    # @overload createFile(path,perms,handler)
+    #   @param [String] path
+    #   @param [String] perms
+    #   @param [Proc] handler
+    # return [self]
     def create_file(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
@@ -502,6 +753,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling create_file(param_1,param_2,param_3)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [String] perms
+    # return [self]
     def create_file_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
@@ -513,6 +769,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling create_file_blocking(path,perms)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def exists(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -523,12 +784,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling exists(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @return [true,false]: the return value (todo)
     def exists_blocking(path)
       if path.class == String
         return @j_del.existsBlocking(path)
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling exists_blocking(path)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @param [Proc] handler
+    # return [self]
     def fs_props(path,&handler)
       if path.class == String
         if handler.class == Proc
@@ -539,6 +809,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling fs_props(path,handler)"
     end
+    # THE METHOD DOC
+    #
+    # @param [String] path
+    # @return [::Vertx::FileSystemProps]: the return value (todo)
     def fs_props_blocking(path)
       if path.class == String
         return ::Vertx::FileSystemProps.new(@j_del.fsPropsBlocking(path))

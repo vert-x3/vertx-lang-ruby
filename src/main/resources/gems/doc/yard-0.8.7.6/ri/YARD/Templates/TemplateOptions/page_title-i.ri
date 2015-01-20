@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"page_title:ETI"0YARD::Templates::TemplateOptions#page_title;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"/@return [String] the title of a given page;T:
+@fileI"+lib/yard/templates/template_options.rb;T:0@omit_headings_from_table_of_contents_below0F@I"%YARD::Templates::TemplateOptions;FcRDoc::NormalClass0

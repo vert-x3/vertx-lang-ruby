@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"tag:ETI"YARD::Tags::Directive#tag;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"K@return [Tag] the meta-data tag containing data input to the directive;T:
+@fileI" lib/yard/tags/directives.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::Tags::Directive;FcRDoc::NormalClass0

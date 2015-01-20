@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"lex_state:ETI";YARD::Parser::Ruby::Legacy::RubyToken::Token#lex_state;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"4@return [Symbol] the lexical state at the token;T:
+@fileI",lib/yard/parser/ruby/legacy/ruby_lex.rb;T:0@omit_headings_from_table_of_contents_below0F@I"1YARD::Parser::Ruby::Legacy::RubyToken::Token;FcRDoc::NormalClass0

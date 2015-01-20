@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"assets:ETI"YARD::CLI::Yardoc#assets;FI"RW;T:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"G@return [Array<String>] a list of assets to copy after generation ;TI"@since 0.6.0;T:
+@fileI"lib/yard/cli/yardoc.rb;T:0@omit_headings_from_table_of_contents_below0F@I"YARD::CLI::Yardoc;FcRDoc::NormalClass0

@@ -236,6 +236,42 @@
           </dependency>
         </dependencies>
       </plugin>
+
+      <plugin>
+        <groupId>de.saumya.mojo</groupId>
+        <artifactId>jruby-maven-plugin</artifactId>
+        <version>1.0.7</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jruby</goal>
+            </goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <gemPath>${project.basedir}/src/main/resources/gems</gemPath>
+              <args>doc --no-private -o ${project.build.directory}/doc ${project.basedir}/src/main/resources/vertx/*.rb</args>
+              <!-- Literal dump of /usr/bin/yard -->
+              <script>
+                require 'rubygems'
+
+                version = ">= 0"
+
+                if ARGV.first
+                str = ARGV.first
+                str = str.dup.force_encoding("BINARY") if str.respond_to? :force_encoding
+                if str =~ /\A_(.*)_\z/
+                version = $1
+                ARGV.shift
+                end
+                end
+
+                gem 'yard', version
+                load Gem.bin_path('yard', 'yard', version)
+              </script>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 <!--
       <plugin>
         <groupId>org.asciidoctor</groupId>
