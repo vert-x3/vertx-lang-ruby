@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.dns.SrvRecord
 module Vertx
+  #  Represent a Service-Record (SRV) which was resolved for a domain.
   class SrvRecord
     # @private
     # @param j_del [::Vertx::SrvRecord] the java delegate
@@ -12,45 +13,38 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Returns the priority for this service record.
+    # @return [Fixnum]
     def priority
       @j_del.priority
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Returns the weight of this service record.
+    # @return [Fixnum]
     def weight
       @j_del.weight
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Returns the port the service is running on.
+    # @return [Fixnum]
     def port
       @j_del.port
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the name for the server being queried.
+    # @return [String]
     def name
       @j_del.name
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the protocol for the service being queried (i.e. "_tcp").
+    # @return [String]
     def protocol
       @j_del.protocol
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the service's name (i.e. "_http").
+    # @return [String]
     def service
       @j_del.service
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the name of the host for the service.
+    # @return [String]
     def target
       @j_del.target
     end

@@ -1,17 +1,24 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::RubyCodegen::MultiOverloadedMethods] the java delegate
-    # @private
 # Generated from io.vertx.test.support.MultiOverloadedMethods
 module RubyCodegen
+  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class MultiOverloadedMethods
+    # @private
+    # @param j_del [::RubyCodegen::MultiOverloadedMethods] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::RubyCodegen::MultiOverloadedMethods] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
+    # @overload method()
+    # @overload method(foo)
+    #   @param [String] foo
+    # @overload method(bar,juu)
+    #   @param [Fixnum] bar
+    #   @param [true,false] juu
     # return [void]
     def method(param_1=nil,param_2=nil)
       if param_1.class == String

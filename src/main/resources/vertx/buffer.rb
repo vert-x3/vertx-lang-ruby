@@ -1,6 +1,20 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.buffer.Buffer
 module Vertx
+  #  A Buffer represents a sequence of zero or more bytes that can be written to or read from, and which expands as
+  #  necessary to accommodate any bytes written to it.<p>
+  #  There are two ways to write data to a Buffer: The first method involves methods that take the form <code>setXXX</code>.
+  #  These methods write data into the buffer starting at the specified position. The position does not have to be inside data that
+  #  has already been written to the buffer; the buffer will automatically expand to encompass the position plus any data that needs
+  #  to be written. All positions are measured in bytes and start with zero.<p>
+  #  The second method involves methods that take the form <code>appendXXX</code>; these methods append data
+  #  at the end of the buffer.<p>
+  #  Methods exist to both <code>set</code> and <code>append</code> all primitive types, , null and
+  #  other instances of Buffer.<p>
+  #  Data can be read from a buffer by invoking methods which take the form <code>getXXX</code>. These methods take a parameter
+  #  representing the position in the Buffer from where to read data.<p>
+  #  Once a buffer has been written to a socket or other write stream, the same buffer instance can't be written again to another WriteStream.<p>
+  #  Instances of this class are not thread-safe.<p>
   class Buffer
     # @private
     # @param j_del [::Vertx::Buffer] the java delegate
@@ -12,8 +26,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @overload buffer()
     # @overload buffer(initialSizeHint)
     #   @param [Fixnum] initialSizeHint
@@ -22,7 +34,7 @@ module Vertx
     # @overload buffer(string,enc)
     #   @param [String] string
     #   @param [String] enc
-    # @return [::Vertx::Buffer]: the return value (todo)
+    # @return [::Vertx::Buffer]
     def self.buffer(param_1=nil,param_2=nil)
       if param_1.class == String
         if param_2.class == String
@@ -35,81 +47,74 @@ module Vertx
       end
       ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
     end
-    # THE METHOD DOC
-    #
+    #  Returns a <code>String</code> representation of the Buffer with the encoding specified by <code>enc</code>
     # @param [String] enc
-    # @return [String]: the return value (todo)
+    # @return [String]
     def to_string(enc)
       if enc.class == String
         return @j_del.toString(enc)
       end
       raise ArgumentError, "Invalid argument enc=#{enc} when calling to_string(enc)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>byte</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def get_byte(pos)
       if pos.class == Fixnum
         return @j_del.getByte(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_byte(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>int</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def get_int(pos)
       if pos.class == Fixnum
         return @j_del.getInt(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_int(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>long</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def get_long(pos)
       if pos.class == Fixnum
         return @j_del.getLong(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_long(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>double</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Float]: the return value (todo)
+    # @return [Float]
     def get_double(pos)
       if pos.class == Fixnum
         return @j_del.getDouble(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_double(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>float</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Float]: the return value (todo)
+    # @return [Float]
     def get_float(pos)
       if pos.class == Fixnum
         return @j_del.getFloat(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_float(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the <code>short</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def get_short(pos)
       if pos.class == Fixnum
         return @j_del.getShort(pos)
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling get_short(pos)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns a copy of a sub-sequence the Buffer as a {::Vertx::Buffer} starting at position <code>start</code>
+    #  and ending at position <code>end - 1</code>
     # @param [Fixnum] start
     # @param [Fixnum] _end
-    # @return [::Vertx::Buffer]: the return value (todo)
+    # @return [::Vertx::Buffer]
     def get_buffer(start,_end)
       if start.class == Fixnum
         if _end.class == Fixnum
@@ -119,12 +124,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument start=#{start} when calling get_buffer(start,_end)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns a copy of a sub-sequence the Buffer as a <code>String</code> starting at position <code>start</code>
+    #  and ending at position <code>end - 1</code> interpreted as a String in the specified encoding
     # @param [Fixnum] start
     # @param [Fixnum] _end
     # @param [String] enc
-    # @return [String]: the return value (todo)
+    # @return [String]
     def get_string(start,_end,enc=nil)
       if start.class == Fixnum
         if _end.class == Fixnum
@@ -137,8 +142,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument start=#{start} when calling get_string(start,_end,enc)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>Buffer</code> starting at the <code>offset</code> using <code>len</code> to the end of this Buffer. The buffer will expand as necessary to accommodate
+    #  any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [::Vertx::Buffer] buff
     # @param [Fixnum] offset
     # @param [Fixnum] len
@@ -157,8 +163,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument buff=#{buff} when calling append_buffer(buff,offset,len)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>byte</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] b
     # return [self]
     def append_byte(b)
@@ -168,8 +174,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument b=#{b} when calling append_byte(b)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] i
     # return [self]
     def append_int(i)
@@ -179,8 +185,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument i=#{i} when calling append_int(i)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>long</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] l
     # return [self]
     def append_long(l)
@@ -190,8 +196,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument l=#{l} when calling append_long(l)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] s
     # return [self]
     def append_short(s)
@@ -201,8 +207,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument s=#{s} when calling append_short(s)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>float</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Float] f
     # return [self]
     def append_float(f)
@@ -212,8 +218,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument f=#{f} when calling append_float(f)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>double</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Float] d
     # return [self]
     def append_double(d)
@@ -223,8 +229,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument d=#{d} when calling append_double(d)"
     end
-    # THE METHOD DOC
-    #
+    #  Appends the specified <code>String</code> to the end of the Buffer with the encoding as specified by <code>enc</code>.<p>
+    #  The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.<p>
     # @param [String] str
     # @param [String] enc
     # return [self]
@@ -239,8 +246,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument str=#{str} when calling append_string(str,enc)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>byte</code> at position <code>pos</code> in the Buffer to the value <code>b</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] b
     # return [self]
@@ -254,8 +261,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_byte(pos,b)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] i
     # return [self]
@@ -269,8 +276,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_int(pos,i)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>long</code> at position <code>pos</code> in the Buffer to the value <code>l</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] l
     # return [self]
@@ -284,8 +291,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_long(pos,l)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>double</code> at position <code>pos</code> in the Buffer to the value <code>d</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Float] d
     # return [self]
@@ -299,8 +306,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_double(pos,d)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>float</code> at position <code>pos</code> in the Buffer to the value <code>f</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Float] f
     # return [self]
@@ -314,8 +321,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_float(pos,f)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] s
     # return [self]
@@ -329,8 +336,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_short(pos,s)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the bytes at position <code>pos</code> in the Buffer to the bytes represented by the <code>Buffer b</code> on the given <code>offset</code> and <code>len</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [::Vertx::Buffer] b
     # @param [Fixnum] offset
@@ -353,8 +360,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_buffer(pos,b,offset,len)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets the bytes at position <code>pos</code> in the Buffer to the value of <code>str</code> encoded in encoding <code>enc</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [String] str
     # @param [String] enc
@@ -373,23 +380,23 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument pos=#{pos} when calling set_string(pos,str,enc)"
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Returns the length of the buffer, measured in bytes.
+    #  All positions are indexed from zero.
+    # @return [Fixnum]
     def length
       @j_del.length
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::Buffer]: the return value (todo)
+    #  Returns a copy of the entire Buffer.
+    # @return [::Vertx::Buffer]
     def copy
       ::Vertx::Buffer.new(@j_del.copy)
     end
-    # THE METHOD DOC
-    #
+    #  Returns a slice of this buffer. Modifying the content
+    #  of the returned buffer or this buffer affects each other's content
+    #  while they maintain separate indexes and marks.
     # @param [Fixnum] start
     # @param [Fixnum] _end
-    # @return [::Vertx::Buffer]: the return value (todo)
+    # @return [::Vertx::Buffer]
     def slice(start=nil,_end=nil)
       if start.class == Fixnum
         if _end.class == Fixnum

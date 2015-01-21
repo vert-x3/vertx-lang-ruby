@@ -5,6 +5,7 @@ require 'vertx/counter'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.SharedData
 module Vertx
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class SharedData
     # @private
     # @param j_del [::Vertx::SharedData] the java delegate
@@ -16,8 +17,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [String] name
     # @param [Proc] resultHandler
     # return [void]
@@ -30,8 +29,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_cluster_wide_map(name,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] name
     # @param [Proc] resultHandler
     # return [void]
@@ -44,8 +41,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock(name,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] name
     # @param [Fixnum] timeout
     # @param [Proc] resultHandler
@@ -62,8 +57,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock_with_timeout(name,timeout,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] name
     # @param [Proc] resultHandler
     # return [void]
@@ -76,10 +69,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_counter(name,resultHandler)"
     end
-    # THE METHOD DOC
-    #
+    #  Return a <code>Map</code> with the specific <code>name</code>. All invocations of this method with the same value of <code>name</code>
+    #  are guaranteed to return the same <code>Map</code> instance. <p>
     # @param [String] name
-    # @return [::Vertx::LocalMap]: the return value (todo)
+    # @return [::Vertx::LocalMap]
     def get_local_map(name)
       if name.class == String
         return ::Vertx::LocalMap.new(@j_del.getLocalMap(name))

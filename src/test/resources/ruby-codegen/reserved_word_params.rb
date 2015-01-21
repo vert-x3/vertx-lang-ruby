@@ -1,43 +1,44 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::RubyCodegen::ReservedWordParams] the java delegate
-    # @private
 # Generated from io.vertx.test.support.ReservedWordParams
 module RubyCodegen
+  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class ReservedWordParams
+    # @private
+    # @param j_del [::RubyCodegen::ReservedWordParams] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::RubyCodegen::ReservedWordParams] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @param [String] alias
-    # @param [String] and
-    # @param [String] BEGIN
-    # @param [String] begin
-    # @param [String] def
-    # @param [String] elsif
-    # @param [String] END
-    # @param [String] end
-    # @param [String] ensure
-    # @param [String] in
-    # @param [String] module
-    # @param [String] next
-    # @param [String] nil
-    # @param [String] not
-    # @param [String] or
-    # @param [String] redo
-    # @param [String] rescue
-    # @param [String] retry
-    # @param [String] self
-    # @param [String] then
-    # @param [String] undef
-    # @param [String] unless
-    # @param [String] until
-    # @param [String] when
-    # @param [String] yield
-    # @return [String]: the return value (todo)
+    # @param [String] _alias
+    # @param [String] _and
+    # @param [String] _BEGIN
+    # @param [String] _begin
+    # @param [String] _def
+    # @param [String] _elsif
+    # @param [String] _END
+    # @param [String] _end
+    # @param [String] _ensure
+    # @param [String] _in
+    # @param [String] _module
+    # @param [String] _next
+    # @param [String] _nil
+    # @param [String] _not
+    # @param [String] _or
+    # @param [String] _redo
+    # @param [String] _rescue
+    # @param [String] _retry
+    # @param [String] _self
+    # @param [String] _then
+    # @param [String] _undef
+    # @param [String] _unless
+    # @param [String] _until
+    # @param [String] _when
+    # @param [String] _yield
+    # @return [String]
     def method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
       if _alias.class == String
         if _and.class == String

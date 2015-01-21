@@ -2,6 +2,7 @@ require 'vertx/write_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageProducer<T>
 module Vertx
+  #  Represents a stream of message that can be written to<p>
   class MessageProducer
     include ::Vertx::WriteStream
     # @private
@@ -14,14 +15,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::MessageProducer#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -31,8 +29,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] data
     # return [self]
     def write(data)
@@ -42,8 +38,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -53,8 +47,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)
@@ -64,8 +56,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Update the delivery options of this producer.
     # @param [Hash] options
     # return [self]
     def delivery_options(options)
@@ -75,9 +66,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling delivery_options(options)"
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  @return The address to which the producer produces messages.
+    # @return [String]
     def address
       @j_del.address
     end

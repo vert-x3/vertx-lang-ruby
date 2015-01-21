@@ -2,8 +2,7 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.streams.StreamBase
 module Vertx
   module StreamBase
-    # THE METHOD DOC
-    #
+    #  Set an exception handler.
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)

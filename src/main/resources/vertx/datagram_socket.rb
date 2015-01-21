@@ -7,6 +7,13 @@ require 'vertx/socket_address'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.DatagramSocket
 module Vertx
+  #  A Datagram socket which can be used to send {::Vertx::DatagramPacket}'s to remote Datagram servers and receive {::Vertx::DatagramPacket}s .
+  # 
+  #  Usually you use a Datragram Client to send UDP over the wire. UDP is connection-less which means you are not connected
+  #  to the remote peer in a persistent way. Because of this you have to supply the address and port of the remote peer
+  #  when sending data.
+  # 
+  #  You can send data to ipv4 or ipv6 addresses, which also include multicast addresses.
   class DatagramSocket
     include ::Vertx::ReadStream
     include ::Vertx::Measured
@@ -20,20 +27,18 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The metric base name
+    # @return [String]
     def metric_base_name
       @j_del.metricBaseName
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    #  Will return the metrics that correspond with this measured object.
+    # @return [Hash{String => Hash{String => Object}}]
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    # THE METHOD DOC
-    #
+    #  Write the given  to the {::Vertx::SocketAddress} using the given encoding. The  will be notified once the
+    #  write completes.
     # @overload send(packet,port,host,handler)
     #   @param [::Vertx::Buffer] packet
     #   @param [Fixnum] port
@@ -93,11 +98,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling send(param_1,param_2,param_3,param_4,param_5)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns a {::Vertx::PacketWritestream} able to send  to the {::Vertx::SocketAddress}.
     # @param [Fixnum] port
     # @param [String] host
-    # @return [::Vertx::PacketWritestream]: the return value (todo)
+    # @return [::Vertx::PacketWritestream]
     def sender(port,host)
       if port.class == Fixnum
         if host.class == String
@@ -107,8 +111,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling sender(port,host)"
     end
-    # THE METHOD DOC
-    #
+    #  Close the {::Vertx::DatagramSocket} implementation asynchronous and notifies the handler once done.
     # @param [Proc] handler
     # return [void]
     def close(&handler)
@@ -117,17 +120,16 @@ module Vertx
       end
       @j_del.close
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::SocketAddress]: the return value (todo)
+    #  Return the {::Vertx::SocketAddress} to which this {::Vertx::DatagramSocket} is bound too.
+    # @return [::Vertx::SocketAddress]
     def local_address
       if @cached_local_address != nil
         return @cached_local_address
       end
       @cached_local_address = ::Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    # THE METHOD DOC
-    #
+    #  Joins a multicast group and so start listen for packets send to it on the given network interface.
+    #  The  is notified once the operation completes.
     # @overload listenMulticastGroup(multicastAddress,handler)
     #   @param [String] multicastAddress
     #   @param [Proc] handler
@@ -157,8 +159,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
+    #  Leaves a multicast group and so stop listen for packets send to it on the given network interface.
+    #  The  is notified once the operation completes.
     # @overload unlistenMulticastGroup(multicastAddress,handler)
     #   @param [String] multicastAddress
     #   @param [Proc] handler
@@ -188,8 +190,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
+    #  Block the given sourceToBlock address for the given multicastAddress on the given network interface and notifies
+    #  the  once the operation completes.
     # @overload blockMulticastGroup(multicastAddress,sourceToBlock,handler)
     #   @param [String] multicastAddress
     #   @param [String] sourceToBlock
@@ -220,8 +222,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] port
     # @param [String] host
     # @param [Proc] handler
@@ -239,22 +239,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling listen(port,host,handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -264,8 +258,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -275,8 +267,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)

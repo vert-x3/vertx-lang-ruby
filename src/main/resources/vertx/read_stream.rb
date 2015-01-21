@@ -4,8 +4,6 @@ require 'vertx/util/utils.rb'
 module Vertx
   module ReadStream
     include ::Vertx::StreamBase
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -15,8 +13,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Set a data handler. As data is read, the handler will be called with the data.
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -26,22 +23,19 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Pause the <code>ReadSupport</code>. While it's paused, no data will be sent to the <code>dataHandler</code>
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
+    #  Resume reading. If the <code>ReadSupport</code> has been paused, reading will recommence on it.
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
+    #  Set an end handler. Once the stream has ended, and there is no more data to be read, this handler will be called.
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)

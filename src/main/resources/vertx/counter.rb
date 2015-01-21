@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.Counter
 module Vertx
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class Counter
     # @private
     # @param j_del [::Vertx::Counter] the java delegate
@@ -12,8 +13,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def get(&resultHandler)
@@ -22,8 +21,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get(resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def increment_and_get(&resultHandler)
@@ -32,8 +29,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling increment_and_get(resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def get_and_increment(&resultHandler)
@@ -42,8 +37,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get_and_increment(resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def decrement_and_get(&resultHandler)
@@ -52,8 +45,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling decrement_and_get(resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] value
     # @param [Proc] resultHandler
     # return [void]
@@ -66,8 +57,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling add_and_get(value,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] value
     # @param [Proc] resultHandler
     # return [void]
@@ -80,8 +69,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling get_and_add(value,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] expected
     # @param [Fixnum] value
     # @param [Proc] resultHandler

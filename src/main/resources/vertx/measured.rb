@@ -2,15 +2,13 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.metrics.Measured
 module Vertx
   module Measured
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The metric base name
+    # @return [String]
     def metric_base_name
       @j_del.metricBaseName
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    #  Will return the metrics that correspond with this measured object.
+    # @return [Hash{String => Hash{String => Object}}]
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end

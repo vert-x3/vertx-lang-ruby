@@ -1,11 +1,7 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::Testmodel::SuperInterface2] the java delegate
-    # @private
 # Generated from io.vertx.codegen.testmodel.SuperInterface2
 module Testmodel
   module SuperInterface2
-    # THE METHOD DOC
-    #
     # @param [Fixnum] b
     # @param [Fixnum] s
     # @param [Fixnum] i
@@ -49,9 +45,13 @@ module Testmodel
   end
   class SuperInterface2Impl
     include SuperInterface2
+    # @private
+    # @param j_del [::Testmodel::SuperInterface2] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Testmodel::SuperInterface2] the underlying java delegate
     def j_del
       @j_del
     end

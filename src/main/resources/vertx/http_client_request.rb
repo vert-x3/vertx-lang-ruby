@@ -6,6 +6,38 @@ require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientRequest
 module Vertx
+  #  Represents a client-side HTTP request.<p>
+  #  Instances are created by an {::Vertx::HttpClient} instance, via one of the methods corresponding to the
+  #  specific HTTP methods, or the generic {::Vertx::HttpClient#request} method.<p>
+  #  Once a request has been obtained, headers can be set on it, and data can be written to its body if required. Once
+  #  you are ready to send the request, the {::Vertx::HttpClientRequest#end} method should be called.<p>
+  #  Nothing is actually sent until the request has been internally assigned an HTTP connection. The {::Vertx::HttpClient}
+  #  instance will return an instance of this class immediately, even if there are no HTTP connections available in the pool. Any requests
+  #  sent before a connection is assigned will be queued internally and actually sent when an HTTP connection becomes
+  #  available from the pool.<p>
+  #  The headers of the request are actually sent either when the {::Vertx::HttpClientRequest#end} method is called, or, when the first
+  #  part of the body is written, whichever occurs first.<p>
+  #  This class supports both chunked and non-chunked HTTP.<p>
+  #  It implements {::Vertx::WriteStream} so it can be used with
+  #  {::Vertx::Pump} to pump data with flow control.<p>
+  #  An example of using this class is as follows:
+  #  <p>
+  #  <pre>
+  # 
+  #  HttpClientRequest req = httpClient.post("/some-url", new Handler&lt;HttpClientResponse&gt;() {
+  #    public void handle(HttpClientResponse response) {
+  #      System.out.println("Got response: " + response.statusCode);
+  #    }
+  #  });
+  # 
+  #  req.headers().put("some-header", "hello")
+  #      .put("Content-Length", 5)
+  #      .write(Buffer.newBuffer(new byte[]{1, 2, 3, 4, 5}))
+  #      .write(Buffer.newBuffer(new byte[]{6, 7, 8, 9, 10}))
+  #      .end();
+  # 
+  #  </pre>
+  #  Instances of HttpClientRequest are not thread-safe
   class HttpClientRequest
     include ::Vertx::WriteStream
     include ::Vertx::ReadStream
@@ -19,14 +51,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpClientRequest#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -36,8 +65,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Write a  to the request body, encoded using the encoding <code>enc</code>.
     # @overload write(data)
     #   @param [::Vertx::Buffer] data
     # @overload write(chunk)
@@ -61,8 +89,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling write(param_1,param_2)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -72,8 +98,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)
@@ -83,8 +107,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -94,22 +116,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -119,8 +135,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
+    #  If chunked is true then the request will be set into HTTP chunked mode
     # @param [true,false] chunked
     # return [self]
     def set_chunked(chunked)
@@ -130,35 +145,30 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument chunked=#{chunked} when calling set_chunked(chunked)"
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def is_chunked
       @j_del.isChunked
     end
-    # THE METHOD DOC
-    #
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]: the return value (todo)
+    #  The HTTP method for the request. One of GET, PUT, POST, DELETE, TRACE, CONNECT, OPTIONS or HEAD
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]
     def method
       @j_del.method.name.intern
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The uri of the request. For example
+    #  http://www.somedomain.com/somepath/somemorepath/someresource.foo?someparam=32&amp;someotherparam=x
+    # @return [String]
     def uri
       @j_del.uri
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::MultiMap]: the return value (todo)
+    #  @return The HTTP headers
+    # @return [::Vertx::MultiMap]
     def headers
       if @cached_headers != nil
         return @cached_headers
       end
       @cached_headers = ::Vertx::MultiMap.new(@j_del.headers)
     end
-    # THE METHOD DOC
-    #
+    #  Put an HTTP header - fluent API
     # @param [String] name
     # @param [String] value
     # return [self]
@@ -172,8 +182,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling put_header(name,value)"
     end
-    # THE METHOD DOC
-    #
+    #  If you send an HTTP request with the header <code>Expect</code> set to the value <code>100-continue</code>
+    #  and the server responds with an interim HTTP response with a status code of <code>100</code> and a continue handler
+    #  has been set using this method, then the <code>handler</code> will be called.<p>
+    #  You can then continue to write data to the request body and later end it. This is normally used in conjunction with
+    #  the {::Vertx::HttpClientRequest#send_head} method to force the request header to be written before the request has ended.
     # @param [Proc] handler
     # return [self]
     def continue_handler(&handler)
@@ -183,15 +196,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling continue_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Forces the head of the request to be written before {::Vertx::HttpClientRequest#end} is called on the request or any data is
+    #  written to it. This is normally used
+    #  to implement HTTP 100-continue handling, see {::Vertx::HttpClientRequest#continue_handler} for more information.
     # return [self]
     def send_head
       @j_del.sendHead
       self
     end
-    # THE METHOD DOC
-    #
+    #  Same as {::Vertx::HttpClientRequest#end} but writes a String with the specified encoding
     # @overload end()
     # @overload end(chunk)
     #   @param [String] chunk
@@ -213,8 +226,9 @@ module Vertx
       end
       @j_del.end
     end
-    # THE METHOD DOC
-    #
+    #  Set's the amount of time after which if a response is not received TimeoutException()
+    #  will be sent to the exception handler of this request. Calling this method more than once
+    #  has the effect of canceling any existing timeout and starting the timeout from scratchpad.
     # @param [Fixnum] timeoutMs
     # return [self]
     def set_timeout(timeoutMs)

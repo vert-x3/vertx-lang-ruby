@@ -3,6 +3,7 @@ require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerFileUpload
 module Vertx
+  #  Represents an upload from an HTML form.<p>
   class HttpServerFileUpload
     include ::Vertx::ReadStream
     # @private
@@ -15,8 +16,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -26,8 +25,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -37,8 +34,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -48,22 +43,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
+    #  Stream the content of this upload to the given filename.
     # @param [String] filename
     # return [self]
     def stream_to_file_system(filename)
@@ -73,45 +63,38 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument filename=#{filename} when calling stream_to_file_system(filename)"
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the filename which was used when upload the file.
+    # @return [String]
     def filename
       @j_del.filename
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the name of the attribute
+    # @return [String]
     def name
       @j_del.name
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the contentType for the upload
+    # @return [String]
     def content_type
       @j_del.contentType
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the contentTransferEncoding for the upload
+    # @return [String]
     def content_transfer_encoding
       @j_del.contentTransferEncoding
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Returns the charset for the upload
+    # @return [String]
     def charset
       @j_del.charset
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Returns the size of the upload (in bytes)
+    # @return [Fixnum]
     def size
       @j_del.size
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Returns <code>true</code> if the size of the upload can be retrieved via {::Vertx::HttpServerFileUpload#size}.
+    # @return [true,false]
     def is_size_available
       @j_del.isSizeAvailable
     end

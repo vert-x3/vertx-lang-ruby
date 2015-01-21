@@ -7,6 +7,15 @@ require 'vertx/web_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClient
 module Vertx
+  #  An HTTP client that maintains a pool of connections to a specific host, at a specific port. The client supports
+  #  pipelining of requests.<p>
+  #  As well as HTTP requests, the client can act as a factory for <code>WebSocket websockets</code>.<p>
+  #  If an instance is instantiated from an event loop then the handlers
+  #  of the instance will always be called on that same event loop.
+  #  If an instance is instantiated from some other arbitrary Java thread (i.e. when running embedded) then
+  #  and event loop will be assigned to the instance and used when any of its handlers
+  #  are called.<p>
+  #  Instances of HttpClient are thread-safe.<p>
   class HttpClient
     include ::Vertx::Measured
     # @private
@@ -19,20 +28,16 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The metric base name
+    # @return [String]
     def metric_base_name
       @j_del.metricBaseName
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    #  Will return the metrics that correspond with this measured object.
+    # @return [Hash{String => Hash{String => Object}}]
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    # THE METHOD DOC
-    #
     # @overload request(method,absoluteURI)
     #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method
     #   @param [String] absoluteURI
@@ -51,7 +56,7 @@ module Vertx
     #   @param [String] host
     #   @param [String] requestURI
     #   @param [Proc] responseHandler
-    # @return [::Vertx::HttpClientRequest]: the return value (todo)
+    # @return [::Vertx::HttpClientRequest]
     def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
       if param_1.class == Symbol
         if param_2.class == String
@@ -76,15 +81,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling request(param_1,param_2,param_3,param_4,param_5)"
     end
-    # THE METHOD DOC
-    #
+    #  @return a {::Vertx::WebSocketStream} configured with the specified arguments
     # @param [Fixnum] port
     # @param [String] host
     # @param [String] requestURI
     # @param [::Vertx::MultiMap] headers
     # @param [:V00,:V07,:V08,:V13] version
     # @param [String] subProtocols
-    # @return [::Vertx::WebSocketStream]: the return value (todo)
+    # @return [::Vertx::WebSocketStream]
     def websocket(port,host,requestURI,headers=nil,version=nil,subProtocols=nil)
       if port.class == Fixnum
         if host.class == String
@@ -106,8 +110,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling websocket(port,host,requestURI,headers,version,subProtocols)"
     end
-    # THE METHOD DOC
-    #
     # @overload connectWebsocket(port,host,requestURI,wsConnect)
     #   @param [Fixnum] port
     #   @param [String] host
@@ -134,7 +136,7 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version
     #   @param [String] subProtocols
     #   @param [Proc] wsConnect
-    # @return [::Vertx::HttpClient]: the return value (todo)
+    # @return [::Vertx::HttpClient]
     def connect_websocket(param_1,param_2,param_3,param_4,param_5=nil,param_6=nil,&param_7)
       if param_1.class == Fixnum
         if param_2.class == String
@@ -168,8 +170,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling connect_websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
     end
-    # THE METHOD DOC
-    #
+    #  Close the HTTP client. This will cause any pooled HTTP connections to be closed.
     # return [void]
     def close
       @j_del.close

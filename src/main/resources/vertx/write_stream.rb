@@ -4,8 +4,6 @@ require 'vertx/util/utils.rb'
 module Vertx
   module WriteStream
     include ::Vertx::StreamBase
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -15,8 +13,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Write some data to the stream. The data is put on an internal write queue, and the write actually happens
+    #  asynchronously. To avoid running out of memory by putting too much on the write queue,
+    #  check the {::Vertx::WriteStream#write_queue_full} method before writing. This is done automatically if using a {::Vertx::Pump}.
     # @param [Object] data
     # return [self]
     def write(data)
@@ -26,8 +25,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
-    # THE METHOD DOC
-    #
+    #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
+    #  if there is more than <code>maxSize</code> bytes in the write queue. This is used as an indicator by classes such as
+    #  <code>Pump</code> to provide flow control.
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -37,14 +37,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WriteStream#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
+    #  Set a drain handler on the stream. If the write queue is full, then the handler will be called when the write
+    #  queue has been reduced to maxSize / 2. See {::Vertx::Pump} for an example of this being used.
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)

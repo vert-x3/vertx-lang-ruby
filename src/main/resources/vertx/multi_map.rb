@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.MultiMap
 module Vertx
+  #  @author <a href="mailto:nmaurer@redhat.com">Norman Maurer</a>
   class MultiMap
     # @private
     # @param j_del [::Vertx::MultiMap] the java delegate
@@ -12,50 +13,45 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
+    #  Returns the value of with the specified name.  If there are
+    #  more than one values for the specified name, the first value is returned.
     # @param [String] name
-    # @return [String]: the return value (todo)
+    # @return [String]
     def get(name)
       if name.class == String
         return @j_del.get(name)
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get(name)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the values with the specified name
     # @param [String] name
-    # @return [Array<String>]: the return value (todo)
+    # @return [Array<String>]
     def get_all(name)
       if name.class == String
         return @j_del.getAll(name).to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_all(name)"
     end
-    # THE METHOD DOC
-    #
+    #  Checks to see if there is a value with the specified name
     # @param [String] name
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def contains(name)
       if name.class == String
         return @j_del.contains(name)
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling contains(name)"
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Return true if empty
+    # @return [true,false]
     def is_empty
       @j_del.isEmpty
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<String>]: the return value (todo)
+    #  Gets a immutable null of all names
+    # @return [Set<String>]
     def names
       @j_del.names.to_set.map! { |elt| elt }
     end
-    # THE METHOD DOC
-    #
+    #  Adds a new value with the specified name and value.
     # @param [String] name
     # @param [String] value
     # return [self]
@@ -69,8 +65,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling add(name,value)"
     end
-    # THE METHOD DOC
-    #
+    #  Adds all the entries from another MultiMap to this one
     # @param [::Vertx::MultiMap] map
     # return [self]
     def add_all(map)
@@ -80,8 +75,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument map=#{map} when calling add_all(map)"
     end
-    # THE METHOD DOC
-    #
+    #  Sets a value under the specified name.
+    # 
+    #  If there is an existing header with the same name, it is removed.
     # @param [String] name
     # @param [String] value
     # return [self]
@@ -95,8 +91,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling set(name,value)"
     end
-    # THE METHOD DOC
-    #
+    #  Cleans this instance.
     # @param [::Vertx::MultiMap] map
     # return [self]
     def set_all(map)
@@ -106,8 +101,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument map=#{map} when calling set_all(map)"
     end
-    # THE METHOD DOC
-    #
+    #  Removes the value with the given name
     # @param [String] name
     # return [self]
     def remove(name)
@@ -117,16 +111,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling remove(name)"
     end
-    # THE METHOD DOC
-    #
+    #  Removes all
     # return [self]
     def clear
       @j_del.clear
       self
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  Return the number of names.
+    # @return [Fixnum]
     def size
       @j_del.size
     end

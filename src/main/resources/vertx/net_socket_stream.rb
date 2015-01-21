@@ -3,6 +3,8 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetSocketStream
 module Vertx
+  #  A {::Vertx::ReadStream} of {::Vertx::NetSocket}, used for notifying
+  #  socket connections to a {::Vertx::NetServer}.
   class NetSocketStream
     include ::Vertx::ReadStream
     # @private
@@ -15,8 +17,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -26,8 +26,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -37,22 +35,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)

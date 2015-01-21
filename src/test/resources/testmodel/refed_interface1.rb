@@ -1,23 +1,22 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::Testmodel::RefedInterface1] the java delegate
-    # @private
 # Generated from io.vertx.codegen.testmodel.RefedInterface1
 module Testmodel
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class RefedInterface1
+    # @private
+    # @param j_del [::Testmodel::RefedInterface1] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Testmodel::RefedInterface1] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @return [String]
     def get_string
       @j_del.getString
     end
-    # THE METHOD DOC
-    #
     # @param [String] str
     # return [self]
     def set_string(str)

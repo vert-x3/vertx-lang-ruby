@@ -79,30 +79,30 @@ def test_object_param
   $obj.method_with_object_param('JsonArray', json_arr)
 end
 
-def test_options_param
-  options = {:foo => 'hello', :bar => 123, :wibble => 1.23}
-  $obj.method_with_options_param(options)
+def test_data_object_param
+  data_object = {:foo => 'hello', :bar => 123, :wibble => 1.23}
+  $obj.method_with_data_object_param(data_object)
 end
 
-def test_method_with_null_options_param
-  Assert.argument_error { $obj.method_with_null_options_param(nil) }
+def test_method_with_null_data_object_param
+  Assert.argument_error { $obj.method_with_null_data_object_param(nil) }
 end
 
-def test_method_with_handler_options
+def test_method_with_handler_data_object
   count = 0
-  $obj.method_with_handler_options { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
+  $obj.method_with_handler_data_object { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
   Assert.equals(count, 1)
 end
 
-def test_method_with_handler_async_result_options
+def test_method_with_handler_async_result_data_object
   count = 0
-  $obj.method_with_handler_async_result_options(false) { |err,val| Assert.is_nil(err); Assert.equals(val, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
+  $obj.method_with_handler_async_result_data_object(false) { |err,val| Assert.is_nil(err); Assert.equals(val, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
   Assert.equals(count, 1)
 end
 
-def test_method_with_handler_async_result_options_fails
+def test_method_with_handler_async_result_data_object_fails
   count = 0
-  $obj.method_with_handler_async_result_options(true) { |err,val| Assert.is_nil(val); Assert.is_not_nil(err); Assert.equals(err.message, 'foobar!'); count += 1 }
+  $obj.method_with_handler_async_result_data_object(true) { |err,val| Assert.is_nil(val); Assert.is_not_nil(err); Assert.equals(err.message, 'foobar!'); count += 1 }
   Assert.equals(count, 1)
 end
 

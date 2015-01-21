@@ -11,6 +11,7 @@
   }
 
   def genRubyDocType(type) {
+
     var kind = type.kind;
     if (kind == CLASS_OBJECT) {
       return "Object";
@@ -28,7 +29,7 @@
       } else if (kind == CLASS_MAP) {
         return "Hash{" + genRubyDocType(type.args[0]) + " => " + genRubyDocType(type.args[1]) + "}";
       }
-    } else if (kind == CLASS_OPTIONS) {
+    } else if (kind == CLASS_DATA_OBJECT) {
       return "Hash"; /* can we do something better ? */
     } else if (kind == CLASS_ENUM) {
       var buffer = "";
@@ -66,6 +67,57 @@
     }
     System.out.println("Untranslated type " + type + " with kind " + kind);
     return "Nil";
+  }
+
+  def renderLinkToHtml(link) {
+    var rawType = link.targetType.raw;
+    if (rawType.module != null) {
+      var label = link.label.trim();
+      if (label.length() > 0) {
+        label = " " + label
+      }
+      var elt = link.targetElement;
+      var rubyType = genRubyClassFqn(rawType);
+      var kind = elt.getKind().name();
+      if (kind == "CLASS" || kind == "INTERFACE") {
+        return "{" + rubyType + label + "}";
+      } else if (kind == "METHOD") {
+        return "{" + rubyType + "#" + CASE_SNAKE.format(CASE_CAMEL.parse(elt.getSimpleName().toString())) + label + "}";
+      } else {
+        System.out.println("Unhandled kind " + kind);
+      }
+    }
+  }
+
+  def renderDocToHtml(margin, doc) {
+    var need = true;
+    var html = new StringBuilder();
+    for (token : doc.tokens) {
+      if (need) {
+        html.append(margin);
+        need = false;
+      }
+      if (token.lineBreak) {
+        html.append("\n");
+        need = true;
+      } else {
+        if (token.text) {
+          html.append(token.value);
+        } else {
+          var tag = token.tag;
+          if (tag instanceof io.vertx.codegen.doc.Tag$Link) {
+            var link = renderLinkToHtml(tag);
+            html.append(link);
+          } else if (tag.name == "code") {
+            html.append("<code>").append(tag.value.trim()).append("</code>");
+          }
+        }
+      }
+    }
+    if (!need) {
+      html.append("\n");
+    }
+    return html.toString();
   }
 
   /*
@@ -160,7 +212,7 @@
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER) {
       return expr + ".class == Proc";
-    } else if (kind == CLASS_OPTIONS || kind == CLASS_JSON_OBJECT) {
+    } else if (kind == CLASS_DATA_OBJECT || kind == CLASS_JSON_OBJECT) {
       return expr + ".class == Hash";
     } else if (kind == CLASS_JSON_ARRAY) {
       return expr + ".class == Array";
@@ -223,7 +275,7 @@
     } else if (kind == CLASS_HANDLER) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
-      if (eventKind.basic || eventKind == CLASS_OPTIONS || eventKind.collection || eventKind == CLASS_API ||
+      if (eventKind.basic || eventKind == CLASS_DATA_OBJECT || eventKind.collection || eventKind == CLASS_API ||
           eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json) {
         return "(Proc.new { |event| " + expr + ".call(" + genConvReturn(eventType, "event") + ") })";
       } else if (eventKind == CLASS_VOID) {
@@ -231,7 +283,7 @@
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
-        if (resultKind.basic || resultKind == CLASS_OPTIONS || resultKind.collection || resultKind == CLASS_API ||
+        if (resultKind.basic || resultKind == CLASS_DATA_OBJECT || resultKind.collection || resultKind == CLASS_API ||
             resultKind == CLASS_OBJECT || resultKind.json) {
           return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
         } else if (resultKind == CLASS_VOID) {
@@ -242,7 +294,7 @@
       return expr + ".j_del";
     } else if (kind == CLASS_OBJECT) {
       return "::Vertx::Util::Utils.to_object(" + expr + ")";
-    } else if (kind == CLASS_OPTIONS) {
+    } else if (kind == CLASS_DATA_OBJECT) {
       return genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + "))";
     } else if (kind == CLASS_JSON_OBJECT) {
       return "::Vertx::Util::Utils.to_json_object(" + expr + ")";
@@ -275,7 +327,7 @@
       var kind = type.kind;
       if (kind.basic || kind == CLASS_THROWABLE) {
         return expr;
-      } else if (kind == CLASS_OPTIONS) {
+      } else if (kind == CLASS_DATA_OBJECT) {
         return "JSON.parse(" + expr + ".toJson.encode)";
       } else if (kind == CLASS_LIST) {
         var elementType = type.args[0];
@@ -466,6 +518,9 @@ require 'vertx/util/utils.rb'\n
 module @{type.raw.module.getName(CASE_CAMEL)}\n
 
 @if{concrete}
+	@if{doc != null}
+		@{renderDocToHtml("  # ", doc)}
+	@end{}
   class @{type.raw.simpleName}@if{concreteSuperTypes.size() == 1} < @{genRubyClassFqn(concreteSuperTypes[0].raw)}@end{}\n
 	@foreach{abstractSuperType:abstractSuperTypes}
     include @{genRubyClassFqn(abstractSuperType.raw)}\n
@@ -529,8 +584,9 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
-    # THE METHOD DOC\n
-    #\n
+@if{lastMethod.doc != null}
+	@{renderDocToHtml("    # ", lastMethod.doc)}
+@end{}
 @if{kind != 2}
 	@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
 @else{}
@@ -544,7 +600,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @else{lastMethod.returnType.simpleName == "void"}
     # return [void]\n
 @else{}
-    # @return [@{genRubyDocType(lastMethod.returnType)}]: the return value (todo)\n
+    # @return [@{genRubyDocType(lastMethod.returnType)}]\n
 @end{}
     def @{methodDecl}@if{params.size() > 0}(
 			@code{index=0}@foreach{param:params}

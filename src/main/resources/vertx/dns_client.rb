@@ -3,6 +3,7 @@ require 'vertx/srv_record'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.dns.DnsClient
 module Vertx
+  #  Provides a way to asynchronous lookup informations from DNS-Servers.
   class DnsClient
     # @private
     # @param j_del [::Vertx::DnsClient] the java delegate
@@ -14,8 +15,7 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
+    #  Try to lookup the A (ipv4) or AAAA (ipv6) record for the given name. The first found will be used.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -29,8 +29,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling lookup(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to lookup the A (ipv4) record for the given name. The first found will be used.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -44,8 +43,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling lookup4(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to lookup the AAAA (ipv6) record for the given name. The first found will be used.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -59,8 +57,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling lookup6(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve all A (ipv4) records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -74,8 +71,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_a(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve all AAAA (ipv6) records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -89,8 +85,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_aaaa(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the CNAME record for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -104,8 +99,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_cname(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the MX records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -119,8 +113,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_mx(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the TXT records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -134,8 +127,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_txt(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the PTR record for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -149,8 +141,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_ptr(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the NS records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -164,8 +155,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_ns(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to resolve the SRV records for the given name.
     # @param [String] name
     # @param [Proc] handler
     # return [self]
@@ -179,8 +169,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling resolve_srv(name,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Try to do a reverse lookup of an ipaddress. This is basically the same as doing trying to resolve a PTR record
+    #  but allows you to just pass in the ipaddress and not a valid ptr query string.
     # @param [String] ipaddress
     # @param [Proc] handler
     # return [self]

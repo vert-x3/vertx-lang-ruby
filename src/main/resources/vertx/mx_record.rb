@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.dns.MxRecord
 module Vertx
+  #  Represent a Mail-Exchange-Record (MX) which was resolved for a domain.
   class MxRecord
     # @private
     # @param j_del [::Vertx::MxRecord] the java delegate
@@ -12,15 +13,13 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  The priority of the MX record.
+    # @return [Fixnum]
     def priority
       @j_del.priority
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The name of the MX record
+    # @return [String]
     def name
       @j_del.name
     end

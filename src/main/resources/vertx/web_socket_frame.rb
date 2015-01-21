@@ -2,6 +2,7 @@ require 'vertx/buffer'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocketFrame
 module Vertx
+  #  A Web Socket frame that represents either text or binary data.
   class WebSocketFrame
     # @private
     # @param j_del [::Vertx::WebSocketFrame] the java delegate
@@ -13,11 +14,9 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::Buffer] data
     # @param [true,false] isFinal
-    # @return [::Vertx::WebSocketFrame]: the return value (todo)
+    # @return [::Vertx::WebSocketFrame]
     def self.binary_frame(data,isFinal)
       if data.class.method_defined?(:j_del)
         if isFinal.class == TrueClass || isFinal.class == FalseClass
@@ -27,11 +26,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling binary_frame(data,isFinal)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] str
     # @param [true,false] isFinal
-    # @return [::Vertx::WebSocketFrame]: the return value (todo)
+    # @return [::Vertx::WebSocketFrame]
     def self.text_frame(str,isFinal)
       if str.class == String
         if isFinal.class == TrueClass || isFinal.class == FalseClass
@@ -41,11 +38,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument str=#{str} when calling text_frame(str,isFinal)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::Buffer] data
     # @param [true,false] isFinal
-    # @return [::Vertx::WebSocketFrame]: the return value (todo)
+    # @return [::Vertx::WebSocketFrame]
     def self.continuation_frame(data,isFinal)
       if data.class.method_defined?(:j_del)
         if isFinal.class == TrueClass || isFinal.class == FalseClass
@@ -55,45 +50,41 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling continuation_frame(data,isFinal)"
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Returns <code>true</code> if and only if the content of this frame is a string
+    #  encoded in UTF-8.
+    # @return [true,false]
     def is_text
       @j_del.isText
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Returns <code>true</code> if and only if the content of this frame is an
+    #  arbitrary binary data.
+    # @return [true,false]
     def is_binary
       @j_del.isBinary
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def is_continuation
       @j_del.isContinuation
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  Converts the content of this frame into a UTF-8 string and returns the
+    #  converted string.
+    # @return [String]
     def text_data
       if @cached_text_data != nil
         return @cached_text_data
       end
       @cached_text_data = @j_del.textData
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::Buffer]: the return value (todo)
+    # @return [::Vertx::Buffer]
     def binary_data
       if @cached_binary_data != nil
         return @cached_binary_data
       end
       @cached_binary_data = ::Vertx::Buffer.new(@j_del.binaryData)
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Returns <code>true</code> if this is the final frame.  This should be <code>true</code> unless a number of 
+    #  coninuation frames are expected to follow this frame.
+    # @return [true,false]
     def is_final
       @j_del.isFinal
     end

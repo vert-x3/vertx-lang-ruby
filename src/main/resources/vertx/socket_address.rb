@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.SocketAddress
 module Vertx
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class SocketAddress
     # @private
     # @param j_del [::Vertx::SocketAddress] the java delegate
@@ -12,15 +13,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @return [String]
     def host_address
       @j_del.hostAddress
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def host_port
       @j_del.hostPort
     end

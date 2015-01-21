@@ -4,6 +4,12 @@ require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.AsyncFile
 module Vertx
+  #  Represents a file on the file-system which can be read from, or written to asynchronously.<p>
+  #  This class also implements {::Vertx::ReadStream} and
+  #  {::Vertx::WriteStream}. This allows the data to be pumped to and from
+  #  other streams, e.g. an {::Vertx::HttpClientRequest} instance,
+  #  using the {::Vertx::Pump} class<p>
+  #  Instances of AsyncFile are not thread-safe<p>
   class AsyncFile
     include ::Vertx::ReadStream
     include ::Vertx::WriteStream
@@ -17,14 +23,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::AsyncFile#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -34,22 +37,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -59,8 +56,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
+    #  Write a {::Vertx::Buffer} to the file at position <code>position</code> in the file, asynchronously.
+    #  If <code>position</code> lies outside of the current size
+    #  of the file, the file will be enlarged to encompass it.<p>
+    #  When multiple writes are invoked on the same file
+    #  there are no guarantees as to order in which those writes actually occur.<p>
+    #  The handler will be called when the write is complete, or if an error occurs.
     # @param [::Vertx::Buffer] buffer
     # @param [Fixnum] position
     # @param [Proc] handler
@@ -79,8 +80,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument buffer=#{buffer} when calling write(buffer,position,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -90,8 +89,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)
@@ -101,8 +98,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -112,8 +107,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Close the file. The actual close happens asynchronously.
+    #  The handler will be called when the close is complete, or an error occurs.
     # @param [Proc] handler
     # return [void]
     def close(&handler)
@@ -122,8 +117,11 @@ module Vertx
       end
       @j_del.close
     end
-    # THE METHOD DOC
-    #
+    #  Reads <code>length</code> bytes of data from the file at position <code>position</code> in the file, asynchronously.
+    #  The read data will be written into the specified <code>Buffer buffer</code> at position <code>offset</code>.<p>
+    #  If data is read past the end of the file then zero bytes will be read.<p>
+    #  When multiple reads are invoked on the same file there are no guarantees as to order in which those reads actually occur.<p>
+    #  The handler will be called when the close is complete, or if an error occurs.
     # @param [::Vertx::Buffer] buffer
     # @param [Fixnum] offset
     # @param [Fixnum] position
@@ -149,8 +147,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument buffer=#{buffer} when calling read(buffer,offset,position,length,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Same as {::Vertx::AsyncFile#flush} but the handler will be called when the flush is complete or if an error occurs
     # @param [Proc] handler
     # return [self]
     def flush(&handler)
@@ -161,8 +158,6 @@ module Vertx
       @j_del.flush
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] readPos
     # return [self]
     def set_read_pos(readPos)
@@ -172,8 +167,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument readPos=#{readPos} when calling set_read_pos(readPos)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] readPos
     # return [self]
     def set_write_pos(readPos)

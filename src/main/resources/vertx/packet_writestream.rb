@@ -3,6 +3,8 @@ require 'vertx/write_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.datagram.PacketWritestream
 module Vertx
+  #  A {::Vertx::WriteStream} for sending packets to a {::Vertx::SocketAddress}.
+  #  The stream  is called when the write fails.
   class PacketWritestream
     include ::Vertx::WriteStream
     # @private
@@ -15,14 +17,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::PacketWritestream#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -32,8 +31,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::Buffer] data
     # return [self]
     def write(data)
@@ -43,8 +40,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -54,8 +49,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)

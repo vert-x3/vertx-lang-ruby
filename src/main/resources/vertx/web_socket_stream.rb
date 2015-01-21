@@ -3,6 +3,13 @@ require 'vertx/web_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocketStream
 module Vertx
+  #  A stream for {::Vertx::HttpClient} websocket connection.
+  # 
+  #  When the connection attempt is successful, the stream handler is called back with the {::Vertx::WebSocket}
+  #  argument, immediatly followed by a call to the end handler. When the connection attempt fails, the exception handler is invoked.
+  # 
+  #  The connection occurs when the {::Vertx::WebSocketStream#handler} method is called with a non null handler, the other handlers should be
+  #  set before setting the handler.
   class WebSocketStream
     include ::Vertx::ReadStream
     # @private
@@ -15,8 +22,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -26,8 +31,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -37,22 +40,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)

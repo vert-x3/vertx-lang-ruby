@@ -3,6 +3,16 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetClient
 module Vertx
+  #  A TCP/SSL client.<p>
+  #  Multiple connections to different servers can be made using the same instance.<p>
+  #  This client supports a configurable number of connection attempts and a configurable
+  #  delay between attempts.<p>
+  #  If an instance is instantiated from an event loop then the handlers
+  #  of the instance will always be called on that same event loop.
+  #  If an instance is instantiated from some other arbitrary Java thread (i.e. when using embedded) then
+  #  an event loop will be assigned to the instance and used when any of its handlers
+  #  are called.<p>
+  #  Instances of this class are thread-safe.<p>
   class NetClient
     include ::Vertx::Measured
     # @private
@@ -15,20 +25,19 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The metric base name
+    # @return [String]
     def metric_base_name
       @j_del.metricBaseName
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    #  Will return the metrics that correspond with this measured object.
+    # @return [Hash{String => Hash{String => Object}}]
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    # THE METHOD DOC
-    #
+    #  Attempt to open a connection to a server at the specific <code>port</code> and <code>host</code>.
+    #  <code>host</code> can be a valid host name or IP address. The connect is done asynchronously and on success, a
+    #  {::Vertx::NetSocket} instance is supplied via the <code>connectHandler</code> instance
     # @param [Fixnum] port
     # @param [String] host
     # @param [Proc] connectHandler
@@ -46,8 +55,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling connect(port,host,connectHandler)"
     end
-    # THE METHOD DOC
-    #
+    #  Close the client. Any sockets which have not been closed manually will be closed here.
     # return [void]
     def close
       @j_del.close

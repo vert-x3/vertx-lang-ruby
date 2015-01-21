@@ -2,6 +2,12 @@ require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.TimeoutStream
 module Vertx
+  #  A timeout stream triggered by a timer, the {::Vertx::Handler} will be call when the timer is fired,
+  #  it can be once or several times depending on the nature of the timer related to this stream. The
+  #   will be called after the timer handler has been called.<p>
+  # 
+  #  Pausing the timer inhibits the timer shots until the stream is resumed. Setting a null handler callback cancels
+  #  the timer.
   class TimeoutStream
     include ::Vertx::ReadStream
     # @private
@@ -14,8 +20,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -25,8 +29,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -36,22 +38,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -61,8 +57,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
+    #  Cancels the timeout. Note this has the same effect as calling {::Vertx::TimeoutStream#handler} with a null
+    #  argument.
     # return [void]
     def cancel
       @j_del.cancel

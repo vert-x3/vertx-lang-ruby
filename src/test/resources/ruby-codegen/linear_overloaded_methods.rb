@@ -1,17 +1,18 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::RubyCodegen::LinearOverloadedMethods] the java delegate
-    # @private
 # Generated from io.vertx.test.support.LinearOverloadedMethods
 module RubyCodegen
+  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class LinearOverloadedMethods
+    # @private
+    # @param j_del [::RubyCodegen::LinearOverloadedMethods] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::RubyCodegen::LinearOverloadedMethods] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [String] foo
     # @param [String] bar
     # @param [String] juu

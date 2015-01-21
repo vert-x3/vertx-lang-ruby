@@ -4,21 +4,22 @@ require 'testmodel/super_interface1'
 require 'testmodel/refed_interface2'
 require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
-    # @param j_del [::Testmodel::TestInterface] the java delegate
-    # @private
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class TestInterface < ::Testmodel::SuperInterface1
     include ::Testmodel::SuperInterface2
+    # @private
+    # @param j_del [::Testmodel::TestInterface] the java delegate
     def initialize(j_del)
       super(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::Testmodel::TestInterface] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] b
     # @param [Fixnum] s
     # @param [Fixnum] i
@@ -59,8 +60,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument b=#{b} when calling other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] b
     # @param [Fixnum] s
     # @param [Fixnum] i
@@ -101,8 +100,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument b=#{b} when calling method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] b
     # @param [Fixnum] s
     # @param [Fixnum] i
@@ -139,8 +136,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument b=#{b} when calling method_with_basic_boxed_params(b,s,i,l,f,d,bool,ch)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] byteHandler
     # @param [Proc] shortHandler
     # @param [Proc] intHandler
@@ -181,8 +176,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument byteHandler=#{byteHandler} when calling method_with_handler_basic_types(byteHandler,shortHandler,intHandler,longHandler,floatHandler,doubleHandler,booleanHandler,charHandler,stringHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -195,8 +188,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_byte(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -209,8 +200,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_short(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -223,8 +212,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_integer(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -237,8 +224,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_long(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -251,8 +236,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_float(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -265,8 +248,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_double(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -279,8 +260,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_boolean(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -293,8 +272,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_character(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -307,22 +284,18 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_string(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
-    def method_with_handler_async_result_options(sendFailure,&handler)
+    def method_with_handler_async_result_data_object(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
-          return @j_del.methodWithHandlerAsyncResultOptions(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? JSON.parse(ar.result.toJson.encode) : nil) }))
+          return @j_del.methodWithHandlerAsyncResultDataObject(sendFailure,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? JSON.parse(ar.result.toJson.encode) : nil) }))
         end
-        raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_options(sendFailure,handler)"
+        raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_data_object(sendFailure,handler)"
       end
-      raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_options(sendFailure,handler)"
+      raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_data_object(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Testmodel::RefedInterface1] refed
     # return [void]
     def method_with_user_types(refed)
@@ -331,8 +304,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument refed=#{refed} when calling method_with_user_types(refed)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] str
     # @param [Object] obj
     # return [void]
@@ -345,28 +316,22 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument str=#{str} when calling method_with_object_param(str,obj)"
     end
-    # THE METHOD DOC
-    #
-    # @param [Hash] options
+    # @param [Hash] dataObject
     # return [void]
-    def method_with_options_param(options)
-      if options.class == Hash
-        return @j_del.methodWithOptionsParam(Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+    def method_with_data_object_param(dataObject)
+      if dataObject.class == Hash
+        return @j_del.methodWithDataObjectParam(Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(dataObject)))
       end
-      raise ArgumentError, "Invalid argument options=#{options} when calling method_with_options_param(options)"
+      raise ArgumentError, "Invalid argument dataObject=#{dataObject} when calling method_with_data_object_param(dataObject)"
     end
-    # THE METHOD DOC
-    #
-    # @param [Hash] options
+    # @param [Hash] dataObject
     # return [void]
-    def method_with_null_options_param(options)
-      if options.class == Hash
-        return @j_del.methodWithNullOptionsParam(Java::IoVertxCodegenTestmodel::TestOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+    def method_with_null_data_object_param(dataObject)
+      if dataObject.class == Hash
+        return @j_del.methodWithNullDataObjectParam(Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(dataObject)))
       end
-      raise ArgumentError, "Invalid argument options=#{options} when calling method_with_null_options_param(options)"
+      raise ArgumentError, "Invalid argument dataObject=#{dataObject} when calling method_with_null_data_object_param(dataObject)"
     end
-    # THE METHOD DOC
-    #
     # @param [Array<String>] listString
     # @param [Array<Fixnum>] listByte
     # @param [Array<Fixnum>] listShort
@@ -403,8 +368,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listString=#{listString} when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)"
     end
-    # THE METHOD DOC
-    #
     # @param [Set<String>] setString
     # @param [Set<Fixnum>] setByte
     # @param [Set<Fixnum>] setShort
@@ -441,8 +404,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument setString=#{setString} when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)"
     end
-    # THE METHOD DOC
-    #
     # @param [Hash{String => String}] mapString
     # @param [Hash{String => Fixnum}] mapByte
     # @param [Hash{String => Fixnum}] mapShort
@@ -479,8 +440,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument mapString=#{mapString} when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listStringHandler
     # @param [Proc] listIntHandler
     # @param [Proc] setStringHandler
@@ -501,8 +460,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listStringHandler=#{listStringHandler} when calling method_with_handler_list_and_set(listStringHandler,listIntHandler,setStringHandler,setIntHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_list_string(&handler)
@@ -511,8 +468,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_list_string(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_list_integer(&handler)
@@ -521,8 +476,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_list_integer(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_set_string(&handler)
@@ -531,8 +484,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_set_string(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_set_integer(&handler)
@@ -541,8 +492,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_set_integer(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_vertx_gen(&listHandler)
@@ -551,8 +500,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_vertx_gen(&listHandler)
@@ -561,8 +508,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_abstract_vertx_gen(&listHandler)
@@ -571,8 +516,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_abstract_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_abstract_vertx_gen(&listHandler)
@@ -581,8 +524,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_abstract_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_json_object(&listHandler)
@@ -591,8 +532,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_null_json_object(&listHandler)
@@ -601,8 +540,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_null_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_json_object(&listHandler)
@@ -611,8 +548,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_null_json_object(&listHandler)
@@ -621,8 +556,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_null_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_json_array(&listHandler)
@@ -631,8 +564,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_list_null_json_array(&listHandler)
@@ -641,8 +572,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_null_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_json_array(&listHandler)
@@ -651,8 +580,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_set_null_json_array(&listHandler)
@@ -661,8 +588,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_null_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_vertx_gen(&listHandler)
@@ -671,8 +596,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_vertx_gen(&listHandler)
@@ -681,8 +604,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_abstract_vertx_gen(&listHandler)
@@ -691,8 +612,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_abstract_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_abstract_vertx_gen(&listHandler)
@@ -701,8 +620,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_abstract_vertx_gen(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_json_object(&listHandler)
@@ -711,8 +628,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_null_json_object(&listHandler)
@@ -721,8 +636,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_null_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_json_object(&listHandler)
@@ -731,8 +644,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_null_json_object(&listHandler)
@@ -741,8 +652,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_null_json_object(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_json_array(&listHandler)
@@ -751,8 +660,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_list_null_json_array(&listHandler)
@@ -761,8 +668,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_null_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_json_array(&listHandler)
@@ -771,8 +676,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] listHandler
     # return [void]
     def method_with_handler_async_result_set_null_json_array(&listHandler)
@@ -781,8 +684,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_null_json_array(listHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_user_types(&handler)
@@ -791,8 +692,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_user_types(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_user_types(&handler)
@@ -801,8 +700,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_user_types(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_void(&handler)
@@ -811,8 +708,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_void(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [true,false] sendFailure
     # @param [Proc] handler
     # return [void]
@@ -825,8 +720,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_void(sendFailure,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_throwable(&handler)
@@ -835,18 +728,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_throwable(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
-    def method_with_handler_options(&handler)
+    def method_with_handler_data_object(&handler)
       if handler.class == Proc
-        return @j_del.methodWithHandlerOptions((Proc.new { |event| handler.call(JSON.parse(event.toJson.encode)) }))
+        return @j_del.methodWithHandlerDataObject((Proc.new { |event| handler.call(JSON.parse(event.toJson.encode)) }))
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_options(handler)"
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_data_object(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] value
     # @param [Proc] handler
     # return [void]
@@ -859,8 +748,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling method_with_handler_generic_user_type(value,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] value
     # @param [Proc] handler
     # return [void]
@@ -873,75 +760,66 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument value=#{value} when calling method_with_handler_async_result_generic_user_type(value,handler)"
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def method_with_byte_return
       @j_del.methodWithByteReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def method_with_short_return
       @j_del.methodWithShortReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def method_with_int_return
       @j_del.methodWithIntReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def method_with_long_return
       @j_del.methodWithLongReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Float]: the return value (todo)
+    # @return [Float]
     def method_with_float_return
       @j_del.methodWithFloatReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Float]: the return value (todo)
+    # @return [Float]
     def method_with_double_return
       @j_del.methodWithDoubleReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def method_with_boolean_return
       @j_del.methodWithBooleanReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    # @return [Fixnum]
     def method_with_char_return
       @j_del.methodWithCharReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @return [String]
     def method_with_string_return
       @j_del.methodWithStringReturn
     end
-    # THE METHOD DOC
-    #
-    # @return [::Testmodel::RefedInterface1]: the return value (todo)
+    # @return [::Testmodel::RefedInterface1]
     def method_with_vertx_gen_return
       ::Testmodel::RefedInterface1.new(@j_del.methodWithVertxGenReturn)
     end
-    # THE METHOD DOC
-    #
-    # @return [::Testmodel::RefedInterface2]: the return value (todo)
+    # @return [::Testmodel::RefedInterface2]
     def method_with_abstract_vertx_gen_return
       ::Testmodel::RefedInterface2Impl.new(@j_del.methodWithAbstractVertxGenReturn)
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @overload overloadedMethod(str,handler)
+    #   @param [String] str
+    #   @param [Proc] handler
+    # @overload overloadedMethod(str,refed)
+    #   @param [String] str
+    #   @param [::Testmodel::RefedInterface1] refed
+    # @overload overloadedMethod(str,refed,handler)
+    #   @param [String] str
+    #   @param [::Testmodel::RefedInterface1] refed
+    #   @param [Proc] handler
+    # @overload overloadedMethod(str,refed,period,handler)
+    #   @param [String] str
+    #   @param [::Testmodel::RefedInterface1] refed
+    #   @param [Fixnum] period
+    #   @param [Proc] handler
+    # @return [String]
     def overloaded_method(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -963,18 +841,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling overloaded_method(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] type
-    # @return [Object]: the return value (todo)
+    # @return [Object]
     def method_with_generic_return(type)
       if type.class == String
         return ::Vertx::Util::Utils.from_object(@j_del.methodWithGenericReturn(type))
       end
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_return(type)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] type
     # @param [Object] u
     # return [void]
@@ -987,8 +861,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_param(type,u)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] type
     # @param [Proc] handler
     # return [void]
@@ -1001,8 +873,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_handler(type,handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] type
     # @param [Proc] asyncResultHandler
     # return [void]
@@ -1015,8 +885,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_handler_async_result(type,asyncResultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] str
     # return [self]
     def fluent_method(str)
@@ -1026,20 +894,16 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument str=#{str} when calling fluent_method(str)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] foo
-    # @return [::Testmodel::RefedInterface1]: the return value (todo)
+    # @return [::Testmodel::RefedInterface1]
     def self.static_factory_method(foo)
       if foo.class == String
         return ::Testmodel::RefedInterface1.new(Java::IoVertxCodegenTestmodel::TestInterface.staticFactoryMethod(foo))
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling static_factory_method(foo)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] foo
-    # @return [::Testmodel::RefedInterface1]: the return value (todo)
+    # @return [::Testmodel::RefedInterface1]
     def method_with_cached_return(foo)
       if foo.class == String
         if @cached_method_with_cached_return != nil
@@ -1049,32 +913,22 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling method_with_cached_return(foo)"
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Object}]: the return value (todo)
+    # @return [Hash{String => Object}]
     def method_with_json_object_return
       @j_del.methodWithJsonObjectReturn != nil ? JSON.parse(@j_del.methodWithJsonObjectReturn.encode) : nil
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Object}]: the return value (todo)
+    # @return [Hash{String => Object}]
     def method_with_null_json_object_return
       @j_del.methodWithNullJsonObjectReturn != nil ? JSON.parse(@j_del.methodWithNullJsonObjectReturn.encode) : nil
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<String,Object>]: the return value (todo)
+    # @return [Array<String,Object>]
     def method_with_json_array_return
       @j_del.methodWithJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithJsonArrayReturn.encode) : nil
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<String,Object>]: the return value (todo)
+    # @return [Array<String,Object>]
     def method_with_null_json_array_return
       @j_del.methodWithNullJsonArrayReturn != nil ? JSON.parse(@j_del.methodWithNullJsonArrayReturn.encode) : nil
     end
-    # THE METHOD DOC
-    #
     # @param [Hash{String => Object}] jsonObject
     # @param [Array<String,Object>] jsonArray
     # return [void]
@@ -1087,8 +941,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument jsonObject=#{jsonObject} when calling method_with_json_params(jsonObject,jsonArray)"
     end
-    # THE METHOD DOC
-    #
     # @param [Hash{String => Object}] jsonObject
     # @param [Array<String,Object>] jsonArray
     # return [void]
@@ -1101,8 +953,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument jsonObject=#{jsonObject} when calling method_with_null_json_params(jsonObject,jsonArray)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] jsonObjectHandler
     # @param [Proc] jsonArrayHandler
     # return [void]
@@ -1115,8 +965,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument jsonObjectHandler=#{jsonObjectHandler} when calling method_with_handler_json(jsonObjectHandler,jsonArrayHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] jsonObjectHandler
     # @param [Proc] jsonArrayHandler
     # return [void]
@@ -1129,8 +977,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument jsonObjectHandler=#{jsonObjectHandler} when calling method_with_handler_null_json(jsonObjectHandler,jsonArrayHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_json_object(&handler)
@@ -1139,8 +985,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_json_object(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_null_json_object(&handler)
@@ -1149,8 +993,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_null_json_object(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_json_array(&handler)
@@ -1159,8 +1001,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_json_array(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [void]
     def method_with_handler_async_result_null_json_array(&handler)
@@ -1169,209 +1009,157 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_null_json_array(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => String}]: the return value (todo)
+    # @return [Hash{String => String}]
     def method_with_map_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => String}]: the return value (todo)
+    # @return [Hash{String => String}]
     def method_with_map_string_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapStringReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_string_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Fixnum}]: the return value (todo)
+    # @return [Hash{String => Fixnum}]
     def method_with_map_long_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapLongReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_long(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_long_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Fixnum}]: the return value (todo)
+    # @return [Hash{String => Fixnum}]
     def method_with_map_integer_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapIntegerReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_integer(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_integer_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Fixnum}]: the return value (todo)
+    # @return [Hash{String => Fixnum}]
     def method_with_map_short_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapShortReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_short(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_short_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Fixnum}]: the return value (todo)
+    # @return [Hash{String => Fixnum}]
     def method_with_map_byte_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapByteReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_byte(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_byte_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Fixnum}]: the return value (todo)
+    # @return [Hash{String => Fixnum}]
     def method_with_map_character_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapCharacterReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_character(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_character_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => true,false}]: the return value (todo)
+    # @return [Hash{String => true,false}]
     def method_with_map_boolean_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapBooleanReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_boolean(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_boolean_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Float}]: the return value (todo)
+    # @return [Hash{String => Float}]
     def method_with_map_float_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapFloatReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_float(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_float_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Float}]: the return value (todo)
+    # @return [Hash{String => Float}]
     def method_with_map_double_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapDoubleReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_double(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_double_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    # @return [Hash{String => Hash{String => Object}}]
     def method_with_map_json_object_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonObjectReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_json_object_return(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
-    # @return [Hash{String => Array<String,Object>}]: the return value (todo)
+    # @return [Hash{String => Array<String,Object>}]
     def method_with_map_json_array_return(&handler)
       if handler.class == Proc
         return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithMapJsonArrayReturn((Proc.new { |event| handler.call(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_map_json_array_return(handler)"
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => String}]: the return value (todo)
+    # @return [Hash{String => String}]
     def method_with_null_map_return
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.methodWithNullMapReturn, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<String>]: the return value (todo)
+    # @return [Array<String>]
     def method_with_list_string_return
       @j_del.methodWithListStringReturn.to_a.map { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<Fixnum>]: the return value (todo)
+    # @return [Array<Fixnum>]
     def method_with_list_long_return
       @j_del.methodWithListLongReturn.to_a.map { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<::Testmodel::RefedInterface1>]: the return value (todo)
+    # @return [Array<::Testmodel::RefedInterface1>]
     def method_with_list_vertx_gen_return
       @j_del.methodWithListVertxGenReturn.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<Hash{String => Object}>]: the return value (todo)
+    # @return [Array<Hash{String => Object}>]
     def method_with_list_json_object_return
       @j_del.methodWithListJsonObjectReturn.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<Array<String,Object>>]: the return value (todo)
+    # @return [Array<Array<String,Object>>]
     def method_with_list_json_array_return
       @j_del.methodWithListJsonArrayReturn.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<String>]: the return value (todo)
+    # @return [Array<String>]
     def method_with_null_list_return
       @j_del.methodWithNullListReturn.to_a.map { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<String>]: the return value (todo)
+    # @return [Set<String>]
     def method_with_set_string_return
       @j_del.methodWithSetStringReturn.to_set.map! { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<Fixnum>]: the return value (todo)
+    # @return [Set<Fixnum>]
     def method_with_set_long_return
       @j_del.methodWithSetLongReturn.to_set.map! { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<::Testmodel::RefedInterface1>]: the return value (todo)
+    # @return [Set<::Testmodel::RefedInterface1>]
     def method_with_set_vertx_gen_return
       @j_del.methodWithSetVertxGenReturn.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<Hash{String => Object}>]: the return value (todo)
+    # @return [Set<Hash{String => Object}>]
     def method_with_set_json_object_return
       @j_del.methodWithSetJsonObjectReturn.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<Array<String,Object>>]: the return value (todo)
+    # @return [Set<Array<String,Object>>]
     def method_with_set_json_array_return
       @j_del.methodWithSetJsonArrayReturn.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
     end
-    # THE METHOD DOC
-    #
-    # @return [Set<String>]: the return value (todo)
+    # @return [Set<String>]
     def method_with_null_set_return
       @j_del.methodWithNullSetReturn.to_set.map! { |elt| elt }
     end
-    # THE METHOD DOC
-    #
     # @param [String] strVal
     # @param [:TIM,:JULIEN,:NICK,:WESTON] weirdo
-    # @return [String]: the return value (todo)
+    # @return [String]
     def method_with_enum_param(strVal,weirdo)
       if strVal.class == String
         if weirdo.class == Symbol
@@ -1381,20 +1169,16 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument strVal=#{strVal} when calling method_with_enum_param(strVal,weirdo)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] strVal
-    # @return [:TIM,:JULIEN,:NICK,:WESTON]: the return value (todo)
+    # @return [:TIM,:JULIEN,:NICK,:WESTON]
     def method_with_enum_return(strVal)
       if strVal.class == String
         return @j_del.methodWithEnumReturn(strVal).name.intern
       end
       raise ArgumentError, "Invalid argument strVal=#{strVal} when calling method_with_enum_return(strVal)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] strVal
-    # @return [Nil]: the return value (todo)
+    # @return [Nil]
     def method_with_throwable_return(strVal)
       if strVal.class == String
         return @j_del.methodWithThrowableReturn(strVal)

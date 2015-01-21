@@ -5,6 +5,13 @@ require 'vertx/file_props'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.FileSystem
 module Vertx
+  #  Contains a broad set of operations for manipulating files.<p>
+  #  A blocking and non blocking version of each operation is provided.<p>
+  #  The non blocking versions take a handler which is called when the operation completes or an error occurs.<p>
+  #  The blocking versions return the results, or throw exceptions directly.<p>
+  #  It is highly recommended the non blocking versions are used unless you are sure the operation
+  #  will not block for a significant period of time.<p>
+  #  Instances of FileSystem are thread-safe.<p>
   class FileSystem
     # @private
     # @param j_del [::Vertx::FileSystem] the java delegate
@@ -16,8 +23,8 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
+    #  Copy a file from the path <code>from</code> to path <code>to</code>, asynchronously.<p>
+    #  The copy will fail if the destination already exists.<p>
     # @param [String] from
     # @param [String] to
     # @param [Proc] handler
@@ -35,8 +42,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy(from,to,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#copy}
     # @param [String] from
     # @param [String] to
     # return [self]
@@ -50,8 +56,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_blocking(from,to)"
     end
-    # THE METHOD DOC
-    #
+    #  Copy a file from the path <code>from</code> to path <code>to</code>, asynchronously.<p>
+    #  If <code>recursive</code> is <code>true</code> and <code>from</code> represents a directory, then the directory and its contents
+    #  will be copied recursively to the destination <code>to</code>.<p>
+    #  The copy will fail if the destination if the destination already exists.<p>
     # @param [String] from
     # @param [String] to
     # @param [true,false] recursive
@@ -73,8 +81,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_recursive(from,to,recursive,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#copy_recursive}
     # @param [String] from
     # @param [String] to
     # @param [true,false] recursive
@@ -92,8 +99,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling copy_recursive_blocking(from,to,recursive)"
     end
-    # THE METHOD DOC
-    #
+    #  Move a file from the path <code>from</code> to path <code>to</code>, asynchronously.<p>
+    #  The move will fail if the destination already exists.<p>
     # @param [String] from
     # @param [String] to
     # @param [Proc] handler
@@ -111,8 +118,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling move(from,to,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#move}
     # @param [String] from
     # @param [String] to
     # return [self]
@@ -126,8 +132,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument from=#{from} when calling move_blocking(from,to)"
     end
-    # THE METHOD DOC
-    #
+    #  Truncate the file represented by <code>path</code> to length <code>len</code> in bytes, asynchronously.<p>
+    #  The operation will fail if the file does not exist or <code>len</code> is less than <code>zero</code>.
     # @param [String] path
     # @param [Fixnum] len
     # @param [Proc] handler
@@ -145,8 +151,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling truncate(path,len,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#truncate}
     # @param [String] path
     # @param [Fixnum] len
     # return [self]
@@ -160,8 +165,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling truncate_blocking(path,len)"
     end
-    # THE METHOD DOC
-    #
+    #  Change the permissions on the file represented by <code>path</code> to <code>perms</code>, asynchronously.
+    #  The permission String takes the form rwxr-x--- as
+    #  specified <a href="http://download.oracle.com/javase/7/docs/api/java/nio/file/attribute/PosixFilePermissions.html">here</a>.<p>
     # @param [String] path
     # @param [String] perms
     # @param [Proc] handler
@@ -179,8 +185,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod(path,perms,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem #chmod(String, String, Handler)}
     # @param [String] path
     # @param [String] perms
     # return [self]
@@ -194,8 +199,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_blocking(path,perms)"
     end
-    # THE METHOD DOC
-    #
+    #  Change the permissions on the file represented by <code>path</code> to <code>perms</code>, asynchronously.
+    #  The permission String takes the form rwxr-x--- as
+    #  specified in {<a href="http://download.oracle.com/javase/7/docs/api/java/nio/file/attribute/PosixFilePermissions.html">here</a>}.<p>
+    #  If the file is directory then all contents will also have their permissions changed recursively. Any directory permissions will
+    #  be set to <code>dirPerms</code>, whilst any normal file permissions will be set to <code>perms</code>.<p>
     # @param [String] path
     # @param [String] perms
     # @param [String] dirPerms
@@ -217,8 +225,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_recursive(path,perms,dirPerms,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#chmod_recursive}
     # @param [String] path
     # @param [String] perms
     # @param [String] dirPerms
@@ -236,8 +243,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chmod_recursive_blocking(path,perms,dirPerms)"
     end
-    # THE METHOD DOC
-    #
+    #  Change the ownership on the file represented by <code>path</code> to <code>user</code> and {code group}, asynchronously.
+    # 
     # @param [String] path
     # @param [String] user
     # @param [String] group
@@ -259,8 +266,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chown(path,user,group,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#chown}
+    # 
     # @param [String] path
     # @param [String] user
     # @param [String] group
@@ -278,8 +285,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling chown_blocking(path,user,group)"
     end
-    # THE METHOD DOC
-    #
+    #  Obtain properties for the file represented by <code>path</code>, asynchronously.
+    #  If the file is a link, the link will be followed.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -293,18 +300,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#props}
     # @param [String] path
-    # @return [::Vertx::FileProps]: the return value (todo)
+    # @return [::Vertx::FileProps]
     def props_blocking(path)
       if path.class == String
         return ::Vertx::FileProps.new(@j_del.propsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props_blocking(path)"
     end
-    # THE METHOD DOC
-    #
+    #  Obtain properties for the link represented by <code>path</code>, asynchronously.
+    #  The link will not be followed.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -318,18 +324,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#lprops}
     # @param [String] path
-    # @return [::Vertx::FileProps]: the return value (todo)
+    # @return [::Vertx::FileProps]
     def lprops_blocking(path)
       if path.class == String
         return ::Vertx::FileProps.new(@j_del.lpropsBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops_blocking(path)"
     end
-    # THE METHOD DOC
-    #
+    #  Create a hard link on the file system from <code>link</code> to <code>existing</code>, asynchronously.
     # @param [String] link
     # @param [String] existing
     # @param [Proc] handler
@@ -347,8 +351,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling link(link,existing,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#link}
     # @param [String] link
     # @param [String] existing
     # return [self]
@@ -362,8 +365,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling link_blocking(link,existing)"
     end
-    # THE METHOD DOC
-    #
+    #  Create a symbolic link on the file system from <code>link</code> to <code>existing</code>, asynchronously.
     # @param [String] link
     # @param [String] existing
     # @param [Proc] handler
@@ -381,8 +383,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling symlink(link,existing,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#link}
     # @param [String] link
     # @param [String] existing
     # return [self]
@@ -396,8 +397,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling symlink_blocking(link,existing)"
     end
-    # THE METHOD DOC
-    #
+    #  Unlinks the link on the file system represented by the path <code>link</code>, asynchronously.
     # @param [String] link
     # @param [Proc] handler
     # return [self]
@@ -411,8 +411,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling unlink(link,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#unlink}
     # @param [String] link
     # return [self]
     def unlink_blocking(link)
@@ -422,8 +421,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling unlink_blocking(link)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns the path representing the file that the symbolic link specified by <code>link</code> points to, asynchronously.
     # @param [String] link
     # @param [Proc] handler
     # return [self]
@@ -437,18 +435,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling read_symlink(link,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#read_symlink}
     # @param [String] link
-    # @return [String]: the return value (todo)
+    # @return [String]
     def read_symlink_blocking(link)
       if link.class == String
         return @j_del.readSymlinkBlocking(link)
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling read_symlink_blocking(link)"
     end
-    # THE METHOD DOC
-    #
+    #  Deletes the file represented by the specified <code>path</code>, asynchronously.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -462,8 +458,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#delete}
     # @param [String] path
     # return [self]
     def delete_blocking(path)
@@ -473,8 +468,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_blocking(path)"
     end
-    # THE METHOD DOC
-    #
+    #  Deletes the file represented by the specified <code>path</code>, asynchronously.<p>
+    #  If the path represents a directory and <code>recursive = true</code> then the directory and its contents will be
+    #  deleted recursively.
     # @param [String] path
     # @param [true,false] recursive
     # @param [Proc] handler
@@ -492,8 +488,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_recursive(path,recursive,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#delete_recursive}
     # @param [String] path
     # @param [true,false] recursive
     # return [self]
@@ -507,8 +502,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_recursive_blocking(path,recursive)"
     end
-    # THE METHOD DOC
-    #
+    #  Create the directory represented by <code>path</code>, asynchronously.<p>
+    #  The new directory will be created with permissions as specified by <code>perms</code>.
+    #  The permission String takes the form rwxr-x--- as specified
+    #  in <a href="http://download.oracle.com/javase/7/docs/api/java/nio/file/attribute/PosixFilePermissions.html">here</a>.<p>
+    #  The operation will fail if the directory already exists.
     # @overload mkdir(path,handler)
     #   @param [String] path
     #   @param [Proc] handler
@@ -534,8 +532,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling mkdir(param_1,param_2,param_3)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#mkdir}
     # @param [String] path
     # @param [String] perms
     # return [self]
@@ -550,8 +547,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdir_blocking(path,perms)"
     end
-    # THE METHOD DOC
-    #
+    #  Create the directory represented by <code>path</code>, asynchronously.<p>
+    #  The new directory will be created with permissions as specified by <code>perms</code>.
+    #  The permission String takes the form rwxr-x--- as specified
+    #  in <a href="http://download.oracle.com/javase/7/docs/api/java/nio/file/attribute/PosixFilePermissions.html">here</a>.<p>
+    #  If <code>createParents</code> is set to <code>true</code> then any non-existent parent directories of the directory
+    #  will also be created.<p>
+    #  The operation will fail if the directory already exists.<p>
     # @overload mkdirs(path,handler)
     #   @param [String] path
     #   @param [Proc] handler
@@ -577,8 +579,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling mkdirs(param_1,param_2,param_3)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#mkdirs}
     # @param [String] path
     # @param [String] perms
     # return [self]
@@ -593,8 +594,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdirs_blocking(path,perms)"
     end
-    # THE METHOD DOC
-    #
+    #  Read the contents of the directory specified by <code>path</code>, asynchronously.<p>
+    #  The parameter <code>filter</code> is a regular expression. If <code>filter</code> is specified then only the paths that
+    #  match  @{filter}will be returned.<p>
+    #  The result is an array of String representing the paths of the files inside the directory.
     # @overload readDir(path,handler)
     #   @param [String] path
     #   @param [Proc] handler
@@ -620,11 +623,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling read_dir(param_1,param_2,param_3)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#read_dir}
     # @param [String] path
     # @param [String] filter
-    # @return [Array<String>]: the return value (todo)
+    # @return [Array<String>]
     def read_dir_blocking(path,filter=nil)
       if path.class == String
         if filter.class == String
@@ -634,8 +636,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_dir_blocking(path,filter)"
     end
-    # THE METHOD DOC
-    #
+    #  Reads the entire file as represented by the path <code>path</code> as a , asynchronously.<p>
+    #  Do not user this method to read very large files or you risk running out of available RAM.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -649,18 +651,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#read_file}
     # @param [String] path
-    # @return [::Vertx::Buffer]: the return value (todo)
+    # @return [::Vertx::Buffer]
     def read_file_blocking(path)
       if path.class == String
         return ::Vertx::Buffer.new(@j_del.readFileBlocking(path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file_blocking(path)"
     end
-    # THE METHOD DOC
-    #
+    #  Creates the file, and writes the specified <code>Buffer data</code> to the file represented by the path <code>path</code>,
+    #  asynchronously.
     # @param [String] path
     # @param [::Vertx::Buffer] data
     # @param [Proc] handler
@@ -678,8 +679,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling write_file(path,data,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#write_file}
     # @param [String] path
     # @param [::Vertx::Buffer] data
     # return [self]
@@ -693,8 +693,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling write_file_blocking(path,data)"
     end
-    # THE METHOD DOC
-    #
+    #  Open the file represented by <code>path</code>, asynchronously.<p>
+    #  The file is opened for both reading and writing. If the file does not already exist it will be created.
+    #  Write operations will not automatically flush to storage.
     # @param [String] path
     # @param [Hash] options
     # @param [Proc] handler
@@ -712,11 +713,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling open(path,options,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#open}
     # @param [String] path
     # @param [Hash] options
-    # @return [::Vertx::AsyncFile]: the return value (todo)
+    # @return [::Vertx::AsyncFile]
     def open_blocking(path,options)
       if path.class == String
         if options.class == Hash
@@ -726,8 +726,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling open_blocking(path,options)"
     end
-    # THE METHOD DOC
-    #
+    #  Creates an empty file with the specified <code>path</code> and permissions <code>perms</code>, asynchronously.
     # @overload createFile(path,handler)
     #   @param [String] path
     #   @param [Proc] handler
@@ -753,8 +752,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling create_file(param_1,param_2,param_3)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#create_file}
     # @param [String] path
     # @param [String] perms
     # return [self]
@@ -769,8 +767,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling create_file_blocking(path,perms)"
     end
-    # THE METHOD DOC
-    #
+    #  Determines whether the file as specified by the path <code>path</code> exists, asynchronously.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -784,18 +781,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling exists(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#exists}
     # @param [String] path
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def exists_blocking(path)
       if path.class == String
         return @j_del.existsBlocking(path)
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling exists_blocking(path)"
     end
-    # THE METHOD DOC
-    #
+    #  Returns properties of the file-system being used by the specified <code>path</code>, asynchronously.
     # @param [String] path
     # @param [Proc] handler
     # return [self]
@@ -809,10 +804,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling fs_props(path,handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Blocking version of {::Vertx::FileSystem#fs_props}
     # @param [String] path
-    # @return [::Vertx::FileSystemProps]: the return value (todo)
+    # @return [::Vertx::FileSystemProps]
     def fs_props_blocking(path)
       if path.class == String
         return ::Vertx::FileSystemProps.new(@j_del.fsPropsBlocking(path))

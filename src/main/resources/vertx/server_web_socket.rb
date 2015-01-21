@@ -6,6 +6,8 @@ require 'vertx/socket_address'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.ServerWebSocket
 module Vertx
+  #  Represents a server side WebSocket that is passed into a the websocketHandler of an {::Vertx::HttpServer}<p>
+  #  Instances of this class are not thread-safe<p>
   class ServerWebSocket
     include ::Vertx::WebSocketBase
     # @private
@@ -18,50 +20,50 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::ServerWebSocket#set_write_queue_max_size}
+    # @return [true,false]
     def write_queue_full
       @j_del.writeQueueFull
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  When a <code>Websocket</code> is created it automatically registers an event handler with the eventbus, the ID of that
+    #  handler is given by <code>binaryHandlerID</code>.<p>
+    #  Given this ID, a different event loop can send a binary frame to that event handler using the event bus and
+    #  that buffer will be received by this instance in its own event loop and written to the underlying connection. This
+    #  allows you to write data to other websockets which are owned by different event loops.
+    # @return [String]
     def binary_handler_id
       @j_del.binaryHandlerID
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  When a <code>Websocket</code> is created it automatically registers an event handler with the eventbus, the ID of that
+    #  handler is given by <code>textHandlerID</code>.<p>
+    #  Given this ID, a different event loop can send a text frame to that event handler using the event bus and
+    #  that buffer will be received by this instance in its own event loop and written to the underlying connection. This
+    #  allows you to write data to other websockets which are owned by different event loops.
+    # @return [String]
     def text_handler_id
       @j_del.textHandlerID
     end
-    # THE METHOD DOC
-    #
+    #  Close the websocket
     # return [void]
     def close
       @j_del.close
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::SocketAddress]: the return value (todo)
+    #  Return the remote address for this socket
+    # @return [::Vertx::SocketAddress]
     def remote_address
       if @cached_remote_address != nil
         return @cached_remote_address
       end
       @cached_remote_address = ::Vertx::SocketAddress.new(@j_del.remoteAddress)
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::SocketAddress]: the return value (todo)
+    #  Return the local address for this socket
+    # @return [::Vertx::SocketAddress]
     def local_address
       if @cached_local_address != nil
         return @cached_local_address
       end
       @cached_local_address = ::Vertx::SocketAddress.new(@j_del.localAddress)
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
@@ -71,8 +73,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def handler(&handler)
@@ -82,22 +82,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def pause
       @j_del.pause
       self
     end
-    # THE METHOD DOC
-    #
     # return [self]
     def resume
       @j_del.resume
       self
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
@@ -107,8 +101,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::Buffer] data
     # return [self]
     def write(data)
@@ -118,8 +110,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
-    # THE METHOD DOC
-    #
     # @param [Fixnum] maxSize
     # return [self]
     def set_write_queue_max_size(maxSize)
@@ -129,8 +119,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def drain_handler(&handler)
@@ -140,8 +128,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::WebSocketFrame] frame
     # return [self]
     def write_frame(frame)
@@ -151,8 +137,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument frame=#{frame} when calling write_frame(frame)"
     end
-    # THE METHOD DOC
-    #
     # @param [::Vertx::Buffer] data
     # return [self]
     def write_message(data)
@@ -162,8 +146,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write_message(data)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def close_handler(&handler)
@@ -173,8 +155,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] handler
     # return [self]
     def frame_handler(&handler)
@@ -184,35 +164,34 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @return [String]
     def uri
       @j_del.uri
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The path the websocket is attempting to connect at
+    # @return [String]
     def path
       @j_del.path
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The query string passed on the websocket uri
+    # @return [String]
     def query
       @j_del.query
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::MultiMap]: the return value (todo)
+    #  A map of all headers in the request to upgrade to websocket
+    # @return [::Vertx::MultiMap]
     def headers
       if @cached_headers != nil
         return @cached_headers
       end
       @cached_headers = ::Vertx::MultiMap.new(@j_del.headers)
     end
-    # THE METHOD DOC
-    #
+    #  Reject the WebSocket<p>
+    #  Calling this method from the websocketHandler gives you the opportunity to reject
+    #  the websocket, which will cause the websocket handshake to fail by returning
+    #  a 404 response code.<p>
+    #  You might use this method, if for example you only want to accept websockets
+    #  with a particular path.
     # return [self]
     def reject
       @j_del.reject

@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.Lock
 module Vertx
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class Lock
     # @private
     # @param j_del [::Vertx::Lock] the java delegate
@@ -12,8 +13,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # return [void]
     def release
       @j_del.release

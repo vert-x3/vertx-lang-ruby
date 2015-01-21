@@ -12,40 +12,32 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::Future]: the return value (todo)
+    # @return [::Vertx::Future]
     def self.future
       ::Vertx::Future.new(Java::IoVertxCore::Future.future)
     end
-    # THE METHOD DOC
-    #
     # @param [Object] result
-    # @return [::Vertx::Future]: the return value (todo)
+    # @return [::Vertx::Future]
     def self.succeeded_future(result=nil)
       if result.class == String  ||result.class == Hash || result.class == Array
         return ::Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture(::Vertx::Util::Utils.to_object(result)))
       end
       ::Vertx::Future.new(Java::IoVertxCore::Future.succeededFuture)
     end
-    # THE METHOD DOC
-    #
     # @param [String] failureMessage
-    # @return [::Vertx::Future]: the return value (todo)
+    # @return [::Vertx::Future]
     def self.failed_future(failureMessage)
       if failureMessage.class == String
         return ::Vertx::Future.new(Java::IoVertxCore::Future.failedFuture(failureMessage))
       end
       raise ArgumentError, "Invalid argument failureMessage=#{failureMessage} when calling failed_future(failureMessage)"
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    #  Has it completed?
+    # @return [true,false]
     def is_complete
       @j_del.isComplete
     end
-    # THE METHOD DOC
-    #
+    #  Set a handler for the result. It will get called when it's complete
     # @param [Proc] handler
     # return [void]
     def set_handler(&handler)
@@ -54,8 +46,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling set_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Set the result. Any handler will be called, if there is one
     # @param [Object] result
     # return [void]
     def complete(result=nil)
@@ -64,8 +55,6 @@ module Vertx
       end
       @j_del.complete
     end
-    # THE METHOD DOC
-    #
     # @param [String] failureMessage
     # return [void]
     def fail(failureMessage)

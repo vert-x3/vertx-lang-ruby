@@ -47,28 +47,28 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
-  public void testOptionsParam() {
-    runTest("test_options_param");
+  public void testDataObjectParam() {
+    runTest("test_data_object_param");
   }
 
   @Test
-  public void testNullOptionsParam() {
-    runTest("test_method_with_null_options_param");
+  public void testNullDataObjectParam() {
+    runTest("test_method_with_null_data_object_param");
   }
 
   @Test
-  public void testMethodWithHandlerOptions() {
-    runTest("test_method_with_handler_options");
+  public void testMethodWithHandlerDataObject() {
+    runTest("test_method_with_handler_data_object");
   }
 
   @Test
-  public void testMethodWithHandlerAsyncResultOptions() {
-    runTest("test_method_with_handler_async_result_options");
+  public void testMethodWithHandlerAsyncResultDataObject() {
+    runTest("test_method_with_handler_async_result_data_object");
   }
 
   @Test
-  public void testMethodWithHandlerAsyncResultOptionsFails() {
-    runTest("test_method_with_handler_async_result_options_fails");
+  public void testMethodWithHandlerAsyncResultDataObjectFails() {
+    runTest("test_method_with_handler_async_result_data_object_fails");
   }
 
   @Test

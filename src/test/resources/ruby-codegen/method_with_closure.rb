@@ -1,17 +1,18 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::RubyCodegen::MethodWithClosure] the java delegate
-    # @private
 # Generated from io.vertx.test.support.MethodWithClosure
 module RubyCodegen
+  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class MethodWithClosure
+    # @private
+    # @param j_del [::RubyCodegen::MethodWithClosure] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::RubyCodegen::MethodWithClosure] the underlying java delegate
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [String] s
     # @param [Proc] callback
     # return [void]

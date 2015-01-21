@@ -1,11 +1,7 @@
 require 'vertx/util/utils.rb'
-    # @param j_del [::RubyCodegen::SuperMixin] the java delegate
-    # @private
 # Generated from io.vertx.test.support.SuperMixin
 module RubyCodegen
   module SuperMixin
-    # THE METHOD DOC
-    #
     # return [void]
     def super_mixin_method
       @j_del.superMixinMethod
@@ -13,9 +9,13 @@ module RubyCodegen
   end
   class SuperMixinImpl
     include SuperMixin
+    # @private
+    # @param j_del [::RubyCodegen::SuperMixin] the java delegate
     def initialize(j_del)
       @j_del = j_del
     end
+    # @private
+    # @return [::RubyCodegen::SuperMixin] the underlying java delegate
     def j_del
       @j_del
     end

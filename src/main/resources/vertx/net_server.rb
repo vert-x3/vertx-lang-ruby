@@ -4,6 +4,13 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetServer
 module Vertx
+  #  Represents a TCP or SSL server<p>
+  #  If an instance is instantiated from an event loop then the handlers
+  #  of the instance will always be called on that same event loop.
+  #  If an instance is instantiated from some other arbitrary Java thread (i.e. when running embedded) then
+  #  and event loop will be assigned to the instance and used when any of its handlers
+  #  are called.<p>
+  #  Instances of this class are thread-safe.<p>
   class NetServer
     include ::Vertx::Measured
     # @private
@@ -16,36 +23,35 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The metric base name
+    # @return [String]
     def metric_base_name
       @j_del.metricBaseName
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Hash{String => Object}}]: the return value (todo)
+    #  Will return the metrics that correspond with this measured object.
+    # @return [Hash{String => Hash{String => Object}}]
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::NetSocketStream]: the return value (todo)
+    #  Return the connect stream for this server. The server can only have at most one handler at any one time.
+    #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
+    #  connect stream .
+    # @return [::Vertx::NetSocketStream]
     def connect_stream
       ::Vertx::NetSocketStream.new(@j_del.connectStream)
     end
-    # THE METHOD DOC
-    #
+    #  Supply a connect handler for this server. The server can only have at most one connect handler at any one time.
+    #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
+    #  connect handler.
     # @param [Proc] handler
-    # @return [::Vertx::NetServer]: the return value (todo)
+    # @return [::Vertx::NetServer]
     def connect_handler(&handler)
       if handler.class == Proc
         return ::Vertx::NetServer.new(@j_del.connectHandler((Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) })))
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling connect_handler(handler)"
     end
-    # THE METHOD DOC
-    #
+    #  Instruct the server to listen for incoming connections on the specified <code>port</code> and all available interfaces.
     # @param [Proc] listenHandler
     # return [self]
     def listen(&listenHandler)
@@ -56,8 +62,8 @@ module Vertx
       @j_del.listen
       self
     end
-    # THE METHOD DOC
-    #
+    #  Close the server. This will close any currently open connections. The event handler <code>done</code> will be called
+    #  when the close is complete.
     # @param [Proc] completionHandler
     # return [void]
     def close(&completionHandler)
@@ -66,9 +72,9 @@ module Vertx
       end
       @j_del.close
     end
-    # THE METHOD DOC
-    #
-    # @return [Fixnum]: the return value (todo)
+    #  The actual port the server is listening on. This is useful if you bound the server specifying 0 as port number
+    #  signifying an ephemeral port
+    # @return [Fixnum]
     def actual_port
       @j_del.actualPort
     end

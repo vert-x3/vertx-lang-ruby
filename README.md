@@ -6,3 +6,4 @@ vertx-lang-jruby
 - generate ruby documentation
 - code translation
 - consider using @option Yard tag
+- investigate : java_alias for method overload caching

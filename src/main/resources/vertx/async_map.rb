@@ -1,6 +1,8 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.AsyncMap<K,V>
 module Vertx
+  # 
+  #  An asynchronous map.
   class AsyncMap
     # @private
     # @param j_del [::Vertx::AsyncMap] the java delegate
@@ -12,8 +14,7 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
+    #  Get a value from the map, asynchronously.
     # @param [Object] k
     # @param [Proc] resultHandler
     # return [void]
@@ -26,8 +27,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling get(k,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @overload put(k,v,completionHandler)
     #   @param [Object] k
     #   @param [Object] v
@@ -56,8 +55,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling put(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
     # @overload putIfAbsent(k,v,completionHandler)
     #   @param [Object] k
     #   @param [Object] v
@@ -86,8 +83,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling put_if_absent(param_1,param_2,param_3,param_4)"
     end
-    # THE METHOD DOC
-    #
+    #  Remove a value from the map, asynchronously.
     # @param [Object] k
     # @param [Proc] resultHandler
     # return [void]
@@ -100,8 +96,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling remove(k,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] k
     # @param [Object] v
     # @param [Proc] resultHandler
@@ -118,8 +112,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling remove_if_present(k,v,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] k
     # @param [Object] v
     # @param [Proc] resultHandler
@@ -136,8 +128,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling replace(k,v,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Object] k
     # @param [Object] oldValue
     # @param [Object] newValue
@@ -158,8 +148,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling replace_if_present(k,oldValue,newValue,resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def clear(&resultHandler)
@@ -168,8 +156,6 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling clear(resultHandler)"
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] resultHandler
     # return [void]
     def size(&resultHandler)

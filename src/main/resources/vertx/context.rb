@@ -1,6 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Context
 module Vertx
+  #  Represents the execution context of a Verticle.
   class Context
     # @private
     # @param j_del [::Vertx::Context] the java delegate
@@ -12,8 +13,6 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
     # @param [Proc] action
     # return [void]
     def run_on_context(&action)
@@ -22,54 +21,38 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument action=#{action} when calling run_on_context(action)"
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    # @return [String]
     def deployment_id
       @j_del.deploymentID
     end
-    # THE METHOD DOC
-    #
-    # @return [Hash{String => Object}]: the return value (todo)
+    # @return [Hash{String => Object}]
     def config
       @j_del.config != nil ? JSON.parse(@j_del.config.encode) : nil
     end
-    # THE METHOD DOC
-    #
-    # @return [Array<String>]: the return value (todo)
+    # @return [Array<String>]
     def process_args
       @j_del.processArgs.to_a.map { |elt| elt }
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def is_event_loop_context
       @j_del.isEventLoopContext
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def is_worker
       @j_del.isWorker
     end
-    # THE METHOD DOC
-    #
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def is_multi_threaded
       @j_del.isMultiThreaded
     end
-    # THE METHOD DOC
-    #
     # @param [String] key
-    # @return [Object]: the return value (todo)
+    # @return [Object]
     def get(key)
       if key.class == String
         return ::Vertx::Util::Utils.from_object(@j_del.get(key))
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] key
     # @param [Object] value
     # return [void]
@@ -82,10 +65,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling put(key,value)"
     end
-    # THE METHOD DOC
-    #
     # @param [String] key
-    # @return [true,false]: the return value (todo)
+    # @return [true,false]
     def remove(key)
       if key.class == String
         return @j_del.remove(key)

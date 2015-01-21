@@ -2,6 +2,7 @@ require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.Message<T>
 module Vertx
+  #  @author <a href="http://tfox.org">Tim Fox</a>
   class Message
     # @private
     # @param j_del [::Vertx::Message] the java delegate
@@ -13,35 +14,30 @@ module Vertx
     def j_del
       @j_del
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The address the message was sent to
+    # @return [String]
     def address
       @j_del.address
     end
-    # THE METHOD DOC
-    #
-    # @return [::Vertx::MultiMap]: the return value (todo)
+    # @return [::Vertx::MultiMap]
     def headers
       ::Vertx::MultiMap.new(@j_del.headers)
     end
-    # THE METHOD DOC
-    #
-    # @return [Object]: the return value (todo)
+    #  The body of the message
+    # @return [Object]
     def body
       if @cached_body != nil
         return @cached_body
       end
       @cached_body = ::Vertx::Util::Utils.from_object(@j_del.body)
     end
-    # THE METHOD DOC
-    #
-    # @return [String]: the return value (todo)
+    #  The reply address (if any)
+    # @return [String]
     def reply_address
       @j_del.replyAddress
     end
-    # THE METHOD DOC
-    #
+    #  The same as <code>reply(R message)</code> but you can specify handler for the reply - i.e.
+    #  to receive the reply to the reply.
     # @overload reply(message)
     #   @param [Object] message
     # @overload reply(message,replyHandler)
@@ -70,8 +66,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling reply(param_1,param_2,param_3)"
     end
-    # THE METHOD DOC
-    #
+    #  Signal that processing of this message failed. If the message was sent specifying a result handler
+    #  the handler will be called with a failure corresponding to the failure code and message specified here
     # @param [Fixnum] failureCode
     # @param [String] message
     # return [void]
