@@ -7,7 +7,7 @@ module Vertx
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"

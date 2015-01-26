@@ -19,11 +19,11 @@ module RubyCodegen
     def do_something(s=nil,&callback)
       if s.class == String
         if callback.class == Proc
-          return @j_del.doSomething(s,(Proc.new { |event| callback.call(event) }))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,s,(Proc.new { |event| callback.call(event) }))
         end
-        return @j_del.doSomething(s)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class))).invoke(@j_del,s)
       end
-      @j_del.doSomething
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething))).invoke(@j_del)
     end
   end
 end

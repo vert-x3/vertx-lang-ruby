@@ -15,11 +15,11 @@ module Vertx
     end
     # @return [String]
     def host_address
-      @j_del.hostAddress
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:hostAddress))).invoke(@j_del)
     end
     # @return [Fixnum]
     def host_port
-      @j_del.hostPort
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:hostPort))).invoke(@j_del)
     end
   end
 end

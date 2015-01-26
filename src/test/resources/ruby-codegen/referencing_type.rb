@@ -16,7 +16,7 @@ module RubyCodegen
     end
     # @return [::RubyCodegen::ReferencedType]
     def get_referenced
-      ::RubyCodegen::ReferencedType.new(@j_del.getReferenced)
+      ::RubyCodegen::ReferencedType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getReferenced))).invoke(@j_del))
     end
   end
 end

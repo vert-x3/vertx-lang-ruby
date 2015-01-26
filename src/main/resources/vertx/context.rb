@@ -17,39 +17,39 @@ module Vertx
     # return [void]
     def run_on_context(&action)
       if action.class == Proc
-        return @j_del.runOnContext(action)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:runOnContext,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,action)
       end
       raise ArgumentError, "Invalid argument action=#{action} when calling run_on_context(action)"
     end
     # @return [String]
     def deployment_id
-      @j_del.deploymentID
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentID))).invoke(@j_del)
     end
     # @return [Hash{String => Object}]
     def config
-      @j_del.config != nil ? JSON.parse(@j_del.config.encode) : nil
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del) != nil ? JSON.parse((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del).encode) : nil
     end
     # @return [Array<String>]
     def process_args
-      @j_del.processArgs.to_a.map { |elt| elt }
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:processArgs))).invoke(@j_del).to_a.map { |elt| elt }
     end
     # @return [true,false]
     def is_event_loop_context
-      @j_del.isEventLoopContext
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEventLoopContext))).invoke(@j_del)
     end
     # @return [true,false]
     def is_worker
-      @j_del.isWorker
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isWorker))).invoke(@j_del)
     end
     # @return [true,false]
     def is_multi_threaded
-      @j_del.isMultiThreaded
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMultiThreaded))).invoke(@j_del)
     end
     # @param [String] key
     # @return [Object]
     def get(key)
       if key.class == String
-        return ::Vertx::Util::Utils.from_object(@j_del.get(key))
+        return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,key))
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
@@ -59,7 +59,7 @@ module Vertx
     def put(key,value)
       if key.class == String
         if value.class == String  ||value.class == Hash || value.class == Array
-          return @j_del.put(key,::Vertx::Util::Utils.to_object(value))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,key,::Vertx::Util::Utils.to_object(value))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling put(key,value)"
       end
@@ -69,7 +69,7 @@ module Vertx
     # @return [true,false]
     def remove(key)
       if key.class == String
-        return @j_del.remove(key)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.String.java_class))).invoke(@j_del,key)
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling remove(key)"
     end

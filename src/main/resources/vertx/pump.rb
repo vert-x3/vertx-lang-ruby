@@ -37,9 +37,9 @@ module Vertx
       if rs.class.method_defined?(:j_del)
         if ws.class.method_defined?(:j_del)
           if writeQueueMaxSize.class == Fixnum
-            return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del,writeQueueMaxSize))
+            return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class))).invoke(@j_del,rs.j_del,ws.j_del,writeQueueMaxSize))
           end
-          return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.pump(rs.j_del,ws.j_del))
+          return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class))).invoke(@j_del,rs.j_del,ws.j_del))
         end
         raise ArgumentError, "Invalid argument ws=#{ws} when calling pump(rs,ws,writeQueueMaxSize)"
       end
@@ -50,7 +50,7 @@ module Vertx
     # return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
-        @j_del.setWriteQueueMaxSize(maxSize)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
@@ -58,19 +58,19 @@ module Vertx
     #  Start the Pump. The Pump can be started and stopped multiple times.
     # return [self]
     def start
-      @j_del.start
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:start))).invoke(@j_del)
       self
     end
     #  Stop the Pump. The Pump can be started and stopped multiple times.
     # return [self]
     def stop
-      @j_del.stop
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:stop))).invoke(@j_del)
       self
     end
     #  Return the total number of items pumped by this pump.
     # @return [Fixnum]
     def number_pumped
-      @j_del.numberPumped
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:numberPumped))).invoke(@j_del)
     end
   end
 end

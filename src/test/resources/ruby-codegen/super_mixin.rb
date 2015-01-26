@@ -4,7 +4,7 @@ module RubyCodegen
   module SuperMixin
     # return [void]
     def super_mixin_method
-      @j_del.superMixinMethod
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
     end
   end
   class SuperMixinImpl

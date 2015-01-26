@@ -33,7 +33,7 @@ module Vertx
       if from.class == String
         if to.class == String
           if handler.class == Proc
-            @j_del.copy(from,to,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:copy,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,from,to,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling copy(from,to,handler)"
@@ -49,7 +49,7 @@ module Vertx
     def copy_blocking(from,to)
       if from.class == String
         if to.class == String
-          @j_del.copyBlocking(from,to)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:copyBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,from,to)
           return self
         end
         raise ArgumentError, "Invalid argument to=#{to} when calling copy_blocking(from,to)"
@@ -70,7 +70,7 @@ module Vertx
         if to.class == String
           if recursive.class == TrueClass || recursive.class == FalseClass
             if handler.class == Proc
-              @j_del.copyRecursive(from,to,recursive,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:copyRecursive,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,from,to,recursive,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument handler=#{handler} when calling copy_recursive(from,to,recursive,handler)"
@@ -90,7 +90,7 @@ module Vertx
       if from.class == String
         if to.class == String
           if recursive.class == TrueClass || recursive.class == FalseClass
-            @j_del.copyRecursiveBlocking(from,to,recursive)
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:copyRecursiveBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::boolean.java_class))).invoke(@j_del,from,to,recursive)
             return self
           end
           raise ArgumentError, "Invalid argument recursive=#{recursive} when calling copy_recursive_blocking(from,to,recursive)"
@@ -109,7 +109,7 @@ module Vertx
       if from.class == String
         if to.class == String
           if handler.class == Proc
-            @j_del.move(from,to,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:move,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,from,to,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling move(from,to,handler)"
@@ -125,7 +125,7 @@ module Vertx
     def move_blocking(from,to)
       if from.class == String
         if to.class == String
-          @j_del.moveBlocking(from,to)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:moveBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,from,to)
           return self
         end
         raise ArgumentError, "Invalid argument to=#{to} when calling move_blocking(from,to)"
@@ -142,7 +142,7 @@ module Vertx
       if path.class == String
         if len.class == Fixnum
           if handler.class == Proc
-            @j_del.truncate(path,len,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:truncate,Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,len,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling truncate(path,len,handler)"
@@ -158,7 +158,7 @@ module Vertx
     def truncate_blocking(path,len)
       if path.class == String
         if len.class == Fixnum
-          @j_del.truncateBlocking(path,len)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:truncateBlocking,Java::java.lang.String.java_class,Java::long.java_class))).invoke(@j_del,path,len)
           return self
         end
         raise ArgumentError, "Invalid argument len=#{len} when calling truncate_blocking(path,len)"
@@ -176,7 +176,7 @@ module Vertx
       if path.class == String
         if perms.class == String
           if handler.class == Proc
-            @j_del.chmod(path,perms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chmod,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,perms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling chmod(path,perms,handler)"
@@ -192,7 +192,7 @@ module Vertx
     def chmod_blocking(path,perms)
       if path.class == String
         if perms.class == String
-          @j_del.chmodBlocking(path,perms)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chmodBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,perms)
           return self
         end
         raise ArgumentError, "Invalid argument perms=#{perms} when calling chmod_blocking(path,perms)"
@@ -214,7 +214,7 @@ module Vertx
         if perms.class == String
           if dirPerms.class == String
             if handler.class == Proc
-              @j_del.chmodRecursive(path,perms,dirPerms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chmodRecursive,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,perms,dirPerms,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument handler=#{handler} when calling chmod_recursive(path,perms,dirPerms,handler)"
@@ -234,7 +234,7 @@ module Vertx
       if path.class == String
         if perms.class == String
           if dirPerms.class == String
-            @j_del.chmodRecursiveBlocking(path,perms,dirPerms)
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chmodRecursiveBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,perms,dirPerms)
             return self
           end
           raise ArgumentError, "Invalid argument dirPerms=#{dirPerms} when calling chmod_recursive_blocking(path,perms,dirPerms)"
@@ -255,7 +255,7 @@ module Vertx
         if user.class == String
           if group.class == String
             if handler.class == Proc
-              @j_del.chown(path,user,group,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chown,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,user,group,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument handler=#{handler} when calling chown(path,user,group,handler)"
@@ -276,7 +276,7 @@ module Vertx
       if path.class == String
         if user.class == String
           if group.class == String
-            @j_del.chownBlocking(path,user,group)
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:chownBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,user,group)
             return self
           end
           raise ArgumentError, "Invalid argument group=#{group} when calling chown_blocking(path,user,group)"
@@ -293,7 +293,7 @@ module Vertx
     def props(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.props(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:props,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling props(path,handler)"
@@ -305,7 +305,7 @@ module Vertx
     # @return [::Vertx::FileProps]
     def props_blocking(path)
       if path.class == String
-        return ::Vertx::FileProps.new(@j_del.propsBlocking(path))
+        return ::Vertx::FileProps.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:propsBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling props_blocking(path)"
     end
@@ -317,7 +317,7 @@ module Vertx
     def lprops(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.lprops(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:lprops,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling lprops(path,handler)"
@@ -329,7 +329,7 @@ module Vertx
     # @return [::Vertx::FileProps]
     def lprops_blocking(path)
       if path.class == String
-        return ::Vertx::FileProps.new(@j_del.lpropsBlocking(path))
+        return ::Vertx::FileProps.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:lpropsBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling lprops_blocking(path)"
     end
@@ -342,7 +342,7 @@ module Vertx
       if link.class == String
         if existing.class == String
           if handler.class == Proc
-            @j_del.link(link,existing,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:link,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,link,existing,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling link(link,existing,handler)"
@@ -358,7 +358,7 @@ module Vertx
     def link_blocking(link,existing)
       if link.class == String
         if existing.class == String
-          @j_del.linkBlocking(link,existing)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:linkBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,link,existing)
           return self
         end
         raise ArgumentError, "Invalid argument existing=#{existing} when calling link_blocking(link,existing)"
@@ -374,7 +374,7 @@ module Vertx
       if link.class == String
         if existing.class == String
           if handler.class == Proc
-            @j_del.symlink(link,existing,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:symlink,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,link,existing,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling symlink(link,existing,handler)"
@@ -390,7 +390,7 @@ module Vertx
     def symlink_blocking(link,existing)
       if link.class == String
         if existing.class == String
-          @j_del.symlinkBlocking(link,existing)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:symlinkBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,link,existing)
           return self
         end
         raise ArgumentError, "Invalid argument existing=#{existing} when calling symlink_blocking(link,existing)"
@@ -404,7 +404,7 @@ module Vertx
     def unlink(link,&handler)
       if link.class == String
         if handler.class == Proc
-          @j_del.unlink(link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unlink,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling unlink(link,handler)"
@@ -416,7 +416,7 @@ module Vertx
     # return [self]
     def unlink_blocking(link)
       if link.class == String
-        @j_del.unlinkBlocking(link)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unlinkBlocking,Java::java.lang.String.java_class))).invoke(@j_del,link)
         return self
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling unlink_blocking(link)"
@@ -428,7 +428,7 @@ module Vertx
     def read_symlink(link,&handler)
       if link.class == String
         if handler.class == Proc
-          @j_del.readSymlink(link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readSymlink,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,link,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling read_symlink(link,handler)"
@@ -440,7 +440,7 @@ module Vertx
     # @return [String]
     def read_symlink_blocking(link)
       if link.class == String
-        return @j_del.readSymlinkBlocking(link)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readSymlinkBlocking,Java::java.lang.String.java_class))).invoke(@j_del,link)
       end
       raise ArgumentError, "Invalid argument link=#{link} when calling read_symlink_blocking(link)"
     end
@@ -451,7 +451,7 @@ module Vertx
     def delete(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.delete(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling delete(path,handler)"
@@ -463,7 +463,7 @@ module Vertx
     # return [self]
     def delete_blocking(path)
       if path.class == String
-        @j_del.deleteBlocking(path)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deleteBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path)
         return self
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling delete_blocking(path)"
@@ -479,7 +479,7 @@ module Vertx
       if path.class == String
         if recursive.class == TrueClass || recursive.class == FalseClass
           if handler.class == Proc
-            @j_del.deleteRecursive(path,recursive,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deleteRecursive,Java::java.lang.String.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,recursive,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling delete_recursive(path,recursive,handler)"
@@ -495,7 +495,7 @@ module Vertx
     def delete_recursive_blocking(path,recursive)
       if path.class == String
         if recursive.class == TrueClass || recursive.class == FalseClass
-          @j_del.deleteRecursiveBlocking(path,recursive)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deleteRecursiveBlocking,Java::java.lang.String.java_class,Java::boolean.java_class))).invoke(@j_del,path,recursive)
           return self
         end
         raise ArgumentError, "Invalid argument recursive=#{recursive} when calling delete_recursive_blocking(path,recursive)"
@@ -518,12 +518,12 @@ module Vertx
     def mkdir(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.mkdir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdir,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.mkdir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdir,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument param_3=#{param_3} when calling mkdir(param_1,param_2,param_3)"
@@ -539,10 +539,10 @@ module Vertx
     def mkdir_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
-          @j_del.mkdirBlocking(path,perms)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,perms)
           return self
         end
-        @j_del.mkdirBlocking(path)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path)
         return self
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdir_blocking(path,perms)"
@@ -565,12 +565,12 @@ module Vertx
     def mkdirs(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.mkdirs(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.mkdirs(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirs,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument param_3=#{param_3} when calling mkdirs(param_1,param_2,param_3)"
@@ -586,10 +586,10 @@ module Vertx
     def mkdirs_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
-          @j_del.mkdirsBlocking(path,perms)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirsBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,perms)
           return self
         end
-        @j_del.mkdirsBlocking(path)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mkdirsBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path)
         return self
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdirs_blocking(path,perms)"
@@ -609,12 +609,12 @@ module Vertx
     def read_dir(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.readDir(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readDir,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.readDir(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readDir,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument param_3=#{param_3} when calling read_dir(param_1,param_2,param_3)"
@@ -630,9 +630,9 @@ module Vertx
     def read_dir_blocking(path,filter=nil)
       if path.class == String
         if filter.class == String
-          return @j_del.readDirBlocking(path,filter).to_a.map { |elt| elt }
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readDirBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,filter).to_a.map { |elt| elt }
         end
-        return @j_del.readDirBlocking(path).to_a.map { |elt| elt }
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readDirBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path).to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_dir_blocking(path,filter)"
     end
@@ -644,7 +644,7 @@ module Vertx
     def read_file(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.readFile(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Buffer.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Buffer.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling read_file(path,handler)"
@@ -656,7 +656,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def read_file_blocking(path)
       if path.class == String
-        return ::Vertx::Buffer.new(@j_del.readFileBlocking(path))
+        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:readFileBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling read_file_blocking(path)"
     end
@@ -670,7 +670,7 @@ module Vertx
       if path.class == String
         if data.class.method_defined?(:j_del)
           if handler.class == Proc
-            @j_del.writeFile(path,data.j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeFile,Java::java.lang.String.java_class,Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,data.j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling write_file(path,data,handler)"
@@ -686,7 +686,7 @@ module Vertx
     def write_file_blocking(path,data)
       if path.class == String
         if data.class.method_defined?(:j_del)
-          @j_del.writeFileBlocking(path,data.j_del)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeFileBlocking,Java::java.lang.String.java_class,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,path,data.j_del)
           return self
         end
         raise ArgumentError, "Invalid argument data=#{data} when calling write_file_blocking(path,data)"
@@ -704,7 +704,7 @@ module Vertx
       if path.class == String
         if options.class == Hash
           if handler.class == Proc
-            @j_del.open(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:open,Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling open(path,options,handler)"
@@ -720,7 +720,7 @@ module Vertx
     def open_blocking(path,options)
       if path.class == String
         if options.class == Hash
-          return ::Vertx::AsyncFile.new(@j_del.openBlocking(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+          return ::Vertx::AsyncFile.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:openBlocking,Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class))).invoke(@j_del,path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))))
         end
         raise ArgumentError, "Invalid argument options=#{options} when calling open_blocking(path,options)"
       end
@@ -738,12 +738,12 @@ module Vertx
     def create_file(param_1,param_2,&param_3)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.createFile(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.createFile(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createFile,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument param_3=#{param_3} when calling create_file(param_1,param_2,param_3)"
@@ -759,10 +759,10 @@ module Vertx
     def create_file_blocking(path,perms=nil)
       if path.class == String
         if perms.class == String
-          @j_del.createFileBlocking(path,perms)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createFileBlocking,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,path,perms)
           return self
         end
-        @j_del.createFileBlocking(path)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createFileBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path)
         return self
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling create_file_blocking(path,perms)"
@@ -774,7 +774,7 @@ module Vertx
     def exists(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.exists(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exists,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling exists(path,handler)"
@@ -786,7 +786,7 @@ module Vertx
     # @return [true,false]
     def exists_blocking(path)
       if path.class == String
-        return @j_del.existsBlocking(path)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:existsBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path)
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling exists_blocking(path)"
     end
@@ -797,7 +797,7 @@ module Vertx
     def fs_props(path,&handler)
       if path.class == String
         if handler.class == Proc
-          @j_del.fsProps(path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileSystemProps.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fsProps,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,path,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileSystemProps.new(ar.result) : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling fs_props(path,handler)"
@@ -809,7 +809,7 @@ module Vertx
     # @return [::Vertx::FileSystemProps]
     def fs_props_blocking(path)
       if path.class == String
-        return ::Vertx::FileSystemProps.new(@j_del.fsPropsBlocking(path))
+        return ::Vertx::FileSystemProps.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fsPropsBlocking,Java::java.lang.String.java_class))).invoke(@j_del,path))
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling fs_props_blocking(path)"
     end

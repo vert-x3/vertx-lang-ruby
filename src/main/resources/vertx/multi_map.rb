@@ -19,7 +19,7 @@ module Vertx
     # @return [String]
     def get(name)
       if name.class == String
-        return @j_del.get(name)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,name)
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get(name)"
     end
@@ -28,7 +28,7 @@ module Vertx
     # @return [Array<String>]
     def get_all(name)
       if name.class == String
-        return @j_del.getAll(name).to_a.map { |elt| elt }
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAll,Java::java.lang.String.java_class))).invoke(@j_del,name).to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_all(name)"
     end
@@ -37,19 +37,19 @@ module Vertx
     # @return [true,false]
     def contains(name)
       if name.class == String
-        return @j_del.contains(name)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:contains,Java::java.lang.String.java_class))).invoke(@j_del,name)
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling contains(name)"
     end
     #  Return true if empty
     # @return [true,false]
     def is_empty
-      @j_del.isEmpty
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
     end
     #  Gets a immutable null of all names
     # @return [Set<String>]
     def names
-      @j_del.names.to_set.map! { |elt| elt }
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:names))).invoke(@j_del).to_set.map! { |elt| elt }
     end
     #  Adds a new value with the specified name and value.
     # @param [String] name
@@ -58,7 +58,7 @@ module Vertx
     def add(name,value)
       if name.class == String
         if value.class == String
-          @j_del.add(name,value)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:add,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
           return self
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling add(name,value)"
@@ -70,7 +70,7 @@ module Vertx
     # return [self]
     def add_all(map)
       if map.class.method_defined?(:j_del)
-        @j_del.addAll(map.j_del)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:addAll,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,map.j_del)
         return self
       end
       raise ArgumentError, "Invalid argument map=#{map} when calling add_all(map)"
@@ -84,7 +84,7 @@ module Vertx
     def set(name,value)
       if name.class == String
         if value.class == String
-          @j_del.set(name,value)
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:set,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
           return self
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling set(name,value)"
@@ -96,7 +96,7 @@ module Vertx
     # return [self]
     def set_all(map)
       if map.class.method_defined?(:j_del)
-        @j_del.setAll(map.j_del)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setAll,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,map.j_del)
         return self
       end
       raise ArgumentError, "Invalid argument map=#{map} when calling set_all(map)"
@@ -106,7 +106,7 @@ module Vertx
     # return [self]
     def remove(name)
       if name.class == String
-        @j_del.remove(name)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.String.java_class))).invoke(@j_del,name)
         return self
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling remove(name)"
@@ -114,13 +114,13 @@ module Vertx
     #  Removes all
     # return [self]
     def clear
-      @j_del.clear
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:clear))).invoke(@j_del)
       self
     end
     #  Return the number of names.
     # @return [Fixnum]
     def size
-      @j_del.size
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
     end
   end
 end

@@ -30,12 +30,12 @@ module Vertx
     #  The metric base name
     # @return [String]
     def metric_base_name
-      @j_del.metricBaseName
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
     # @return [Hash{String => Hash{String => Object}}]
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Write the given  to the {::Vertx::SocketAddress} using the given encoding. The  will be notified once the
     #  write completes.
@@ -61,7 +61,7 @@ module Vertx
         if param_2.class == Fixnum
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.send(param_1.j_del,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1.j_del,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -75,7 +75,7 @@ module Vertx
           if param_3.class == Fixnum
             if param_4.class == String
               if param_5.class == Proc
-                @j_del.send(param_1,param_2,param_3,param_4,(Proc.new { |ar| param_5.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+                (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4,(Proc.new { |ar| param_5.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
                 return self
               end
               raise ArgumentError, "Invalid argument param_5=#{param_5} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -87,7 +87,7 @@ module Vertx
         if param_2.class == Fixnum
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.send(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling send(param_1,param_2,param_3,param_4,param_5)"
@@ -105,7 +105,7 @@ module Vertx
     def sender(port,host)
       if port.class == Fixnum
         if host.class == String
-          return ::Vertx::PacketWritestream.new(@j_del.sender(port,host))
+          return ::Vertx::PacketWritestream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sender,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,port,host))
         end
         raise ArgumentError, "Invalid argument host=#{host} when calling sender(port,host)"
       end
@@ -116,9 +116,9 @@ module Vertx
     # return [void]
     def close(&handler)
       if handler.class == Proc
-        return @j_del.close((Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
       end
-      @j_del.close
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
     #  Return the {::Vertx::SocketAddress} to which this {::Vertx::DatagramSocket} is bound too.
     # @return [::Vertx::SocketAddress]
@@ -126,7 +126,7 @@ module Vertx
       if @cached_local_address != nil
         return @cached_local_address
       end
-      @cached_local_address = ::Vertx::SocketAddress.new(@j_del.localAddress)
+      @cached_local_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localAddress))).invoke(@j_del))
     end
     #  Joins a multicast group and so start listen for packets send to it on the given network interface.
     #  The  is notified once the operation completes.
@@ -142,13 +142,13 @@ module Vertx
     def listen_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.listenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listenMulticastGroup,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.listenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listenMulticastGroup,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling listen_multicast_group(param_1,param_2,param_3,param_4)"
@@ -173,13 +173,13 @@ module Vertx
     def unlisten_multicast_group(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
-          @j_del.unlistenMulticastGroup(param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unlistenMulticastGroup,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
           return self
         end
         if param_2.class == String
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.unlistenMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unlistenMulticastGroup,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling unlisten_multicast_group(param_1,param_2,param_3,param_4)"
@@ -206,12 +206,12 @@ module Vertx
       if param_1.class == String
         if param_2.class == String
           if param_3.class == Proc
-            @j_del.blockMulticastGroup(param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:blockMulticastGroup,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
             return self
           end
           if param_3.class == String
             if param_4.class == Proc
-              @j_del.blockMulticastGroup(param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+              (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:blockMulticastGroup,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |ar| param_4.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
               return self
             end
             raise ArgumentError, "Invalid argument param_4=#{param_4} when calling block_multicast_group(param_1,param_2,param_3,param_4)"
@@ -230,7 +230,7 @@ module Vertx
       if port.class == Fixnum
         if host.class == String
           if handler.class == Proc
-            @j_del.listen(port,host,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument handler=#{handler} when calling listen(port,host,handler)"
@@ -241,19 +241,19 @@ module Vertx
     end
     # return [self]
     def pause
-      @j_del.pause
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
     # return [self]
     def resume
-      @j_del.resume
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
-        @j_del.endHandler(endHandler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
         return self
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
@@ -262,7 +262,7 @@ module Vertx
     # return [self]
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(::Vertx::DatagramPacket.new(event)) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::DatagramPacket.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -271,7 +271,7 @@ module Vertx
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"

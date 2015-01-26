@@ -15,13 +15,13 @@ module Testmodel
     end
     # @return [String]
     def get_string
-      @j_del.getString
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString))).invoke(@j_del)
     end
     # @param [String] str
     # return [self]
     def set_string(str)
       if str.class == String
-        @j_del.setString(str)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::java.lang.String.java_class))).invoke(@j_del,str)
         return self
       end
       raise ArgumentError, "Invalid argument str=#{str} when calling set_string(str)"

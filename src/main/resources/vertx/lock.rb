@@ -15,7 +15,7 @@ module Vertx
     end
     # return [void]
     def release
-      @j_del.release
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:release))).invoke(@j_del)
     end
   end
 end

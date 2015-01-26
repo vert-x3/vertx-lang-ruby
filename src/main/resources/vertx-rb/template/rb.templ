@@ -136,7 +136,19 @@
    * @param type the type
    */
   def genJavaClassFqn(type) {
-    return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
+    var kind = type.getKind();
+    if (kind == CLASS_PRIMITIVE) {
+      return "Java::" + type.simpleName;
+    } else if (kind == CLASS_STRING) {
+      return "Java::java.lang.String";
+    } else if (kind == CLASS_HANDLER) {
+      return "Java::IoVertxCore::Handler";
+    } else if (kind == CLASS_OBJECT) {
+      return "Java::java.lang.Object";
+    } else {
+      type = type.raw;
+      return  "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.packageName)) + "::" + type.simpleName;
+    }
   }
 
   /* Ruby reserved words */
@@ -232,20 +244,23 @@
    * @param params the parameter names to use
    */
   def genMethodCall(method,params) {
-    var s = "";
+    var args = "(@j_del";
+    var signature = "(:" + method.getName();
     var index = 1;
     if (method.params.size() > 0) {
-      s = "";
       for (param : method.params) {
-        if (s.length() > 0) {
-          s += ",";
-        }
-        s += genConvParam(param.type, params[index - 1]);
+        args += ",";
+        signature += ",";
+        args += genConvParam(param.type, params[index - 1]);
+        signature += genJavaClassFqn(param.type) + ".java_class";
         index += 1;
       }
-      s = "(" + s + ")";
     }
-    return (method.staticMethod ? genJavaClassFqn(type.raw) : "@j_del") + "." + method.getName() + s;
+    args += ")";
+    signature += ")";
+    return "(Java::IoVertxLangJruby::Helper.fixJavaMethod(" + (method.staticMethod ? genJavaClassFqn(type) : "@j_del") +
+       ".java_class.declared_method" + signature +
+       ")).invoke" + args;
   }
 
   /*

@@ -22,7 +22,7 @@ module Vertx
     def lookup(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.lookup(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:lookup,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling lookup(name,handler)"
@@ -36,7 +36,7 @@ module Vertx
     def lookup4(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.lookup4(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:lookup4,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling lookup4(name,handler)"
@@ -50,7 +50,7 @@ module Vertx
     def lookup6(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.lookup6(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:lookup6,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling lookup6(name,handler)"
@@ -64,7 +64,7 @@ module Vertx
     def resolve_a(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveA(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveA,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_a(name,handler)"
@@ -78,7 +78,7 @@ module Vertx
     def resolve_aaaa(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveAAAA(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveAAAA,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_aaaa(name,handler)"
@@ -92,7 +92,7 @@ module Vertx
     def resolve_cname(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveCNAME(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveCNAME,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_cname(name,handler)"
@@ -106,7 +106,7 @@ module Vertx
     def resolve_mx(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveMX(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::MxRecord.new(elt) } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveMX,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::MxRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_mx(name,handler)"
@@ -120,7 +120,7 @@ module Vertx
     def resolve_txt(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveTXT(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveTXT,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_txt(name,handler)"
@@ -134,7 +134,7 @@ module Vertx
     def resolve_ptr(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolvePTR(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolvePTR,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_ptr(name,handler)"
@@ -148,7 +148,7 @@ module Vertx
     def resolve_ns(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveNS(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveNS,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_ns(name,handler)"
@@ -162,7 +162,7 @@ module Vertx
     def resolve_srv(name,&handler)
       if name.class == String
         if handler.class == Proc
-          @j_del.resolveSRV(name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::SrvRecord.new(elt) } : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resolveSRV,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::SrvRecord.new(elt) } : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling resolve_srv(name,handler)"
@@ -177,7 +177,7 @@ module Vertx
     def reverse_lookup(ipaddress,&handler)
       if ipaddress.class == String
         if handler.class == Proc
-          @j_del.reverseLookup(ipaddress,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reverseLookup,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,ipaddress,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           return self
         end
         raise ArgumentError, "Invalid argument handler=#{handler} when calling reverse_lookup(ipaddress,handler)"

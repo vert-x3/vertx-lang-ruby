@@ -22,15 +22,15 @@ module RubyCodegen
     # return [void]
     def method(param_1=nil,param_2=nil)
       if param_1.class == String
-        return @j_del.method(param_1)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
       end
       if param_1.class == Fixnum
         if param_2.class == TrueClass || param_2.class == FalseClass
-          return @j_del.method(param_1,param_2)
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::int.java_class,Java::boolean.java_class))).invoke(@j_del,param_1,param_2)
         end
         raise ArgumentError, "Invalid argument param_2=#{param_2} when calling method(param_1,param_2)"
       end
-      @j_del.method
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
     end
   end
 end

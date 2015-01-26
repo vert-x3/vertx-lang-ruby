@@ -20,13 +20,13 @@ module Vertx
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::PacketWritestream#set_write_queue_max_size}
     # @return [true,false]
     def write_queue_full
-      @j_del.writeQueueFull
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
@@ -35,7 +35,7 @@ module Vertx
     # return [self]
     def write(data)
       if data.class.method_defined?(:j_del)
-        @j_del.write(data.j_del)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,data.j_del)
         return self
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
@@ -44,7 +44,7 @@ module Vertx
     # return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
-        @j_del.setWriteQueueMaxSize(maxSize)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
@@ -53,7 +53,7 @@ module Vertx
     # return [self]
     def drain_handler(&handler)
       if handler.class == Proc
-        @j_del.drainHandler(handler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"

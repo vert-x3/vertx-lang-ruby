@@ -26,19 +26,19 @@ module Vertx
     #  The metric base name
     # @return [String]
     def metric_base_name
-      @j_del.metricBaseName
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
     # @return [Hash{String => Hash{String => Object}}]
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Return the connect stream for this server. The server can only have at most one handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
     #  connect stream .
     # @return [::Vertx::NetSocketStream]
     def connect_stream
-      ::Vertx::NetSocketStream.new(@j_del.connectStream)
+      ::Vertx::NetSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectStream))).invoke(@j_del))
     end
     #  Supply a connect handler for this server. The server can only have at most one connect handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
@@ -47,7 +47,7 @@ module Vertx
     # @return [::Vertx::NetServer]
     def connect_handler(&handler)
       if handler.class == Proc
-        return ::Vertx::NetServer.new(@j_del.connectHandler((Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) })))
+        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) })))
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling connect_handler(handler)"
     end
@@ -56,10 +56,10 @@ module Vertx
     # return [self]
     def listen(&listenHandler)
       if listenHandler.class == Proc
-        @j_del.listen((Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
-      @j_del.listen
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
       self
     end
     #  Close the server. This will close any currently open connections. The event handler <code>done</code> will be called
@@ -68,15 +68,15 @@ module Vertx
     # return [void]
     def close(&completionHandler)
       if completionHandler.class == Proc
-        return @j_del.close((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
-      @j_del.close
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
     #  The actual port the server is listening on. This is useful if you bound the server specifying 0 as port number
     #  signifying an ephemeral port
     # @return [Fixnum]
     def actual_port
-      @j_del.actualPort
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:actualPort))).invoke(@j_del)
     end
   end
 end

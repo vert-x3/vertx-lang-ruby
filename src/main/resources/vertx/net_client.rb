@@ -28,12 +28,12 @@ module Vertx
     #  The metric base name
     # @return [String]
     def metric_base_name
-      @j_del.metricBaseName
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
     # @return [Hash{String => Hash{String => Object}}]
     def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.metrics, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+      Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Attempt to open a connection to a server at the specific <code>port</code> and <code>host</code>.
     #  <code>host</code> can be a valid host name or IP address. The connect is done asynchronously and on success, a
@@ -46,7 +46,7 @@ module Vertx
       if port.class == Fixnum
         if host.class == String
           if connectHandler.class == Proc
-            @j_del.connect(port,host,(Proc.new { |ar| connectHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetSocket.new(ar.result) : nil) }))
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connect,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| connectHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetSocket.new(ar.result) : nil) }))
             return self
           end
           raise ArgumentError, "Invalid argument connectHandler=#{connectHandler} when calling connect(port,host,connectHandler)"
@@ -58,7 +58,7 @@ module Vertx
     #  Close the client. Any sockets which have not been closed manually will be closed here.
     # return [void]
     def close
-      @j_del.close
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
   end
 end

@@ -6,11 +6,11 @@ module RubyCodegen
     include ::RubyCodegen::SuperMixin
     # return [void]
     def super_mixin_method
-      @j_del.superMixinMethod
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
     end
     # return [void]
     def mixin_method
-      @j_del.mixinMethod
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mixinMethod))).invoke(@j_del)
     end
   end
   class MixinImpl

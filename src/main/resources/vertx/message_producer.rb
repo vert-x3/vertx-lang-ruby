@@ -18,13 +18,13 @@ module Vertx
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::MessageProducer#set_write_queue_max_size}
     # @return [true,false]
     def write_queue_full
-      @j_del.writeQueueFull
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
     # @param [Proc] handler
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
@@ -33,7 +33,7 @@ module Vertx
     # return [self]
     def write(data)
       if data.class == String  ||data.class == Hash || data.class == Array
-        @j_del.write(::Vertx::Util::Utils.to_object(data))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(data))
         return self
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
@@ -42,7 +42,7 @@ module Vertx
     # return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
-        @j_del.setWriteQueueMaxSize(maxSize)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
@@ -51,7 +51,7 @@ module Vertx
     # return [self]
     def drain_handler(&handler)
       if handler.class == Proc
-        @j_del.drainHandler(handler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
@@ -61,7 +61,7 @@ module Vertx
     # return [self]
     def delivery_options(options)
       if options.class == Hash
-        @j_del.deliveryOptions(Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deliveryOptions,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
       raise ArgumentError, "Invalid argument options=#{options} when calling delivery_options(options)"
@@ -69,7 +69,7 @@ module Vertx
     #  @return The address to which the producer produces messages.
     # @return [String]
     def address
-      @j_del.address
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
     end
   end
 end

@@ -17,7 +17,7 @@ module Vertx
     # return [void]
     def get(&resultHandler)
       if resultHandler.class == Proc
-        return @j_del.get((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get(resultHandler)"
     end
@@ -25,7 +25,7 @@ module Vertx
     # return [void]
     def increment_and_get(&resultHandler)
       if resultHandler.class == Proc
-        return @j_del.incrementAndGet((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:incrementAndGet,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling increment_and_get(resultHandler)"
     end
@@ -33,7 +33,7 @@ module Vertx
     # return [void]
     def get_and_increment(&resultHandler)
       if resultHandler.class == Proc
-        return @j_del.getAndIncrement((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAndIncrement,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get_and_increment(resultHandler)"
     end
@@ -41,7 +41,7 @@ module Vertx
     # return [void]
     def decrement_and_get(&resultHandler)
       if resultHandler.class == Proc
-        return @j_del.decrementAndGet((Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:decrementAndGet,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling decrement_and_get(resultHandler)"
     end
@@ -51,7 +51,7 @@ module Vertx
     def add_and_get(value,&resultHandler)
       if value.class == Fixnum
         if resultHandler.class == Proc
-          return @j_del.addAndGet(value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:addAndGet,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling add_and_get(value,resultHandler)"
       end
@@ -63,7 +63,7 @@ module Vertx
     def get_and_add(value,&resultHandler)
       if value.class == Fixnum
         if resultHandler.class == Proc
-          return @j_del.getAndAdd(value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAndAdd,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         end
         raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling get_and_add(value,resultHandler)"
       end
@@ -77,7 +77,7 @@ module Vertx
       if expected.class == Fixnum
         if value.class == Fixnum
           if resultHandler.class == Proc
-            return @j_del.compareAndSet(expected,value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:compareAndSet,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,expected,value,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
           end
           raise ArgumentError, "Invalid argument resultHandler=#{resultHandler} when calling compare_and_set(expected,value,resultHandler)"
         end

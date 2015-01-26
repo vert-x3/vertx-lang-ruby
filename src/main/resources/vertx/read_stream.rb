@@ -8,7 +8,7 @@ module Vertx
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
@@ -18,7 +18,7 @@ module Vertx
     # return [self]
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
@@ -26,13 +26,13 @@ module Vertx
     #  Pause the <code>ReadSupport</code>. While it's paused, no data will be sent to the <code>dataHandler</code>
     # return [self]
     def pause
-      @j_del.pause
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
     #  Resume reading. If the <code>ReadSupport</code> has been paused, reading will recommence on it.
     # return [self]
     def resume
-      @j_del.resume
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     #  Set an end handler. Once the stream has ended, and there is no more data to be read, this handler will be called.
@@ -40,7 +40,7 @@ module Vertx
     # return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
-        @j_del.endHandler(endHandler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
         return self
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"

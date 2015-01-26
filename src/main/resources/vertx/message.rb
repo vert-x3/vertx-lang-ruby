@@ -17,11 +17,11 @@ module Vertx
     #  The address the message was sent to
     # @return [String]
     def address
-      @j_del.address
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
     end
     # @return [::Vertx::MultiMap]
     def headers
-      ::Vertx::MultiMap.new(@j_del.headers)
+      ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
     #  The body of the message
     # @return [Object]
@@ -29,12 +29,12 @@ module Vertx
       if @cached_body != nil
         return @cached_body
       end
-      @cached_body = ::Vertx::Util::Utils.from_object(@j_del.body)
+      @cached_body = ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:body))).invoke(@j_del))
     end
     #  The reply address (if any)
     # @return [String]
     def reply_address
-      @j_del.replyAddress
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replyAddress))).invoke(@j_del)
     end
     #  The same as <code>reply(R message)</code> but you can specify handler for the reply - i.e.
     #  to receive the reply to the reply.
@@ -55,14 +55,14 @@ module Vertx
       if param_1.class == String  ||param_1.class == Hash || param_1.class == Array
         if param_2.class == Hash
           if param_3.class == Proc
-            return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
           end
-          return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
         end
         if param_2.class == Proc
-          return @j_del.reply(::Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
         end
-        return @j_del.reply(::Vertx::Util::Utils.to_object(param_1))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1))
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling reply(param_1,param_2,param_3)"
     end
@@ -74,7 +74,7 @@ module Vertx
     def fail(failureCode,message)
       if failureCode.class == Fixnum
         if message.class == String
-          return @j_del.fail(failureCode,message)
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fail,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,failureCode,message)
         end
         raise ArgumentError, "Invalid argument message=#{message} when calling fail(failureCode,message)"
       end

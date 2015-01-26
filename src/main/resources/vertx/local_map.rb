@@ -17,7 +17,7 @@ module Vertx
     # @return [Object]
     def get(key)
       if key.class == String  ||key.class == Hash || key.class == Array
-        return ::Vertx::Util::Utils.from_object(@j_del.get(::Vertx::Util::Utils.to_object(key)))
+        return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
@@ -27,7 +27,7 @@ module Vertx
     def put(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
-          return ::Vertx::Util::Utils.from_object(@j_del.put(::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
+          return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling put(key,value)"
       end
@@ -37,21 +37,21 @@ module Vertx
     # @return [Object]
     def remove(key)
       if key.class == String  ||key.class == Hash || key.class == Array
-        return ::Vertx::Util::Utils.from_object(@j_del.remove(::Vertx::Util::Utils.to_object(key)))
+        return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling remove(key)"
     end
     # return [void]
     def clear
-      @j_del.clear
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:clear))).invoke(@j_del)
     end
     # @return [Fixnum]
     def size
-      @j_del.size
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
     end
     # @return [true,false]
     def is_empty
-      @j_del.isEmpty
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
     end
     # @param [Object] key
     # @param [Object] value
@@ -59,7 +59,7 @@ module Vertx
     def put_if_absent(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
-          return ::Vertx::Util::Utils.from_object(@j_del.putIfAbsent(::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
+          return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putIfAbsent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling put_if_absent(key,value)"
       end
@@ -71,7 +71,7 @@ module Vertx
     def remove_if_present(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
-          return @j_del.removeIfPresent(::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value))
+          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:removeIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling remove_if_present(key,value)"
       end
@@ -85,7 +85,7 @@ module Vertx
       if key.class == String  ||key.class == Hash || key.class == Array
         if oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array
           if newValue.class == String  ||newValue.class == Hash || newValue.class == Array
-            return @j_del.replaceIfPresent(::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(oldValue),::Vertx::Util::Utils.to_object(newValue))
+            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replaceIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(oldValue),::Vertx::Util::Utils.to_object(newValue))
           end
           raise ArgumentError, "Invalid argument newValue=#{newValue} when calling replace_if_present(key,oldValue,newValue)"
         end
@@ -99,7 +99,7 @@ module Vertx
     def replace(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
-          return ::Vertx::Util::Utils.from_object(@j_del.replace(::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
+          return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replace,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
         end
         raise ArgumentError, "Invalid argument value=#{value} when calling replace(key,value)"
       end
@@ -107,7 +107,7 @@ module Vertx
     end
     # return [void]
     def close
-      @j_del.close
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
   end
 end

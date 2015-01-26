@@ -17,9 +17,9 @@ module RubyCodegen
     # return [void]
     def method(options=nil)
       if options.class == Hash
-        return @j_del.method(Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::IoVertxCore::DeploymentOptions.java_class))).invoke(@j_del,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       end
-      @j_del.method
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
     end
   end
 end

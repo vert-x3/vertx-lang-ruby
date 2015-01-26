@@ -17,17 +17,17 @@ module Vertx
     #  The total space on the file system, in bytes
     # @return [Fixnum]
     def total_space
-      @j_del.totalSpace
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:totalSpace))).invoke(@j_del)
     end
     #  The total un-allocated space on the file system, in bytes
     # @return [Fixnum]
     def unallocated_space
-      @j_del.unallocatedSpace
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unallocatedSpace))).invoke(@j_del)
     end
     #  The total usable space on the file system, in bytes
     # @return [Fixnum]
     def usable_space
-      @j_del.usableSpace
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:usableSpace))).invoke(@j_del)
     end
   end
 end

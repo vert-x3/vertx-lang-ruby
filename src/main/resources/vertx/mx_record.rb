@@ -16,12 +16,12 @@ module Vertx
     #  The priority of the MX record.
     # @return [Fixnum]
     def priority
-      @j_del.priority
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
     end
     #  The name of the MX record
     # @return [String]
     def name
-      @j_del.name
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
     end
   end
 end

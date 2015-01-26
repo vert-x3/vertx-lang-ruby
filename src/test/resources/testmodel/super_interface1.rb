@@ -33,7 +33,7 @@ module Testmodel
                   if bool.class == TrueClass || bool.class == FalseClass
                     if ch.class == Fixnum
                       if str.class == String
-                        return @j_del.superMethodWithBasicParams(::Vertx::Util::Utils.to_byte(b),::Vertx::Util::Utils.to_short(s),i,l,::Vertx::Util::Utils.to_float(f),::Vertx::Util::Utils.to_double(d),bool,ch,str)
+                        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMethodWithBasicParams,Java::byte.java_class,Java::short.java_class,Java::int.java_class,Java::long.java_class,Java::float.java_class,Java::double.java_class,Java::boolean.java_class,Java::char.java_class,Java::java.lang.String.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_byte(b),::Vertx::Util::Utils.to_short(s),i,l,::Vertx::Util::Utils.to_float(f),::Vertx::Util::Utils.to_double(d),bool,ch,str)
                       end
                       raise ArgumentError, "Invalid argument str=#{str} when calling super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
                     end

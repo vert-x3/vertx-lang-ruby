@@ -24,7 +24,7 @@ module Vertx
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
@@ -33,26 +33,26 @@ module Vertx
     # return [self]
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     # return [self]
     def pause
-      @j_del.pause
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
     # return [self]
     def resume
-      @j_del.resume
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
-        @j_del.endHandler(endHandler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
         return self
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
@@ -61,7 +61,7 @@ module Vertx
     #  argument.
     # return [void]
     def cancel
-      @j_del.cancel
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cancel))).invoke(@j_del)
     end
   end
 end

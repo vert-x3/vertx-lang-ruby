@@ -23,15 +23,15 @@ module RubyCodegen
         if bar.class == String
           if juu.class == String
             if daa.class == String
-              return @j_del.method(foo,bar,juu,daa)
+              return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu,daa)
             end
-            return @j_del.method(foo,bar,juu)
+            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu)
           end
           raise ArgumentError, "Invalid argument juu=#{juu} when calling method(foo,bar,juu,daa)"
         end
-        return @j_del.method(foo)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class))).invoke(@j_del,foo)
       end
-      @j_del.method
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
     end
   end
 end

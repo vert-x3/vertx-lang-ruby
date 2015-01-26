@@ -28,7 +28,7 @@ module Vertx
     # return [self]
     def exception_handler(&handler)
       if handler.class == Proc
-        @j_del.exceptionHandler((Proc.new { |event| handler.call(event) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
@@ -37,26 +37,26 @@ module Vertx
     # return [self]
     def handler(&handler)
       if handler.class == Proc
-        @j_del.handler((Proc.new { |event| handler.call(::Vertx::Message.new(event)) }))
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Message.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
     # return [self]
     def pause
-      @j_del.pause
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
     # return [self]
     def resume
-      @j_del.resume
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
     # return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
-        @j_del.endHandler(endHandler)
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
         return self
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
@@ -64,17 +64,17 @@ module Vertx
     #  @return a read stream for the body of the message stream.
     # @return [::Vertx::ReadStream]
     def body_stream
-      ::Vertx::ReadStreamImpl.new(@j_del.bodyStream)
+      ::Vertx::ReadStreamImpl.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyStream))).invoke(@j_del))
     end
     #  @return true if the current consumer is registered
     # @return [true,false]
     def is_registered
-      @j_del.isRegistered
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isRegistered))).invoke(@j_del)
     end
     #  @return The address the handler was registered with.
     # @return [String]
     def address
-      @j_del.address
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
     end
     #  Set the number of messages this registration will buffer when this stream is paused. The default
     #  value is <code>0</code>. When a new value is set, buffered messages may be discarded to reach
@@ -83,21 +83,21 @@ module Vertx
     # @return [::Vertx::MessageConsumer]
     def set_max_buffered_messages(maxBufferedMessages)
       if maxBufferedMessages.class == Fixnum
-        return ::Vertx::MessageConsumer.new(@j_del.setMaxBufferedMessages(maxBufferedMessages))
+        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setMaxBufferedMessages,Java::int.java_class))).invoke(@j_del,maxBufferedMessages))
       end
       raise ArgumentError, "Invalid argument maxBufferedMessages=#{maxBufferedMessages} when calling set_max_buffered_messages(maxBufferedMessages)"
     end
     #  @return the maximum number of messages that can be buffered when this stream is paused
     # @return [Fixnum]
     def get_max_buffered_messages
-      @j_del.getMaxBufferedMessages
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getMaxBufferedMessages))).invoke(@j_del)
     end
     #  Optional method which can be called to indicate when the registration has been propagated across the cluster.
     # @param [Proc] completionHandler
     # return [void]
     def completion_handler(&completionHandler)
       if completionHandler.class == Proc
-        return @j_del.completionHandler((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:completionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid argument completionHandler=#{completionHandler} when calling completion_handler(completionHandler)"
     end
@@ -106,9 +106,9 @@ module Vertx
     # return [void]
     def unregister(&completionHandler)
       if completionHandler.class == Proc
-        return @j_del.unregister((Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unregister,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
       end
-      @j_del.unregister
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unregister))).invoke(@j_del)
     end
   end
 end

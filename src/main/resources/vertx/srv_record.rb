@@ -16,37 +16,37 @@ module Vertx
     #  Returns the priority for this service record.
     # @return [Fixnum]
     def priority
-      @j_del.priority
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
     end
     #  Returns the weight of this service record.
     # @return [Fixnum]
     def weight
-      @j_del.weight
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:weight))).invoke(@j_del)
     end
     #  Returns the port the service is running on.
     # @return [Fixnum]
     def port
-      @j_del.port
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
     end
     #  Returns the name for the server being queried.
     # @return [String]
     def name
-      @j_del.name
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
     end
     #  Returns the protocol for the service being queried (i.e. "_tcp").
     # @return [String]
     def protocol
-      @j_del.protocol
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:protocol))).invoke(@j_del)
     end
     #  Returns the service's name (i.e. "_http").
     # @return [String]
     def service
-      @j_del.service
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:service))).invoke(@j_del)
     end
     #  Returns the name of the host for the service.
     # @return [String]
     def target
-      @j_del.target
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:target))).invoke(@j_del)
     end
   end
 end

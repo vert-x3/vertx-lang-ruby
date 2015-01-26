@@ -15,7 +15,7 @@ module RubyCodegen
     end
     # @return [String]
     def some_method
-      @j_del.someMethod
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:someMethod))).invoke(@j_del)
     end
   end
 end
