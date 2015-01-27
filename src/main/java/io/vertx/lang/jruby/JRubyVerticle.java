@@ -4,6 +4,7 @@ import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
+import io.vertx.core.spi.VerticleFactory;
 import org.jruby.CompatVersion;
 import org.jruby.RubyClass;
 import org.jruby.RubyInstanceConfig;
@@ -60,12 +61,7 @@ public class JRubyVerticle implements Verticle {
         // > /dev/null
       }
     }));
-    String requireName;
-    if (verticleName.startsWith("rb:")) {
-      requireName = verticleName.substring(3);
-    } else {
-      requireName = verticleName;
-    }
+    String requireName = VerticleFactory.removePrefix(verticleName);
     try {
       container.put("$_vertx", vertx);
       container.put("$_context", context);
