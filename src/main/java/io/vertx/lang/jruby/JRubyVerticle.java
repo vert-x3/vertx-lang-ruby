@@ -14,21 +14,21 @@ import org.jruby.embed.ScriptingContainer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
 public class JRubyVerticle implements Verticle {
 
+  private final JRubyVerticleFactory factory;
   private final ClassLoader classLoader;
   private final String verticleName;
   private Vertx vertx;
   private Context context;
   private ScriptingContainer container;
 
-  public JRubyVerticle(ClassLoader classLoader, String verticleName) {
+  public JRubyVerticle(JRubyVerticleFactory factory, ClassLoader classLoader, String verticleName) {
+    this.factory = factory;
     this.classLoader = classLoader;
     this.verticleName = verticleName;
   }
@@ -46,31 +46,17 @@ public class JRubyVerticle implements Verticle {
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
-    container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
-    RubyInstanceConfig config = container.getProvider().getRubyInstanceConfig();
     String gemPath = context.config().getString("GEM_PATH");
-    if (gemPath != null) {
-      Map newEnv = new HashMap(config.getEnvironment());
-      newEnv.put("GEM_PATH", gemPath);
-      config.setEnvironment(newEnv);
+    if (gemPath != null && !gemPath.trim().isEmpty()) {
+      container = factory.createContainer(gemPath);
+    } else {
+      container = factory.getContainer();
     }
-    container.setCompatVersion(CompatVersion.RUBY1_9);
-    container.setError(new PrintStream(new OutputStream() {
-      @Override
-      public void write(int b) throws IOException {
-        // > /dev/null
-      }
-    }));
     String requireName = VerticleFactory.removePrefix(verticleName);
     try {
-      container.put("$_vertx", vertx);
-      container.put("$_context", context);
-      container.runScriptlet("require 'vertx/vertx'");
-      container.runScriptlet("require 'vertx/future'");
-      container.runScriptlet("$vertx=Vertx::Vertx.new($_vertx)");
       container.runScriptlet("require 'vertx/context'");
       container.runScriptlet("$context=Vertx::Context.new($_context)");
-      container.remove("$_vertx");
+      container.put("$_context", context);
       container.remove("_context");
       container.runScriptlet("require '" + requireName + "'");
       if (hasTopLevelFunction(container, "vertx_start")) {
