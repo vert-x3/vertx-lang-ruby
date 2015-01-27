@@ -248,7 +248,10 @@
             </goals>
             <phase>process-classes</phase>
             <configuration>
-              <gemPath>${project.basedir}/src/main/resources/gems</gemPath>
+              <!--
+                Yard gem installed with:
+                java -jar /Users/julien/Downloads/jruby-complete-1.7.18.jar -S gem install -i src/main/resources/yard-gems yard -_-no-rdoc -_-no-ri
+              -->
               <args>doc --no-private -m html -o ${project.build.directory}/doc ${project.basedir}/src/main/resources/vertx/*.rb</args>
               <!-- Literal dump of /usr/bin/yard -->
               <script>
