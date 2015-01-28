@@ -1,7 +1,10 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.Lock
 module Vertx
-  #  @author <a href="http://tfox.org">Tim Fox</a>
+  #  An asynchronous exclusive lock which can be obtained from any node in the cluster.
+  #  <p>
+  #  When the lock is obtained, no-one else in the cluster can obtain the lock with the same name until the lock
+  #  is released.
   class Lock
     # @private
     # @param j_del [::Vertx::Lock] the java delegate
@@ -13,7 +16,8 @@ module Vertx
     def j_del
       @j_del
     end
-    # return [void]
+    #  Release the lock. Once the lock is released another will be able to obtain the lock.
+    # @return [void]
     def release
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:release))).invoke(@j_del)
     end

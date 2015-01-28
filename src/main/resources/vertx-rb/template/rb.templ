@@ -595,7 +595,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @comment{""}
 @declare{'methodParamsTags'}
 	@foreach{param:methodParams}
-    # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)}\n
+    # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)}@if{param.description != null} @{param.description}@end{}\n
 	@end{}
 @end{}
 
@@ -611,9 +611,9 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 @if{lastMethod.fluent}
-    # return [self]\n
+    # @return [self]\n
 @else{lastMethod.returnType.simpleName == "void"}
-    # return [void]\n
+    # @return [void]\n
 @else{}
     # @return [@{genRubyDocType(lastMethod.returnType)}]\n
 @end{}

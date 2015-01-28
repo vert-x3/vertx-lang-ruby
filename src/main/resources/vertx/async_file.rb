@@ -4,12 +4,12 @@ require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.AsyncFile
 module Vertx
-  #  Represents a file on the file-system which can be read from, or written to asynchronously.<p>
+  #  Represents a file on the file-system which can be read from, or written to asynchronously.
+  #  <p>
   #  This class also implements {::Vertx::ReadStream} and
   #  {::Vertx::WriteStream}. This allows the data to be pumped to and from
   #  other streams, e.g. an {::Vertx::HttpClientRequest} instance,
-  #  using the {::Vertx::Pump} class<p>
-  #  Instances of AsyncFile are not thread-safe<p>
+  #  using the {::Vertx::Pump} class
   class AsyncFile
     include ::Vertx::ReadStream
     include ::Vertx::WriteStream
@@ -29,7 +29,7 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
@@ -37,18 +37,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
@@ -57,15 +57,18 @@ module Vertx
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     #  Write a {::Vertx::Buffer} to the file at position <code>position</code> in the file, asynchronously.
+    #  <p>
     #  If <code>position</code> lies outside of the current size
-    #  of the file, the file will be enlarged to encompass it.<p>
+    #  of the file, the file will be enlarged to encompass it.
+    #  <p>
     #  When multiple writes are invoked on the same file
-    #  there are no guarantees as to order in which those writes actually occur.<p>
+    #  there are no guarantees as to order in which those writes actually occur
+    #  <p>
     #  The handler will be called when the write is complete, or if an error occurs.
-    # @param [::Vertx::Buffer] buffer
-    # @param [Fixnum] position
-    # @param [Proc] handler
-    # return [self]
+    # @param [::Vertx::Buffer] buffer the buffer to write
+    # @param [Fixnum] position the position in the file to write it at
+    # @param [Proc] handler the handler to call when the write is complete
+    # @return [self]
     def write(buffer,position=nil,&handler)
       if buffer.class.method_defined?(:j_del)
         if position.class == Fixnum
@@ -81,7 +84,7 @@ module Vertx
       raise ArgumentError, "Invalid argument buffer=#{buffer} when calling write(buffer,position,handler)"
     end
     # @param [Fixnum] maxSize
-    # return [self]
+    # @return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
@@ -90,7 +93,7 @@ module Vertx
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def drain_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
@@ -99,7 +102,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -109,8 +112,8 @@ module Vertx
     end
     #  Close the file. The actual close happens asynchronously.
     #  The handler will be called when the close is complete, or an error occurs.
-    # @param [Proc] handler
-    # return [void]
+    # @param [Proc] handler the handler
+    # @return [void]
     def close(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
@@ -118,16 +121,19 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
     #  Reads <code>length</code> bytes of data from the file at position <code>position</code> in the file, asynchronously.
-    #  The read data will be written into the specified <code>Buffer buffer</code> at position <code>offset</code>.<p>
+    #  <p>
+    #  The read data will be written into the specified <code>Buffer buffer</code> at position <code>offset</code>.
+    #  <p>
     #  If data is read past the end of the file then zero bytes will be read.<p>
-    #  When multiple reads are invoked on the same file there are no guarantees as to order in which those reads actually occur.<p>
+    #  When multiple reads are invoked on the same file there are no guarantees as to order in which those reads actually occur.
+    #  <p>
     #  The handler will be called when the close is complete, or if an error occurs.
-    # @param [::Vertx::Buffer] buffer
-    # @param [Fixnum] offset
-    # @param [Fixnum] position
-    # @param [Fixnum] length
-    # @param [Proc] handler
-    # return [self]
+    # @param [::Vertx::Buffer] buffer the buffer to read into
+    # @param [Fixnum] offset the offset into the buffer where the data will be read
+    # @param [Fixnum] position the position in the file where to start reading
+    # @param [Fixnum] length the number of bytes to read
+    # @param [Proc] handler the handler to call when the write is complete
+    # @return [self]
     def read(buffer,offset,position,length,&handler)
       if buffer.class.method_defined?(:j_del)
         if offset.class == Fixnum
@@ -149,7 +155,7 @@ module Vertx
     end
     #  Same as {::Vertx::AsyncFile#flush} but the handler will be called when the flush is complete or if an error occurs
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def flush(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:flush,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil) }))
@@ -158,8 +164,9 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:flush))).invoke(@j_del)
       self
     end
-    # @param [Fixnum] readPos
-    # return [self]
+    #  Sets the position from which data will be read from when using the file as a {::Vertx::ReadStream}.
+    # @param [Fixnum] readPos the position in the file
+    # @return [self]
     def set_read_pos(readPos)
       if readPos.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setReadPos,Java::long.java_class))).invoke(@j_del,readPos)
@@ -167,14 +174,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument readPos=#{readPos} when calling set_read_pos(readPos)"
     end
-    # @param [Fixnum] readPos
-    # return [self]
-    def set_write_pos(readPos)
-      if readPos.class == Fixnum
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWritePos,Java::long.java_class))).invoke(@j_del,readPos)
+    #  Sets the position from which data will be written when using the file as a {::Vertx::WriteStream}.
+    # @param [Fixnum] writePos the position in the file
+    # @return [self]
+    def set_write_pos(writePos)
+      if writePos.class == Fixnum
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWritePos,Java::long.java_class))).invoke(@j_del,writePos)
         return self
       end
-      raise ArgumentError, "Invalid argument readPos=#{readPos} when calling set_write_pos(readPos)"
+      raise ArgumentError, "Invalid argument writePos=#{writePos} when calling set_write_pos(writePos)"
     end
   end
 end

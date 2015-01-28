@@ -23,7 +23,7 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -32,7 +32,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [::Vertx::Buffer] data
-    # return [self]
+    # @return [self]
     def write(data)
       if data.class.method_defined?(:j_del)
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,data.j_del)
@@ -41,7 +41,7 @@ module Vertx
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
     # @param [Fixnum] maxSize
-    # return [self]
+    # @return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
@@ -50,7 +50,7 @@ module Vertx
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def drain_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)

@@ -1,20 +1,12 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.buffer.Buffer
 module Vertx
-  #  A Buffer represents a sequence of zero or more bytes that can be written to or read from, and which expands as
-  #  necessary to accommodate any bytes written to it.<p>
-  #  There are two ways to write data to a Buffer: The first method involves methods that take the form <code>setXXX</code>.
-  #  These methods write data into the buffer starting at the specified position. The position does not have to be inside data that
-  #  has already been written to the buffer; the buffer will automatically expand to encompass the position plus any data that needs
-  #  to be written. All positions are measured in bytes and start with zero.<p>
-  #  The second method involves methods that take the form <code>appendXXX</code>; these methods append data
-  #  at the end of the buffer.<p>
-  #  Methods exist to both <code>set</code> and <code>append</code> all primitive types, , null and
-  #  other instances of Buffer.<p>
-  #  Data can be read from a buffer by invoking methods which take the form <code>getXXX</code>. These methods take a parameter
-  #  representing the position in the Buffer from where to read data.<p>
-  #  Once a buffer has been written to a socket or other write stream, the same buffer instance can't be written again to another WriteStream.<p>
-  #  Instances of this class are not thread-safe.<p>
+  #  Most data is shuffled around inside Vert.x using buffers.
+  #  <p>
+  #  A buffer is a sequence of zero or more bytes that can read from or written to and which expands automatically as
+  #  necessary to accommodate any bytes written to it. You can perhaps think of a buffer as smart byte array.
+  #  <p>
+  #  Please consult the documentation for more information on buffers.
   class Buffer
     # @private
     # @param j_del [::Vertx::Buffer] the java delegate
@@ -26,13 +18,15 @@ module Vertx
     def j_del
       @j_del
     end
+    #  Create a new buffer from a string and using the specified encoding.
+    #  The string will be encoded into the buffer using the specified encoding.
     # @overload buffer()
     # @overload buffer(initialSizeHint)
-    #   @param [Fixnum] initialSizeHint
+    #   @param [Fixnum] initialSizeHint the hint, in bytes
     # @overload buffer(string)
-    #   @param [String] string
+    #   @param [String] string the string
     # @overload buffer(string,enc)
-    #   @param [String] string
+    #   @param [String] string the string
     #   @param [String] enc
     # @return [::Vertx::Buffer]
     def self.buffer(param_1=nil,param_2=nil)
@@ -148,7 +142,7 @@ module Vertx
     # @param [::Vertx::Buffer] buff
     # @param [Fixnum] offset
     # @param [Fixnum] len
-    # return [self]
+    # @return [self]
     def append_buffer(buff,offset=nil,len=nil)
       if buff.class.method_defined?(:j_del)
         if offset.class == Fixnum
@@ -166,7 +160,7 @@ module Vertx
     #  Appends the specified <code>byte</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] b
-    # return [self]
+    # @return [self]
     def append_byte(b)
       if b.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendByte,Java::byte.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_byte(b))
@@ -177,7 +171,7 @@ module Vertx
     #  Appends the specified <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] i
-    # return [self]
+    # @return [self]
     def append_int(i)
       if i.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendInt,Java::int.java_class))).invoke(@j_del,i)
@@ -188,7 +182,7 @@ module Vertx
     #  Appends the specified <code>long</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] l
-    # return [self]
+    # @return [self]
     def append_long(l)
       if l.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendLong,Java::long.java_class))).invoke(@j_del,l)
@@ -199,7 +193,7 @@ module Vertx
     #  Appends the specified <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] s
-    # return [self]
+    # @return [self]
     def append_short(s)
       if s.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendShort,Java::short.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_short(s))
@@ -210,7 +204,7 @@ module Vertx
     #  Appends the specified <code>float</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Float] f
-    # return [self]
+    # @return [self]
     def append_float(f)
       if f.class == Float
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendFloat,Java::float.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_float(f))
@@ -221,7 +215,7 @@ module Vertx
     #  Appends the specified <code>double</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Float] d
-    # return [self]
+    # @return [self]
     def append_double(d)
       if d.class == Float
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendDouble,Java::double.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_double(d))
@@ -234,7 +228,7 @@ module Vertx
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.<p>
     # @param [String] str
     # @param [String] enc
-    # return [self]
+    # @return [self]
     def append_string(str,enc=nil)
       if str.class == String
         if enc.class == String
@@ -250,7 +244,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] b
-    # return [self]
+    # @return [self]
     def set_byte(pos,b)
       if pos.class == Fixnum
         if b.class == Fixnum
@@ -265,7 +259,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] i
-    # return [self]
+    # @return [self]
     def set_int(pos,i)
       if pos.class == Fixnum
         if i.class == Fixnum
@@ -280,7 +274,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] l
-    # return [self]
+    # @return [self]
     def set_long(pos,l)
       if pos.class == Fixnum
         if l.class == Fixnum
@@ -295,7 +289,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Float] d
-    # return [self]
+    # @return [self]
     def set_double(pos,d)
       if pos.class == Fixnum
         if d.class == Float
@@ -310,7 +304,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Float] f
-    # return [self]
+    # @return [self]
     def set_float(pos,f)
       if pos.class == Fixnum
         if f.class == Float
@@ -325,7 +319,7 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos
     # @param [Fixnum] s
-    # return [self]
+    # @return [self]
     def set_short(pos,s)
       if pos.class == Fixnum
         if s.class == Fixnum
@@ -342,7 +336,7 @@ module Vertx
     # @param [::Vertx::Buffer] b
     # @param [Fixnum] offset
     # @param [Fixnum] len
-    # return [self]
+    # @return [self]
     def set_buffer(pos,b,offset=nil,len=nil)
       if pos.class == Fixnum
         if b.class.method_defined?(:j_del)
@@ -365,7 +359,7 @@ module Vertx
     # @param [Fixnum] pos
     # @param [String] str
     # @param [String] enc
-    # return [self]
+    # @return [self]
     def set_string(pos,str,enc=nil)
       if pos.class == Fixnum
         if str.class == String

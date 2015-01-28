@@ -4,13 +4,7 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetServer
 module Vertx
-  #  Represents a TCP or SSL server<p>
-  #  If an instance is instantiated from an event loop then the handlers
-  #  of the instance will always be called on that same event loop.
-  #  If an instance is instantiated from some other arbitrary Java thread (i.e. when running embedded) then
-  #  and event loop will be assigned to the instance and used when any of its handlers
-  #  are called.<p>
-  #  Instances of this class are thread-safe.<p>
+  #  Represents a TCP server
   class NetServer
     include ::Vertx::Measured
     # @private
@@ -51,21 +45,50 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling connect_handler(handler)"
     end
-    #  Instruct the server to listen for incoming connections on the specified <code>port</code> and all available interfaces.
-    # @param [Proc] listenHandler
-    # return [self]
-    def listen(&listenHandler)
-      if listenHandler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+    #  Like {::Vertx::NetServer#listen} but providing a handler that will be notified when the server is listening, or fails.
+    # @overload listen()
+    # @overload listen(listenHandler)
+    #   @param [Proc] listenHandler handler that will be notified when listening or failed
+    # @overload listen(port)
+    #   @param [Fixnum] port
+    # @overload listen(port,host)
+    #   @param [Fixnum] port
+    #   @param [String] host
+    # @overload listen(port,listenHandler)
+    #   @param [Fixnum] port the port to listen on
+    #   @param [Proc] listenHandler handler that will be notified when listening or failed
+    # @overload listen(port,host,listenHandler)
+    #   @param [Fixnum] port the port to listen on
+    #   @param [String] host the host to listen on
+    #   @param [Proc] listenHandler handler that will be notified when listening or failed
+    # @return [self]
+    def listen(param_1=nil,param_2=nil,&param_3)
+      if param_1.class == Proc
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| param_1.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        return self
+      end
+      if param_1.class == Fixnum
+        if param_2.class == Proc
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+          return self
+        end
+        if param_2.class == String
+          if param_3.class == Proc
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+            return self
+          end
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
+          return self
+        end
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class))).invoke(@j_del,param_1)
         return self
       end
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
       self
     end
-    #  Close the server. This will close any currently open connections. The event handler <code>done</code> will be called
-    #  when the close is complete.
-    # @param [Proc] completionHandler
-    # return [void]
+    #  Like {::Vertx::NetServer#close} but supplying a handler that will be notified when close is complete.
+    # @param [Proc] completionHandler the handler
+    # @return [void]
     def close(&completionHandler)
       if completionHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))

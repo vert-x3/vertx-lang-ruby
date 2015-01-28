@@ -5,7 +5,17 @@ require 'vertx/counter'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.SharedData
 module Vertx
-  #  @author <a href="http://tfox.org">Tim Fox</a>
+  #  Shared data allows you to share data safely between different parts of your application in a safe way.
+  #  <p>
+  #  Shared data provides:
+  #  <ul>
+  #    <li>Cluster wide maps which can be accessed from any node of the cluster</li>
+  #    <li>Cluster wide locks which can be used to give exclusive access to resources across the cluster</li>
+  #    <li>Cluster wide counters used to maintain counts consistently across the cluster</li>
+  #    <li>Local maps for sharing data safely in the same Vert.x instance</li>
+  #  </ul>
+  #  <p>
+  #  Please see the documentation for more information.
   class SharedData
     # @private
     # @param j_del [::Vertx::SharedData] the java delegate
@@ -17,9 +27,11 @@ module Vertx
     def j_del
       @j_del
     end
-    # @param [String] name
-    # @param [Proc] resultHandler
-    # return [void]
+    #  Get the cluster wide map with the specified name. The map is accessible to all nodes in the cluster and data
+    #  put into the map from any node is visible to to any other node.
+    # @param [String] name the name of the map
+    # @param [Proc] resultHandler the map will be returned asynchronously in this handler
+    # @return [void]
     def get_cluster_wide_map(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -29,9 +41,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_cluster_wide_map(name,resultHandler)"
     end
-    # @param [String] name
-    # @param [Proc] resultHandler
-    # return [void]
+    #  Get a cluster wide lock with the specified name. The lock will be passed to the handler when it is available.
+    # @param [String] name the name of the lock
+    # @param [Proc] resultHandler the handler
+    # @return [void]
     def get_lock(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -41,10 +54,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock(name,resultHandler)"
     end
-    # @param [String] name
-    # @param [Fixnum] timeout
-    # @param [Proc] resultHandler
-    # return [void]
+    #  Like {::Vertx::SharedData#get_lock} but specifying a timeout. If the lock is not obtained within the timeout
+    #  a failure will be sent to the handler
+    # @param [String] name the name of the lock
+    # @param [Fixnum] timeout the timeout in ms
+    # @param [Proc] resultHandler the handler
+    # @return [void]
     def get_lock_with_timeout(name,timeout,&resultHandler)
       if name.class == String
         if timeout.class == Fixnum
@@ -57,9 +72,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_lock_with_timeout(name,timeout,resultHandler)"
     end
-    # @param [String] name
-    # @param [Proc] resultHandler
-    # return [void]
+    #  Get a cluster wide counter. The counter will be passed to the handler.
+    # @param [String] name the name of the counter.
+    # @param [Proc] resultHandler the handler
+    # @return [void]
     def get_counter(name,&resultHandler)
       if name.class == String
         if resultHandler.class == Proc
@@ -69,9 +85,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument name=#{name} when calling get_counter(name,resultHandler)"
     end
-    #  Return a <code>Map</code> with the specific <code>name</code>. All invocations of this method with the same value of <code>name</code>
-    #  are guaranteed to return the same <code>Map</code> instance. <p>
-    # @param [String] name
+    #  Return a <code>LocalMap</code> with the specific <code>name</code>.
+    # @param [String] name the name of the map
     # @return [::Vertx::LocalMap]
     def get_local_map(name)
       if name.class == String

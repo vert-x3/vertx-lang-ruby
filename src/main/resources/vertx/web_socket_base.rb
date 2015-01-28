@@ -15,7 +15,7 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -24,7 +24,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
@@ -32,18 +32,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
@@ -52,7 +52,7 @@ module Vertx
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
     # @param [::Vertx::Buffer] data
-    # return [self]
+    # @return [self]
     def write(data)
       if data.class.method_defined?(:j_del)
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,data.j_del)
@@ -61,7 +61,7 @@ module Vertx
       raise ArgumentError, "Invalid argument data=#{data} when calling write(data)"
     end
     # @param [Fixnum] maxSize
-    # return [self]
+    # @return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
@@ -70,7 +70,7 @@ module Vertx
       raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def drain_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
@@ -78,26 +78,29 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
     end
-    #  When a <code>Websocket</code> is created it automatically registers an event handler with the eventbus, the ID of that
-    #  handler is given by <code>binaryHandlerID</code>.<p>
+    #  When a <code>Websocket</code> is created it automatically registers an event handler with the event bus - the ID of that
+    #  handler is given by this method.
+    #  <p>
     #  Given this ID, a different event loop can send a binary frame to that event handler using the event bus and
     #  that buffer will be received by this instance in its own event loop and written to the underlying connection. This
-    #  allows you to write data to other websockets which are owned by different event loops.
+    #  allows you to write data to other WebSockets which are owned by different event loops.
     # @return [String]
     def binary_handler_id
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:binaryHandlerID))).invoke(@j_del)
     end
     #  When a <code>Websocket</code> is created it automatically registers an event handler with the eventbus, the ID of that
-    #  handler is given by <code>textHandlerID</code>.<p>
+    #  handler is given by <code>textHandlerID</code>.
+    #  <p>
     #  Given this ID, a different event loop can send a text frame to that event handler using the event bus and
     #  that buffer will be received by this instance in its own event loop and written to the underlying connection. This
-    #  allows you to write data to other websockets which are owned by different event loops.
+    #  allows you to write data to other WebSockets which are owned by different event loops.
     # @return [String]
     def text_handler_id
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:textHandlerID))).invoke(@j_del)
     end
-    # @param [::Vertx::WebSocketFrame] frame
-    # return [self]
+    #  Write a WebSocket frame to the connection
+    # @param [::Vertx::WebSocketFrame] frame the frame to write
+    # @return [self]
     def write_frame(frame)
       if frame.class.method_defined?(:j_del)
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeFrame,Java::IoVertxCoreHttp::WebSocketFrame.java_class))).invoke(@j_del,frame.j_del)
@@ -105,10 +108,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument frame=#{frame} when calling write_frame(frame)"
     end
-    #  Writes a (potentially large) piece of data as a websocket message - this may be split into multiple frames
-    #  if it is large.
-    # @param [::Vertx::Buffer] data
-    # return [self]
+    #  Writes a (potentially large) piece of data to the connection. This data might be written as multiple frames
+    #  if it exceeds the maximum WebSocket frame size.
+    # @param [::Vertx::Buffer] data the data to write
+    # @return [self]
     def write_message(data)
       if data.class.method_defined?(:j_del)
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeMessage,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,data.j_del)
@@ -116,9 +119,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument data=#{data} when calling write_message(data)"
     end
-    #  Set a closed handler on the connection
-    # @param [Proc] handler
-    # return [self]
+    #  Set a close handler. This will be called when the WebSocket is closed.
+    # @param [Proc] handler the handler
+    # @return [self]
     def close_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
@@ -126,9 +129,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
     end
-    #  Set a frame handler on the connection
-    # @param [Proc] handler
-    # return [self]
+    #  Set a frame handler on the connection. This handler will be called when frames are read on the connection.
+    # @param [Proc] handler the handler
+    # @return [self]
     def frame_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:frameHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::WebSocketFrame.new(event)) }))
@@ -136,12 +139,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling frame_handler(handler)"
     end
-    #  Close the websocket
-    # return [void]
+    #  Close the WebSocket.
+    # @return [void]
     def close
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end
-    #  Return the remote address for this socket
+    #  @return the remote address for this socket
     # @return [::Vertx::SocketAddress]
     def remote_address
       if @cached_remote_address != nil
@@ -149,7 +152,7 @@ module Vertx
       end
       @cached_remote_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remoteAddress))).invoke(@j_del))
     end
-    #  Return the local address for this socket
+    #  @return the local address for this socket
     # @return [::Vertx::SocketAddress]
     def local_address
       if @cached_local_address != nil

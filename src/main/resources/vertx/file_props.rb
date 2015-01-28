@@ -1,8 +1,8 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.file.FileProps
 module Vertx
-  #  Represents properties of a file on the file system<p>
-  #  Instances of FileProps are thread-safe<p>
+  #  Represents properties of a file on the file system.
+  #  <p>
   class FileProps
     # @private
     # @param j_del [::Vertx::FileProps] the java delegate

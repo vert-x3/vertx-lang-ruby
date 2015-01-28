@@ -3,11 +3,11 @@ require 'vertx/web_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.WebSocketStream
 module Vertx
-  #  A stream for {::Vertx::HttpClient} websocket connection.
-  # 
+  #  A stream for {::Vertx::HttpClient} WebSocket connection.
+  #  <p>
   #  When the connection attempt is successful, the stream handler is called back with the {::Vertx::WebSocket}
   #  argument, immediatly followed by a call to the end handler. When the connection attempt fails, the exception handler is invoked.
-  # 
+  #  <p>
   #  The connection occurs when the {::Vertx::WebSocketStream#handler} method is called with a non null handler, the other handlers should be
   #  set before setting the handler.
   class WebSocketStream
@@ -23,7 +23,7 @@ module Vertx
       @j_del
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -32,7 +32,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::WebSocket.new(event)) }))
@@ -40,18 +40,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)

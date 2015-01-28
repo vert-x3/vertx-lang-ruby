@@ -5,14 +5,13 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientResponse
 module Vertx
-  #  Represents a client-side HTTP response.<p>
-  #  An instance is provided to the user via a {::Vertx::Handler}
-  #  instance that was specified when one of the HTTP method operations, or the
-  #  generic 
-  #  method was called on an instance of {::Vertx::HttpClient}.<p>
+  #  Represents a client-side HTTP response.
+  #  <p>
+  #  Vert.x provides you with one of these via the handler that was provided when creating the {::Vertx::HttpClientRequest}
+  #  or that was set on the {::Vertx::HttpClientRequest} instance.
+  #  <p>
   #  It implements {::Vertx::ReadStream} so it can be used with
-  #  {::Vertx::Pump} to pump data with flow control.<p>
-  #  Instances of this class are not thread-safe.<p>
+  #  {::Vertx::Pump} to pump data with flow control.
   class HttpClientResponse
     include ::Vertx::ReadStream
     # @private
@@ -25,13 +24,13 @@ module Vertx
     def j_del
       @j_del
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -40,7 +39,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
@@ -48,13 +47,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
@@ -62,17 +61,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    #  The HTTP status code of the response
+    #  @return the status code of the response
     # @return [Fixnum]
     def status_code
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:statusCode))).invoke(@j_del)
     end
-    #  The HTTP status message of the response
+    #  @return the status message of the response
     # @return [String]
     def status_message
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:statusMessage))).invoke(@j_del)
     end
-    #  @return The HTTP headers
+    #  @return the headers
     # @return [::Vertx::MultiMap]
     def headers
       if @cached_headers != nil
@@ -80,7 +79,7 @@ module Vertx
       end
       @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
-    #  @return The HTTP trailers
+    #  @return the trailers
     # @return [::Vertx::MultiMap]
     def trailers
       if @cached_trailers != nil
@@ -88,7 +87,7 @@ module Vertx
       end
       @cached_trailers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:trailers))).invoke(@j_del))
     end
-    #  @return The Set-Cookie headers (including trailers)
+    #  @return the Set-Cookie headers (including trailers)
     # @return [Array<String>]
     def cookies
       if @cached_cookies != nil
@@ -96,11 +95,12 @@ module Vertx
       end
       @cached_cookies = (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cookies))).invoke(@j_del).to_a.map { |elt| elt }
     end
-    #  Convenience method for receiving the entire request body in one piece. This saves the user having to manually
-    #  set a data and end handler and append the chunks of the body until the whole body received.
-    #  Don't use this if your request body is large - you could potentially run out of RAM.
-    # @param [Proc] bodyHandler
-    # return [self]
+    #  Convenience method for receiving the entire request body in one piece.
+    #  <p>
+    #  This saves you having to manually set a dataHandler and an endHandler and append the chunks of the body until
+    #  the whole body received. Don't use this if your request body is large - you could potentially run out of RAM.
+    # @param [Proc] bodyHandler This handler will be called after all the body has been received
+    # @return [self]
     def body_handler(&bodyHandler)
       if bodyHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| bodyHandler.call(::Vertx::Buffer.new(event)) }))
@@ -108,9 +108,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
-    #  Get a net socket for the underlying connection of this request. USE THIS WITH CAUTION!
-    #  Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol
-    # 
+    #  Get a net socket for the underlying connection of this request.
+    #  <p>
+    #  USE THIS WITH CAUTION! Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol
+    #  <p>
     #  One valid use-case for calling this is to receive the {::Vertx::NetSocket} after a HTTP CONNECT was issued to the
     #  remote peer and it responded with a status code of 200.
     # @return [::Vertx::NetSocket]

@@ -1,7 +1,13 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.shareddata.LocalMap<K,V>
 module Vertx
-  #  @author <a href="http://tfox.org">Tim Fox</a>
+  #  Local maps can be used to share data safely in a single Vert.x instance.
+  #  <p>
+  #  The map only allows immutable keys and values in the map, OR certain mutable objects such as {::Vertx::Buffer}
+  #  instances which will be copied when they are added to the map.
+  #  <p>
+  #  This ensures there is no shared access to mutable state from different threads (e.g. different event loops) in the
+  #  Vert.x instance, and means you don't have to protect access to that state using synchronization or locks.
   class LocalMap
     # @private
     # @param j_del [::Vertx::LocalMap] the java delegate
@@ -13,7 +19,8 @@ module Vertx
     def j_del
       @j_del
     end
-    # @param [Object] key
+    #  Get a value from the map
+    # @param [Object] key the key
     # @return [Object]
     def get(key)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -21,8 +28,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling get(key)"
     end
-    # @param [Object] key
-    # @param [Object] value
+    #  Put an entry in the map
+    # @param [Object] key the key
+    # @param [Object] value the value
     # @return [Object]
     def put(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -33,7 +41,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling put(key,value)"
     end
-    # @param [Object] key
+    #  Remove an entry from the map
+    # @param [Object] key the key
     # @return [Object]
     def remove(key)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -41,20 +50,24 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling remove(key)"
     end
-    # return [void]
+    #  Clear all entries in the map
+    # @return [void]
     def clear
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:clear))).invoke(@j_del)
     end
+    #  Get the size of the map
     # @return [Fixnum]
     def size
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
     end
+    #  @return true if there are zero entries in the map
     # @return [true,false]
     def is_empty
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
     end
-    # @param [Object] key
-    # @param [Object] value
+    #  Put the entry only if there is no existing entry for that key
+    # @param [Object] key the key
+    # @param [Object] value the value
     # @return [Object]
     def put_if_absent(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -65,8 +78,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling put_if_absent(key,value)"
     end
-    # @param [Object] key
-    # @param [Object] value
+    #  Remove the entry only if there is an entry with the specified key and value
+    # @param [Object] key the key
+    # @param [Object] value the value
     # @return [true,false]
     def remove_if_present(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -77,9 +91,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling remove_if_present(key,value)"
     end
-    # @param [Object] key
-    # @param [Object] oldValue
-    # @param [Object] newValue
+    #  Replace the entry only if there is an existing entry with the specified key and value
+    # @param [Object] key the key
+    # @param [Object] oldValue the old value
+    # @param [Object] newValue the new value
     # @return [true,false]
     def replace_if_present(key,oldValue,newValue)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -93,8 +108,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling replace_if_present(key,oldValue,newValue)"
     end
-    # @param [Object] key
-    # @param [Object] value
+    #  Replace the entry only if there is an existing entry with the key
+    # @param [Object] key the key
+    # @param [Object] value the new value
     # @return [Object]
     def replace(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
@@ -105,7 +121,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument key=#{key} when calling replace(key,value)"
     end
-    # return [void]
+    #  Close and release the map
+    # @return [void]
     def close
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end

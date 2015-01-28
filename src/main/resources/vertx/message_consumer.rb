@@ -4,10 +4,10 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageConsumer<T>
 module Vertx
   #  An event bus consumer object representing a stream of message to an {::Vertx::EventBus} address that can
-  #  be read from.<p>
-  # 
+  #  be read from.
+  #  <p>
   #  The {::Vertx::EventBus#consumer} or {::Vertx::EventBus#local_consumer}
-  #  create a new consumer, the returned consumer is not yet registered against the event bus. Registration
+  #  creates a new consumer, the returned consumer is not yet registered against the event bus. Registration
   #  is effective after the {::Vertx::MessageConsumer#handler} method is invoked.<p>
   # 
   #  The consumer is unregistered from the event bus using the {::Vertx::MessageConsumer#unregister} method or by calling the
@@ -25,7 +25,7 @@ module Vertx
       @j_del
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -34,7 +34,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Message.new(event)) }))
@@ -42,18 +42,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
@@ -79,7 +79,7 @@ module Vertx
     #  Set the number of messages this registration will buffer when this stream is paused. The default
     #  value is <code>0</code>. When a new value is set, buffered messages may be discarded to reach
     #  the new value.
-    # @param [Fixnum] maxBufferedMessages
+    # @param [Fixnum] maxBufferedMessages the maximum number of messages that can be buffered
     # @return [::Vertx::MessageConsumer]
     def set_max_buffered_messages(maxBufferedMessages)
       if maxBufferedMessages.class == Fixnum
@@ -93,8 +93,8 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getMaxBufferedMessages))).invoke(@j_del)
     end
     #  Optional method which can be called to indicate when the registration has been propagated across the cluster.
-    # @param [Proc] completionHandler
-    # return [void]
+    # @param [Proc] completionHandler the completion handler
+    # @return [void]
     def completion_handler(&completionHandler)
       if completionHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:completionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
@@ -102,8 +102,8 @@ module Vertx
       raise ArgumentError, "Invalid argument completionHandler=#{completionHandler} when calling completion_handler(completionHandler)"
     end
     #  Unregisters the handler which created this registration
-    # @param [Proc] completionHandler
-    # return [void]
+    # @param [Proc] completionHandler the handler called when the unregister is done. For example in a cluster when all nodes of the event bus have been unregistered.
+    # @return [void]
     def unregister(&completionHandler)
       if completionHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unregister,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))

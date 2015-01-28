@@ -3,8 +3,8 @@ require 'vertx/util/utils.rb'
 module Vertx
   module StreamBase
     #  Set an exception handler.
-    # @param [Proc] handler
-    # return [self]
+    # @param [Proc] handler the handler
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))

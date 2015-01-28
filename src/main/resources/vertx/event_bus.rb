@@ -5,31 +5,14 @@ require 'vertx/message_producer'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.EventBus
 module Vertx
-  #  A distributed lightweight event bus which can encompass multiple vert.x instances.
-  #  The event bus implements publish / subscribe, point to point messaging and request-response messaging.<p>
-  #  Messages sent over the event bus are represented by instances of the {::Vertx::Message} class.<p>
-  #  For publish / subscribe, messages can be published to an address using one of the {::Vertx::EventBus#publish} methods. An
-  #  address is a simple <code>String</code> instance.<p>
-  #  Handlers are registered against an address. There can be multiple handlers registered against each address, and a particular handler can
-  #  be registered against multiple addresses. The event bus will route a sent message to all handlers which are
-  #  registered against that address.<p>
-  #  For point to point messaging, messages can be sent to an address using one of the {::Vertx::EventBus#send} methods.
-  #  The messages will be delivered to a single handler, if one is registered on that address. If more than one
-  #  handler is registered on the same address, Vert.x will choose one and deliver the message to that. Vert.x will
-  #  aim to fairly distribute messages in a round-robin way, but does not guarantee strict round-robin under all
-  #  circumstances.<p>
-  #  All messages sent over the bus are transient. On event of failure of all or part of the event bus messages
-  #  may be lost. Applications should be coded to cope with lost messages, e.g. by resending them, and making application
-  #  services idempotent.<p>
-  #  The order of messages received by any specific handler from a specific sender should match the order of messages
-  #  sent from that sender.<p>
-  #  When sending a message, a reply handler can be provided. If so, it will be called when the reply from the receiver
-  #  has been received. Reply messages can also be replied to, etc, ad infinitum<p>
-  #  Different event bus instances can be clustered together over a network, to give a single logical event bus.<p>
-  #  Instances of EventBus are thread-safe.<p>
-  #  If handlers are registered from an event loop, they will be executed using that same event loop. If they are
-  #  registered from outside an event loop (i.e. when using Vert.x embedded) then Vert.x will assign an event loop
-  #  to the handler and use it to deliver messages to that handler.
+  #  A Vert.x event-bus is a light-weight distributed messaging system which allows different parts of your application,
+  #  or different applications and services to communicate with each in a loosely coupled way.
+  #  <p>
+  #  An event-bus supports publish-subscribe messaging, point-to-point messaging and request-response messaging.
+  #  <p>
+  #  Message delivery is best-effort and messages can be lost if failure of all or part of the event bus occurs.
+  #  <p>
+  #  Please refer to the documentation for more information on the event bus.
   class EventBus
     include ::Vertx::Measured
     # @private
@@ -52,32 +35,25 @@ module Vertx
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    #  Close the EventBus and release all resources. 
-    # @param [Proc] completionHandler
-    # return [void]
-    def close(&completionHandler)
-      if completionHandler.class == Proc
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
-      end
-      raise ArgumentError, "Invalid argument completionHandler=#{completionHandler} when calling close(completionHandler)"
-    end
+    #  Like {::Vertx::EventBus#send} but specifying a <code>replyHandler</code> that will be called if the recipient
+    #  subsequently replies to the message.
     # @overload send(address,message)
-    #   @param [String] address
-    #   @param [Object] message
+    #   @param [String] address the address to send it to
+    #   @param [Object] message the message, may be {@code null}
     # @overload send(address,message,replyHandler)
-    #   @param [String] address
-    #   @param [Object] message
-    #   @param [Proc] replyHandler
+    #   @param [String] address the address to send it to
+    #   @param [Object] message the message, may be {@code null}
+    #   @param [Proc] replyHandler reply handler will be called when any reply from the recipient is received, may be {@code null}
     # @overload send(address,message,options)
-    #   @param [String] address
-    #   @param [Object] message
-    #   @param [Hash] options
+    #   @param [String] address the address to send it to
+    #   @param [Object] message the message, may be {@code null}
+    #   @param [Hash] options delivery options
     # @overload send(address,message,options,replyHandler)
-    #   @param [String] address
-    #   @param [Object] message
-    #   @param [Hash] options
-    #   @param [Proc] replyHandler
-    # return [self]
+    #   @param [String] address the address to send it to
+    #   @param [Object] message the message, may be {@code null}
+    #   @param [Hash] options delivery options
+    #   @param [Proc] replyHandler reply handler will be called when any reply from the recipient is received, may be {@code null}
+    # @return [self]
     def send(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == String  ||param_2.class == Hash || param_2.class == Array
@@ -100,10 +76,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling send(param_1,param_2,param_3,param_4)"
     end
-    # @param [String] address
-    # @param [Object] message
-    # @param [Hash] options
-    # return [self]
+    #  Like {::Vertx::EventBus#publish} but specifying <code>options</code> that can be used to configure the delivery.
+    # @param [String] address the address to publish it to
+    # @param [Object] message the message, may be {@code null}
+    # @param [Hash] options the delivery options
+    # @return [self]
     def publish(address,message,options=nil)
       if address.class == String
         if message.class == String  ||message.class == Hash || message.class == Array
@@ -118,9 +95,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling publish(address,message,options)"
     end
-    #  Register a message consumer against the specified address.
-    # @param [String] address
-    # @param [Proc] handler
+    #  Create a consumer and register it against the specified address.
+    # @param [String] address the address that will register it at
+    # @param [Proc] handler the handler that will process the received messages
     # @return [::Vertx::MessageConsumer]
     def consumer(address,&handler)
       if address.class == String
@@ -131,10 +108,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling consumer(address,handler)"
     end
-    #  Register a local message consumer against the specified address. The handler info won't be propagated
-    #  across the cluster.
-    # @param [String] address
-    # @param [Proc] handler
+    #  Like {::Vertx::EventBus#consumer} but the address won't be propagated across the cluster.
+    # @param [String] address the address that will register it at
+    # @param [Proc] handler the handler that will process the received messages
     # @return [::Vertx::MessageConsumer]
     def local_consumer(address,&handler)
       if address.class == String
@@ -145,11 +121,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling local_consumer(address,handler)"
     end
-    #  Create a message sender against the specified address. The returned sender will invoke the {::Vertx::EventBus#send}
-    #  method when the stream {::Vertx::WriteStream#write} method is called with the sender
-    #  address, the provided data and the sender delivery options.
-    # @param [String] address
-    # @param [Hash] options
+    #  Like {::Vertx::EventBus#sender} but specifying delivery options that will be used for configuring the delivery of
+    #  the message.
+    # @param [String] address the address to send it to
+    # @param [Hash] options the delivery options
     # @return [::Vertx::MessageProducer]
     def sender(address,options=nil)
       if address.class == String
@@ -160,11 +135,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling sender(address,options)"
     end
-    #  Create a message publisher against the specified address. The returned publisher will invoke the {::Vertx::EventBus#publish}
-    #  method when the stream {::Vertx::WriteStream#write} method is called with the publisher
-    #  address, the provided data and the publisher delivery options.
-    # @param [String] address
-    # @param [Hash] options
+    #  Like {::Vertx::EventBus#publisher} but specifying delivery options that will be used for configuring the delivery of
+    #  the message.
+    # @param [String] address the address to publish it to
+    # @param [Hash] options the delivery options
     # @return [::Vertx::MessageProducer]
     def publisher(address,options=nil)
       if address.class == String
@@ -174,6 +148,15 @@ module Vertx
         return ::Vertx::MessageProducer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:publisher,Java::java.lang.String.java_class))).invoke(@j_del,address))
       end
       raise ArgumentError, "Invalid argument address=#{address} when calling publisher(address,options)"
+    end
+    #  Close the event bus and release any resources held
+    # @param [Proc] completionHandler may be {@code null}
+    # @return [void]
+    def close(&completionHandler)
+      if completionHandler.class == Proc
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
+      end
+      raise ArgumentError, "Invalid argument completionHandler=#{completionHandler} when calling close(completionHandler)"
     end
   end
 end

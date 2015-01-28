@@ -6,13 +6,13 @@ require 'vertx/server_web_socket_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServer
 module Vertx
-  #  An HTTP and WebSockets server<p>
-  #  If an instance is instantiated from an event loop then the handlers
-  #  of the instance will always be called on that same event loop.
-  #  If an instance is instantiated from some other arbitrary Java thread then
-  #  an event loop will be assigned to the instance and used when any of its handlers
-  #  are called.<p>
-  #  Instances of HttpServer are thread-safe.<p>
+  #  An HTTP and WebSockets server.
+  #  <p>
+  #  You receive HTTP requests by providing a {::Vertx::HttpServer#request_handler}. As requests arrive on the server the handler
+  #  will be called with the requests.
+  #  <p>
+  #  You receive WebSockets by providing a {::Vertx::HttpServer#websocket_handler}. As WebSocket connections arrive on the server, the
+  #  WebSocket is passed to the handler.
   class HttpServer
     include ::Vertx::Measured
     # @private
@@ -36,7 +36,7 @@ module Vertx
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Return the request stream for the server. As HTTP requests are received by the server,
-    #  instances of {::Vertx::HttpServerRequest} will be created and passed to this stream {::Vertx::ReadStream#handler}.
+    #  instances of {::Vertx::HttpServerRequest} will be created and passed to the stream {::Vertx::ReadStream#handler}.
     # @return [::Vertx::HttpServerRequestStream]
     def request_stream
       ::Vertx::HttpServerRequestStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:requestStream))).invoke(@j_del))
@@ -52,7 +52,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling request_handler(handler)"
     end
     #  Return the websocket stream for the server. If a websocket connect handshake is successful a
-    #  new {::Vertx::ServerWebSocket} instance will be created and passed to this stream {::Vertx::ReadStream#handler}.
+    #  new {::Vertx::ServerWebSocket} instance will be created and passed to the stream {::Vertx::ReadStream#handler}.
     # @return [::Vertx::ServerWebSocketStream]
     def websocket_stream
       ::Vertx::ServerWebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream))).invoke(@j_del))
@@ -67,20 +67,51 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling websocket_handler(handler)"
     end
-    # @param [Proc] listenHandler
-    # return [self]
-    def listen(&listenHandler)
-      if listenHandler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listenHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+    #  Like {::Vertx::HttpServer#listen} but supplying a handler that will be called when the server is actually
+    #  listening (or has failed).
+    # @overload listen()
+    # @overload listen(port)
+    #   @param [Fixnum] port the port to listen on
+    # @overload listen(listenHandler)
+    #   @param [Proc] listenHandler the listen handler
+    # @overload listen(port,host)
+    #   @param [Fixnum] port the port to listen on
+    #   @param [String] host the host to listen on
+    # @overload listen(port,listenHandler)
+    #   @param [Fixnum] port the port to listen on
+    #   @param [Proc] listenHandler the listen handler
+    # @overload listen(port,host,listenHandler)
+    #   @param [Fixnum] port the port to listen on
+    #   @param [String] host the host to listen on
+    #   @param [Proc] listenHandler the listen handler
+    # @return [self]
+    def listen(param_1=nil,param_2=nil,&param_3)
+      if param_1.class == Proc
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| param_1.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+        return self
+      end
+      if param_1.class == Fixnum
+        if param_2.class == Proc
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+          return self
+        end
+        if param_2.class == String
+          if param_3.class == Proc
+            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+            return self
+          end
+          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
+          return self
+        end
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class))).invoke(@j_del,param_1)
         return self
       end
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
       self
     end
-    #  Close the server. Any open HTTP connections will be closed. The <code>completionHandler</code> will be called when the close
-    #  is complete.
-    # @param [Proc] completionHandler
-    # return [void]
+    #  Like {::Vertx::HttpServer#close} but supplying a handler that will be called when the server is actually closed (or has failed).
+    # @param [Proc] completionHandler the handler
+    # @return [void]
     def close(&completionHandler)
       if completionHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))

@@ -9,15 +9,15 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerRequest
 module Vertx
-  #  Represents a server-side HTTP request.<p>
-  #  Instances are created for each request that is handled by the server
-  #  and is passed to the user via the {::Vertx::Handler} instance
-  #  registered with the {::Vertx::HttpServer} using the request stream {::Vertx::HttpServer#request_stream}.<p>
+  #  Represents a server-side HTTP request.
+  #  <p>
+  #  Instances are created for each request and passed to the user via a handler.
+  #  <p>
   #  Each instance of this class is associated with a corresponding {::Vertx::HttpServerResponse} instance via
-  #  the <code>response</code> field.<p>
+  #  {::Vertx::HttpServerRequest#response}.<p>
   #  It implements {::Vertx::ReadStream} so it can be used with
-  #  {::Vertx::Pump} to pump data with flow control.<p>
-  #  Instances of this class are not thread-safe<p>
+  #  {::Vertx::Pump} to pump data with flow control.
+  #  <p>
   class HttpServerRequest
     include ::Vertx::ReadStream
     # @private
@@ -31,7 +31,7 @@ module Vertx
       @j_del
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -40,7 +40,7 @@ module Vertx
       raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
     end
     # @param [Proc] handler
-    # return [self]
+    # @return [self]
     def handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
@@ -48,18 +48,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
     end
-    # return [self]
+    # @return [self]
     def pause
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
       self
     end
-    # return [self]
+    # @return [self]
     def resume
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
       self
     end
     # @param [Proc] endHandler
-    # return [self]
+    # @return [self]
     def end_handler(&endHandler)
       if endHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
@@ -67,33 +67,32 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
     end
-    #  The HTTP version of the request
+    #  @return the HTTP version of the request
     # @return [:HTTP_1_0,:HTTP_1_1]
     def version
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:version))).invoke(@j_del).name.intern
     end
-    #  The HTTP method for the request. One of GET, PUT, POST, DELETE, TRACE, CONNECT, OPTIONS or HEAD
+    #  @return the HTTP method for the request.
     # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]
     def method
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del).name.intern
     end
-    #  The uri of the request. For example
-    #  http://www.somedomain.com/somepath/somemorepath/someresource.foo?someparam=32&amp;someotherparam=x
+    #  @return the URI of the request. This is usually a relative URI
     # @return [String]
     def uri
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:uri))).invoke(@j_del)
     end
-    #  The path part of the uri. For example /somepath/somemorepath/someresource.foo
+    #  @return The path part of the uri. For example /somepath/somemorepath/someresource.foo
     # @return [String]
     def path
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:path))).invoke(@j_del)
     end
-    #  The query part of the uri. For example someparam=32&amp;someotherparam=x
+    #  @return the query part of the uri. For example someparam=32&amp;someotherparam=x
     # @return [String]
     def query
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:query))).invoke(@j_del)
     end
-    #  The response. Each instance of this class has an {::Vertx::HttpServerResponse} instance attached to it. This is used
+    #  @return the response. Each instance of this class has an {::Vertx::HttpServerResponse} instance attached to it. This is used
     #  to send the response back to the client.
     # @return [::Vertx::HttpServerResponse]
     def response
@@ -102,10 +101,7 @@ module Vertx
       end
       @cached_response = ::Vertx::HttpServerResponse.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:response))).invoke(@j_del))
     end
-    #  A map of all headers in the request, If the request contains multiple headers with the same key, the values
-    #  will be concatenated together into a single header with the same key value, with each value separated by a comma,
-    #  as specified <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2">here</a>.
-    #  The headers will be automatically lower-cased when they reach the server
+    #  @return the headers in the request.
     # @return [::Vertx::MultiMap]
     def headers
       if @cached_headers != nil
@@ -113,7 +109,7 @@ module Vertx
       end
       @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
-    #  Returns a map of all the parameters in the request
+    #  @return the query parameters in the request
     # @return [::Vertx::MultiMap]
     def params
       if @cached_params != nil
@@ -121,7 +117,7 @@ module Vertx
       end
       @cached_params = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:params))).invoke(@j_del))
     end
-    #  Return the remote (client side) address of the request
+    #  @return the remote (client side) address of the request
     # @return [::Vertx::SocketAddress]
     def remote_address
       if @cached_remote_address != nil
@@ -129,7 +125,7 @@ module Vertx
       end
       @cached_remote_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remoteAddress))).invoke(@j_del))
     end
-    #  Return the local (server side) address of the server that handles the request
+    #  @return the local (server side) address of the server that handles the request
     # @return [::Vertx::SocketAddress]
     def local_address
       if @cached_local_address != nil
@@ -137,16 +133,17 @@ module Vertx
       end
       @cached_local_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localAddress))).invoke(@j_del))
     end
-    #  Get the absolute URI corresponding to the the HTTP request
+    #  @return the absolute URI corresponding to the the HTTP request
     # @return [String]
     def absolute_uri
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:absoluteURI))).invoke(@j_del)
     end
-    #  Convenience method for receiving the entire request body in one piece. This saves the user having to manually
-    #  set a data and end handler and append the chunks of the body until the whole body received.
-    #  Don't use this if your request body is large - you could potentially run out of RAM.
-    # @param [Proc] bodyHandler
-    # return [self]
+    #  Convenience method for receiving the entire request body in one piece.
+    #  <p>
+    #  This saves the user having to manually setting a data and end handler and append the chunks of the body until
+    #  the whole body received. Don't use this if your request body is large - you could potentially run out of RAM.
+    # @param [Proc] bodyHandler This handler will be called after all the body has been received
+    # @return [self]
     def body_handler(&bodyHandler)
       if bodyHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| bodyHandler.call(::Vertx::Buffer.new(event)) }))
@@ -154,7 +151,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument bodyHandler=#{bodyHandler} when calling body_handler(bodyHandler)"
     end
-    #  Get a net socket for the underlying connection of this request. USE THIS WITH CAUTION!
+    #  Get a net socket for the underlying connection of this request.
+    #  <p>
+    #  USE THIS WITH CAUTION!
+    #  <p>
     #  Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol
     # @return [::Vertx::NetSocket]
     def net_socket
@@ -163,10 +163,10 @@ module Vertx
       end
       @cached_net_socket = ::Vertx::NetSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:netSocket))).invoke(@j_del))
     end
-    #  Call this with true if you are expecting a multi-part form to be submitted in the request
+    #  Call this with true if you are expecting a multi-part body to be submitted in the request.
     #  This must be called before the body of the request has been received
-    # @param [true,false] expect
-    # return [self]
+    # @param [true,false] expect true - if you are expecting a multi-part body
+    # @return [self]
     def set_expect_multipart(expect)
       if expect.class == TrueClass || expect.class == FalseClass
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setExpectMultipart,Java::boolean.java_class))).invoke(@j_del,expect)
@@ -174,14 +174,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument expect=#{expect} when calling set_expect_multipart(expect)"
     end
+    #  @return  true if we are expecting a multi-part body for this request. See {::Vertx::HttpServerRequest#set_expect_multipart}.
     # @return [true,false]
     def is_expect_multipart
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isExpectMultipart))).invoke(@j_del)
     end
-    #  Set the upload handler. The handler will get notified once a new file upload was received and so allow to
-    #  get notified by the upload in progress.
+    #  Set an upload handler. The handler will get notified once a new file upload was received to allow you to deal
+    #  with the file upload.
     # @param [Proc] uploadHandler
-    # return [self]
+    # @return [self]
     def upload_handler(&uploadHandler)
       if uploadHandler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:uploadHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| uploadHandler.call(::Vertx::HttpServerFileUpload.new(event)) }))
@@ -189,9 +190,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument uploadHandler=#{uploadHandler} when calling upload_handler(uploadHandler)"
     end
-    #  Returns a map of all form attributes which was found in the request. Be aware that this message should only get
-    #  called after the endHandler was notified as the map will be filled on-the-fly.
-    #  {::Vertx::HttpServerRequest#set_expect_multipart} must be called first before trying to get the formAttributes
+    #  Returns a map of all form attributes in the request.
+    #  <p>
+    #  Be aware that the attributes will only be available after the whole body has been received, i.e. after
+    #  the request end handler has been called.
+    #  <p>
+    #  {::Vertx::HttpServerRequest#set_expect_multipart} must be called first before trying to get the form attributes.
     # @return [::Vertx::MultiMap]
     def form_attributes
       if @cached_form_attributes != nil
@@ -199,6 +203,10 @@ module Vertx
       end
       @cached_form_attributes = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:formAttributes))).invoke(@j_del))
     end
+    #  Upgrade the connection to a WebSocket connection.
+    #  <p>
+    #  This is an alternative way of handling WebSockets and can only be used if no websocket handlers are set on the
+    #  Http server, and can only be used during the upgrade request during the WebSocket handshake.
     # @return [::Vertx::ServerWebSocket]
     def upgrade
       ::Vertx::ServerWebSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:upgrade))).invoke(@j_del))

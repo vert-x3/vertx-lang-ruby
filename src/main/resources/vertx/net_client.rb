@@ -3,16 +3,12 @@ require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.NetClient
 module Vertx
-  #  A TCP/SSL client.<p>
-  #  Multiple connections to different servers can be made using the same instance.<p>
+  #  A TCP client.
+  #  <p>
+  #  Multiple connections to different servers can be made using the same instance.
+  #  <p>
   #  This client supports a configurable number of connection attempts and a configurable
-  #  delay between attempts.<p>
-  #  If an instance is instantiated from an event loop then the handlers
-  #  of the instance will always be called on that same event loop.
-  #  If an instance is instantiated from some other arbitrary Java thread (i.e. when using embedded) then
-  #  an event loop will be assigned to the instance and used when any of its handlers
-  #  are called.<p>
-  #  Instances of this class are thread-safe.<p>
+  #  delay between attempts.
   class NetClient
     include ::Vertx::Measured
     # @private
@@ -35,13 +31,14 @@ module Vertx
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
-    #  Attempt to open a connection to a server at the specific <code>port</code> and <code>host</code>.
+    #  Open a connection to a server at the specific <code>port</code> and <code>host</code>.
+    #  <p>
     #  <code>host</code> can be a valid host name or IP address. The connect is done asynchronously and on success, a
     #  {::Vertx::NetSocket} instance is supplied via the <code>connectHandler</code> instance
-    # @param [Fixnum] port
-    # @param [String] host
+    # @param [Fixnum] port the port
+    # @param [String] host the host
     # @param [Proc] connectHandler
-    # return [self]
+    # @return [self]
     def connect(port,host,&connectHandler)
       if port.class == Fixnum
         if host.class == String
@@ -55,8 +52,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument port=#{port} when calling connect(port,host,connectHandler)"
     end
-    #  Close the client. Any sockets which have not been closed manually will be closed here.
-    # return [void]
+    #  Close the client.
+    #  <p>
+    #  Any sockets which have not been closed manually will be closed here. The close is asynchronous and may not
+    #  complete until some time after the method has returned.
+    # @return [void]
     def close
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
     end

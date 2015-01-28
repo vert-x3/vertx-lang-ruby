@@ -4,8 +4,9 @@ require 'vertx/util/utils.rb'
 module Vertx
   module WriteStream
     include ::Vertx::StreamBase
-    # @param [Proc] handler
-    # return [self]
+    #  Set an exception handler on the write stream.
+    # @param [Proc] handler the exception handler
+    # @return [self]
     def exception_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -16,8 +17,8 @@ module Vertx
     #  Write some data to the stream. The data is put on an internal write queue, and the write actually happens
     #  asynchronously. To avoid running out of memory by putting too much on the write queue,
     #  check the {::Vertx::WriteStream#write_queue_full} method before writing. This is done automatically if using a {::Vertx::Pump}.
-    # @param [Object] data
-    # return [self]
+    # @param [Object] data the data to write
+    # @return [self]
     def write(data)
       if data.class == String  ||data.class == Hash || data.class == Array
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(data))
@@ -28,8 +29,8 @@ module Vertx
     #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
     #  if there is more than <code>maxSize</code> bytes in the write queue. This is used as an indicator by classes such as
     #  <code>Pump</code> to provide flow control.
-    # @param [Fixnum] maxSize
-    # return [self]
+    # @param [Fixnum] maxSize the max size of the write stream
+    # @return [self]
     def set_write_queue_max_size(maxSize)
       if maxSize.class == Fixnum
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
@@ -44,8 +45,8 @@ module Vertx
     end
     #  Set a drain handler on the stream. If the write queue is full, then the handler will be called when the write
     #  queue has been reduced to maxSize / 2. See {::Vertx::Pump} for an example of this being used.
-    # @param [Proc] handler
-    # return [self]
+    # @param [Proc] handler the handler
+    # @return [self]
     def drain_handler(&handler)
       if handler.class == Proc
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)

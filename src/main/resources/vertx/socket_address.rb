@@ -1,7 +1,7 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.net.SocketAddress
 module Vertx
-  #  @author <a href="http://tfox.org">Tim Fox</a>
+  #  The address of a socket
   class SocketAddress
     # @private
     # @param j_del [::Vertx::SocketAddress] the java delegate
@@ -14,12 +14,12 @@ module Vertx
       @j_del
     end
     # @return [String]
-    def host_address
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:hostAddress))).invoke(@j_del)
+    def host
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:host))).invoke(@j_del)
     end
     # @return [Fixnum]
-    def host_port
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:hostPort))).invoke(@j_del)
+    def port
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
     end
   end
 end
