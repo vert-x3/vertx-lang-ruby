@@ -31,12 +31,12 @@ module Vertx
       @j_del
     end
     #  The metric base name
-    # @return [String]
+    # @return [String] the metric base name
     def metric_base_name
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}]
+    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
@@ -105,7 +105,7 @@ module Vertx
     #  {::Vertx::SocketAddress}.
     # @param [Fixnum] port the port of the remote peer
     # @param [String] host the host address of the remote peer
-    # @return [::Vertx::PacketWritestream]
+    # @return [::Vertx::PacketWritestream] the write stream for sending packets
     def sender(port,host)
       if port.class == Fixnum
         if host.class == String
@@ -127,7 +127,7 @@ module Vertx
     end
     #  Return the {::Vertx::SocketAddress} to which
     #  this {::Vertx::DatagramSocket} is bound.
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the socket address
     def local_address
       if @cached_local_address != nil
         return @cached_local_address

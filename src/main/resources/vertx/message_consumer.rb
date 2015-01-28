@@ -80,7 +80,7 @@ module Vertx
     #  value is <code>0</code>. When a new value is set, buffered messages may be discarded to reach
     #  the new value.
     # @param [Fixnum] maxBufferedMessages the maximum number of messages that can be buffered
-    # @return [::Vertx::MessageConsumer]
+    # @return [::Vertx::MessageConsumer] this registration
     def set_max_buffered_messages(maxBufferedMessages)
       if maxBufferedMessages.class == Fixnum
         return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setMaxBufferedMessages,Java::int.java_class))).invoke(@j_del,maxBufferedMessages))

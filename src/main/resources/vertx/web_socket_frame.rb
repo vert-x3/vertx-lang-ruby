@@ -24,7 +24,7 @@ module Vertx
     #  Create a binary WebSocket frame.
     # @param [::Vertx::Buffer] data the data for the frame
     # @param [true,false] isFinal true if it's the final frame in the WebSocket message
-    # @return [::Vertx::WebSocketFrame]
+    # @return [::Vertx::WebSocketFrame] the frame
     def self.binary_frame(data,isFinal)
       if data.class.method_defined?(:j_del)
         if isFinal.class == TrueClass || isFinal.class == FalseClass
@@ -37,7 +37,7 @@ module Vertx
     #  Create a text WebSocket frame.
     # @param [String] str the string for the frame
     # @param [true,false] isFinal true if it's the final frame in the WebSocket message
-    # @return [::Vertx::WebSocketFrame]
+    # @return [::Vertx::WebSocketFrame] the frame
     def self.text_frame(str,isFinal)
       if str.class == String
         if isFinal.class == TrueClass || isFinal.class == FalseClass
@@ -50,7 +50,7 @@ module Vertx
     #  Create a continuation frame
     # @param [::Vertx::Buffer] data the data for the frame
     # @param [true,false] isFinal true if it's the final frame in the WebSocket message
-    # @return [::Vertx::WebSocketFrame]
+    # @return [::Vertx::WebSocketFrame] the frame
     def self.continuation_frame(data,isFinal)
       if data.class.method_defined?(:j_del)
         if isFinal.class == TrueClass || isFinal.class == FalseClass

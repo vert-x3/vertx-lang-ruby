@@ -18,19 +18,19 @@ module Vertx
       @j_del
     end
     #  The metric base name
-    # @return [String]
+    # @return [String] the metric base name
     def metric_base_name
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}]
+    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Return the connect stream for this server. The server can only have at most one handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
     #  connect stream .
-    # @return [::Vertx::NetSocketStream]
+    # @return [::Vertx::NetSocketStream] the connect stream
     def connect_stream
       ::Vertx::NetSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectStream))).invoke(@j_del))
     end
@@ -38,7 +38,7 @@ module Vertx
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
     #  connect handler.
     # @param [Proc] handler
-    # @return [::Vertx::NetServer]
+    # @return [::Vertx::NetServer] a reference to this, so the API can be used fluently
     def connect_handler(&handler)
       if handler.class == Proc
         return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) })))
@@ -97,7 +97,7 @@ module Vertx
     end
     #  The actual port the server is listening on. This is useful if you bound the server specifying 0 as port number
     #  signifying an ephemeral port
-    # @return [Fixnum]
+    # @return [Fixnum] the actual port the server is listening on.
     def actual_port
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:actualPort))).invoke(@j_del)
     end

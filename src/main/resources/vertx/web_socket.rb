@@ -19,7 +19,7 @@ module Vertx
       @j_del
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WebSocket#set_write_queue_max_size}
-    # @return [true,false]
+    # @return [true,false] true if write queue is full
     def write_queue_full
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
     end
@@ -29,7 +29,7 @@ module Vertx
     #  Given this ID, a different event loop can send a binary frame to that event handler using the event bus and
     #  that buffer will be received by this instance in its own event loop and written to the underlying connection. This
     #  allows you to write data to other WebSockets which are owned by different event loops.
-    # @return [String]
+    # @return [String] the binary handler id
     def binary_handler_id
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:binaryHandlerID))).invoke(@j_del)
     end

@@ -156,7 +156,7 @@ module Vertx
     #  USE THIS WITH CAUTION!
     #  <p>
     #  Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol
-    # @return [::Vertx::NetSocket]
+    # @return [::Vertx::NetSocket] the net socket
     def net_socket
       if @cached_net_socket != nil
         return @cached_net_socket
@@ -196,7 +196,7 @@ module Vertx
     #  the request end handler has been called.
     #  <p>
     #  {::Vertx::HttpServerRequest#set_expect_multipart} must be called first before trying to get the form attributes.
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the form attributes
     def form_attributes
       if @cached_form_attributes != nil
         return @cached_form_attributes
@@ -207,7 +207,7 @@ module Vertx
     #  <p>
     #  This is an alternative way of handling WebSockets and can only be used if no websocket handlers are set on the
     #  Http server, and can only be used during the upgrade request during the WebSocket handshake.
-    # @return [::Vertx::ServerWebSocket]
+    # @return [::Vertx::ServerWebSocket] the WebSocket
     def upgrade
       ::Vertx::ServerWebSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:upgrade))).invoke(@j_del))
     end

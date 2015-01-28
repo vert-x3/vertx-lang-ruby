@@ -103,7 +103,7 @@ public class DeployTest extends VertxTestBase {
       assertEquals(1, deployedCount);
       assertEquals(1, startedCount);
       assertEquals(0, stoppedCount);
-      vertx.undeployVerticle(ar.result(), ar2 -> {
+      vertx.undeploy(ar.result(), ar2 -> {
         assertTrue(ar2.succeeded());
         assertEquals(1, deployedCount);
         assertEquals(1, startedCount);
@@ -121,7 +121,7 @@ public class DeployTest extends VertxTestBase {
       assertEquals(1, deployedCount);
       assertEquals(1, startedCount);
       assertEquals(0, stoppedCount);
-      vertx.undeployVerticle(ar.result(), ar2 -> {
+      vertx.undeploy(ar.result(), ar2 -> {
         assertTrue(ar2.succeeded());
         assertEquals(1, deployedCount);
         assertEquals(1, startedCount);
@@ -163,7 +163,7 @@ public class DeployTest extends VertxTestBase {
       assertEquals(1, deployedCount);
       assertEquals(1, startedCount);
       assertEquals(0, stoppedCount);
-      vertx.undeployVerticle(ar.result(), ar2 -> {
+      vertx.undeploy(ar.result(), ar2 -> {
         assertTrue(ar.succeeded());
         assertEquals(1, deployedCount);
         assertEquals(1, startedCount);
@@ -193,7 +193,7 @@ public class DeployTest extends VertxTestBase {
       assertEquals(1, deployedCount);
       assertEquals(1, startedCount);
       assertEquals(0, stoppedCount);
-      vertx.undeployVerticle(ar.result(), ar2 -> {
+      vertx.undeploy(ar.result(), ar2 -> {
         assertTrue(ar.succeeded());
         assertEquals(1, deployedCount);
         assertEquals(1, startedCount);

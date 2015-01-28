@@ -615,7 +615,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @else{lastMethod.returnType.simpleName == "void"}
     # @return [void]\n
 @else{}
-    # @return [@{genRubyDocType(lastMethod.returnType)}]\n
+    # @return [@{genRubyDocType(lastMethod.returnType)}]@if{lastMethod.returnDescription != null} @{lastMethod.returnDescription}@end{}\n
 @end{}
     def @{methodDecl}@if{params.size() > 0}(
 			@code{index=0}@foreach{param:params}

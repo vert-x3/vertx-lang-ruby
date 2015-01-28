@@ -15,7 +15,7 @@ module RubyCodegen
     end
     # @param [String] s
     # @param [Proc] callback
-    # return [void]
+    # @return [void]
     def do_something(s=nil,&callback)
       if s.class == String
         if callback.class == Proc

@@ -17,7 +17,7 @@ module RubyCodegen
     # @param [String] bar
     # @param [String] juu
     # @param [String] daa
-    # return [void]
+    # @return [void]
     def method(foo=nil,bar=nil,juu=nil,daa=nil)
       if foo.class == String
         if bar.class == String

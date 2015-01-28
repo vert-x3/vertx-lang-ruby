@@ -37,7 +37,7 @@ module Vertx
     # @param [::Vertx::ReadStream] rs the read stream
     # @param [::Vertx::WriteStream] ws the write stream
     # @param [Fixnum] writeQueueMaxSize
-    # @return [::Vertx::Pump]
+    # @return [::Vertx::Pump] the pump
     def self.pump(rs,ws,writeQueueMaxSize=nil)
       if rs.class.method_defined?(:j_del)
         if ws.class.method_defined?(:j_del)

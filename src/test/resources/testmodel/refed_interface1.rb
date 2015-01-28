@@ -18,7 +18,7 @@ module Testmodel
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString))).invoke(@j_del)
     end
     # @param [String] str
-    # return [self]
+    # @return [self]
     def set_string(str)
       if str.class == String
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::java.lang.String.java_class))).invoke(@j_del,str)

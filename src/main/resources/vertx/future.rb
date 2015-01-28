@@ -15,13 +15,13 @@ module Vertx
       @j_del
     end
     #  Create a future that hasn't completed yet
-    # @return [::Vertx::Future]
+    # @return [::Vertx::Future] the future
     def self.future
       ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:future))).invoke(@j_del))
     end
     #  Created a succeeded future with the specified result.
     # @param [Object] result the result
-    # @return [::Vertx::Future]
+    # @return [::Vertx::Future] the future
     def self.succeeded_future(result=nil)
       if result.class == String  ||result.class == Hash || result.class == Array
         return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:succeededFuture,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(result)))
@@ -30,7 +30,7 @@ module Vertx
     end
     #  Create a failed future with the specified failure message.
     # @param [String] failureMessage the failure message
-    # @return [::Vertx::Future]
+    # @return [::Vertx::Future] the future
     def self.failed_future(failureMessage)
       if failureMessage.class == String
         return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:failedFuture,Java::java.lang.String.java_class))).invoke(@j_del,failureMessage))
@@ -40,7 +40,7 @@ module Vertx
     #  Has the future completed?
     #  <p>
     #  It's completed if it's either succeeded or failed.
-    # @return [true,false]
+    # @return [true,false] true if completed, false if not
     def is_complete
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isComplete))).invoke(@j_del)
     end

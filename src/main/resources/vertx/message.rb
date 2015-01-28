@@ -27,12 +27,12 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
     end
     #  Multi-map of message headers. Can be empty
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the headers
     def headers
       ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
     #  The body of the message. Can be null.
-    # @return [Object]
+    # @return [Object] the body, or null.
     def body
       if @cached_body != nil
         return @cached_body
@@ -40,7 +40,7 @@ module Vertx
       @cached_body = ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:body))).invoke(@j_del))
     end
     #  The reply address. Can be null.
-    # @return [String]
+    # @return [String] the reply address, or null, if message was sent without a reply handler.
     def reply_address
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replyAddress))).invoke(@j_del)
     end

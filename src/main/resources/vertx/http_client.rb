@@ -44,12 +44,12 @@ module Vertx
       @j_del
     end
     #  The metric base name
-    # @return [String]
+    # @return [String] the metric base name
     def metric_base_name
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}]
+    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
@@ -82,7 +82,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def request(param_1,param_2,param_3=nil,param_4=nil,&param_5)
       if param_1.class == Symbol
         if param_2.class == String
@@ -118,7 +118,7 @@ module Vertx
     # @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH] method the HTTP method
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def request_abs(method,absoluteURI,&responseHandler)
       if method.class == Symbol
         if absoluteURI.class == String
@@ -154,7 +154,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def get(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -186,7 +186,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def get_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -210,7 +210,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClient]
+    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def get_now(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -261,7 +261,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def post(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -293,7 +293,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def post_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -326,7 +326,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def head(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -358,7 +358,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def head_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -382,7 +382,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClient]
+    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def head_now(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -433,7 +433,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def options(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -465,7 +465,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def options_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -489,7 +489,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClient]
+    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def options_now(param_1,param_2,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -540,7 +540,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def put(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -572,7 +572,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def put_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -605,7 +605,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def delete(param_1,param_2=nil,param_3=nil,&param_4)
       if param_1.class == String
         if param_2.class == Proc
@@ -637,7 +637,7 @@ module Vertx
     #  the response
     # @param [String] absoluteURI the absolute URI
     # @param [Proc] responseHandler the response handler
-    # @return [::Vertx::HttpClientRequest]
+    # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def delete_abs(absoluteURI,&responseHandler)
       if absoluteURI.class == String
         if responseHandler.class == Proc
@@ -715,7 +715,7 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols to use
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    # @return [::Vertx::HttpClient]
+    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def websocket(param_1,param_2,param_3=nil,param_4=nil,param_5=nil,param_6=nil,&param_7)
       if param_1.class == String
         if param_2.class == Proc
@@ -853,7 +853,7 @@ module Vertx
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols to use
-    # @return [::Vertx::WebSocketStream]
+    # @return [::Vertx::WebSocketStream] a reference to this, so the API can be used fluently
     def websocket_stream(param_1,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil)
       if param_1.class == String
         if param_2.class.method_defined?(:j_del)

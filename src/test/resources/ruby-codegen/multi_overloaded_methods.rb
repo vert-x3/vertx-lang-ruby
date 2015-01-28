@@ -19,7 +19,7 @@ module RubyCodegen
     # @overload method(bar,juu)
     #   @param [Fixnum] bar
     #   @param [true,false] juu
-    # return [void]
+    # @return [void]
     def method(param_1=nil,param_2=nil)
       if param_1.class == String
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class))).invoke(@j_del,param_1)

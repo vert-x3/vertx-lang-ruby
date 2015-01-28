@@ -48,18 +48,18 @@ module Vertx
       @j_del
     end
     #  The metric base name
-    # @return [String]
+    # @return [String] the metric base name
     def metric_base_name
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}]
+    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Creates a non clustered instance using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::Vertx]
+    # @return [::Vertx::Vertx] the instance
     def self.vertx(options=nil)
       if options.class == Hash
         return ::Vertx::Vertx.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:vertx,Java::IoVertxCore::VertxOptions.java_class))).invoke(@j_del,Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -82,18 +82,18 @@ module Vertx
       raise ArgumentError, "Invalid argument options=#{options} when calling clustered_vertx(options,resultHandler)"
     end
     #  Gets the current context
-    # @return [::Vertx::Context]
+    # @return [::Vertx::Context] The current context or null if no current context
     def self.current_context
       ::Vertx::Context.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:currentContext))).invoke(@j_del))
     end
     #  Gets the current context, or creates one if there isn't one
-    # @return [::Vertx::Context]
+    # @return [::Vertx::Context] The current context (created if didn't exist)
     def get_or_create_context
       ::Vertx::Context.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getOrCreateContext))).invoke(@j_del))
     end
     #  Create a TCP/SSL server using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::NetServer]
+    # @return [::Vertx::NetServer] the server
     def create_net_server(options=nil)
       if options.class == Hash
         return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetServer,Java::IoVertxCoreNet::NetServerOptions.java_class))).invoke(@j_del,Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -102,7 +102,7 @@ module Vertx
     end
     #  Create a TCP/SSL client using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::NetClient]
+    # @return [::Vertx::NetClient] the client
     def create_net_client(options=nil)
       if options.class == Hash
         return ::Vertx::NetClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetClient,Java::IoVertxCoreNet::NetClientOptions.java_class))).invoke(@j_del,Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -111,7 +111,7 @@ module Vertx
     end
     #  Create an HTTP/HTTPS server using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::HttpServer]
+    # @return [::Vertx::HttpServer] the server
     def create_http_server(options=nil)
       if options.class == Hash
         return ::Vertx::HttpServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpServer,Java::IoVertxCoreHttp::HttpServerOptions.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -120,7 +120,7 @@ module Vertx
     end
     #  Create a HTTP/HTTPS client using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::HttpClient]
+    # @return [::Vertx::HttpClient] the client
     def create_http_client(options=nil)
       if options.class == Hash
         return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpClient,Java::IoVertxCoreHttp::HttpClientOptions.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -129,7 +129,7 @@ module Vertx
     end
     #  Create a datagram socket using the specified options
     # @param [Hash] options the options to use
-    # @return [::Vertx::DatagramSocket]
+    # @return [::Vertx::DatagramSocket] the socket
     def create_datagram_socket(options=nil)
       if options.class == Hash
         return ::Vertx::DatagramSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createDatagramSocket,Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class))).invoke(@j_del,Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))))
@@ -137,7 +137,7 @@ module Vertx
       ::Vertx::DatagramSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createDatagramSocket))).invoke(@j_del))
     end
     #  Get the filesystem object. There is a single instance of FileSystem per Vertx instance.
-    # @return [::Vertx::FileSystem]
+    # @return [::Vertx::FileSystem] the filesystem object
     def file_system
       if @cached_file_system != nil
         return @cached_file_system
@@ -145,7 +145,7 @@ module Vertx
       @cached_file_system = ::Vertx::FileSystem.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fileSystem))).invoke(@j_del))
     end
     #  Get the event bus object. There is a single instance of EventBus per Vertx instance.
-    # @return [::Vertx::EventBus]
+    # @return [::Vertx::EventBus] the event bus object
     def event_bus
       if @cached_event_bus != nil
         return @cached_event_bus
@@ -155,7 +155,7 @@ module Vertx
     #  Create a DNS client to connect to a DNS server at the specified host and port
     # @param [Fixnum] port the port
     # @param [String] host the host
-    # @return [::Vertx::DnsClient]
+    # @return [::Vertx::DnsClient] the DNS client
     def create_dns_client(port,host)
       if port.class == Fixnum
         if host.class == String
@@ -166,7 +166,7 @@ module Vertx
       raise ArgumentError, "Invalid argument port=#{port} when calling create_dns_client(port,host)"
     end
     #  Get the shared data object. There is a single instance of SharedData per Vertx instance.
-    # @return [::Vertx::SharedData]
+    # @return [::Vertx::SharedData] the shared data object
     def shared_data
       if @cached_shared_data != nil
         return @cached_shared_data
@@ -177,7 +177,7 @@ module Vertx
     #  the id of the timer.
     # @param [Fixnum] delay the delay in milliseconds, after which the timer will fire
     # @param [Proc] handler the handler that will be called with the timer ID when the timer fires
-    # @return [Fixnum]
+    # @return [Fixnum] the unique ID of the timer
     def set_timer(delay,&handler)
       if delay.class == Fixnum
         if handler.class == Proc
@@ -190,7 +190,7 @@ module Vertx
     #  Returns a one-shot timer as a read stream. The timer will be fired after <code>delay</code> milliseconds after
     #  the  has been called.
     # @param [Fixnum] delay the delay in milliseconds, after which the timer will fire
-    # @return [::Vertx::TimeoutStream]
+    # @return [::Vertx::TimeoutStream] the timer stream
     def timer_stream(delay)
       if delay.class == Fixnum
         return ::Vertx::TimeoutStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:timerStream,Java::long.java_class))).invoke(@j_del,delay))
@@ -201,7 +201,7 @@ module Vertx
     #  the id of the timer.
     # @param [Fixnum] delay the delay in milliseconds, after which the timer will fire
     # @param [Proc] handler the handler that will be called with the timer ID when the timer fires
-    # @return [Fixnum]
+    # @return [Fixnum] the unique ID of the timer
     def set_periodic(delay,&handler)
       if delay.class == Fixnum
         if handler.class == Proc
@@ -214,7 +214,7 @@ module Vertx
     #  Returns a periodic timer as a read stream. The timer will be fired every <code>delay</code> milliseconds after
     #  the  has been called.
     # @param [Fixnum] delay the delay in milliseconds, after which the timer will fire
-    # @return [::Vertx::TimeoutStream]
+    # @return [::Vertx::TimeoutStream] the periodic stream
     def periodic_stream(delay)
       if delay.class == Fixnum
         return ::Vertx::TimeoutStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:periodicStream,Java::long.java_class))).invoke(@j_del,delay))
@@ -223,7 +223,7 @@ module Vertx
     end
     #  Cancels the timer with the specified <code>id</code>.
     # @param [Fixnum] id The id of the timer to cancel
-    # @return [true,false]
+    # @return [true,false] true if the timer was successfully cancelled, or false if the timer does not exist.
     def cancel_timer(id)
       if id.class == Fixnum
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cancelTimer,Java::long.java_class))).invoke(@j_del,id)
@@ -286,7 +286,7 @@ module Vertx
       raise ArgumentError, "Invalid argument deploymentID=#{deploymentID} when calling undeploy(deploymentID,completionHandler)"
     end
     #  Return a Set of deployment IDs for the currently deployed deploymentIDs.
-    # @return [Set<String>]
+    # @return [Set<String>] Set of deployment IDs
     def deployment_i_ds
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentIDs))).invoke(@j_del).to_set.map! { |elt| elt }
     end

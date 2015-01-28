@@ -28,7 +28,7 @@ module Vertx
     # @overload buffer(string,enc)
     #   @param [String] string the string
     #   @param [String] enc
-    # @return [::Vertx::Buffer]
+    # @return [::Vertx::Buffer] the buffer
     def self.buffer(param_1=nil,param_2=nil)
       if param_1.class == String
         if param_2.class == String

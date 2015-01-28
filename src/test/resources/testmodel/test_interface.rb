@@ -29,7 +29,7 @@ module Testmodel
     # @param [true,false] bool
     # @param [Fixnum] ch
     # @param [String] str
-    # return [void]
+    # @return [void]
     def other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)
       if b.class == Fixnum
         if s.class == Fixnum
@@ -69,7 +69,7 @@ module Testmodel
     # @param [true,false] bool
     # @param [Fixnum] ch
     # @param [String] str
-    # return [void]
+    # @return [void]
     def method_with_basic_params(b,s,i,l,f,d,bool,ch,str)
       if b.class == Fixnum
         if s.class == Fixnum
@@ -108,7 +108,7 @@ module Testmodel
     # @param [Float] d
     # @param [true,false] bool
     # @param [Fixnum] ch
-    # return [void]
+    # @return [void]
     def method_with_basic_boxed_params(b,s,i,l,f,d,bool,ch)
       if b.class == Fixnum
         if s.class == Fixnum
@@ -145,7 +145,7 @@ module Testmodel
     # @param [Proc] booleanHandler
     # @param [Proc] charHandler
     # @param [Proc] stringHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_basic_types(byteHandler,shortHandler,intHandler,longHandler,floatHandler,doubleHandler,booleanHandler,charHandler,&stringHandler)
       if byteHandler.class == Proc
         if shortHandler.class == Proc
@@ -178,7 +178,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_byte(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -190,7 +190,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_short(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -202,7 +202,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_integer(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -214,7 +214,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_long(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -226,7 +226,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_float(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -238,7 +238,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_double(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -250,7 +250,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_boolean(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -262,7 +262,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_character(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -274,7 +274,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_string(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -286,7 +286,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_data_object(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -297,7 +297,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_data_object(sendFailure,handler)"
     end
     # @param [::Testmodel::RefedInterface1] refed
-    # return [void]
+    # @return [void]
     def method_with_user_types(refed)
       if refed.class.method_defined?(:j_del)
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithUserTypes,Java::IoVertxCodegenTestmodel::RefedInterface1.java_class))).invoke(@j_del,refed.j_del)
@@ -306,7 +306,7 @@ module Testmodel
     end
     # @param [String] str
     # @param [Object] obj
-    # return [void]
+    # @return [void]
     def method_with_object_param(str,obj)
       if str.class == String
         if obj.class == String  ||obj.class == Hash || obj.class == Array
@@ -317,7 +317,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument str=#{str} when calling method_with_object_param(str,obj)"
     end
     # @param [Hash] dataObject
-    # return [void]
+    # @return [void]
     def method_with_data_object_param(dataObject)
       if dataObject.class == Hash
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithDataObjectParam,Java::IoVertxCodegenTestmodel::TestDataObject.java_class))).invoke(@j_del,Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(dataObject)))
@@ -325,7 +325,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument dataObject=#{dataObject} when calling method_with_data_object_param(dataObject)"
     end
     # @param [Hash] dataObject
-    # return [void]
+    # @return [void]
     def method_with_null_data_object_param(dataObject)
       if dataObject.class == Hash
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithNullDataObjectParam,Java::IoVertxCodegenTestmodel::TestDataObject.java_class))).invoke(@j_del,Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(dataObject)))
@@ -340,7 +340,7 @@ module Testmodel
     # @param [Array<Hash{String => Object}>] listJsonObject
     # @param [Array<Array<String,Object>>] listJsonArray
     # @param [Array<::Testmodel::RefedInterface1>] listVertxGen
-    # return [void]
+    # @return [void]
     def method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)
       if listString.class == Array
         if listByte.class == Array
@@ -376,7 +376,7 @@ module Testmodel
     # @param [Set<Hash{String => Object}>] setJsonObject
     # @param [Set<Array<String,Object>>] setJsonArray
     # @param [Set<::Testmodel::RefedInterface1>] setVertxGen
-    # return [void]
+    # @return [void]
     def method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)
       if setString.class == Set
         if setByte.class == Set
@@ -412,7 +412,7 @@ module Testmodel
     # @param [Hash{String => Hash{String => Object}}] mapJsonObject
     # @param [Hash{String => Array<String,Object>}] mapJsonArray
     # @param [Hash{String => ::Testmodel::RefedInterface1}] mapVertxGen
-    # return [void]
+    # @return [void]
     def method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)
       if mapString.class == Hash
         if mapByte.class == Hash
@@ -444,7 +444,7 @@ module Testmodel
     # @param [Proc] listIntHandler
     # @param [Proc] setStringHandler
     # @param [Proc] setIntHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_and_set(listStringHandler,listIntHandler,setStringHandler,&setIntHandler)
       if listStringHandler.class == Proc
         if listIntHandler.class == Proc
@@ -461,7 +461,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listStringHandler=#{listStringHandler} when calling method_with_handler_list_and_set(listStringHandler,listIntHandler,setStringHandler,setIntHandler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_string(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListString,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
@@ -469,7 +469,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_list_string(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_integer(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListInteger,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
@@ -477,7 +477,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_list_integer(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_string(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetString,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt } : nil) }))
@@ -485,7 +485,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_set_string(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_integer(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetInteger,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt } : nil) }))
@@ -493,7 +493,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_set_integer(handler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
@@ -501,7 +501,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
@@ -509,7 +509,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListAbstractVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
@@ -517,7 +517,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_abstract_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetAbstractVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
@@ -525,7 +525,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_abstract_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -533,7 +533,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_null_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListNullJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -541,7 +541,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_null_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -549,7 +549,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_null_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetNullJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -557,7 +557,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_null_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -565,7 +565,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_list_null_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerListNullJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -573,7 +573,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_list_null_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -581,7 +581,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_set_null_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerSetNullJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| listHandler.call(event.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -589,7 +589,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_set_null_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
@@ -597,7 +597,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
@@ -605,7 +605,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListAbstractVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
@@ -613,7 +613,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_abstract_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_abstract_vertx_gen(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetAbstractVertxGen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
@@ -621,7 +621,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_abstract_vertx_gen(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -629,7 +629,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_null_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListNullJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -637,7 +637,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_null_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -645,7 +645,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_null_json_object(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetNullJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -653,7 +653,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_null_json_object(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -661,7 +661,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_list_null_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultListNullJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -669,7 +669,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_list_null_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -677,7 +677,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_json_array(listHandler)"
     end
     # @param [Proc] listHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_set_null_json_array(&listHandler)
       if listHandler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultSetNullJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| listHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_set.map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -685,7 +685,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument listHandler=#{listHandler} when calling method_with_handler_async_result_set_null_json_array(listHandler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_user_types(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerUserTypes,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Testmodel::RefedInterface1.new(event)) }))
@@ -693,7 +693,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_user_types(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_user_types(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultUserTypes,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::RefedInterface1.new(ar.result) : nil) }))
@@ -701,7 +701,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_user_types(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_void(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerVoid,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
@@ -710,7 +710,7 @@ module Testmodel
     end
     # @param [true,false] sendFailure
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_void(sendFailure,&handler)
       if sendFailure.class == TrueClass || sendFailure.class == FalseClass
         if handler.class == Proc
@@ -721,7 +721,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument sendFailure=#{sendFailure} when calling method_with_handler_async_result_void(sendFailure,handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_throwable(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerThrowable,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
@@ -729,7 +729,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_throwable(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_data_object(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerDataObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(JSON.parse(event.toJson.encode)) }))
@@ -738,7 +738,7 @@ module Testmodel
     end
     # @param [Object] value
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_generic_user_type(value,&handler)
       if value.class == String  ||value.class == Hash || value.class == Array
         if handler.class == Proc
@@ -750,7 +750,7 @@ module Testmodel
     end
     # @param [Object] value
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_generic_user_type(value,&handler)
       if value.class == String  ||value.class == Hash || value.class == Array
         if handler.class == Proc
@@ -851,7 +851,7 @@ module Testmodel
     end
     # @param [String] type
     # @param [Object] u
-    # return [void]
+    # @return [void]
     def method_with_generic_param(type,u)
       if type.class == String
         if u.class == String  ||u.class == Hash || u.class == Array
@@ -863,7 +863,7 @@ module Testmodel
     end
     # @param [String] type
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_generic_handler(type,&handler)
       if type.class == String
         if handler.class == Proc
@@ -875,7 +875,7 @@ module Testmodel
     end
     # @param [String] type
     # @param [Proc] asyncResultHandler
-    # return [void]
+    # @return [void]
     def method_with_generic_handler_async_result(type,&asyncResultHandler)
       if type.class == String
         if asyncResultHandler.class == Proc
@@ -886,7 +886,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument type=#{type} when calling method_with_generic_handler_async_result(type,asyncResultHandler)"
     end
     # @param [String] str
-    # return [self]
+    # @return [self]
     def fluent_method(str)
       if str.class == String
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fluentMethod,Java::java.lang.String.java_class))).invoke(@j_del,str)
@@ -931,7 +931,7 @@ module Testmodel
     end
     # @param [Hash{String => Object}] jsonObject
     # @param [Array<String,Object>] jsonArray
-    # return [void]
+    # @return [void]
     def method_with_json_params(jsonObject,jsonArray)
       if jsonObject.class == Hash
         if jsonArray.class == Array
@@ -943,7 +943,7 @@ module Testmodel
     end
     # @param [Hash{String => Object}] jsonObject
     # @param [Array<String,Object>] jsonArray
-    # return [void]
+    # @return [void]
     def method_with_null_json_params(jsonObject,jsonArray)
       if jsonObject.class == Hash
         if jsonArray.class == Array
@@ -955,7 +955,7 @@ module Testmodel
     end
     # @param [Proc] jsonObjectHandler
     # @param [Proc] jsonArrayHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_json(jsonObjectHandler,&jsonArrayHandler)
       if jsonObjectHandler.class == Proc
         if jsonArrayHandler.class == Proc
@@ -967,7 +967,7 @@ module Testmodel
     end
     # @param [Proc] jsonObjectHandler
     # @param [Proc] jsonArrayHandler
-    # return [void]
+    # @return [void]
     def method_with_handler_null_json(jsonObjectHandler,&jsonArrayHandler)
       if jsonObjectHandler.class == Proc
         if jsonArrayHandler.class == Proc
@@ -978,7 +978,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument jsonObjectHandler=#{jsonObjectHandler} when calling method_with_handler_null_json(jsonObjectHandler,jsonArrayHandler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_json_object(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
@@ -986,7 +986,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_json_object(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_null_json_object(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultNullJsonObject,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
@@ -994,7 +994,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_null_json_object(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_json_array(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
@@ -1002,7 +1002,7 @@ module Testmodel
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_json_array(handler)"
     end
     # @param [Proc] handler
-    # return [void]
+    # @return [void]
     def method_with_handler_async_result_null_json_array(&handler)
       if handler.class == Proc
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultNullJsonArray,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| handler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))

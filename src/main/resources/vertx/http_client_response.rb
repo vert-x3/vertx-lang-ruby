@@ -114,7 +114,7 @@ module Vertx
     #  <p>
     #  One valid use-case for calling this is to receive the {::Vertx::NetSocket} after a HTTP CONNECT was issued to the
     #  remote peer and it responded with a status code of 200.
-    # @return [::Vertx::NetSocket]
+    # @return [::Vertx::NetSocket] the net socket
     def net_socket
       if @cached_net_socket != nil
         return @cached_net_socket

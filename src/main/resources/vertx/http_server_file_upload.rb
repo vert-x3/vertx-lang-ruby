@@ -90,7 +90,7 @@ module Vertx
     end
     #  The size of the upload may not be available until it is all read.
     #  Check {::Vertx::HttpServerFileUpload#is_size_available} to determine this
-    # @return [Fixnum]
+    # @return [Fixnum] the size of the upload (in bytes)
     def size
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
     end

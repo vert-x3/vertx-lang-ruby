@@ -19,7 +19,7 @@ module Vertx
     #  Returns the value of with the specified name.  If there are
     #  more than one values for the specified name, the first value is returned.
     # @param [String] name The name of the header to search
-    # @return [String]
+    # @return [String] The first header value or {@code null} if there is no such entry
     def get(name)
       if name.class == String
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,name)
@@ -28,7 +28,7 @@ module Vertx
     end
     #  Returns the values with the specified name
     # @param [String] name The name to search
-    # @return [Array<String>]
+    # @return [Array<String>] A immutable {@link java.util.List} of values which will be empty if no values are found
     def get_all(name)
       if name.class == String
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAll,Java::java.lang.String.java_class))).invoke(@j_del,name).to_a.map { |elt| elt }
@@ -37,7 +37,7 @@ module Vertx
     end
     #  Checks to see if there is a value with the specified name
     # @param [String] name The name to search for
-    # @return [true,false]
+    # @return [true,false] true if at least one entry is found
     def contains(name)
       if name.class == String
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:contains,Java::java.lang.String.java_class))).invoke(@j_del,name)
@@ -50,7 +50,7 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
     end
     #  Gets a immutable null of all names
-    # @return [Set<String>]
+    # @return [Set<String>] A {@link java.util.Set} of all names
     def names
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:names))).invoke(@j_del).to_set.map! { |elt| elt }
     end

@@ -21,7 +21,7 @@ module Vertx
     end
     #  Get a value from the map
     # @param [Object] key the key
-    # @return [Object]
+    # @return [Object] the value, or null if none
     def get(key)
       if key.class == String  ||key.class == Hash || key.class == Array
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
@@ -31,7 +31,7 @@ module Vertx
     #  Put an entry in the map
     # @param [Object] key the key
     # @param [Object] value the value
-    # @return [Object]
+    # @return [Object] return the old value, or null if none
     def put(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
@@ -43,7 +43,7 @@ module Vertx
     end
     #  Remove an entry from the map
     # @param [Object] key the key
-    # @return [Object]
+    # @return [Object] the old value
     def remove(key)
       if key.class == String  ||key.class == Hash || key.class == Array
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
@@ -56,7 +56,7 @@ module Vertx
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:clear))).invoke(@j_del)
     end
     #  Get the size of the map
-    # @return [Fixnum]
+    # @return [Fixnum] the number of entries in the map
     def size
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
     end
@@ -68,7 +68,7 @@ module Vertx
     #  Put the entry only if there is no existing entry for that key
     # @param [Object] key the key
     # @param [Object] value the value
-    # @return [Object]
+    # @return [Object] the old value or null, if none
     def put_if_absent(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
@@ -81,7 +81,7 @@ module Vertx
     #  Remove the entry only if there is an entry with the specified key and value
     # @param [Object] key the key
     # @param [Object] value the value
-    # @return [true,false]
+    # @return [true,false] true if removed
     def remove_if_present(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array
@@ -95,7 +95,7 @@ module Vertx
     # @param [Object] key the key
     # @param [Object] oldValue the old value
     # @param [Object] newValue the new value
-    # @return [true,false]
+    # @return [true,false] true if removed
     def replace_if_present(key,oldValue,newValue)
       if key.class == String  ||key.class == Hash || key.class == Array
         if oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array
@@ -111,7 +111,7 @@ module Vertx
     #  Replace the entry only if there is an existing entry with the key
     # @param [Object] key the key
     # @param [Object] value the new value
-    # @return [Object]
+    # @return [Object] the old value
     def replace(key,value)
       if key.class == String  ||key.class == Hash || key.class == Array
         if value.class == String  ||value.class == Hash || value.class == Array

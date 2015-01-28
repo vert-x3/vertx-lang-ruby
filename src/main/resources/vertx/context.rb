@@ -52,18 +52,18 @@ module Vertx
       raise ArgumentError, "Invalid argument action=#{action} when calling run_on_context(action)"
     end
     #  If the context is associated with a Verticle deployment, this returns the deployment ID of that deployment.
-    # @return [String]
+    # @return [String] the deployment ID of the deployment or null if not a Verticle deployment
     def deployment_id
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentID))).invoke(@j_del)
     end
     #  If the context is associated with a Verticle deployment, this returns the configuration that was specified when
     #  the verticle was deployed.
-    # @return [Hash{String => Object}]
+    # @return [Hash{String => Object}] the configuration of the deployment or null if not a Verticle deployment
     def config
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del) != nil ? JSON.parse((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del).encode) : nil
     end
     #  The process args
-    # @return [Array<String>]
+    # @return [Array<String>] 
     def process_args
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:processArgs))).invoke(@j_del).to_a.map { |elt| elt }
     end
@@ -84,7 +84,7 @@ module Vertx
     end
     #  Get some data from the context.
     # @param [String] key the key of the data
-    # @return [Object]
+    # @return [Object] the data
     def get(key)
       if key.class == String
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,key))
@@ -108,7 +108,7 @@ module Vertx
     end
     #  Remove some data from the context.
     # @param [String] key the key to remove
-    # @return [true,false]
+    # @return [true,false] true if removed successfully, false otherwise
     def remove(key)
       if key.class == String
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.String.java_class))).invoke(@j_del,key)

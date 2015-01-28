@@ -14,7 +14,7 @@ module Testmodel
       @j_del
     end
     # @param [Object] value
-    # return [void]
+    # @return [void]
     def set_value(value)
       if value.class == String  ||value.class == Hash || value.class == Array
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setValue,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(value))

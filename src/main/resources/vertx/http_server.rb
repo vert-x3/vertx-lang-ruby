@@ -26,25 +26,25 @@ module Vertx
       @j_del
     end
     #  The metric base name
-    # @return [String]
+    # @return [String] the metric base name
     def metric_base_name
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
     end
     #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}]
+    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
     def metrics
       Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
     end
     #  Return the request stream for the server. As HTTP requests are received by the server,
     #  instances of {::Vertx::HttpServerRequest} will be created and passed to the stream {::Vertx::ReadStream#handler}.
-    # @return [::Vertx::HttpServerRequestStream]
+    # @return [::Vertx::HttpServerRequestStream] the request stream
     def request_stream
       ::Vertx::HttpServerRequestStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:requestStream))).invoke(@j_del))
     end
     #  Set the request handler for the server to <code>requestHandler</code>. As HTTP requests are received by the server,
     #  instances of {::Vertx::HttpServerRequest} will be created and passed to this handler.
     # @param [Proc] handler
-    # @return [::Vertx::HttpServer]
+    # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
     def request_handler(&handler)
       if handler.class == Proc
         return ::Vertx::HttpServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:requestHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::HttpServerRequest.new(event)) })))
@@ -53,14 +53,14 @@ module Vertx
     end
     #  Return the websocket stream for the server. If a websocket connect handshake is successful a
     #  new {::Vertx::ServerWebSocket} instance will be created and passed to the stream {::Vertx::ReadStream#handler}.
-    # @return [::Vertx::ServerWebSocketStream]
+    # @return [::Vertx::ServerWebSocketStream] the websocket stream
     def websocket_stream
       ::Vertx::ServerWebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream))).invoke(@j_del))
     end
     #  Set the websocket handler for the server to <code>wsHandler</code>. If a websocket connect handshake is successful a
     #  new {::Vertx::ServerWebSocket} instance will be created and passed to the handler.
     # @param [Proc] handler
-    # @return [::Vertx::HttpServer]
+    # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
     def websocket_handler(&handler)
       if handler.class == Proc
         return ::Vertx::HttpServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::ServerWebSocket.new(event)) })))

@@ -11,7 +11,7 @@ module Testmodel
     # @param [true,false] bool
     # @param [Fixnum] ch
     # @param [String] str
-    # return [void]
+    # @return [void]
     def other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)
       if b.class == Fixnum
         if s.class == Fixnum

@@ -87,7 +87,7 @@ module Vertx
     end
     #  Return a <code>LocalMap</code> with the specific <code>name</code>.
     # @param [String] name the name of the map
-    # @return [::Vertx::LocalMap]
+    # @return [::Vertx::LocalMap] the msp
     def get_local_map(name)
       if name.class == String
         return ::Vertx::LocalMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getLocalMap,Java::java.lang.String.java_class))).invoke(@j_del,name))
