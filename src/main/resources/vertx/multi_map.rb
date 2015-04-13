@@ -49,7 +49,7 @@ module Vertx
     def is_empty
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
     end
-    #  Gets a immutable null of all names
+    #  Gets a immutable Set of all names
     # @return [Set<String>] A {@link java.util.Set} of all names
     def names
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:names))).invoke(@j_del).to_set.map! { |elt| elt }

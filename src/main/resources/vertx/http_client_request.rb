@@ -222,7 +222,7 @@ module Vertx
       end
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end))).invoke(@j_del)
     end
-    #  Set's the amount of time after which if a response is not received null
+    #  Set's the amount of time after which if a response is not received TimeoutException
     #  will be sent to the exception handler of this request.
     #  <p>
     #   Calling this method more than once

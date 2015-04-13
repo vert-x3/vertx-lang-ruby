@@ -1,3 +1,4 @@
+@includeNamed{'/vertx-java/template/common-lib.templ'}
 @code{
 
   /*
@@ -87,37 +88,6 @@
         System.out.println("Unhandled kind " + kind);
       }
     }
-  }
-
-  def renderDocToHtml(margin, doc) {
-    var need = true;
-    var html = new StringBuilder();
-    for (token : doc.tokens) {
-      if (need) {
-        html.append(margin);
-        need = false;
-      }
-      if (token.lineBreak) {
-        html.append("\n");
-        need = true;
-      } else {
-        if (token.text) {
-          html.append(token.value);
-        } else {
-          var tag = token.tag;
-          if (tag instanceof io.vertx.codegen.doc.Tag$Link) {
-            var link = renderLinkToHtml(tag);
-            html.append(link);
-          } else if (tag.name == "code") {
-            html.append("<code>").append(tag.value.trim()).append("</code>");
-          }
-        }
-      }
-    }
-    if (!need) {
-      html.append("\n");
-    }
-    return html.toString();
   }
 
   /*
@@ -534,7 +504,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 
 @if{concrete}
 	@if{doc != null}
-		@{renderDocToHtml("  # ", doc)}
+		@{renderDocToHtml("  # ", doc, renderLinkToHtml)}
 	@end{}
   class @{type.raw.simpleName}@if{concreteSuperTypes.size() == 1} < @{genRubyClassFqn(concreteSuperTypes[0].raw)}@end{}\n
 	@foreach{abstractSuperType:abstractSuperTypes}
@@ -600,7 +570,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @end{}
 
 @if{lastMethod.doc != null}
-	@{renderDocToHtml("    # ", lastMethod.doc)}
+	@{renderDocToHtml("    # ", lastMethod.doc, renderLinkToHtml)}
 @end{}
 @if{kind != 2}
 	@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
