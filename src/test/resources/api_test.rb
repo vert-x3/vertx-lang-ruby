@@ -7,6 +7,7 @@ require 'testmodel/test_interface'
 require 'testmodel/refed_interface1'
 require 'testmodel/refed_interface2'
 require 'testmodel/generic_refed_interface'
+require 'acme/my_interface'
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
 java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
@@ -978,6 +979,15 @@ end
 def test_throwable_return
   ret = $obj.method_with_throwable_return 'bogies'
   Assert.equals('bogies', ret.message)
+end
+
+def test_custom_module
+  my = Acme::MyInterface.create
+  test_interface = my.method
+  test_interface.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
+  sub = my.sub
+  ret = sub.reverse "hello"
+  Assert.equals ret, "olleh"
 end
 
 def test_method_with_list_params

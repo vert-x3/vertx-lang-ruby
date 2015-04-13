@@ -472,6 +472,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testCustomModule() {
+    runTest("test_custom_module");
+  }
+
+  @Test
   public void testMethodWithListParams() {
     runTest("test_method_with_list_params");
   }
