@@ -219,25 +219,42 @@
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
         <version>2.2.4</version>
+        <configuration>
+          <systemProperties>
+            <java.util.logging.SimpleFormatter.format>%4$s: %3$s - %5$s %6$s%n</java.util.logging.SimpleFormatter.format>
+          </systemProperties>
+        </configuration>
         <executions>
           <!-- Run the annotation processor on vertx-core and generate the ruby API -->
           <execution>
-            <id>generate-vertx-core</id>
+            <id>generate-api</id>
             <goals>
               <goal>process</goal>
             </goals>
             <phase>generate-sources</phase>
             <configuration>
-              <systemProperties>
-                <java.util.logging.SimpleFormatter.format>%4$s: %3$s - %5$s %6$s%n</java.util.logging.SimpleFormatter.format>
-              </systemProperties>
               <processors>
                 <processor>io.vertx.codegen.CodeGenProcessor</processor>
-                <processor>io.vertx.docgen.DocGenProcessor</processor>
               </processors>
               <optionMap>
                 <outputDirectory>${project.basedir}/src/main</outputDirectory>
-                <docgen.output>${asciidoc.dir}</docgen.output>
+              </optionMap>
+              <sourceDirectory>${project.build.directory}/sources/vertx-core</sourceDirectory>
+            </configuration>
+          </execution>
+          <!-- Run the annotation processor on vertx-core and generate the ruby API -->
+          <execution>
+            <id>generate-docs</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <processors>
+                <processor>io.vertx.lang.jruby.JRubyDocGenProcessor</processor>
+              </processors>
+              <optionMap>
+                <docgen.output>${asciidoc.dir}/ruby</docgen.output>
               </optionMap>
               <sourceDirectory>${project.build.directory}/sources/vertx-core</sourceDirectory>
             </configuration>
@@ -250,9 +267,6 @@
             </goals>
             <phase>generate-test-sources</phase>
             <configuration>
-              <systemProperties>
-                <java.util.logging.SimpleFormatter.format>%4$s: %3$s - %5$s %6$s%n</java.util.logging.SimpleFormatter.format>
-              </systemProperties>
               <processors>
                 <processor>io.vertx.codegen.CodeGenProcessor</processor>
               </processors>
@@ -287,13 +301,13 @@
             <goals>
               <goal>jruby</goal>
             </goals>
-            <phase>process-classes</phase>
+            <phase>prepare-package</phase>
             <configuration>
               <!--
                 Yard gem installed with:
                 java -jar /Users/julien/Downloads/jruby-complete-1.7.18.jar -S gem install -i src/main/resources/yard-gems yard -_-no-rdoc -_-no-ri
               -->
-              <args>doc --no-private -m html --main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/doc ${project.basedir}/src/main/resources/vertx/*.rb</args>
+              <args>doc --no-private -m html --main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/docs/vertx-core/ruby/yardoc ${project.basedir}/src/main/resources/vertx/*.rb</args>
               <!-- Literal dump of /usr/bin/yard -->
               <script>
                 require 'rubygems'
@@ -316,28 +330,27 @@
           </execution>
         </executions>
       </plugin>
-<!--
       <plugin>
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>1.5.0</version>
+        <version>1.5.2</version>
         <executions>
           <execution>
             <goals>
               <goal>process-asciidoc</goal>
             </goals>
-            <phase>package</phase>
+            <phase>prepare-package</phase>
             <configuration>
               <sourceDirectory>${asciidoc.dir}</sourceDirectory>
-              <sourceDocumentName>index.adoc</sourceDocumentName>
-              <outputDirectory>${project.build.directory}/docs</outputDirectory>
+              <outputDirectory>${project.build.directory}/docs/vertx-core</outputDirectory>
               <backend>html</backend>
               <doctype>book</doctype>
+              <preserveDirectories>true</preserveDirectories>
+              <relativeBaseDir>true</relativeBaseDir>
             </configuration>
           </execution>
         </executions>
       </plugin>
--->
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
@@ -351,6 +364,7 @@
               <attach>true</attach>
               <descriptors>
                 <descriptor>src/main/assembly/gems.xml</descriptor>
+                <descriptor>src/main/assembly/docs.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>
