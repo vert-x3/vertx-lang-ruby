@@ -3,50 +3,40 @@ package io.vertx.lang.jruby;
 import io.vertx.codegen.Case;
 import io.vertx.codegen.ClassKind;
 import io.vertx.codegen.TypeInfo;
-import io.vertx.docgen.BaseProcessor;
 import io.vertx.docgen.Coordinate;
-import io.vertx.docgen.DocGenProcessor;
+import io.vertx.docgen.DocGenerator;
 
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.io.StringWriter;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class JRubyDocGenProcessor extends BaseProcessor {
+public class JRubyDocGenerator implements DocGenerator {
 
   private TypeInfo.Factory factory;
 
   @Override
-  public synchronized void init(ProcessingEnvironment processingEnv) {
-    super.init(processingEnv);
+  public void init(ProcessingEnvironment processingEnv) {
     factory = new TypeInfo.Factory(processingEnv.getElementUtils(), processingEnv.getTypeUtils());
   }
 
   @Override
-  protected void handleGen(PackageElement pkgElt) {
-    StringWriter buffer = new StringWriter();
-    process(buffer, pkgElt);
-    write(pkgElt, buffer.toString());
-  }
-
-  @Override
-  protected String getName() {
+  public String getName() {
     return "ruby";
   }
 
   @Override
-  protected String renderSource(ExecutableElement elt, String source) {
+  public String renderSource(ExecutableElement elt, String source) {
     return "todo:implement-code-translation-for-ruby";
   }
 
   @Override
-  protected String toTypeLink(TypeElement elt, Coordinate coordinate) {
+  public String toTypeLink(TypeElement elt, Coordinate coordinate) {
     TypeInfo type = factory.create(elt.asType());
     if (type.getKind() == ClassKind.DATA_OBJECT) {
       String baselink;
@@ -72,7 +62,7 @@ public class JRubyDocGenProcessor extends BaseProcessor {
   }
 
   @Override
-  protected String toMethodLink(ExecutableElement elt, Coordinate coordinate) {
+  public String toMethodLink(ExecutableElement elt, Coordinate coordinate) {
     String baselink = toTypeLink((TypeElement) elt.getEnclosingElement(), coordinate);
     if (baselink.contains("cheatsheet")) {
       return baselink + '#' + java.beans.Introspector.decapitalize(elt.getSimpleName().toString().substring(3));
@@ -83,12 +73,17 @@ public class JRubyDocGenProcessor extends BaseProcessor {
   }
 
   @Override
-  protected String toConstructorLink(ExecutableElement elt, Coordinate coordinate) {
+  public String toConstructorLink(ExecutableElement elt, Coordinate coordinate) {
     return "todo";
   }
 
   @Override
-  protected String toFieldLink(VariableElement elt, Coordinate coordinate) {
+  public String toFieldLink(VariableElement elt, Coordinate coordinate) {
+    return "todo";
+  }
+
+  @Override
+  public String resolveLabel(Element elt) {
     return "todo";
   }
 }

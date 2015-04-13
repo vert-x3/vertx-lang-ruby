@@ -251,7 +251,7 @@
             <phase>prepare-package</phase>
             <configuration>
               <processors>
-                <processor>io.vertx.lang.jruby.JRubyDocGenProcessor</processor>
+                <processor>io.vertx.docgen.DocGenProcessor</processor>
               </processors>
               <optionMap>
                 <docgen.output>${asciidoc.dir}/ruby</docgen.output>
