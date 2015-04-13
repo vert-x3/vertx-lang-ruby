@@ -2,6 +2,9 @@ require 'testmodel/generic_refed_interface'
 require 'testmodel/refed_interface1'
 require 'testmodel/super_interface1'
 require 'testmodel/refed_interface2'
+require 'testmodel/concrete_handler_user_type'
+require 'testmodel/abstract_handler_user_type'
+require 'testmodel/concrete_handler_user_type_extension'
 require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
@@ -700,6 +703,30 @@ module Testmodel
       end
       raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_handler_async_result_user_types(handler)"
     end
+    # @param [::Testmodel::ConcreteHandlerUserType] handler
+    # @return [void]
+    def method_with_concrete_handler_user_type_subtype(handler)
+      if handler.class.method_defined?(:j_del)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithConcreteHandlerUserTypeSubtype,Java::IoVertxCodegenTestmodel::ConcreteHandlerUserType.java_class))).invoke(@j_del,handler.j_del)
+      end
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_concrete_handler_user_type_subtype(handler)"
+    end
+    # @param [::Testmodel::AbstractHandlerUserType] handler
+    # @return [void]
+    def method_with_abstract_handler_user_type_subtype(handler)
+      if handler.class.method_defined?(:j_del)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithAbstractHandlerUserTypeSubtype,Java::IoVertxCodegenTestmodel::AbstractHandlerUserType.java_class))).invoke(@j_del,handler.j_del)
+      end
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_abstract_handler_user_type_subtype(handler)"
+    end
+    # @param [::Testmodel::ConcreteHandlerUserTypeExtension] handler
+    # @return [void]
+    def method_with_concrete_handler_user_type_subtype_extension(handler)
+      if handler.class.method_defined?(:j_del)
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithConcreteHandlerUserTypeSubtypeExtension,Java::IoVertxCodegenTestmodel::ConcreteHandlerUserTypeExtension.java_class))).invoke(@j_del,handler.j_del)
+      end
+      raise ArgumentError, "Invalid argument handler=#{handler} when calling method_with_concrete_handler_user_type_subtype_extension(handler)"
+    end
     # @param [Proc] handler
     # @return [void]
     def method_with_handler_void(&handler)
@@ -912,6 +939,17 @@ module Testmodel
         return @cached_method_with_cached_return = ::Testmodel::RefedInterface1.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithCachedReturn,Java::java.lang.String.java_class))).invoke(@j_del,foo))
       end
       raise ArgumentError, "Invalid argument foo=#{foo} when calling method_with_cached_return(foo)"
+    end
+    # @param [Fixnum] arg
+    # @return [Fixnum]
+    def method_with_cached_return_primitive(arg)
+      if arg.class == Fixnum
+        if @cached_method_with_cached_return_primitive != nil
+          return @cached_method_with_cached_return_primitive
+        end
+        return @cached_method_with_cached_return_primitive = (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithCachedReturnPrimitive,Java::int.java_class))).invoke(@j_del,arg)
+      end
+      raise ArgumentError, "Invalid argument arg=#{arg} when calling method_with_cached_return_primitive(arg)"
     end
     # @return [Hash{String => Object}]
     def method_with_json_object_return
