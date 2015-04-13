@@ -564,15 +564,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument path=#{path} when calling mkdir_blocking(path,perms)"
     end
-    #  Create the directory represented by <code>path</code>, asynchronously.
+    #  Create the directory represented by <code>path</code> and any non existent parents, asynchronously.
     #  <p>
     #  The new directory will be created with permissions as specified by <code>perms</code>.
     #  <p>
     #  The permission String takes the form rwxr-x--- as specified
     #  in <a href="http://download.oracle.com/javase/7/docs/api/java/nio/file/attribute/PosixFilePermissions.html">here</a>.
-    #  <p>
-    #  If <code>createParents</code> is set to <code>true</code> then any non-existent parent directories of the directory
-    #  will also be created.
     #  <p>
     #  The operation will fail if the directory already exists.<p>
     # @overload mkdirs(path,handler)

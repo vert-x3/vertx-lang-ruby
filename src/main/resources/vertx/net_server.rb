@@ -17,15 +17,10 @@ module Vertx
     def j_del
       @j_del
     end
-    #  The metric base name
-    # @return [String] the metric base name
-    def metric_base_name
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
-    end
-    #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
-    def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+    #  Whether the metrics are enabled for this measured object
+    # @return [true,false] true if the metrics are enabled
+    def is_metrics_enabled
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
     end
     #  Return the connect stream for this server. The server can only have at most one handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the

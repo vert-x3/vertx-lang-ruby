@@ -109,6 +109,15 @@ module Vertx
       end
       @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
+    #  Return the first header value with the specified name
+    # @param [String] headerName the header name
+    # @return [String] the header value
+    def get_header(headerName)
+      if headerName.class == String
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getHeader,Java::java.lang.String.java_class))).invoke(@j_del,headerName)
+      end
+      raise ArgumentError, "Invalid argument headerName=#{headerName} when calling get_header(headerName)"
+    end
     #  @return the query parameters in the request
     # @return [::Vertx::MultiMap]
     def params
@@ -116,6 +125,15 @@ module Vertx
         return @cached_params
       end
       @cached_params = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:params))).invoke(@j_del))
+    end
+    #  Return the first param value with the specified name
+    # @param [String] paramName the param name
+    # @return [String] the param value
+    def get_param(paramName)
+      if paramName.class == String
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getParam,Java::java.lang.String.java_class))).invoke(@j_del,paramName)
+      end
+      raise ArgumentError, "Invalid argument paramName=#{paramName} when calling get_param(paramName)"
     end
     #  @return the remote (client side) address of the request
     # @return [::Vertx::SocketAddress]
@@ -155,7 +173,9 @@ module Vertx
     #  <p>
     #  USE THIS WITH CAUTION!
     #  <p>
-    #  Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol
+    #  Once you have called this method, you must handle writing to the connection yourself using the net socket,
+    #  the server request instance will no longer be usable as normal.
+    #  Writing to the socket directly if you don't know what you're doing can easily break the HTTP protocol.
     # @return [::Vertx::NetSocket] the net socket
     def net_socket
       if @cached_net_socket != nil
@@ -202,6 +222,15 @@ module Vertx
         return @cached_form_attributes
       end
       @cached_form_attributes = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:formAttributes))).invoke(@j_del))
+    end
+    #  Return the first form attribute value with the specified name
+    # @param [String] attributeName the attribute name
+    # @return [String] the attribute value
+    def get_form_attribute(attributeName)
+      if attributeName.class == String
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getFormAttribute,Java::java.lang.String.java_class))).invoke(@j_del,attributeName)
+      end
+      raise ArgumentError, "Invalid argument attributeName=#{attributeName} when calling get_form_attribute(attributeName)"
     end
     #  Upgrade the connection to a WebSocket connection.
     #  <p>

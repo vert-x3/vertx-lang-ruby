@@ -27,7 +27,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument k=#{k} when calling get(k,resultHandler)"
     end
-    #  Like  but specifying a timeout. If the value cannot be put within the timeout a
+    #  Like {::Vertx::AsyncMap#put} but specifying a timeout. If the value cannot be put within the timeout a
     #  failure will be passed to the handler
     # @overload put(k,v,completionHandler)
     #   @param [Object] k the key
@@ -57,7 +57,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid argument param_1=#{param_1} when calling put(param_1,param_2,param_3,param_4)"
     end
-    #  Link  but specifying a timeout. If the value cannot be put within the timeout a
+    #  Link {::Vertx::AsyncMap#put_if_absent} but specifying a timeout. If the value cannot be put within the timeout a
     #  failure will be passed to the handler
     # @overload putIfAbsent(k,v,completionHandler)
     #   @param [Object] k the key
@@ -102,7 +102,7 @@ module Vertx
     end
     #  Remove a value from the map, only if entry already exists with same value.
     # @param [Object] k the key
-    # @param [Object] v
+    # @param [Object] v the value
     # @param [Proc] resultHandler - this will be called some time later to signify the value has been removed
     # @return [void]
     def remove_if_present(k,v,&resultHandler)

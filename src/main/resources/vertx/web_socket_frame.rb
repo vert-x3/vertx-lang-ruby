@@ -65,7 +65,7 @@ module Vertx
     def is_text
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isText))).invoke(@j_del)
     end
-    #  @eturn true if it's a binary frame
+    #  @return true if it's a binary frame
     # @return [true,false]
     def is_binary
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isBinary))).invoke(@j_del)

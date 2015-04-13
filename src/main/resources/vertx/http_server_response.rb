@@ -55,7 +55,7 @@ module Vertx
     #   @param [String] chunk the string to write
     # @overload write(chunk,enc)
     #   @param [String] chunk the string to write
-    #   @param [String] enc
+    #   @param [String] enc the encoding to use
     # @return [self]
     def write(param_1,param_2=nil)
       if param_1.class.method_defined?(:j_del)

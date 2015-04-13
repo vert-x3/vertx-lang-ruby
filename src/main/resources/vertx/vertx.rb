@@ -47,15 +47,10 @@ module Vertx
     def j_del
       @j_del
     end
-    #  The metric base name
-    # @return [String] the metric base name
-    def metric_base_name
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metricBaseName))).invoke(@j_del)
-    end
-    #  Will return the metrics that correspond with this measured object.
-    # @return [Hash{String => Hash{String => Object}}] the map of metrics where the key is the name of the metric (excluding the base name) and the value is the json data representing that metric
-    def metrics
-      Java::IoVertxLangJruby::Helper.adaptingMap((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:metrics))).invoke(@j_del), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+    #  Whether the metrics are enabled for this measured object
+    # @return [true,false] true if the metrics are enabled
+    def is_metrics_enabled
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
     end
     #  Creates a non clustered instance using the specified options
     # @param [Hash] options the options to use
@@ -259,10 +254,17 @@ module Vertx
     # @overload deployVerticle(name,options)
     #   @param [String] name the name
     #   @param [Hash] options the deployment options.
+    # @overload deployVerticle(name,options,completionHandler)
+    #   @param [String] name the name
+    #   @param [Hash] options the deployment options.
+    #   @param [Proc] completionHandler a handler which will be notified when the deployment is complete
     # @return [void]
-    def deploy_verticle(param_1,param_2=nil)
+    def deploy_verticle(param_1,param_2=nil,&param_3)
       if param_1.class == String
         if param_2.class == Hash
+          if param_3.class == Proc
+            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+          end
           return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class))).invoke(@j_del,param_1,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
         end
         if param_2.class == Proc
@@ -270,7 +272,7 @@ module Vertx
         end
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
       end
-      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling deploy_verticle(param_1,param_2)"
+      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling deploy_verticle(param_1,param_2,param_3)"
     end
     #  Like {::Vertx::Vertx #undeploy(String)} but the completionHandler will be notified when the undeployment is complete.
     # @param [String] deploymentID the deployment ID
@@ -290,6 +292,11 @@ module Vertx
     def deployment_i_ds
       (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentIDs))).invoke(@j_del).to_set.map! { |elt| elt }
     end
+    #  Is this Vert.x instance clustered?
+    # @return [true,false] true if clustered
+    def is_clustered
+      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isClustered))).invoke(@j_del)
+    end
     #  Safely execute some blocking code.
     #  <p>
     #  Executes the blocking code in the handler <code>blockingCodeHandler</code> using a thread from the worker pool.
@@ -298,7 +305,7 @@ module Vertx
     #  (e.g. on the original event loop of the caller).
     #  <p>
     #  A <code>Future</code> instance is passed into <code>blockingCodeHandler</code>. When the blocking code successfully completes,
-    #  the handler should call the {::Vertx::Future#complete} or  method, or the {::Vertx::Future#fail}
+    #  the handler should call the {::Vertx::Future#complete} or {::Vertx::Future#complete} method, or the {::Vertx::Future#fail}
     #  method if it failed.
     # @param [Proc] blockingCodeHandler handler representing the blocking code to run
     # @param [Proc] resultHandler handler that will be called when the blocking code is complete

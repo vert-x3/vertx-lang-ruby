@@ -79,6 +79,24 @@ module Vertx
       end
       @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
     end
+    #  Return the first header value with the specified name
+    # @param [String] headerName the header name
+    # @return [String] the header value
+    def get_header(headerName)
+      if headerName.class == String
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getHeader,Java::java.lang.String.java_class))).invoke(@j_del,headerName)
+      end
+      raise ArgumentError, "Invalid argument headerName=#{headerName} when calling get_header(headerName)"
+    end
+    #  Return the first trailer value with the specified name
+    # @param [String] trailerName the trailer name
+    # @return [String] the trailer value
+    def get_trailer(trailerName)
+      if trailerName.class == String
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getTrailer,Java::java.lang.String.java_class))).invoke(@j_del,trailerName)
+      end
+      raise ArgumentError, "Invalid argument trailerName=#{trailerName} when calling get_trailer(trailerName)"
+    end
     #  @return the trailers
     # @return [::Vertx::MultiMap]
     def trailers
