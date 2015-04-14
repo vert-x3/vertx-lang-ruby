@@ -8,6 +8,7 @@ import io.vertx.docgen.DocGenerator;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -87,6 +88,16 @@ public class JRubyDocGenerator implements DocGenerator {
 
   @Override
   public String resolveLabel(Element elt, String defaultLabel) {
-    return "todo";
+    if (elt.getKind() == ElementKind.METHOD) {
+      TypeInfo type = factory.create(elt.getEnclosingElement().asType());
+      if (type.getKind() == ClassKind.DATA_OBJECT) {
+        String name = elt.getSimpleName().toString();
+        if (name.startsWith("set") && name.length() > 3 && Character.isUpperCase(name.charAt(3))) {
+          name = java.beans.Introspector.decapitalize(name.substring(3));
+        }
+        return name;
+      }
+    }
+    return defaultLabel;
   }
 }

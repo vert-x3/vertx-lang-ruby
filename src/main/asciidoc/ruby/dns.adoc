@@ -100,10 +100,10 @@ To lookup all the MX records for "vertx.io" you would typically do:
 todo:implement-code-translation-for-ruby
 ----
 
-Be aware that the List will contain the `link:yardoc/Vertx/MxRecord.html[todo]` sorted by the priority of them, which
+Be aware that the List will contain the `link:yardoc/Vertx/MxRecord.html[MxRecord]` sorted by the priority of them, which
 means MX records with smaller priority coming first in the List.
 
-The `link:yardoc/Vertx/MxRecord.html[todo]` allows you to access the priority and the name of the MX record by offer methods for it like:
+The `link:yardoc/Vertx/MxRecord.html[MxRecord]` allows you to access the priority and the name of the MX record by offer methods for it like:
 
 [source,ruby]
 ----

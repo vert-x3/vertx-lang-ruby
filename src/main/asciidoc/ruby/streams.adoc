@@ -2,7 +2,7 @@
 
 There are several objects in Vert.x that allow items to be read from and written.
 
-In previous versions the streams.adoc package was manipulating `link:yardoc/Vertx/Buffer.html[todo]`
+In previous versions the streams.adoc package was manipulating `link:yardoc/Vertx/Buffer.html[Buffer]`
 objects exclusively. From now, streams are not anymore coupled to buffers and work with any kind of objects.
 
 In Vert.x, calls to write item return immediately and writes are internally queued.
@@ -13,12 +13,12 @@ exhausting available memory.
 
 To solve this problem a simple flow control capability is provided by some objects in the Vert.x API.
 
-Any flow control aware object that can be written-to implements `link:yardoc/Vertx/ReadStream.html[todo]`,
-and any flow control object that can be read-from is said to implement `link:yardoc/Vertx/WriteStream.html[todo]`.
+Any flow control aware object that can be written-to implements `link:yardoc/Vertx/ReadStream.html[ReadStream]`,
+and any flow control object that can be read-from is said to implement `link:yardoc/Vertx/WriteStream.html[WriteStream]`.
 
 Let's take an example where we want to read from a `ReadStream` and write the data to a `WriteStream`.
 
-A very simple example would be reading from a `link:yardoc/Vertx/NetSocket.html[todo]` on a server and writing back to the
+A very simple example would be reading from a `link:yardoc/Vertx/NetSocket.html[NetSocket]` on a server and writing back to the
 same `NetSocket` - since `NetSocket` implements both `ReadStream` and `WriteStream`, but you can
 do this between any `ReadStream` and any `WriteStream`, including HTTP requests and response,
 async files, WebSockets, etc.
@@ -60,12 +60,12 @@ it when the write queue has processed its backlog:
 todo:implement-code-translation-for-ruby
 ----
 
-And there we have it. The `link:yardoc/Vertx/WriteStream.html#drain_handler-instance_method[todo]` event handler will
+And there we have it. The `link:yardoc/Vertx/WriteStream.html#drain_handler-instance_method[drainHandler]` event handler will
 get called when the write queue is ready to accept more data, this resumes the `NetSocket` which
 allows it to read more data.
 
 It's very common to want to do this when writing Vert.x applications, so we provide a helper class
-called `link:yardoc/Vertx/Pump.html[todo]` which does all this hard work for you. You just feed it the `ReadStream` and
+called `link:yardoc/Vertx/Pump.html[Pump]` which does all this hard work for you. You just feed it the `ReadStream` and
 the `WriteStream` and it tell it to start:
 
 [source,ruby]
@@ -79,60 +79,60 @@ Let's look at the methods on `ReadStream` and `WriteStream` in more detail:
 
 === ReadStream
 
-`ReadStream` is implemented by `link:yardoc/Vertx/HttpClientResponse.html[todo]`, `link:yardoc/Vertx/DatagramSocket.html[todo]`,
-`link:yardoc/Vertx/HttpClientRequest.html[todo]`, `link:yardoc/Vertx/HttpServerFileUpload.html[todo]`,
-`link:yardoc/Vertx/HttpServerRequest.html[todo]`, `link:yardoc/Vertx/HttpServerRequestStream.html[todo]`,
-`link:yardoc/Vertx/MessageConsumer.html[todo]`, `link:yardoc/Vertx/NetSocket.html[todo]`, `link:yardoc/Vertx/NetSocketStream.html[todo]`,
-`link:yardoc/Vertx/WebSocket.html[todo]`, `link:yardoc/Vertx/WebSocketStream.html[todo]`, `link:yardoc/Vertx/TimeoutStream.html[todo]`,
-`link:yardoc/Vertx/AsyncFile.html[todo]`.
+`ReadStream` is implemented by `link:yardoc/Vertx/HttpClientResponse.html[HttpClientResponse]`, `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]`,
+`link:yardoc/Vertx/HttpClientRequest.html[HttpClientRequest]`, `link:yardoc/Vertx/HttpServerFileUpload.html[HttpServerFileUpload]`,
+`link:yardoc/Vertx/HttpServerRequest.html[HttpServerRequest]`, `link:yardoc/Vertx/HttpServerRequestStream.html[HttpServerRequestStream]`,
+`link:yardoc/Vertx/MessageConsumer.html[MessageConsumer]`, `link:yardoc/Vertx/NetSocket.html[NetSocket]`, `link:yardoc/Vertx/NetSocketStream.html[NetSocketStream]`,
+`link:yardoc/Vertx/WebSocket.html[WebSocket]`, `link:yardoc/Vertx/WebSocketStream.html[WebSocketStream]`, `link:yardoc/Vertx/TimeoutStream.html[TimeoutStream]`,
+`link:yardoc/Vertx/AsyncFile.html[AsyncFile]`.
 
 Functions:
 
-- `link:yardoc/Vertx/ReadStream.html#handler-instance_method[todo]`:
+- `link:yardoc/Vertx/ReadStream.html#handler-instance_method[handler]`:
 set a handler which will receive items from the ReadStream.
-- `link:yardoc/Vertx/ReadStream.html#pause-instance_method[todo]`:
+- `link:yardoc/Vertx/ReadStream.html#pause-instance_method[pause]`:
 pause the handler. When paused no items will be received in the handler.
-- `link:yardoc/Vertx/ReadStream.html#resume-instance_method[todo]`:
+- `link:yardoc/Vertx/ReadStream.html#resume-instance_method[resume]`:
 resume the handler. The handler will be called if any item arrives.
-- `link:yardoc/Vertx/ReadStream.html#exception_handler-instance_method[todo]`:
+- `link:yardoc/Vertx/ReadStream.html#exception_handler-instance_method[exceptionHandler]`:
 Will be called if an exception occurs on the ReadStream.
-- `link:yardoc/Vertx/ReadStream.html#end_handler-instance_method[todo]`:
+- `link:yardoc/Vertx/ReadStream.html#end_handler-instance_method[endHandler]`:
 Will be called when end of stream is reached. This might be when EOF is reached if the ReadStream represents a file,
 or when end of request is reached if it's an HTTP request, or when the connection is closed if it's a TCP socket.
 
 === WriteStream
 
-`WriteStream` is implemented by `link:yardoc/Vertx/HttpClientRequest.html[todo]`, `link:yardoc/Vertx/HttpServerResponse.html[todo]`
-`link:yardoc/Vertx/WebSocket.html[todo]`, `link:yardoc/Vertx/NetSocket.html[todo]`, `link:yardoc/Vertx/AsyncFile.html[todo]`,
-`link:yardoc/Vertx/PacketWritestream.html[todo]` and `link:yardoc/Vertx/MessageProducer.html[todo]`
+`WriteStream` is implemented by `link:yardoc/Vertx/HttpClientRequest.html[HttpClientRequest]`, `link:yardoc/Vertx/HttpServerResponse.html[HttpServerResponse]`
+`link:yardoc/Vertx/WebSocket.html[WebSocket]`, `link:yardoc/Vertx/NetSocket.html[NetSocket]`, `link:yardoc/Vertx/AsyncFile.html[AsyncFile]`,
+`link:yardoc/Vertx/PacketWritestream.html[PacketWritestream]` and `link:yardoc/Vertx/MessageProducer.html[MessageProducer]`
 
 Functions:
 
-- `link:yardoc/Vertx/WriteStream.html#write-instance_method[todo]`:
+- `link:yardoc/Vertx/WriteStream.html#write-instance_method[write]`:
 write an object to the WriteStream. This method will never block. Writes are queued internally and asynchronously
 written to the underlying resource.
-- `link:yardoc/Vertx/WriteStream.html#set_write_queue_max_size-instance_method[todo]`:
-set the number of object at which the write queue is considered _full_, and the method `link:yardoc/Vertx/WriteStream.html#write_queue_full-instance_method[todo]`
+- `link:yardoc/Vertx/WriteStream.html#set_write_queue_max_size-instance_method[setWriteQueueMaxSize]`:
+set the number of object at which the write queue is considered _full_, and the method `link:yardoc/Vertx/WriteStream.html#write_queue_full-instance_method[writeQueueFull]`
 returns `true`. Note that, when the write queue is considered full, if write is called the data will still be accepted
-and queued. The actual number depends on the stream implementation, for `link:yardoc/Vertx/Buffer.html[todo]` the size
+and queued. The actual number depends on the stream implementation, for `link:yardoc/Vertx/Buffer.html[Buffer]` the size
 represents the actual number of bytes written and not the number of buffers.
-- `link:yardoc/Vertx/WriteStream.html#write_queue_full-instance_method[todo]`:
+- `link:yardoc/Vertx/WriteStream.html#write_queue_full-instance_method[writeQueueFull]`:
 returns `true` if the write queue is considered full.
-- `link:yardoc/Vertx/WriteStream.html#exception_handler-instance_method[todo]`:
+- `link:yardoc/Vertx/WriteStream.html#exception_handler-instance_method[exceptionHandler]`:
 Will be called if an exception occurs on the `WriteStream`.
-- `link:yardoc/Vertx/WriteStream.html#drain_handler-instance_method[todo]`:
+- `link:yardoc/Vertx/WriteStream.html#drain_handler-instance_method[drainHandler]`:
 The handler will be called if the `WriteStream` is considered no longer full.
 
 === Pump
 
 Instances of Pump have the following methods:
 
-- `link:yardoc/Vertx/Pump.html#start-instance_method[todo]`:
+- `link:yardoc/Vertx/Pump.html#start-instance_method[start]`:
 Start the pump.
-- `link:yardoc/Vertx/Pump.html#stop-instance_method[todo]`:
+- `link:yardoc/Vertx/Pump.html#stop-instance_method[stop]`:
 Stops the pump. When the pump starts it is in stopped mode.
-- `link:yardoc/Vertx/Pump.html#set_write_queue_max_size-instance_method[todo]`:
-This has the same meaning as `link:yardoc/Vertx/WriteStream.html#set_write_queue_max_size-instance_method[todo]` on the `WriteStream`.
+- `link:yardoc/Vertx/Pump.html#set_write_queue_max_size-instance_method[setWriteQueueMaxSize]`:
+This has the same meaning as `link:yardoc/Vertx/WriteStream.html#set_write_queue_max_size-instance_method[setWriteQueueMaxSize]` on the `WriteStream`.
 
 A pump can be started and stopped multiple times.
 

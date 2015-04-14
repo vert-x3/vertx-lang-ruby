@@ -12,7 +12,7 @@ asynchronous cluster-wide counters.
 loops (e.g. different verticles) in the same Vert.x instance.
 
 Local shared maps only allow certain data types to be used as keys and values. Those types must either be immutable,
-or certain other types that can be copied like `link:yardoc/Vertx/Buffer.html[todo]`. In the latter case the key/value
+or certain other types that can be copied like `link:yardoc/Vertx/Buffer.html[Buffer]`. In the latter case the key/value
 will be copied before putting it in the map.
 
 This way we can ensure there is no _shared access to mutable state_ between different threads in your Vert.x application
@@ -33,8 +33,8 @@ other node.
 This makes them really useful for things like storing session state in a farm of servers hosting a Vert.x web
 application.
 
-You get an instance of `link:yardoc/Vertx/AsyncMap.html[todo]` with
-`link:yardoc/Vertx/SharedData.html#get_cluster_wide_map-instance_method[todo]`.
+You get an instance of `link:yardoc/Vertx/AsyncMap.html[AsyncMap]` with
+`link:yardoc/Vertx/SharedData.html#get_cluster_wide_map-instance_method[getClusterWideMap]`.
 
 Getting the map is asynchronous and the result is returned to you in the handler that you specify. Here's an example:
 
@@ -45,7 +45,7 @@ todo:implement-code-translation-for-ruby
 
 ==== Putting data in a map
 
-You put data in a map with `link:yardoc/Vertx/AsyncMap.html#put-instance_method[todo]`.
+You put data in a map with `link:yardoc/Vertx/AsyncMap.html#put-instance_method[put]`.
 
 The actual put is asynchronous and the handler is notified once it is complete:
 
@@ -56,7 +56,7 @@ todo:implement-code-translation-for-ruby
 
 ==== Getting data from a map
 
-You get data from a map with `link:yardoc/Vertx/AsyncMap.html#get-instance_method[todo]`.
+You get data from a map with `link:yardoc/Vertx/AsyncMap.html#get-instance_method[get]`.
 
 The actual get is asynchronous and the handler is notified with the result some time later
 
@@ -79,14 +79,14 @@ this is useful when you want to do something or access a resource on only one no
 Cluster wide locks have an asynchronous API unlike most lock APIs which block the calling thread until the lock
 is obtained.
 
-To obtain a lock use `link:yardoc/Vertx/SharedData.html#get_lock-instance_method[todo]`.
+To obtain a lock use `link:yardoc/Vertx/SharedData.html#get_lock-instance_method[getLock]`.
 
-This won't block, but when the lock is available, the handler will be called with an instance of `link:yardoc/Vertx/Lock.html[todo]`,
+This won't block, but when the lock is available, the handler will be called with an instance of `link:yardoc/Vertx/Lock.html[Lock]`,
 signifying that you now own the lock.
 
 While you own the lock no other caller, anywhere on the cluster will be able to obtain the lock.
 
-When you've finished with the lock, you call `link:yardoc/Vertx/Lock.html#release-instance_method[todo]` to release it, so
+When you've finished with the lock, you call `link:yardoc/Vertx/Lock.html#release-instance_method[release]` to release it, so
 another caller can obtain it.
 
 [source,ruby]
@@ -106,9 +106,9 @@ todo:implement-code-translation-for-ruby
 
 It's often useful to maintain an atomic counter across the different nodes of your application.
 
-You can do this with `link:yardoc/Vertx/Counter.html[todo]`.
+You can do this with `link:yardoc/Vertx/Counter.html[Counter]`.
 
-You obtain an instance with `link:yardoc/Vertx/SharedData.html#get_counter-instance_method[todo]`:
+You obtain an instance with `link:yardoc/Vertx/SharedData.html#get_counter-instance_method[getCounter]`:
 
 [source,ruby]
 ----

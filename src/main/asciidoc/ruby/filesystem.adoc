@@ -1,8 +1,8 @@
 == Using the file system with Vert.x
 
-The Vert.x `link:yardoc/Vertx/FileSystem.html[todo]` object provides many operations for manipulating the file system.
+The Vert.x `link:yardoc/Vertx/FileSystem.html[FileSystem]` object provides many operations for manipulating the file system.
 
-There is one file system object per Vert.x instance, and you obtain it with `link:yardoc/Vertx/Vertx.html#file_system-instance_method[todo]`.
+There is one file system object per Vert.x instance, and you obtain it with `link:yardoc/Vertx/Vertx.html#file_system-instance_method[fileSystem]`.
 
 A blocking and a non blocking version of each operation is provided.
 
@@ -37,7 +37,7 @@ We won't list them all here, please consult the `link:yardoc/Vertx/FileSystem.ht
 
 Vert.x provides an asynchronous file abstraction that allows you to manipulate a file on the file system
 
-You open an `link:yardoc/Vertx/AsyncFile.html[todo]` as follows:
+You open an `link:yardoc/Vertx/AsyncFile.html[AsyncFile]` as follows:
 
 [source,ruby]
 ----

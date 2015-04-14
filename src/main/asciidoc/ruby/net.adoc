@@ -13,7 +13,7 @@ todo:implement-code-translation-for-ruby
 
 === Configuring a TCP server
 
-If you don't want the default, a server can be configured by passing in a `link:../cheatsheet/NetServerOptions.html[todo]`
+If you don't want the default, a server can be configured by passing in a `link:../cheatsheet/NetServerOptions.html[NetServerOptions]`
 instance when creating it:
 
 [source,ruby]
@@ -23,7 +23,7 @@ todo:implement-code-translation-for-ruby
 
 === Start the Server Listening
 
-To tell the server to listen for incoming requests you use one of the `link:yardoc/Vertx/NetServer.html#listen-instance_method[todo]`
+To tell the server to listen for incoming requests you use one of the `link:yardoc/Vertx/NetServer.html#listen-instance_method[listen]`
 alternatives.
 
 To tell the server to listen at the host and port as specified in the options:
@@ -58,7 +58,7 @@ todo:implement-code-translation-for-ruby
 
 If `0` is used as the listening port, the server will find an unused random port to listen on.
 
-To find out the real port the server is listening on you can call `link:yardoc/Vertx/NetServer.html#actual_port-instance_method[todo]`.
+To find out the real port the server is listening on you can call `link:yardoc/Vertx/NetServer.html#actual_port-instance_method[actualPort]`.
 
 [source,ruby]
 ----
@@ -67,24 +67,24 @@ todo:implement-code-translation-for-ruby
 
 === Getting notified of incoming connections
 
-To be notified when a connection is made you need to set a `link:yardoc/Vertx/NetServer.html#connect_handler-instance_method[todo]`:
+To be notified when a connection is made you need to set a `link:yardoc/Vertx/NetServer.html#connect_handler-instance_method[connectHandler]`:
 
 [source,ruby]
 ----
 todo:implement-code-translation-for-ruby
 ----
 
-When a connection is made the handler will be called with an instance of `link:yardoc/Vertx/NetSocket.html[todo]`.
+When a connection is made the handler will be called with an instance of `link:yardoc/Vertx/NetSocket.html[NetSocket]`.
 
 This is a socket-like interface to the actual connection, and allows you to read and write data as well as do various
 other things like close the socket.
 
 === Reading data from the socket
 
-To read data from the socket you set the `link:yardoc/Vertx/NetSocket.html#handler-instance_method[todo]` on the
+To read data from the socket you set the `link:yardoc/Vertx/NetSocket.html#handler-instance_method[handler]` on the
 socket.
 
-This handler will be called with an instance of `link:yardoc/Vertx/Buffer.html[todo]` every time data is received on
+This handler will be called with an instance of `link:yardoc/Vertx/Buffer.html[Buffer]` every time data is received on
 the socket.
 
 [source,ruby]
@@ -94,7 +94,7 @@ todo:implement-code-translation-for-ruby
 
 === Writing data to a socket
 
-You write to a socket using one of `link:yardoc/Vertx/NetSocket.html#write-instance_method[todo]`.
+You write to a socket using one of `link:yardoc/Vertx/NetSocket.html#write-instance_method[write]`.
 
 [source,ruby]
 ----
@@ -105,7 +105,7 @@ Write operations are asynchronous and may not occur until some time after the ca
 
 === Closed handler
 
-If you want to be notified when a socket is closed, you can set a `link:yardoc/Vertx/NetSocket.html#close_handler-instance_method[todo]`
+If you want to be notified when a socket is closed, you can set a `link:yardoc/Vertx/NetSocket.html#close_handler-instance_method[closeHandler]`
 on it:
 
 [source,ruby]
@@ -115,7 +115,7 @@ todo:implement-code-translation-for-ruby
 
 === Handling exceptions
 
-You can set an `link:yardoc/Vertx/NetSocket.html#exception_handler-instance_method[todo]` to receive any
+You can set an `link:yardoc/Vertx/NetSocket.html#exception_handler-instance_method[exceptionHandler]` to receive any
 exceptions that happen on the socket.
 
 === Event bus write handler
@@ -126,18 +126,18 @@ it writes them to itself.
 This enables you to write data to a socket which is potentially in a completely different verticle or even in a
 different Vert.x instance by sending the buffer to the address of that handler.
 
-The address of the handler is given by `link:yardoc/Vertx/NetSocket.html#write_handler_id-instance_method[todo]`
+The address of the handler is given by `link:yardoc/Vertx/NetSocket.html#write_handler_id-instance_method[writeHandlerID]`
 
 === Local and remote addresses
 
-The local address of a `link:yardoc/Vertx/NetSocket.html[todo]` can be retrieved using `link:yardoc/Vertx/NetSocket.html#local_address-instance_method[todo]`.
+The local address of a `link:yardoc/Vertx/NetSocket.html[NetSocket]` can be retrieved using `link:yardoc/Vertx/NetSocket.html#local_address-instance_method[localAddress]`.
 
-The remote address, (i.e. the address of the other end of the connection) of a `link:yardoc/Vertx/NetSocket.html[todo]`
-can be retrieved using `link:yardoc/Vertx/NetSocket.html#remote_address-instance_method[todo]`.
+The remote address, (i.e. the address of the other end of the connection) of a `link:yardoc/Vertx/NetSocket.html[NetSocket]`
+can be retrieved using `link:yardoc/Vertx/NetSocket.html#remote_address-instance_method[remoteAddress]`.
 
 === Sending files
 
-Files can be written to the socket directly using `link:yardoc/Vertx/NetSocket.html#send_file-instance_method[todo]`. This can be a very
+Files can be written to the socket directly using `link:yardoc/Vertx/NetSocket.html#send_file-instance_method[sendFile]`. This can be a very
 efficient way to send files, as it can be handled by the OS kernel directly where supported by the operating system.
 
 [source,ruby]
@@ -147,22 +147,22 @@ todo:implement-code-translation-for-ruby
 
 === Streaming sockets
 
-Instances of `link:yardoc/Vertx/NetSocket.html[todo]` are also `link:yardoc/Vertx/ReadStream.html[todo]` and
-`link:yardoc/Vertx/WriteStream.html[todo]` instances so they can be used to pump data to or from other
+Instances of `link:yardoc/Vertx/NetSocket.html[NetSocket]` are also `link:yardoc/Vertx/ReadStream.html[ReadStream]` and
+`link:yardoc/Vertx/WriteStream.html[WriteStream]` instances so they can be used to pump data to or from other
 read and write streams.
 
 See the chapter on <<streams, streams and pumps>> for more information.
 
 === Upgrading connections to SSL/TLS
 
-A non SSL/TLS connection can be upgraded to SSL/TLS using `link:yardoc/Vertx/NetSocket.html#upgrade_to_ssl-instance_method[todo]`.
+A non SSL/TLS connection can be upgraded to SSL/TLS using `link:yardoc/Vertx/NetSocket.html#upgrade_to_ssl-instance_method[upgradeToSsl]`.
 
 The server or client must be configured for SSL/TLS for this to work correctly. Please see the <<ssl, chapter on SSL/TLS>>
 for more information.
 
 === Closing a TCP Server
 
-Call `link:yardoc/Vertx/NetServer.html#close-instance_method[todo]` to close the server. Closing the server closes any open connections
+Call `link:yardoc/Vertx/NetServer.html#close-instance_method[close]` to close the server. Closing the server closes any open connections
 and releases all server resources.
 
 The close is actually asynchronous and might not complete until some time after the call has returned.
@@ -235,7 +235,7 @@ todo:implement-code-translation-for-ruby
 
 === Configuring a TCP client
 
-If you don't want the default, a client can be configured by passing in a `link:../cheatsheet/NetClientOptions.html[todo]`
+If you don't want the default, a client can be configured by passing in a `link:../cheatsheet/NetClientOptions.html[NetClientOptions]`
 instance when creating it:
 
 [source,ruby]
@@ -245,9 +245,9 @@ todo:implement-code-translation-for-ruby
 
 === Making connections
 
-To make a connection to a server you use `link:yardoc/Vertx/NetClient.html#connect-instance_method[todo]`,
+To make a connection to a server you use `link:yardoc/Vertx/NetClient.html#connect-instance_method[connect]`,
 specifying the port and host of the server and a handler that will be called with a result containing the
-`link:yardoc/Vertx/NetSocket.html[todo]` when connection is successful or with a failure if connection failed.
+`link:yardoc/Vertx/NetSocket.html[NetSocket]` when connection is successful or with a failure if connection failed.
 
 [source,ruby]
 ----
@@ -257,8 +257,8 @@ todo:implement-code-translation-for-ruby
 === Configuring connection attempts
 
 A client can be configured to automatically retry connecting to the server in the event that it cannot connect.
-This is configured with `link:../cheatsheet/NetClientOptions.html#reconnectInterval[todo]` and
-`link:../cheatsheet/NetClientOptions.html#reconnectAttempts[todo]`.
+This is configured with `link:../cheatsheet/NetClientOptions.html#reconnectInterval[reconnectInterval]` and
+`link:../cheatsheet/NetClientOptions.html#reconnectAttempts[reconnectAttempts]`.
 
 NOTE: Currently Vert.x will not attempt to reconnect if a connection fails, reconnect attempts and interval
 only apply to creating initial connections.
@@ -277,7 +277,7 @@ TCP clients and servers can be configured to use http://en.wikipedia.org/wiki/Tr
 - earlier versions of TLS were known as SSL.
 
 The APIs of the servers and clients are identical whether or not SSL/TLS is used, and it's enabled by configuring
-the `link:../cheatsheet/NetClientOptions.html[todo]` or `link:../cheatsheet/NetServerOptions.html[todo]` instances used
+the `link:../cheatsheet/NetClientOptions.html[NetClientOptions]` or `link:../cheatsheet/NetServerOptions.html[NetServerOptions]` instances used
 to create the servers or clients.
 
 ==== Enabling SSL/TLS on the server
