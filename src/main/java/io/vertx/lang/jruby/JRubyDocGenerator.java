@@ -36,7 +36,7 @@ public class JRubyDocGenerator implements DocGenerator {
   }
 
   @Override
-  public String toTypeLink(TypeElement elt, Coordinate coordinate) {
+  public String resolveTypeLink(TypeElement elt, Coordinate coordinate) {
     TypeInfo type = factory.create(elt.asType());
     if (type.getKind() == ClassKind.DATA_OBJECT) {
       String baselink;
@@ -62,28 +62,31 @@ public class JRubyDocGenerator implements DocGenerator {
   }
 
   @Override
-  public String toMethodLink(ExecutableElement elt, Coordinate coordinate) {
-    String baselink = toTypeLink((TypeElement) elt.getEnclosingElement(), coordinate);
-    if (baselink.contains("cheatsheet")) {
-      return baselink + '#' + java.beans.Introspector.decapitalize(elt.getSimpleName().toString().substring(3));
-    } else {
-      String methodName = Case.SNAKE.format(Case.CAMEL.parse(elt.getSimpleName().toString()));
-      return baselink + '#' + methodName + "-" + (elt.getModifiers().contains(Modifier.STATIC) ? "class_method" : "instance_method");
+  public String resolveMethodLink(ExecutableElement elt, Coordinate coordinate) {
+    String baselink = resolveTypeLink((TypeElement) elt.getEnclosingElement(), coordinate);
+    if (baselink != null) {
+      if (baselink.contains("cheatsheet")) {
+        baselink = baselink + '#' + java.beans.Introspector.decapitalize(elt.getSimpleName().toString().substring(3));
+      } else {
+        String methodName = Case.SNAKE.format(Case.CAMEL.parse(elt.getSimpleName().toString()));
+        baselink = baselink + '#' + methodName + "-" + (elt.getModifiers().contains(Modifier.STATIC) ? "class_method" : "instance_method");
+      }
     }
+    return baselink;
   }
 
   @Override
-  public String toConstructorLink(ExecutableElement elt, Coordinate coordinate) {
+  public String resolveConstructorLink(ExecutableElement elt, Coordinate coordinate) {
     return "todo";
   }
 
   @Override
-  public String toFieldLink(VariableElement elt, Coordinate coordinate) {
+  public String resolveFieldLink(VariableElement elt, Coordinate coordinate) {
     return "todo";
   }
 
   @Override
-  public String resolveLabel(Element elt) {
+  public String resolveLabel(Element elt, String defaultLabel) {
     return "todo";
   }
 }
