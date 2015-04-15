@@ -16,12 +16,18 @@ module Vertx
     #  The priority of the MX record.
     # @return [Fixnum]
     def priority
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling priority()"
     end
     #  The name of the MX record
     # @return [String]
     def name
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling name()"
     end
   end
 end

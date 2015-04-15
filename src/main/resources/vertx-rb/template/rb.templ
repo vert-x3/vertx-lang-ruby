@@ -186,7 +186,7 @@
         return expr + ".class == Float";
       }
       if (typeName == "boolean" || typeName == "java.lang.Boolean") {
-        return expr + ".class == TrueClass || " + expr + ".class == FalseClass";
+        return "(" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
       return expr + ".class == String  ||" + expr + ".class == Hash || " + expr + ".class == Array"
@@ -262,17 +262,29 @@
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_DATA_OBJECT || eventKind.collection || eventKind == CLASS_API ||
           eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json) {
-        return "(Proc.new { |event| " + expr + ".call(" + genConvReturn(eventType, "event") + ") })";
+        if (expr != "yield") {
+          expr += ".call";
+        }
+        return "(Proc.new { |event| " + expr + "(" + genConvReturn(eventType, "event") + ") })";
       } else if (eventKind == CLASS_VOID) {
+        if (expr == "yield") {
+          expr = "Proc.new { yield }";
+        }
         return expr;
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
         if (resultKind.basic || resultKind == CLASS_DATA_OBJECT || resultKind.collection || resultKind == CLASS_API ||
             resultKind == CLASS_OBJECT || resultKind.json) {
-          return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
+          if (expr != "yield") {
+            expr += ".call";
+          }
+          return "(Proc.new { |ar| " + expr + "(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
         } else if (resultKind == CLASS_VOID) {
-          return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil) })";
+          if (expr != "yield") {
+            expr += ".call";
+          }
+          return "(Proc.new { |ar| " + expr + "(ar.failed ? ar.cause : nil) })";
         }
       }
     } else if (kind == CLASS_API) {
@@ -365,7 +377,7 @@
 
   /*
    * Append an entry to a Trie structure. The Trie structure is created from the overloaded methods parameters
-   * and is used to generate a method call.
+   * and is used to know if we need to name the method parameters in a generic fashion or not.
    *
    * for example:
    * - Buffer buffer()
@@ -388,12 +400,18 @@
    *   return Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.buffer)
    * end
    *
+   * note: last param handlers are willingly not used in the trie as they are handled using `yield` and
+   *       not as a method param.
+   *
    * @param trie the trie as a Map<ParamInfo, Map<ParamInfo, Map<...>>>
    * @param entry the entry as an Iterator<ParamInfo>
    */
   def trieAppend(trie, params) {
     if (params.hasNext()) {
       var first = params.next();
+      if (first.type.kind == CLASS_HANDLER && !params.hasNext()) {
+        return true;
+      }
       if (!trie.containsKey(first.type)) {
         trie.put(first.type, new java.util.HashMap());
       }
@@ -454,29 +472,6 @@
   }
 }
 
-@comment{"Generate a method dispatch fragment."}
-@comment{"@param method the method to generate the dispatch for"}
-@comment{"@param indent the extra indent"}
-@comment{"@param generic whether to use the method parameter names or the generic parameter names"}
-@comment{"@param last true when this method is the last one in the call dispatch tree"}
-@declare{'genMethodDispatchFragment'}
-@if{method.fluent}
-@{indent}@{genMethodCall(method,params)}\n
-@{indent}@if{!last}return @end{}self\n
-@else{}
-	@if{method.cacheReturn}
-		@code{cacheKey="@cached_" + method.getName(CASE_SNAKE)}
-		@code{cacheDecl=cacheKey + " = "}
-		@{indent}if @{cacheKey} != nil\n
-		@{indent}  return @{cacheKey}\n
-		@{indent}end\n
-	@else{}
-		@code{cacheDecl=""}
-	@end{}
-@{indent}@if{!last}return @end{}@{cacheDecl}@{genConvReturn(method.returnType, genMethodCall(method,params))}\n
-@end{}
-@end{}
-
 @comment{"Generate the require"}
 @foreach{referencedType : referencedTypes}
 require '@{genRubyClassInclude(referencedType.raw)}'\n
@@ -518,33 +513,61 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
-@comment{"Maintain the current trie in the recursive template genMethodDispatch"}
-@code{_trie=new java.util.LinkedList()}
-
-@comment{"Recursive template generating the full dispatch"}
+@comment{"Generate the method dispatch (i.e the body of the method) for the current `methods` list"}
 @declare{'genMethodDispatch'}
-	@code{_trie.addLast(trie)}
-	@if{trie.size() > 0}
-		@foreach{entry:trie.entrySet()}
-			@{genIndent()}  if @{genTypeCheckPredicate(params.get(_trie.size() - 1), entry.key)}\n
-			@code{trie=entry.value}
-			@includeNamed{'genMethodDispatch'}
-			@{genIndent()}  end\n
+	@code{previous=false}
+	@foreach{method:methods}
+		@code{paramNames=new java.util.ArrayList()}
+		@code{remainingParams=new java.util.LinkedList(params)}
+		@code{checks=new java.util.LinkedList()}
+		@foreach{param:method.params}
+			@if{paramNames.size() + 1 == method.params.size() && param.type.kind == CLASS_HANDLER}
+				@code{checks.add("block_given?")}
+				@code{paramNames.add("yield")}
+			@else{}
+				@code{paramName=remainingParams.removeFirst()}
+				@code{checks.add(genTypeCheckPredicate(paramName, param.type))}
+				@code{paramNames.add(paramName)}
+			@end{}
 		@end{}
+		@if{checks.empty || checks.peekLast() != "block_given?"}
+			@code{checks.add("!block_given?")}
+		@end{}
+		@foreach{remainingParam:remainingParams}
+			@code{checks.add(remainingParam + " == nil")}
+		@end{}
+      @if{!previous}if@else{}elsif@end{} @foreach{check:checks}@{check}@end{" && "}\n
+		@if{method.fluent}
+        @{genMethodCall(method,paramNames)}\n
+        return self\n
+		@else{}
+			@if{method.cacheReturn}
+				@code{cacheKey="@cached_" + method.getName(CASE_SNAKE)}
+				@code{cacheDecl=cacheKey + " = "}
+        if @{cacheKey} != nil\n
+          return @{cacheKey}\n
+        end\n
+			@else{}
+				@code{cacheDecl=""}
+			@end{}
+        return @{cacheDecl}@{genConvReturn(method.returnType, genMethodCall(method,paramNames))}\n
+		@end{}
+		@code{previous=true}
 	@end{}
-	@code{trie=_trie.removeLast()}
-	@if{methodMap.containsKey(trie)}
-		@includeNamed{"genMethodDispatchFragment";method=methodMap.get(trie);indent=("    " + genIndent());generic=(kind == 2);last=(_trie.size() == 0)}
-	@else{}
-		@code{arg=params.get(_trie.size())}
-		@{genIndent()}    raise ArgumentError, "Invalid argument @{arg}=#{@{arg}} when calling @{methodName}(@foreach{param:params}@{param}@end{","})"\n
+	@if{previous}
+      end\n
 	@end{}
+      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}@{param}@end{","})"\n
 @end{}
 
 @comment{""}
 @declare{'methodParamsTags'}
 	@foreach{param:methodParams}
+		@if{param == methodParams[methodParams.size() - 1] && param.type.kind == CLASS_HANDLER}
+    # @{indent}@yield @if{param.description != null}@{param.description}@end{}\n
+		@else{}
     # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)}@if{param.description != null} @{param.description}@end{}\n
+		@end{}
 	@end{}
 @end{}
 
@@ -554,9 +577,8 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{methodName=methods[0].getName(CASE_SNAKE)}
 		@code{methodDecl=(methods[0].staticMethod ? "self." : "") + methodName}
 		@code{trie = new java.util.HashMap()}
-		@code{methodMap = new java.util.IdentityHashMap()}
 		@foreach{method:methods}
-			@code{methodMap.put(trieAppend(trie, method.params.iterator()), method)}
+			@code{trieAppend(trie, method.params.iterator())}
 		@end{}
 		@code{kind = trieKind(trie)}
 
@@ -589,10 +611,8 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@end{}
     def @{methodDecl}@if{params.size() > 0}(
 		@code{index=0}@foreach{param:params}
-		@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}
-		@if{handler}&@end{}
-		@{param}
-		@if{index++ >= methods[0].params.size() && !handler}=nil@end{}
+		@code{index++}
+		@{param}=nil
 		@end{","})@end{}\n
 		@includeNamed{'genMethodDispatch'}
     end\n

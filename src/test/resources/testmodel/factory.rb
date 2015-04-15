@@ -17,29 +17,29 @@ module Testmodel
     def j_del
       @j_del
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [::Testmodel::ConcreteHandlerUserType]
-    def self.create_concrete_handler_user_type(&handler)
-      if handler.class == Proc
-        return ::Testmodel::ConcreteHandlerUserType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Testmodel::RefedInterface1.new(event)) })))
+    def self.create_concrete_handler_user_type
+      if block_given?
+        return ::Testmodel::ConcreteHandlerUserType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling create_concrete_handler_user_type(handler)"
+      raise ArgumentError, "Invalid arguments when calling create_concrete_handler_user_type()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [::Testmodel::AbstractHandlerUserType]
-    def self.create_abstract_handler_user_type(&handler)
-      if handler.class == Proc
-        return ::Testmodel::AbstractHandlerUserTypeImpl.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createAbstractHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Testmodel::RefedInterface1.new(event)) })))
+    def self.create_abstract_handler_user_type
+      if block_given?
+        return ::Testmodel::AbstractHandlerUserTypeImpl.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createAbstractHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling create_abstract_handler_user_type(handler)"
+      raise ArgumentError, "Invalid arguments when calling create_abstract_handler_user_type()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [::Testmodel::ConcreteHandlerUserTypeExtension]
-    def self.create_concrete_handler_user_type_extension(&handler)
-      if handler.class == Proc
-        return ::Testmodel::ConcreteHandlerUserTypeExtension.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserTypeExtension,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Testmodel::RefedInterface1.new(event)) })))
+    def self.create_concrete_handler_user_type_extension
+      if block_given?
+        return ::Testmodel::ConcreteHandlerUserTypeExtension.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserTypeExtension,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling create_concrete_handler_user_type_extension(handler)"
+      raise ArgumentError, "Invalid arguments when calling create_concrete_handler_user_type_extension()"
     end
   end
 end

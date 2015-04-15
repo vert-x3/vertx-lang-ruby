@@ -17,11 +17,17 @@ module RubyCodegen
     end
     # @return [void]
     def super_mixin_method
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling super_mixin_method()"
     end
     # @return [void]
     def mixin_method
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mixinMethod))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:mixinMethod))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling mixin_method()"
     end
   end
 end

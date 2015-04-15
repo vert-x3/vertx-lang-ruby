@@ -15,11 +15,11 @@ module Acme
     end
     # @param [String] s
     # @return [String]
-    def reverse(s)
-      if s.class == String
+    def reverse(s=nil)
+      if s.class == String && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reverse,Java::java.lang.String.java_class))).invoke(@j_del,s)
       end
-      raise ArgumentError, "Invalid argument s=#{s} when calling reverse(s)"
+      raise ArgumentError, "Invalid arguments when calling reverse(s)"
     end
   end
 end

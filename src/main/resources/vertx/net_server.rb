@@ -20,81 +20,78 @@ module Vertx
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
     #  Return the connect stream for this server. The server can only have at most one handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
     #  connect stream .
     # @return [::Vertx::NetSocketStream] the connect stream
     def connect_stream
-      ::Vertx::NetSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectStream))).invoke(@j_del))
+      if !block_given?
+        return ::Vertx::NetSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectStream))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling connect_stream()"
     end
     #  Supply a connect handler for this server. The server can only have at most one connect handler at any one time.
     #  As the server accepts TCP or SSL connections it creates an instance of {::Vertx::NetSocket} and passes it to the
     #  connect handler.
-    # @param [Proc] handler
+    # @yield 
     # @return [::Vertx::NetServer] a reference to this, so the API can be used fluently
-    def connect_handler(&handler)
-      if handler.class == Proc
-        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::NetSocket.new(event)) })))
+    def connect_handler
+      if block_given?
+        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::NetSocket.new(event)) })))
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling connect_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling connect_handler()"
     end
     #  Like {::Vertx::NetServer#listen} but providing a handler that will be notified when the server is listening, or fails.
-    # @overload listen()
-    # @overload listen(listenHandler)
-    #   @param [Proc] listenHandler handler that will be notified when listening or failed
-    # @overload listen(port)
-    #   @param [Fixnum] port
-    # @overload listen(port,host)
-    #   @param [Fixnum] port
-    #   @param [String] host
-    # @overload listen(port,listenHandler)
-    #   @param [Fixnum] port the port to listen on
-    #   @param [Proc] listenHandler handler that will be notified when listening or failed
-    # @overload listen(port,host,listenHandler)
-    #   @param [Fixnum] port the port to listen on
-    #   @param [String] host the host to listen on
-    #   @param [Proc] listenHandler handler that will be notified when listening or failed
+    # @param [Fixnum] port the port to listen on
+    # @param [String] host the host to listen on
+    # @yield handler that will be notified when listening or failed
     # @return [self]
-    def listen(param_1=nil,param_2=nil,&param_3)
-      if param_1.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| param_1.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+    def listen(port=nil,host=nil)
+      if !block_given? && port == nil && host == nil
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
+        return self
+      elsif block_given? && port == nil && host == nil
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        return self
+      elsif port.class == Fixnum && !block_given? && host == nil
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class))).invoke(@j_del,port)
+        return self
+      elsif port.class == Fixnum && host.class == String && !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,port,host)
+        return self
+      elsif port.class == Fixnum && block_given? && host == nil
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        return self
+      elsif port.class == Fixnum && host.class == String && block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
-      if param_1.class == Fixnum
-        if param_2.class == Proc
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
-          return self
-        end
-        if param_2.class == String
-          if param_3.class == Proc
-            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
-            return self
-          end
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
-          return self
-        end
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class))).invoke(@j_del,param_1)
-        return self
-      end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
-      self
+      raise ArgumentError, "Invalid arguments when calling listen(port,host)"
     end
     #  Like {::Vertx::NetServer#close} but supplying a handler that will be notified when close is complete.
-    # @param [Proc] completionHandler the handler
+    # @yield the handler
     # @return [void]
-    def close(&completionHandler)
-      if completionHandler.class == Proc
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| completionHandler.call(ar.failed ? ar.cause : nil) }))
+    def close
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      elsif block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      raise ArgumentError, "Invalid arguments when calling close()"
     end
     #  The actual port the server is listening on. This is useful if you bound the server specifying 0 as port number
     #  signifying an ephemeral port
     # @return [Fixnum] the actual port the server is listening on.
     def actual_port
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:actualPort))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:actualPort))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling actual_port()"
     end
   end
 end

@@ -611,16 +611,16 @@ def test_overloaded_methods
   Assert.equals(called, true)
   called = false
   # for some reason animal is sometimes equals to giraffe and sometimes empty
-  ret = $obj.overloaded_method('cat', Proc.new { |animal| called = true })
+  ret = $obj.overloaded_method('cat') { |animal| called = true }
   Assert.equals(ret, 'meth3')
   Assert.equals(called, true)
   called = false
-  ret = $obj.overloaded_method('cat', $refed_obj, Proc.new { |animal| Assert.equals(animal, 'giraffe') ; called = true })
+  ret = $obj.overloaded_method('cat', $refed_obj) { |animal| Assert.equals(animal, 'giraffe') ; called = true }
   Assert.equals(ret, 'meth4')
   Assert.equals(called, true)
   Assert.argument_error { $obj.overloaded_method 'cat' }
-  Assert.argument_error { $obj.overloaded_method 'cat', $refed_obj, 12345, Proc.new({}) }
-  Assert.argument_error { $obj.overloaded_method Proc.new({}) }
+  Assert.argument_error { $obj.overloaded_method('cat', $refed_obj, 12345) }
+  Assert.argument_error { $obj.overloaded_method {} }
 end
 
 def test_super_interfaces

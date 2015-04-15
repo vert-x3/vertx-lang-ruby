@@ -24,7 +24,10 @@ module Vertx
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
     #  Open a connection to a server at the specific <code>port</code> and <code>host</code>.
     #  <p>
@@ -32,20 +35,14 @@ module Vertx
     #  {::Vertx::NetSocket} instance is supplied via the <code>connectHandler</code> instance
     # @param [Fixnum] port the port
     # @param [String] host the host
-    # @param [Proc] connectHandler
+    # @yield 
     # @return [self]
-    def connect(port,host,&connectHandler)
-      if port.class == Fixnum
-        if host.class == String
-          if connectHandler.class == Proc
-            (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connect,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| connectHandler.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetSocket.new(ar.result) : nil) }))
-            return self
-          end
-          raise ArgumentError, "Invalid argument connectHandler=#{connectHandler} when calling connect(port,host,connectHandler)"
-        end
-        raise ArgumentError, "Invalid argument host=#{host} when calling connect(port,host,connectHandler)"
+    def connect(port=nil,host=nil)
+      if port.class == Fixnum && host.class == String && block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connect,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetSocket.new(ar.result) : nil) }))
+        return self
       end
-      raise ArgumentError, "Invalid argument port=#{port} when calling connect(port,host,connectHandler)"
+      raise ArgumentError, "Invalid arguments when calling connect(port,host)"
     end
     #  Close the client.
     #  <p>
@@ -53,7 +50,10 @@ module Vertx
     #  complete until some time after the method has returned.
     # @return [void]
     def close
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling close()"
     end
   end
 end

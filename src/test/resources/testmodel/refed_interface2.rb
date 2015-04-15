@@ -4,16 +4,19 @@ module Testmodel
   module RefedInterface2
     # @return [String]
     def get_string
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_string()"
     end
     # @param [String] str
     # @return [self]
-    def set_string(str)
-      if str.class == String
+    def set_string(str=nil)
+      if str.class == String && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::java.lang.String.java_class))).invoke(@j_del,str)
         return self
       end
-      raise ArgumentError, "Invalid argument str=#{str} when calling set_string(str)"
+      raise ArgumentError, "Invalid arguments when calling set_string(str)"
     end
   end
   class RefedInterface2Impl

@@ -3,14 +3,14 @@ require 'vertx/util/utils.rb'
 module Vertx
   module StreamBase
     #  Set an exception handler.
-    # @param [Proc] handler the handler
+    # @yield the handler
     # @return [self]
-    def exception_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
+    def exception_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
   end
   class StreamBaseImpl

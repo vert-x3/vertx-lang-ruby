@@ -20,48 +20,57 @@ module Vertx
     def j_del
       @j_del
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def exception_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
+    def exception_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
+    def handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling handler()"
     end
     # @return [self]
     def pause
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
-      self
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling pause()"
     end
     # @return [self]
     def resume
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
-      self
-    end
-    # @param [Proc] endHandler
-    # @return [self]
-    def end_handler(&endHandler)
-      if endHandler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
         return self
       end
-      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
+      raise ArgumentError, "Invalid arguments when calling resume()"
+    end
+    # @yield 
+    # @return [self]
+    def end_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
     #  Cancels the timeout. Note this has the same effect as calling {::Vertx::TimeoutStream#handler} with a null
     #  argument.
     # @return [void]
     def cancel
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cancel))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cancel))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling cancel()"
     end
   end
 end

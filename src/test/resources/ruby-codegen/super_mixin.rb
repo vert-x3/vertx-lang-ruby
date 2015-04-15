@@ -4,7 +4,10 @@ module RubyCodegen
   module SuperMixin
     # @return [void]
     def super_mixin_method
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:superMixinMethod))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling super_mixin_method()"
     end
   end
   class SuperMixinImpl

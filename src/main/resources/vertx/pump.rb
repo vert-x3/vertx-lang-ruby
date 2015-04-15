@@ -38,44 +38,49 @@ module Vertx
     # @param [::Vertx::WriteStream] ws the write stream
     # @param [Fixnum] writeQueueMaxSize the max size of the write queue
     # @return [::Vertx::Pump] the pump
-    def self.pump(rs,ws,writeQueueMaxSize=nil)
-      if rs.class.method_defined?(:j_del)
-        if ws.class.method_defined?(:j_del)
-          if writeQueueMaxSize.class == Fixnum
-            return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class))).invoke(@j_del,rs.j_del,ws.j_del,writeQueueMaxSize))
-          end
-          return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class))).invoke(@j_del,rs.j_del,ws.j_del))
-        end
-        raise ArgumentError, "Invalid argument ws=#{ws} when calling pump(rs,ws,writeQueueMaxSize)"
+    def self.pump(rs=nil,ws=nil,writeQueueMaxSize=nil)
+      if rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && !block_given? && writeQueueMaxSize == nil
+        return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class))).invoke(@j_del,rs.j_del,ws.j_del))
+      elsif rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && writeQueueMaxSize.class == Fixnum && !block_given?
+        return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class))).invoke(@j_del,rs.j_del,ws.j_del,writeQueueMaxSize))
       end
-      raise ArgumentError, "Invalid argument rs=#{rs} when calling pump(rs,ws,writeQueueMaxSize)"
+      raise ArgumentError, "Invalid arguments when calling pump(rs,ws,writeQueueMaxSize)"
     end
     #  Set the write queue max size to <code>maxSize</code>
     # @param [Fixnum] maxSize the max size
     # @return [self]
-    def set_write_queue_max_size(maxSize)
-      if maxSize.class == Fixnum
+    def set_write_queue_max_size(maxSize=nil)
+      if maxSize.class == Fixnum && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
-      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
     end
     #  Start the Pump. The Pump can be started and stopped multiple times.
     # @return [self]
     def start
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:start))).invoke(@j_del)
-      self
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:start))).invoke(@j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling start()"
     end
     #  Stop the Pump. The Pump can be started and stopped multiple times.
     # @return [self]
     def stop
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:stop))).invoke(@j_del)
-      self
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:stop))).invoke(@j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling stop()"
     end
     #  Return the total number of items pumped by this pump.
     # @return [Fixnum]
     def number_pumped
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:numberPumped))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:numberPumped))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling number_pumped()"
     end
   end
 end

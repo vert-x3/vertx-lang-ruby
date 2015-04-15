@@ -14,16 +14,17 @@ module RubyCodegen
       @j_del
     end
     # @param [String] s
-    # @param [Proc] callback
+    # @yield 
     # @return [void]
-    def do_something(s=nil,&callback)
-      if s.class == String
-        if callback.class == Proc
-          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,s,(Proc.new { |event| callback.call(event) }))
-        end
+    def do_something(s=nil)
+      if !block_given? && s == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething))).invoke(@j_del)
+      elsif s.class == String && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class))).invoke(@j_del,s)
+      elsif s.class == String && block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,s,(Proc.new { |event| yield(event) }))
       end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething))).invoke(@j_del)
+      raise ArgumentError, "Invalid arguments when calling do_something(s)"
     end
   end
 end

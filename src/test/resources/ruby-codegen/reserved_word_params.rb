@@ -39,83 +39,11 @@ module RubyCodegen
     # @param [String] _when
     # @param [String] _yield
     # @return [String]
-    def method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
-      if _alias.class == String
-        if _and.class == String
-          if _BEGIN.class == String
-            if _begin.class == String
-              if _def.class == String
-                if _elsif.class == String
-                  if _END.class == String
-                    if _end.class == String
-                      if _ensure.class == String
-                        if _in.class == String
-                          if _module.class == String
-                            if _next.class == String
-                              if _nil.class == String
-                                if _not.class == String
-                                  if _or.class == String
-                                    if _redo.class == String
-                                      if _rescue.class == String
-                                        if _retry.class == String
-                                          if _self.class == String
-                                            if _then.class == String
-                                              if _undef.class == String
-                                                if _unless.class == String
-                                                  if _until.class == String
-                                                    if _when.class == String
-                                                      if _yield.class == String
-                                                        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
-                                                      end
-                                                      raise ArgumentError, "Invalid argument _yield=#{_yield} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                                    end
-                                                    raise ArgumentError, "Invalid argument _when=#{_when} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                                  end
-                                                  raise ArgumentError, "Invalid argument _until=#{_until} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                                end
-                                                raise ArgumentError, "Invalid argument _unless=#{_unless} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                              end
-                                              raise ArgumentError, "Invalid argument _undef=#{_undef} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                            end
-                                            raise ArgumentError, "Invalid argument _then=#{_then} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                          end
-                                          raise ArgumentError, "Invalid argument _self=#{_self} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                        end
-                                        raise ArgumentError, "Invalid argument _retry=#{_retry} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                      end
-                                      raise ArgumentError, "Invalid argument _rescue=#{_rescue} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                    end
-                                    raise ArgumentError, "Invalid argument _redo=#{_redo} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                  end
-                                  raise ArgumentError, "Invalid argument _or=#{_or} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                                end
-                                raise ArgumentError, "Invalid argument _not=#{_not} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                              end
-                              raise ArgumentError, "Invalid argument _nil=#{_nil} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                            end
-                            raise ArgumentError, "Invalid argument _next=#{_next} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                          end
-                          raise ArgumentError, "Invalid argument _module=#{_module} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                        end
-                        raise ArgumentError, "Invalid argument _in=#{_in} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                      end
-                      raise ArgumentError, "Invalid argument _ensure=#{_ensure} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                    end
-                    raise ArgumentError, "Invalid argument _end=#{_end} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                  end
-                  raise ArgumentError, "Invalid argument _END=#{_END} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-                end
-                raise ArgumentError, "Invalid argument _elsif=#{_elsif} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-              end
-              raise ArgumentError, "Invalid argument _def=#{_def} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-            end
-            raise ArgumentError, "Invalid argument _begin=#{_begin} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-          end
-          raise ArgumentError, "Invalid argument _BEGIN=#{_BEGIN} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
-        end
-        raise ArgumentError, "Invalid argument _and=#{_and} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
+    def method(_alias=nil,_and=nil,_BEGIN=nil,_begin=nil,_def=nil,_elsif=nil,_END=nil,_end=nil,_ensure=nil,_in=nil,_module=nil,_next=nil,_nil=nil,_not=nil,_or=nil,_redo=nil,_rescue=nil,_retry=nil,_self=nil,_then=nil,_undef=nil,_unless=nil,_until=nil,_when=nil,_yield=nil)
+      if _alias.class == String && _and.class == String && _BEGIN.class == String && _begin.class == String && _def.class == String && _elsif.class == String && _END.class == String && _end.class == String && _ensure.class == String && _in.class == String && _module.class == String && _next.class == String && _nil.class == String && _not.class == String && _or.class == String && _redo.class == String && _rescue.class == String && _retry.class == String && _self.class == String && _then.class == String && _undef.class == String && _unless.class == String && _until.class == String && _when.class == String && _yield.class == String && !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
       end
-      raise ArgumentError, "Invalid argument _alias=#{_alias} when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
+      raise ArgumentError, "Invalid arguments when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
     end
   end
 end

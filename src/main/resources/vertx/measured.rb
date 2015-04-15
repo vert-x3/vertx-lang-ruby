@@ -5,7 +5,10 @@ module Vertx
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
   end
   class MeasuredImpl

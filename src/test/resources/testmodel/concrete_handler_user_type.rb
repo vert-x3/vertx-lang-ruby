@@ -16,11 +16,11 @@ module Testmodel
     end
     # @param [::Testmodel::RefedInterface1] arg0
     # @return [void]
-    def handle(arg0)
-      if arg0.class.method_defined?(:j_del)
+    def handle(arg0=nil)
+      if arg0.class.method_defined?(:j_del) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handle,Java::IoVertxCodegenTestmodel::RefedInterface1.java_class))).invoke(@j_del,arg0.j_del)
       end
-      raise ArgumentError, "Invalid argument arg0=#{arg0} when calling handle(arg0)"
+      raise ArgumentError, "Invalid arguments when calling handle(arg0)"
     end
   end
 end

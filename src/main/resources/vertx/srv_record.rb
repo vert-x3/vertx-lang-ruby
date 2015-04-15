@@ -16,37 +16,58 @@ module Vertx
     #  Returns the priority for this service record.
     # @return [Fixnum]
     def priority
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling priority()"
     end
     #  Returns the weight of this service record.
     # @return [Fixnum]
     def weight
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:weight))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:weight))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling weight()"
     end
     #  Returns the port the service is running on.
     # @return [Fixnum]
     def port
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling port()"
     end
     #  Returns the name for the server being queried.
     # @return [String]
     def name
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling name()"
     end
     #  Returns the protocol for the service being queried (i.e. "_tcp").
     # @return [String]
     def protocol
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:protocol))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:protocol))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling protocol()"
     end
     #  Returns the service's name (i.e. "_http").
     # @return [String]
     def service
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:service))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:service))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling service()"
     end
     #  Returns the name of the host for the service.
     # @return [String]
     def target
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:target))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:target))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling target()"
     end
   end
 end

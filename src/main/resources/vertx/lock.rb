@@ -19,7 +19,10 @@ module Vertx
     #  Release the lock. Once the lock is released another will be able to obtain the lock.
     # @return [void]
     def release
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:release))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:release))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling release()"
     end
   end
 end

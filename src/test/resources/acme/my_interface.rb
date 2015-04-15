@@ -17,15 +17,24 @@ module Acme
     end
     # @return [::Acme::MyInterface]
     def self.create
-      ::Acme::MyInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::ComAcmePkg::MyInterface.java_class.declared_method(:create))).invoke(@j_del))
+      if !block_given?
+        return ::Acme::MyInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::ComAcmePkg::MyInterface.java_class.declared_method(:create))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling create()"
     end
     # @return [::Acme::SubInterface]
     def sub
-      ::Acme::SubInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sub))).invoke(@j_del))
+      if !block_given?
+        return ::Acme::SubInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sub))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling sub()"
     end
     # @return [::Testmodel::TestInterface]
     def method
-      ::Testmodel::TestInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del))
+      if !block_given?
+        return ::Testmodel::TestInterface.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling method()"
     end
   end
 end

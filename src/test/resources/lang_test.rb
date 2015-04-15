@@ -74,6 +74,67 @@ def test_multi_overload
 
 end
 
+def test_multi_overload_optional_handler
+  def create
+    impl = MultiOverloadedMethodsImpl.new
+    RubyCodegen::MultiOverloadedMethods.new impl
+  end
+
+  obj = create
+  list = []
+  obj.optional_handler('foo_value_with_handler') { |event| list.push event }
+  Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_handler,bar)')
+  Assert.equals(list, ['the_event'])
+
+  obj = create
+  list = []
+  obj.optional_handler 'foo_value_with_int', 4
+  Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_int,bar=4)')
+  Assert.equals(list, [])
+
+  obj = create
+  list = []
+  obj.optional_handler 'foo_value_with_boolean', true
+  Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_boolean,juu=true)')
+  Assert.equals(list, [])
+
+  Assert.argument_error { obj.optional_handler }
+  Assert.argument_error { obj.optional_handler('the_string', 3) { |event| } }
+  Assert.argument_error { obj.optional_handler('the_string', true) { |event| } }
+
+end
+
+def test_multi_overload_handlers
+  def create
+    impl = MultiOverloadedMethodsImpl.new
+    RubyCodegen::MultiOverloadedMethods.new impl
+  end
+
+  obj = create
+  list = Hash.new
+  obj.handlers { |event| list[:foo]=event }
+  Assert.equals(obj.j_del.getCalled, 'handlers(foo)')
+  Assert.equals(list, {:foo=>'foo_event'})
+
+  obj = create
+  list = Hash.new
+  obj.handlers(Proc.new { |event| list[:foo]=event }) { |event| list[:bar]=event }
+  Assert.equals(obj.j_del.getCalled, 'handlers(foo,bar)')
+  Assert.equals(list, {:foo=>'foo_event',:bar=>'bar_event'})
+
+  obj = create
+  list = Hash.new
+  obj.handlers(Proc.new { |event| list[:foo]=event }, Proc.new { |event| list[:bar]=event }) { |event| list[:juu]=event }
+  Assert.equals(obj.j_del.getCalled, 'handlers(foo,bar,juu)')
+  Assert.equals(list, {:foo=>'foo_event',:bar=>'bar_event',:juu=>'juu_event'})
+
+  Assert.argument_error { obj.handlers }
+  Assert.argument_error { obj.handlers Proc.new({}), Proc.new({}), Proc.new({})  }
+  Assert.argument_error { obj.handlers Proc.new({}), Proc.new({}), 'a'  }
+  Assert.argument_error { obj.handlers(Proc.new({}), Proc.new({}), 'a') {}  }
+
+end
+
 def test_mixin_inheritance
   impl = ClassWithMixinImpl.new
   obj = RubyCodegen::ClassWithMixin.new impl

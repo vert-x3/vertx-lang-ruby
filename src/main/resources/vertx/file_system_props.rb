@@ -16,17 +16,26 @@ module Vertx
     #  @return The total space on the file system, in bytes
     # @return [Fixnum]
     def total_space
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:totalSpace))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:totalSpace))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling total_space()"
     end
     #  @return The total un-allocated space on the file system, in bytes
     # @return [Fixnum]
     def unallocated_space
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unallocatedSpace))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unallocatedSpace))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling unallocated_space()"
     end
     #  @return The total usable space on the file system, in bytes
     # @return [Fixnum]
     def usable_space
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:usableSpace))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:usableSpace))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling usable_space()"
     end
   end
 end

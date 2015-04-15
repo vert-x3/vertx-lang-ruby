@@ -24,55 +24,55 @@ module Vertx
     #  The address the message was sent to
     # @return [String]
     def address
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling address()"
     end
     #  Multi-map of message headers. Can be empty
     # @return [::Vertx::MultiMap] the headers
     def headers
-      ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
+      if !block_given?
+        return ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling headers()"
     end
     #  The body of the message. Can be null.
     # @return [Object] the body, or null.
     def body
-      if @cached_body != nil
-        return @cached_body
+      if !block_given?
+        if @cached_body != nil
+          return @cached_body
+        end
+        return @cached_body = ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:body))).invoke(@j_del))
       end
-      @cached_body = ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:body))).invoke(@j_del))
+      raise ArgumentError, "Invalid arguments when calling body()"
     end
     #  The reply address. Can be null.
     # @return [String] the reply address, or null, if message was sent without a reply handler.
     def reply_address
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replyAddress))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replyAddress))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling reply_address()"
     end
     #  The same as <code>reply(R message, DeliveryOptions)</code> but you can specify handler for the reply - i.e.
     #  to receive the reply to the reply.
-    # @overload reply(message)
-    #   @param [Object] message the message to reply with.
-    # @overload reply(message,replyHandler)
-    #   @param [Object] message the message to reply with.
-    #   @param [Proc] replyHandler the reply handler for the reply.
-    # @overload reply(message,options)
-    #   @param [Object] message the reply message
-    #   @param [Hash] options the delivery options
-    # @overload reply(message,options,replyHandler)
-    #   @param [Object] message the reply message
-    #   @param [Hash] options the delivery options
-    #   @param [Proc] replyHandler the reply handler for the reply.
+    # @param [Object] message the reply message
+    # @param [Hash] options the delivery options
+    # @yield the reply handler for the reply.
     # @return [void]
-    def reply(param_1,param_2=nil,&param_3)
-      if param_1.class == String  ||param_1.class == Hash || param_1.class == Array
-        if param_2.class == Hash
-          if param_3.class == Proc
-            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)),(Proc.new { |ar| param_3.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
-          end
-          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(param_2)))
-        end
-        if param_2.class == Proc
-          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1),(Proc.new { |ar| param_2.call(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
-        end
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(param_1))
+    def reply(message=nil,options=nil)
+      if message.class == String  ||message.class == Hash || message.class == Array && !block_given? && options == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(message))
+      elsif message.class == String  ||message.class == Hash || message.class == Array && block_given? && options == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+      elsif message.class == String  ||message.class == Hash || message.class == Array && options.class == Hash && !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+      elsif message.class == String  ||message.class == Hash || message.class == Array && options.class == Hash && block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:reply,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling reply(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling reply(message,options)"
     end
     #  Signal to the sender that processing of this message failed.
     #  <p>
@@ -81,14 +81,11 @@ module Vertx
     # @param [Fixnum] failureCode A failure code to pass back to the sender
     # @param [String] message A message to pass back to the sender
     # @return [void]
-    def fail(failureCode,message)
-      if failureCode.class == Fixnum
-        if message.class == String
-          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fail,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,failureCode,message)
-        end
-        raise ArgumentError, "Invalid argument message=#{message} when calling fail(failureCode,message)"
+    def fail(failureCode=nil,message=nil)
+      if failureCode.class == Fixnum && message.class == String && !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fail,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,failureCode,message)
       end
-      raise ArgumentError, "Invalid argument failureCode=#{failureCode} when calling fail(failureCode,message)"
+      raise ArgumentError, "Invalid arguments when calling fail(failureCode,message)"
     end
   end
 end

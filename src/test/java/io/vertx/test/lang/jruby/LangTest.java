@@ -18,6 +18,15 @@ public class LangTest extends RubyTestBase {
   }
 
   @Test
+  public void testMultiOverloadOptionalHandler() {
+    runTest("test_multi_overload_optional_handler");
+  }
+
+  @Test
+  public void testMultiOverloadOptionalHandlers() {
+    runTest("test_multi_overload_handlers");
+  }
+  @Test
   public void testMixinInheritance() {
     runTest("test_mixin_inheritance");
   }

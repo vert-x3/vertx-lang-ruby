@@ -16,7 +16,10 @@ module RubyCodegen
     end
     # @return [::RubyCodegen::ReferencedType]
     def get_referenced
-      ::RubyCodegen::ReferencedType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getReferenced))).invoke(@j_del))
+      if !block_given?
+        return ::RubyCodegen::ReferencedType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getReferenced))).invoke(@j_del))
+      end
+      raise ArgumentError, "Invalid arguments when calling get_referenced()"
     end
   end
 end

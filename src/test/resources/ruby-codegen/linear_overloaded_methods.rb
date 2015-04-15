@@ -19,19 +19,16 @@ module RubyCodegen
     # @param [String] daa
     # @return [void]
     def method(foo=nil,bar=nil,juu=nil,daa=nil)
-      if foo.class == String
-        if bar.class == String
-          if juu.class == String
-            if daa.class == String
-              return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu,daa)
-            end
-            return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu)
-          end
-          raise ArgumentError, "Invalid argument juu=#{juu} when calling method(foo,bar,juu,daa)"
-        end
+      if !block_given? && foo == nil && bar == nil && juu == nil && daa == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
+      elsif foo.class == String && !block_given? && bar == nil && juu == nil && daa == nil
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class))).invoke(@j_del,foo)
+      elsif foo.class == String && bar.class == String && juu.class == String && !block_given? && daa == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu)
+      elsif foo.class == String && bar.class == String && juu.class == String && daa.class == String && !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,foo,bar,juu,daa)
       end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
+      raise ArgumentError, "Invalid arguments when calling method(foo,bar,juu,daa)"
     end
   end
 end

@@ -30,44 +30,53 @@ module Vertx
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::NetSocket#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
     def write_queue_full
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling write_queue_full()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def exception_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
+    def exception_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(::Vertx::Buffer.new(event)) }))
+    def handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling handler()"
     end
     # @return [self]
     def pause
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
-      self
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling pause()"
     end
     # @return [self]
     def resume
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
-      self
-    end
-    # @param [Proc] endHandler
-    # @return [self]
-    def end_handler(&endHandler)
-      if endHandler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,endHandler)
+      if !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
         return self
       end
-      raise ArgumentError, "Invalid argument endHandler=#{endHandler} when calling end_handler(endHandler)"
+      raise ArgumentError, "Invalid arguments when calling resume()"
+    end
+    # @yield 
+    # @return [self]
+    def end_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
     #  Write a  to the connection, encoded using the encoding <code>enc</code>.
     # @overload write(data)
@@ -78,38 +87,36 @@ module Vertx
     #   @param [String] str the string to write
     #   @param [String] enc the encoding to use
     # @return [self]
-    def write(param_1,param_2=nil)
-      if param_1.class.method_defined?(:j_del)
+    def write(param_1=nil,param_2=nil)
+      if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,param_1.j_del)
         return self
-      end
-      if param_1.class == String
-        if param_2.class == String
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
-          return self
-        end
+      elsif param_1.class == String && !block_given? && param_2 == nil
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
         return self
+      elsif param_1.class == String && param_2.class == String && !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
+        return self
       end
-      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling write(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
     end
     # @param [Fixnum] maxSize
     # @return [self]
-    def set_write_queue_max_size(maxSize)
-      if maxSize.class == Fixnum
+    def set_write_queue_max_size(maxSize=nil)
+      if maxSize.class == Fixnum && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
-      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def drain_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def drain_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling drain_handler()"
     end
     #  When a <code>NetSocket</code> is created it automatically registers an event handler with the event bus, the ID of that
     #  handler is given by <code>writeHandlerID</code>.
@@ -119,69 +126,83 @@ module Vertx
     #  allows you to write data to other connections which are owned by different event loops.
     # @return [String] the write handler ID
     def write_handler_id
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeHandlerID))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeHandlerID))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling write_handler_id()"
     end
     #  Same as {::Vertx::NetSocket#send_file} but also takes a handler that will be called when the send has completed or
     #  a failure has occurred
     # @param [String] filename file name of the file to send
-    # @param [Proc] resultHandler handler
+    # @yield handler
     # @return [self]
-    def send_file(filename,&resultHandler)
-      if filename.class == String
-        if resultHandler.class == Proc
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
-          return self
-        end
+    def send_file(filename=nil)
+      if filename.class == String && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class))).invoke(@j_del,filename)
         return self
+      elsif filename.class == String && block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return self
       end
-      raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
+      raise ArgumentError, "Invalid arguments when calling send_file(filename)"
     end
     #  @return the remote address for this socket
     # @return [::Vertx::SocketAddress]
     def remote_address
-      if @cached_remote_address != nil
-        return @cached_remote_address
+      if !block_given?
+        if @cached_remote_address != nil
+          return @cached_remote_address
+        end
+        return @cached_remote_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remoteAddress))).invoke(@j_del))
       end
-      @cached_remote_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remoteAddress))).invoke(@j_del))
+      raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
     #  @return the local address for this socket
     # @return [::Vertx::SocketAddress]
     def local_address
-      if @cached_local_address != nil
-        return @cached_local_address
+      if !block_given?
+        if @cached_local_address != nil
+          return @cached_local_address
+        end
+        return @cached_local_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localAddress))).invoke(@j_del))
       end
-      @cached_local_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localAddress))).invoke(@j_del))
+      raise ArgumentError, "Invalid arguments when calling local_address()"
     end
     #  Close the NetSocket
     # @return [void]
     def close
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling close()"
     end
     #  Set a handler that will be called when the NetSocket is closed
-    # @param [Proc] handler the handler
+    # @yield the handler
     # @return [self]
-    def close_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def close_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling close_handler()"
     end
     #  Upgrade channel to use SSL/TLS. Be aware that for this to work SSL must be configured.
-    # @param [Proc] handler the handler will be notified when it's upgraded
+    # @yield the handler will be notified when it's upgraded
     # @return [self]
-    def upgrade_to_ssl(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:upgradeToSsl,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def upgrade_to_ssl
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:upgradeToSsl,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling upgrade_to_ssl(handler)"
+      raise ArgumentError, "Invalid arguments when calling upgrade_to_ssl()"
     end
     #  @return true if this {::Vertx::NetSocket} is encrypted via SSL/TLS.
     # @return [true,false]
     def is_ssl
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isSsl))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isSsl))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_ssl()"
     end
   end
 end

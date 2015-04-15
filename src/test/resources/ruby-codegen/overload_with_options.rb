@@ -16,10 +16,12 @@ module RubyCodegen
     # @param [Hash] options
     # @return [void]
     def method(options=nil)
-      if options.class == Hash
+      if !block_given? && options == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
+      elsif options.class == Hash && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method,Java::IoVertxCore::DeploymentOptions.java_class))).invoke(@j_del,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:method))).invoke(@j_del)
+      raise ArgumentError, "Invalid arguments when calling method(options)"
     end
   end
 end

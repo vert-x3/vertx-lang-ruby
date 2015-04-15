@@ -37,16 +37,19 @@ module Vertx
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpServerResponse#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
     def write_queue_full
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling write_queue_full()"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def exception_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| handler.call(event) }))
+    def exception_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling exception_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
     #  Write a  to the response body, encoded using the encoding <code>enc</code>.
     # @overload write(data)
@@ -57,70 +60,74 @@ module Vertx
     #   @param [String] chunk the string to write
     #   @param [String] enc the encoding to use
     # @return [self]
-    def write(param_1,param_2=nil)
-      if param_1.class.method_defined?(:j_del)
+    def write(param_1=nil,param_2=nil)
+      if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,param_1.j_del)
         return self
-      end
-      if param_1.class == String
-        if param_2.class == String
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
-          return self
-        end
+      elsif param_1.class == String && !block_given? && param_2 == nil
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
         return self
+      elsif param_1.class == String && param_2.class == String && !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
+        return self
       end
-      raise ArgumentError, "Invalid argument param_1=#{param_1} when calling write(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
     end
     # @param [Fixnum] maxSize
     # @return [self]
-    def set_write_queue_max_size(maxSize)
-      if maxSize.class == Fixnum
+    def set_write_queue_max_size(maxSize=nil)
+      if maxSize.class == Fixnum && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
         return self
       end
-      raise ArgumentError, "Invalid argument maxSize=#{maxSize} when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
     end
-    # @param [Proc] handler
+    # @yield 
     # @return [self]
-    def drain_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def drain_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling drain_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling drain_handler()"
     end
     #  @return the HTTP status code of the response. The default is <code>200</code> representing <code>OK</code>.
     # @return [Fixnum]
     def get_status_code
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getStatusCode))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getStatusCode))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_status_code()"
     end
     #  Set the status code. If the status message hasn't been explicitly set, a default status message corresponding
     #  to the code will be looked-up and used.
     # @param [Fixnum] statusCode
     # @return [self]
-    def set_status_code(statusCode)
-      if statusCode.class == Fixnum
+    def set_status_code(statusCode=nil)
+      if statusCode.class == Fixnum && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setStatusCode,Java::int.java_class))).invoke(@j_del,statusCode)
         return self
       end
-      raise ArgumentError, "Invalid argument statusCode=#{statusCode} when calling set_status_code(statusCode)"
+      raise ArgumentError, "Invalid arguments when calling set_status_code(statusCode)"
     end
     #  @return the HTTP status message of the response. If this is not specified a default value will be used depending on what
     #  {::Vertx::HttpServerResponse#set_status_code} has been set to.
     # @return [String]
     def get_status_message
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getStatusMessage))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getStatusMessage))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_status_message()"
     end
     #  Set the status message
     # @param [String] statusMessage
     # @return [self]
-    def set_status_message(statusMessage)
-      if statusMessage.class == String
+    def set_status_message(statusMessage=nil)
+      if statusMessage.class == String && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setStatusMessage,Java::java.lang.String.java_class))).invoke(@j_del,statusMessage)
         return self
       end
-      raise ArgumentError, "Invalid argument statusMessage=#{statusMessage} when calling set_status_message(statusMessage)"
+      raise ArgumentError, "Invalid arguments when calling set_status_message(statusMessage)"
     end
     #  If <code>chunked</code> is <code>true</code>, this response will use HTTP chunked encoding, and each call to write to the body
     #  will correspond to a new HTTP chunk sent on the wire.
@@ -135,72 +142,75 @@ module Vertx
     #  An HTTP chunked response is typically used when you do not know the total size of the request body up front.
     # @param [true,false] chunked
     # @return [self]
-    def set_chunked(chunked)
-      if chunked.class == TrueClass || chunked.class == FalseClass
+    def set_chunked(chunked=nil)
+      if (chunked.class == TrueClass || chunked.class == FalseClass) && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setChunked,Java::boolean.java_class))).invoke(@j_del,chunked)
         return self
       end
-      raise ArgumentError, "Invalid argument chunked=#{chunked} when calling set_chunked(chunked)"
+      raise ArgumentError, "Invalid arguments when calling set_chunked(chunked)"
     end
     #  @return is the response chunked?
     # @return [true,false]
     def is_chunked
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isChunked))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isChunked))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_chunked()"
     end
     #  @return The HTTP headers
     # @return [::Vertx::MultiMap]
     def headers
-      if @cached_headers != nil
-        return @cached_headers
+      if !block_given?
+        if @cached_headers != nil
+          return @cached_headers
+        end
+        return @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
       end
-      @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
+      raise ArgumentError, "Invalid arguments when calling headers()"
     end
     #  Put an HTTP header
     # @param [String] name the header name
     # @param [String] value the header value.
     # @return [self]
-    def put_header(name,value)
-      if name.class == String
-        if value.class == String
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putHeader,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
-          return self
-        end
-        raise ArgumentError, "Invalid argument value=#{value} when calling put_header(name,value)"
+    def put_header(name=nil,value=nil)
+      if name.class == String && value.class == String && !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putHeader,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
+        return self
       end
-      raise ArgumentError, "Invalid argument name=#{name} when calling put_header(name,value)"
+      raise ArgumentError, "Invalid arguments when calling put_header(name,value)"
     end
     #  @return The HTTP trailers
     # @return [::Vertx::MultiMap]
     def trailers
-      if @cached_trailers != nil
-        return @cached_trailers
+      if !block_given?
+        if @cached_trailers != nil
+          return @cached_trailers
+        end
+        return @cached_trailers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:trailers))).invoke(@j_del))
       end
-      @cached_trailers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:trailers))).invoke(@j_del))
+      raise ArgumentError, "Invalid arguments when calling trailers()"
     end
     #  Put an HTTP trailer
     # @param [String] name the trailer name
     # @param [String] value the trailer value
     # @return [self]
-    def put_trailer(name,value)
-      if name.class == String
-        if value.class == String
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putTrailer,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
-          return self
-        end
-        raise ArgumentError, "Invalid argument value=#{value} when calling put_trailer(name,value)"
+    def put_trailer(name=nil,value=nil)
+      if name.class == String && value.class == String && !block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putTrailer,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
+        return self
       end
-      raise ArgumentError, "Invalid argument name=#{name} when calling put_trailer(name,value)"
+      raise ArgumentError, "Invalid arguments when calling put_trailer(name,value)"
     end
     #  Set a close handler for the response. This will be called if the underlying connection closes before the response
     #  is complete.
-    # @param [Proc] handler the handler
+    # @yield the handler
     # @return [self]
-    def close_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def close_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling close_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling close_handler()"
     end
     #  Same as {::Vertx::HttpServerResponse#end} but writes a String with the specified encoding before ending the response.
     # @overload end()
@@ -213,70 +223,78 @@ module Vertx
     #   @param [String] enc the encoding to use
     # @return [void]
     def end(param_1=nil,param_2=nil)
-      if param_1.class.method_defined?(:j_del)
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,param_1.j_del)
-      end
-      if param_1.class == String
-        if param_2.class == String
-          return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
-        end
+      if !block_given? && param_1 == nil && param_2 == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end))).invoke(@j_del)
+      elsif param_1.class == String && !block_given? && param_2 == nil
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
+      elsif param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,param_1.j_del)
+      elsif param_1.class == String && param_2.class == String && !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
       end
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:end))).invoke(@j_del)
+      raise ArgumentError, "Invalid arguments when calling end(param_1,param_2)"
     end
     #  Like {::Vertx::HttpServerResponse#send_file} but providing a handler which will be notified once the file has been completely
     #  written to the wire.
     # @param [String] filename path to the file to serve
-    # @param [Proc] resultHandler handler that will be called on completion
+    # @yield handler that will be called on completion
     # @return [self]
-    def send_file(filename,&resultHandler)
-      if filename.class == String
-        if resultHandler.class == Proc
-          (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,filename,(Proc.new { |ar| resultHandler.call(ar.failed ? ar.cause : nil) }))
-          return self
-        end
+    def send_file(filename=nil)
+      if filename.class == String && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class))).invoke(@j_del,filename)
         return self
+      elsif filename.class == String && block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return self
       end
-      raise ArgumentError, "Invalid argument filename=#{filename} when calling send_file(filename,resultHandler)"
+      raise ArgumentError, "Invalid arguments when calling send_file(filename)"
     end
     #  Close the underlying TCP connection corresponding to the request.
     # @return [void]
     def close
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling close()"
     end
     #  @return has the response already ended?
     # @return [true,false]
     def ended
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:ended))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:ended))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling ended()"
     end
     #  @return have the headers for the response already been written?
     # @return [true,false]
     def head_written
-      (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headWritten))).invoke(@j_del)
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headWritten))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling head_written()"
     end
     #  Provide a handler that will be called just before the headers are written to the wire.<p>
     #  This provides a hook allowing you to add any more headers or do any more operations before this occurs.
-    # @param [Proc] handler the handler
+    # @yield the handler
     # @return [self]
-    def headers_end_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headersEndHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def headers_end_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headersEndHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling headers_end_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling headers_end_handler()"
     end
     #  Provide a handler that will be called just before the last part of the body is written to the wire
     #  and the response is ended.<p>
     #  This provides a hook allowing you to do any more operations before this occurs.
-    # @param [Proc] handler the handler
+    # @yield the handler
     # @return [self]
-    def body_end_handler(&handler)
-      if handler.class == Proc
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyEndHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,handler)
+    def body_end_handler
+      if block_given?
+        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyEndHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
         return self
       end
-      raise ArgumentError, "Invalid argument handler=#{handler} when calling body_end_handler(handler)"
+      raise ArgumentError, "Invalid arguments when calling body_end_handler()"
     end
   end
 end
