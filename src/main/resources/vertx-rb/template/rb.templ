@@ -518,27 +518,6 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
-	@foreach{methods:methodsByName.values()}
-
-		@code{lastMethod=methods[methods.size()-1]}
-		@code{methodName=methods[0].getName(CASE_SNAKE)}
-		@code{methodDecl=(methods[0].staticMethod ? "self." : "") + methodName}
-		@code{trie = new java.util.HashMap()}
-		@code{methodMap = new java.util.IdentityHashMap()}
-		@foreach{method:methods}
-			@code{methodMap.put(trieAppend(trie, method.params.iterator()), method)}
-		@end{}
-		@code{kind = trieKind(trie)}
-
-		@code{params=new java.util.ArrayList()}
-		@foreach{index:trieHeight(trie)}
-			@if{kind == 0 || kind == 1}
-				@code{params.add(genRubyName(lastMethod.params[index].name))}
-			@else{}
-				@code{params.add("param_" + (index + 1))}
-			@end{}
-		@end{}
-
 @comment{"Maintain the current trie in the recursive template genMethodDispatch"}
 @code{_trie=new java.util.LinkedList()}
 
@@ -569,32 +548,53 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@end{}
 @end{}
 
-@if{lastMethod.doc != null}
-	@{renderDocToHtml("    # ", lastMethod.doc, renderLinkToHtml)}
-@end{}
-@if{kind != 2}
-	@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
-@else{}
-	@foreach{method:methods}
+	@foreach{methods:methodsByName.values()}
+
+		@code{lastMethod=methods[methods.size()-1]}
+		@code{methodName=methods[0].getName(CASE_SNAKE)}
+		@code{methodDecl=(methods[0].staticMethod ? "self." : "") + methodName}
+		@code{trie = new java.util.HashMap()}
+		@code{methodMap = new java.util.IdentityHashMap()}
+		@foreach{method:methods}
+			@code{methodMap.put(trieAppend(trie, method.params.iterator()), method)}
+		@end{}
+		@code{kind = trieKind(trie)}
+
+		@code{params=new java.util.ArrayList()}
+		@foreach{index:trieHeight(trie)}
+			@if{kind == 0 || kind == 1}
+				@code{params.add(genRubyName(lastMethod.params[index].name))}
+			@else{}
+				@code{params.add("param_" + (index + 1))}
+			@end{}
+		@end{}
+
+		@if{lastMethod.doc != null}
+			@{renderDocToHtml("    # ", lastMethod.doc, renderLinkToHtml)}
+		@end{}
+		@if{kind != 2}
+			@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
+		@else{}
+			@foreach{method:methods}
     # @overload @{method.name}(@foreach{param:method.params}@{param.name}@end{","})\n
-		@includeNamed{'methodParamsTags';methodParams=method.params;indent='  '}
-	@end{}
-@end{}
-@if{lastMethod.fluent}
+				@includeNamed{'methodParamsTags';methodParams=method.params;indent='  '}
+			@end{}
+		@end{}
+		@if{lastMethod.fluent}
     # @return [self]\n
-@else{lastMethod.returnType.simpleName == "void"}
+		@else{lastMethod.returnType.simpleName == "void"}
     # @return [void]\n
-@else{}
+		@else{}
     # @return [@{genRubyDocType(lastMethod.returnType)}]@if{lastMethod.returnDescription != null} @{lastMethod.returnDescription}@end{}\n
-@end{}
+		@end{}
     def @{methodDecl}@if{params.size() > 0}(
-			@code{index=0}@foreach{param:params}
-			@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}
-			@if{handler}&@end{}
-			@{param}
-			@if{index++ >= methods[0].params.size() && !handler}=nil@end{}
-			@end{","})@end{}\n
-			@includeNamed{'genMethodDispatch'}
+		@code{index=0}@foreach{param:params}
+		@code{handler=index==(params.size()-1) && lastMethod.params[index].type.kind == CLASS_HANDLER}
+		@if{handler}&@end{}
+		@{param}
+		@if{index++ >= methods[0].params.size() && !handler}=nil@end{}
+		@end{","})@end{}\n
+		@includeNamed{'genMethodDispatch'}
     end\n
 
 	@end{}
@@ -605,7 +605,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @if{!concrete}
   class @{type.raw.simpleName}Impl\n
     include @{type.raw.simpleName}\n
-@includeNamed{'initializer';callSuper=false}
+	@includeNamed{'initializer';callSuper=false}
   end\n
 @end{}
 
