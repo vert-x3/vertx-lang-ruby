@@ -46,53 +46,50 @@ def test_linear_overload
 
 end
 
-def test_multi_overload
-  def create
-    impl = MultiOverloadedMethodsImpl.new
-    RubyCodegen::MultiOverloadedMethods.new impl
-  end
+def create_multi_overload
+  impl = MultiOverloadedMethodsImpl.new
+  RubyCodegen::MultiOverloadedMethods.new impl
+end
 
-  obj = create
+def test_multi_overload
+
+  obj = create_multi_overload
   obj.method
   Assert.equals(obj.j_del.getCalled, 'method()')
 
-  obj = create
+  obj = create_multi_overload
   obj.method 'foo_value'
   Assert.equals(obj.j_del.getCalled, 'method(foo=foo_value)')
 
-  obj = create
+  obj = create_multi_overload
   Assert.argument_error { obj.method 123 }
   Assert.equals(obj.j_del.getCalled, nil)
 
-  obj = create
+  obj = create_multi_overload
   obj.method 123, true
   Assert.equals(obj.j_del.getCalled, 'method(bar=123,juu=true)')
 
-  obj = create
+  obj = create_multi_overload
   Assert.argument_error { obj.method 123, 'some_string' }
   Assert.equals(obj.j_del.getCalled, nil)
 
 end
 
 def test_multi_overload_optional_handler
-  def create
-    impl = MultiOverloadedMethodsImpl.new
-    RubyCodegen::MultiOverloadedMethods.new impl
-  end
 
-  obj = create
+  obj = create_multi_overload
   list = []
   obj.optional_handler('foo_value_with_handler') { |event| list.push event }
   Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_handler,bar)')
   Assert.equals(list, ['the_event'])
 
-  obj = create
+  obj = create_multi_overload
   list = []
   obj.optional_handler 'foo_value_with_int', 4
   Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_int,bar=4)')
   Assert.equals(list, [])
 
-  obj = create
+  obj = create_multi_overload
   list = []
   obj.optional_handler 'foo_value_with_boolean', true
   Assert.equals(obj.j_del.getCalled, 'optionalHandler(foo=foo_value_with_boolean,juu=true)')
@@ -105,24 +102,20 @@ def test_multi_overload_optional_handler
 end
 
 def test_multi_overload_handlers
-  def create
-    impl = MultiOverloadedMethodsImpl.new
-    RubyCodegen::MultiOverloadedMethods.new impl
-  end
 
-  obj = create
+  obj = create_multi_overload
   list = Hash.new
   obj.handlers { |event| list[:foo]=event }
   Assert.equals(obj.j_del.getCalled, 'handlers(foo)')
   Assert.equals(list, {:foo=>'foo_event'})
 
-  obj = create
+  obj = create_multi_overload
   list = Hash.new
   obj.handlers(Proc.new { |event| list[:foo]=event }) { |event| list[:bar]=event }
   Assert.equals(obj.j_del.getCalled, 'handlers(foo,bar)')
   Assert.equals(list, {:foo=>'foo_event',:bar=>'bar_event'})
 
-  obj = create
+  obj = create_multi_overload
   list = Hash.new
   obj.handlers(Proc.new { |event| list[:foo]=event }, Proc.new { |event| list[:bar]=event }) { |event| list[:juu]=event }
   Assert.equals(obj.j_del.getCalled, 'handlers(foo,bar,juu)')
