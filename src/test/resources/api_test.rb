@@ -7,6 +7,7 @@ require 'testmodel/test_interface'
 require 'testmodel/refed_interface1'
 require 'testmodel/refed_interface2'
 require 'testmodel/generic_refed_interface'
+require 'testmodel/factory'
 require 'acme/my_interface'
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
@@ -449,6 +450,39 @@ def test_method_with_handler_async_result_user_types
     Assert.equals(val.get_string, 'cheetahs')
     count += 1
   end
+  Assert.equals(1, count)
+end
+
+def test_method_with_concrete_handler_user_type_subtype
+  count = 0
+  arg = Testmodel::Factory.create_concrete_handler_user_type do |refedObj|
+    Assert.equals(refedObj.class, Testmodel::RefedInterface1)
+    Assert.equals(refedObj.get_string, 'echidnas')
+    count += 1
+  end
+  $obj.method_with_concrete_handler_user_type_subtype arg
+  Assert.equals(1, count)
+end
+
+def test_method_with_abstract_handler_user_type_subtype
+  count = 0
+  arg = Testmodel::Factory.create_abstract_handler_user_type do |refedObj|
+    Assert.equals(refedObj.class, Testmodel::RefedInterface1)
+    Assert.equals(refedObj.get_string, 'echidnas')
+    count += 1
+  end
+  $obj.method_with_abstract_handler_user_type_subtype arg
+  Assert.equals(1, count)
+end
+
+def test_method_with_concrete_handler_user_type_subtype_extension
+  count = 0
+  arg = Testmodel::Factory.create_concrete_handler_user_type_extension do |refedObj|
+    Assert.equals(refedObj.class, Testmodel::RefedInterface1)
+    Assert.equals(refedObj.get_string, 'echidnas')
+    count += 1
+  end
+  $obj.method_with_concrete_handler_user_type_subtype_extension arg
   Assert.equals(1, count)
 end
 

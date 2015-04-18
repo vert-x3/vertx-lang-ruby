@@ -212,6 +212,21 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithConcreteHandlerUserTypeSubtype() {
+    runTest("test_method_with_concrete_handler_user_type_subtype");
+  }
+
+  @Test
+  public void testMethodWithAbstractHandlerUserTypeSubtype() {
+    runTest("test_method_with_abstract_handler_user_type_subtype");
+  }
+
+  @Test
+  public void testMethodWithConcreteHandlerUserTypeSubtypeExtension() {
+    runTest("test_method_with_concrete_handler_user_type_subtype_extension");
+  }
+
+  @Test
   public void testMethodWithHandlerVoid() {
     runTest("test_method_with_handler_void");
   }
