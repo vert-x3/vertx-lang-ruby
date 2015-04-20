@@ -9,7 +9,8 @@ To obtain a DnsClient instance you will create a new via the Vertx instance.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+
 ----
 
 Be aware that you can pass in a varargs of InetSocketAddress arguments to specifiy more then one DNS Server to try
@@ -25,7 +26,15 @@ To lookup the A / AAAA record for "vertx.io" you would typically use it like:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.lookup("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    puts ar
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === lookup4
@@ -37,7 +46,15 @@ To lookup the A record for "vertx.io" you would typically use it like:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.lookup4("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    puts ar
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === lookup6
@@ -49,7 +66,15 @@ To lookup the A record for "vertx.io" you would typically use it like:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.lookup6("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    puts ar
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveA
@@ -61,7 +86,18 @@ To lookup all the A records for "vertx.io" you would typically do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_a("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveAAAA
@@ -73,7 +109,18 @@ To lookup all the AAAAA records for "vertx.io" you would typically do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_aaaa("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveCNAME
@@ -85,7 +132,18 @@ To lookup all the CNAME records for "vertx.io" you would typically do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_cname("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveMX
@@ -97,7 +155,18 @@ To lookup all the MX records for "vertx.io" you would typically do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_mx("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 Be aware that the List will contain the `link:yardoc/Vertx/MxRecord.html[MxRecord]` sorted by the priority of them, which
@@ -107,7 +176,7 @@ The `link:yardoc/Vertx/MxRecord.html[MxRecord]` allows you to access the priorit
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+Code not translatable
 ----
 
 === resolveTXT
@@ -118,7 +187,18 @@ To resolve all the TXT records for "vertx.io" you could use something along thes
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_txt("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveNS
@@ -130,7 +210,18 @@ To resolve all the NS records for "vertx.io" you could use something along these
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_ns("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === resolveSRV
@@ -142,7 +233,18 @@ To lookup all the SRV records for "vertx.io" you would typically do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_srv("vertx.io") { |ar,ar_err|
+  if (ar_err == nil)
+    records = ar
+    records.each do |record|
+      puts record
+    end
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 Be aware that the List will contain the SrvRecords sorted by the priority of them, which means SrvRecords
@@ -152,7 +254,7 @@ The SrvRecord allows you to access all informations contained in the SRV record 
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+Code not translatable
 ----
 
 Please refer to the API docs for the exact details.
@@ -165,7 +267,16 @@ To resolve the PTR record for the ipaddress 10.0.0.1 you would use the PTR notio
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.resolve_ptr("1.0.0.10.in-addr.arpa") { |ar,ar_err|
+  if (ar_err == nil)
+    record = ar
+    puts record
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 === reverseLookup
@@ -177,7 +288,16 @@ To do a reverse lookup for the ipaddress 10.0.0.1 do something similar like this
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_dns_client(53, "10.0.0.1")
+client.reverse_lookup("10.0.0.1") { |ar,ar_err|
+  if (ar_err == nil)
+    record = ar
+    puts record
+  else
+    puts "Failed to resolve entry#{ar_err}"
+  end
+}
+
 ----
 
 include::override/dns.adoc[]

@@ -31,7 +31,9 @@ and receive.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+socket = vertx.create_datagram_socket({
+})
+
 ----
 
 The returned `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` will not be bound to a specific port. This is not a
@@ -48,7 +50,19 @@ Sending packets is as easy as shown here:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+socket = vertx.create_datagram_socket({
+})
+buffer = Vertx::Buffer.buffer("content")
+# Send a Buffer
+socket.send(buffer, 1234, "10.0.0.1") { |asyncResult,asyncResult_err|
+  puts "Send succeeded? #{asyncResult_err == nil}"
+}
+# Send a String
+socket.send("A string used as content", 1234, "10.0.0.1") { |asyncResult,asyncResult_err|
+  puts "Send succeeded? #{asyncResult_err == nil}"
+}
+
 ----
 
 === Receiving Datagram packets
@@ -70,7 +84,18 @@ So to listen on a specific address and port you would do something like shown he
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+socket = vertx.create_datagram_socket({
+})
+socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+  if (asyncResult_err == nil)
+    socket.handler() { |packet|
+      # Do something with the packet
+    }
+  else
+    puts "Listen failed#{asyncResult_err}"
+  end
+}
+
 ----
 
 Be aware that even if the {code AsyncResult} is successed it only means it might be written on the network
@@ -95,7 +120,15 @@ This is show here:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+socket = vertx.create_datagram_socket({
+})
+buffer = Vertx::Buffer.buffer("content")
+# Send a Buffer to a multicast address
+socket.send(buffer, 1234, "230.0.0.1") { |asyncResult,asyncResult_err|
+  puts "Send succeeded? #{asyncResult_err == nil}"
+}
+
 ----
 
 All sockets that have joined the multicast group 230.0.0.1 will receive the packet.
@@ -120,7 +153,23 @@ would do something like shown here:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+socket = vertx.create_datagram_socket({
+})
+socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+  if (asyncResult_err == nil)
+    socket.handler() { |packet|
+      # Do something with the packet
+    }
+
+    # join the multicast group
+    socket.listen_multicast_group("230.0.0.1") { |asyncResult2,asyncResult2_err|
+      puts "Listen succeeded? #{asyncResult2_err == nil}"
+    }
+  else
+    puts "Listen failed#{asyncResult_err}"
+  end
+}
+
 ----
 
 ===== Unlisten / leave a Multicast group
@@ -133,7 +182,33 @@ This is shown here:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+socket = vertx.create_datagram_socket({
+})
+socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+  if (asyncResult_err == nil)
+    socket.handler() { |packet|
+      # Do something with the packet
+    }
+
+    # join the multicast group
+    socket.listen_multicast_group("230.0.0.1") { |asyncResult2,asyncResult2_err|
+      if (asyncResult2_err == nil)
+        # will now receive packets for group
+
+        # do some work
+
+        socket.unlisten_multicast_group("230.0.0.1") { |asyncResult3,asyncResult3_err|
+          puts "Unlisten succeeded? #{asyncResult3_err == nil}"
+        }
+      else
+        puts "Listen failed#{asyncResult2_err}"
+      end
+    }
+  else
+    puts "Listen failed#{asyncResult_err}"
+  end
+}
+
 ----
 
 ===== Blocking multicast
@@ -150,7 +225,16 @@ like shown here:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+socket = vertx.create_datagram_socket({
+})
+
+# Some code
+
+# This would block packets which are send from 10.0.0.2
+socket.block_multicast_group("230.0.0.1", "10.0.0.2") { |asyncResult,asyncResult_err|
+  puts "block succeeded? #{asyncResult_err == nil}"
+}
+
 ----
 
 ==== DatagramSocket properties

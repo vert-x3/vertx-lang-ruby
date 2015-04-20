@@ -100,7 +100,8 @@ You get a reference to the event bus as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eb = vertx.event_bus()
+
 ----
 
 There is a single instance of the event bus per Vert.x instance.
@@ -112,7 +113,12 @@ Here's an example:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eb = vertx.event_bus()
+
+eb.consumer("news.uk.sport") { |message|
+  puts "I have received a message: #{message.body()}"
+}
+
 ----
 
 When a message arrives for your handler, your handler will be called, passing in the `link:yardoc/Vertx/Message.html[message]`.
@@ -126,7 +132,13 @@ to return a +MessageConsumer+ with no handler set, and then set the handler on t
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eb = vertx.event_bus()
+
+consumer = eb.consumer("news.uk.sport")
+consumer.handler() { |message|
+  puts "I have received a message: #{message.body()}"
+}
+
 ----
 
 When registering a handler on a clustered event bus, it can take some time for the registration to reach all
@@ -137,7 +149,14 @@ on the +MessageConsumer+ object.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+consumer.completion_handler() { |res,res_err|
+  if (res_err == nil)
+    puts "The handler registration has reached all nodes"
+  else
+    puts "Registration failed!"
+  end
+}
+
 ----
 
 ==== Un-registering Handlers
@@ -149,7 +168,14 @@ be notified when this is complete use `link:yardoc/Vertx/MessageConsumer.html#un
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+consumer.unregister() { |res,res_err|
+  if (res_err == nil)
+    puts "The handler un-registration has reached all nodes"
+  else
+    puts "Un-registration failed!"
+  end
+}
+
 ----
 
 ==== Publishing messages
@@ -159,7 +185,8 @@ address to publish it to.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eventBus.publish("news.uk.sport", "Yay! Someone kicked a ball")
+
 ----
 
 That message will then be delivered to all handlers registered against the address +news.uk.sport+.
@@ -173,7 +200,8 @@ You can send a message with `link:yardoc/Vertx/EventBus.html#send-instance_metho
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eventBus.send("news.uk.sport", "Yay! Someone kicked a ball")
+
 ----
 
 ==== Setting headers on messages
@@ -183,7 +211,7 @@ Messages sent over the event bus can also contain headers. This can be specified
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+Code not translatable
 ----
 
 ==== The Message object
@@ -211,14 +239,24 @@ The receiver:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+consumer = eventBus.consumer("news.uk.sport")
+consumer.handler() { |message|
+  puts "I have received a message: #{message.body()}"
+  message.reply("how interesting!")
+}
+
 ----
 
 The sender:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+eventBus.send("news.uk.sport", "Yay! Someone kicked a ball across a patch of grass") { |ar,ar_err|
+  if (ar_err == nil)
+    puts "Received reply: #{ar.body()}"
+  end
+}
+
 ----
 
 The replies themselves can also be replied to so you can create a dialog between two different parties
@@ -255,7 +293,19 @@ instance as clustered;
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/vertx'
+options = {
+}
+Vertx::Vertx.clustered_vertx(options) { |res,res_err|
+  if (res_err == nil)
+    vertx = res
+    eventBus = vertx.event_bus()
+    puts "We now have a clustered event bus: #{eventBus}"
+  else
+    puts "Failed: #{res_err}"
+  end
+}
+
 ----
 
 You should also make sure you have a `link:unavailable[ClusterManager]` implementation on your classpath,

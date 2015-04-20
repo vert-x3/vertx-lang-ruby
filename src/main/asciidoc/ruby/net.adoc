@@ -8,7 +8,9 @@ The simplest way to create a TCP server, using all default options is as follows
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+
 ----
 
 === Configuring a TCP server
@@ -18,7 +20,12 @@ instance when creating it:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+  'port' => 4321
+}
+server = vertx.create_net_server(options)
+
 ----
 
 === Start the Server Listening
@@ -30,14 +37,20 @@ To tell the server to listen at the host and port as specified in the options:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.listen()
+
 ----
 
 Or to specify the host and port in the call to listen, ignoring what is configured in the options:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.listen(1234, "localhost")
+
 ----
 
 The default host is `0.0.0.0` which means 'listen on all available addresses' and the default port is `0`, which is a
@@ -51,7 +64,16 @@ For example:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.listen(1234, "localhost") { |res,res_err|
+  if (res_err == nil)
+    puts "Server is now listening!"
+  else
+    puts "Failed to bind!"
+  end
+}
+
 ----
 
 === Listening on a random port
@@ -62,7 +84,16 @@ To find out the real port the server is listening on you can call `link:yardoc/V
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.listen(0, "localhost") { |res,res_err|
+  if (res_err == nil)
+    puts "Server is now listening on actual port: #{server.actual_port()}"
+  else
+    puts "Failed to bind!"
+  end
+}
+
 ----
 
 === Getting notified of incoming connections
@@ -71,7 +102,12 @@ To be notified when a connection is made you need to set a `link:yardoc/Vertx/Ne
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.connect_handler() { |socket|
+  # Handle the connection in here
+}
+
 ----
 
 When a connection is made the handler will be called with an instance of `link:yardoc/Vertx/NetSocket.html[NetSocket]`.
@@ -89,7 +125,14 @@ the socket.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_net_server()
+server.connect_handler() { |socket|
+  socket.handler() { |buffer|
+    puts "I received some bytes: #{buffer.length()}"
+  }
+}
+
 ----
 
 === Writing data to a socket
@@ -98,7 +141,20 @@ You write to a socket using one of `link:yardoc/Vertx/NetSocket.html#write-insta
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+# Write a buffer
+buffer = Vertx::Buffer.buffer().append_float(12.34).append_int(123)
+socket.write(buffer)
+
+# Write a string in UTF-8 encoding
+socket.write("some data")
+
+# Write a string using the specified encoding
+socket.write("some data", "UTF-16")
+
+
+
 ----
 
 Write operations are asynchronous and may not occur until some time after the call to write has returned.
@@ -110,7 +166,11 @@ on it:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+socket.close_handler() { |v|
+  puts "The socket has been closed"
+}
+
 ----
 
 === Handling exceptions
@@ -142,7 +202,9 @@ efficient way to send files, as it can be handled by the OS kernel directly wher
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+socket.send_file("myfile.dat")
+
 ----
 
 === Streaming sockets
@@ -172,7 +234,15 @@ This handler will then be called when the close has fully completed.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.close() { |res,res_err|
+  if (res_err == nil)
+    puts "Server is now closed"
+  else
+    puts "close failed"
+  end
+}
+
 ----
 
 === Automatic clean-up in verticles
@@ -193,7 +263,22 @@ You can instantiate more instances programmatically in your code:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+# Create a few instances so we can utilise cores
+
+i = 0
+while (i < 10)
+  server = vertx.create_net_server()
+  server.connect_handler() { |socket|
+    socket.handler() { |buffer|
+      # Just echo back the data
+      socket.write(buffer)
+    }
+  }
+  server.listen(1234, "localhost")
+  i+=1
+end
+
 ----
 
 or, if you are using verticles you can simply deploy more instances of your server verticle by using the `-instances` option
@@ -205,7 +290,12 @@ or when programmatically deploying your verticle
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+  'instances' => 10
+}
+vertx.deploy_verticle("com.mycompany.MyVerticle", options)
+
 ----
 
 Once you do this you will find the echo server works functionally identically to before, but all your cores on your
@@ -230,7 +320,9 @@ The simplest way to create a TCP client, using all default options is as follows
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+client = vertx.create_net_client()
+
 ----
 
 === Configuring a TCP client
@@ -240,7 +332,12 @@ instance when creating it:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+  'connectTimeout' => 10000
+}
+client = vertx.create_net_client(options)
+
 ----
 
 === Making connections
@@ -251,7 +348,20 @@ specifying the port and host of the server and a handler that will be called wit
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+  'connectTimeout' => 10000
+}
+client = vertx.create_net_client(options)
+client.connect(4321, "localhost") { |res,res_err|
+  if (res_err == nil)
+    puts "Connected!"
+    socket = res
+  else
+    puts "Failed to connect: #{res_err.get_message()}"
+  end
+}
+
 ----
 
 === Configuring connection attempts
@@ -265,7 +375,13 @@ only apply to creating initial connections.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+}
+options['reconnectAttempts'] = 10['reconnectInterval'] = 500
+
+client = vertx.create_net_client(options)
+
 ----
 
 By default, multiple connection attempts are disabled.
@@ -301,14 +417,32 @@ The password for the key store should also be provided:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'keyStoreOptions' => {
+    'path' => "/path/to/your/server-keystore.jks",
+    'password' => "password-of-your-keystore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Alternatively you can read the key store yourself as a buffer and provide that directly:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/server-keystore.jks")
+jksOptions = {
+  'value' => myKeyStoreAsABuffer,
+  'password' => "password-of-your-keystore"
+}
+options = {
+  'ssl' => true,
+  'keyStoreOptions' => jksOptions
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Key/certificate in PKCS#12 format (http://en.wikipedia.org/wiki/PKCS_12), usually with the `.pfx`  or the `.p12`
@@ -316,28 +450,65 @@ extension can also be loaded in a similar fashion than JKS key stores:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pfxKeyCertOptions' => {
+    'path' => "/path/to/your/server-keystore.pfx",
+    'password' => "password-of-your-keystore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/server-keystore.pfx")
+pfxOptions = {
+  'value' => myKeyStoreAsABuffer,
+  'password' => "password-of-your-keystore"
+}
+options = {
+  'ssl' => true,
+  'pfxKeyCertOptions' => pfxOptions
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Another way of providing server private key and certificate separately using `.pem` files.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pemKeyCertOptions' => {
+    'keyPath' => "/path/to/your/server-key.pem",
+    'certPath' => "/path/to/your/server-cert.pem"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/server-key.pem")
+myCertAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/server-cert.pem")
+pemOptions = {
+  'keyValue' => myKeyAsABuffer,
+  'certValue' => myCertAsABuffer
+}
+options = {
+  'ssl' => true,
+  'pemKeyCertOptions' => pemOptions
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Keep in mind that pem configuration, the private key is not crypted.
@@ -355,14 +526,33 @@ The password for the trust store should also be provided:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'trustStoreOptions' => {
+    'path' => "/path/to/your/truststore.jks",
+    'password' => "password-of-your-truststore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Alternatively you can read the trust store yourself as a buffer and provide that directly:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myTrustStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/truststore.jks")
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'trustStoreOptions' => {
+    'value' => myTrustStoreAsABuffer,
+    'password' => "password-of-your-truststore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Certificate authority in PKCS#12 format (http://en.wikipedia.org/wiki/PKCS_12), usually with the `.pfx`  or the `.p12`
@@ -370,28 +560,68 @@ extension can also be loaded in a similar fashion than JKS trust stores:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'pfxTrustOptions' => {
+    'path' => "/path/to/your/truststore.pfx",
+    'password' => "password-of-your-truststore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myTrustStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/truststore.pfx")
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'pfxTrustOptions' => {
+    'value' => myTrustStoreAsABuffer,
+    'password' => "password-of-your-truststore"
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Another way of providing server certificate authority using a list `.pem` files.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'pemTrustOptions' => {
+    'certPaths' => [
+      "/path/to/your/server-ca.pem"
+    ]
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myCaAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/server-ca.pfx")
+options = {
+  'ssl' => true,
+  'clientAuthRequired' => true,
+  'pemTrustOptions' => {
+    'certValues' => [
+      myCaAsABuffer
+    ]
+  }
+}
+server = vertx.create_net_server(options)
+
 ----
 
 ==== Enabling SSL/TLS on the client
@@ -408,7 +638,12 @@ be sure who you are connecting to. Use this with caution. Default value is false
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'trustAll' => true
+}
+client = vertx.create_net_client(options)
+
 ----
 
 If `link:unavailable#set_trust_all-instance_method[trustAll]` is not set then a client trust store must be
@@ -425,14 +660,31 @@ in the client trust store, the connection attempt will not succeed.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'trustStoreOptions' => {
+    'path' => "/path/to/your/truststore.jks",
+    'password' => "password-of-your-truststore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myTrustStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/truststore.jks")
+options = {
+  'ssl' => true,
+  'trustStoreOptions' => {
+    'value' => myTrustStoreAsABuffer,
+    'password' => "password-of-your-truststore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Certificate authority in PKCS#12 format (http://en.wikipedia.org/wiki/PKCS_12), usually with the `.pfx`  or the `.p12`
@@ -440,28 +692,64 @@ extension can also be loaded in a similar fashion than JKS trust stores:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pfxTrustOptions' => {
+    'path' => "/path/to/your/truststore.pfx",
+    'password' => "password-of-your-truststore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myTrustStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/truststore.pfx")
+options = {
+  'ssl' => true,
+  'pfxTrustOptions' => {
+    'value' => myTrustStoreAsABuffer,
+    'password' => "password-of-your-truststore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Another way of providing server certificate authority using a list `.pem` files.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pemTrustOptions' => {
+    'certPaths' => [
+      "/path/to/your/ca-cert.pem"
+    ]
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myTrustStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/ca-cert.pem")
+options = {
+  'ssl' => true,
+  'pemTrustOptions' => {
+    'certValues' => [
+      myTrustStoreAsABuffer
+    ]
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 ==== Specifying key/certificate for the client
@@ -476,14 +764,32 @@ Again it's just a regular Java key store. The client keystore location is set by
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'keyStoreOptions' => {
+    'path' => "/path/to/your/client-keystore.jks",
+    'password' => "password-of-your-keystore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/client-keystore.jks")
+jksOptions = {
+  'value' => myKeyStoreAsABuffer,
+  'password' => "password-of-your-keystore"
+}
+options = {
+  'ssl' => true,
+  'keyStoreOptions' => jksOptions
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Key/certificate in PKCS#12 format (http://en.wikipedia.org/wiki/PKCS_12), usually with the `.pfx`  or the `.p12`
@@ -491,28 +797,65 @@ extension can also be loaded in a similar fashion than JKS key stores:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pfxKeyCertOptions' => {
+    'path' => "/path/to/your/client-keystore.pfx",
+    'password' => "password-of-your-keystore"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyStoreAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/client-keystore.pfx")
+pfxOptions = {
+  'value' => myKeyStoreAsABuffer,
+  'password' => "password-of-your-keystore"
+}
+options = {
+  'ssl' => true,
+  'pfxKeyCertOptions' => pfxOptions
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Another way of providing server private key and certificate separately using `.pem` files.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'pemKeyCertOptions' => {
+    'keyPath' => "/path/to/your/client-key.pem",
+    'certPath' => "/path/to/your/client-cert.pem"
+  }
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myKeyAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/client-key.pem")
+myCertAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/client-cert.pem")
+pemOptions = {
+  'keyValue' => myKeyAsABuffer,
+  'certValue' => myCertAsABuffer
+}
+options = {
+  'ssl' => true,
+  'pemKeyCertOptions' => pemOptions
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Keep in mind that pem configuration, the private key is not crypted.
@@ -525,12 +868,29 @@ the crl list to use:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'ssl' => true,
+  'trustStoreOptions' => trustOptions,
+  'crlPaths' => [
+    "/path/to/your/crl.pem"
+  ]
+}
+client = vertx.create_net_client(options)
+
 ----
 
 Buffer configuration is also supported:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+myCrlAsABuffer = vertx.file_system().read_file_blocking("/path/to/your/crl.pem")
+options = {
+  'ssl' => true,
+  'trustStoreOptions' => trustOptions,
+  'crlValues' => [
+    myCrlAsABuffer
+  ]
+}
+client = vertx.create_net_client(options)
+
 ----

@@ -22,7 +22,28 @@ Here's an example of using a shared local map:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+sd = vertx.shared_data()
+
+map1 = sd.get_local_map("mymap1")
+
+map1.put("foo", "bar")
+
+map2 = sd.get_local_map("mymap2")
+
+map2.put("eek", Vertx::Buffer.buffer().append_int(123))
+
+# Then... in another part of your application:
+
+map1 = sd.get_local_map("mymap1")
+
+val = map1.get("foo")
+
+map2 = sd.get_local_map("mymap2")
+
+buff = map2.get("eek")
+
 ----
 
 === Cluster-wide asynchronous maps
@@ -40,7 +61,18 @@ Getting the map is asynchronous and the result is returned to you in the handler
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+sd = vertx.shared_data()
+
+sd.get_cluster_wide_map("mymap") { |res,res_err|
+  if (res_err == nil)
+    map = res
+  else
+    # Something went wrong!
+  end
+}
+
+
 ----
 
 ==== Putting data in a map
@@ -51,7 +83,16 @@ The actual put is asynchronous and the handler is notified once it is complete:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+map.put("foo", "bar") { |resPut,resPut_err|
+  if (resPut_err == nil)
+    # Successfully put the value
+  else
+    # Something went wrong!
+  end
+}
+
+
 ----
 
 ==== Getting data from a map
@@ -62,7 +103,17 @@ The actual get is asynchronous and the handler is notified with the result some 
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+map.get("foo") { |resGet,resGet_err|
+  if (resGet_err == nil)
+    # Successfully got the value
+    val = resGet
+  else
+    # Something went wrong!
+  end
+}
+
+
 ----
 
 ===== Other map operations
@@ -91,7 +142,21 @@ another caller can obtain it.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+sd.get_lock("mylock") { |res,res_err|
+  if (res_err == nil)
+    # Got the lock!
+    lock = res
+
+    # 5 seconds later we release the lock so someone else can get it
+
+    vertx.set_timer(5000) { |tid|
+      lock.release()}
+
+  else
+    # Something went wrong
+  end
+}
+
 ----
 
 You can also get a lock with a timeout. If it fails to obtain the lock within the timeout the handler will be called
@@ -99,7 +164,16 @@ with a failure:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+sd.get_lock_with_timeout("mylock", 10000) { |res,res_err|
+  if (res_err == nil)
+    # Got the lock!
+    lock = res
+
+  else
+    # Failed to get lock
+  end
+}
+
 ----
 
 === Cluster-wide counters
@@ -112,7 +186,14 @@ You obtain an instance with `link:yardoc/Vertx/SharedData.html#get_counter-insta
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+sd.get_counter("mycounter") { |res,res_err|
+  if (res_err == nil)
+    counter = res
+  else
+    # Something went wrong!
+  end
+}
+
 ----
 
 Once you have an instance you can retrieve the current count, atomically increment it, decrement and add a value to

@@ -50,7 +50,9 @@ If you're embedding Vert.x then you simply create an instance as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/vertx'
+vertx = Vertx::Vertx.vertx()
+
 ----
 
 If you're using Verticles
@@ -64,7 +66,11 @@ When creating a Vertx object you can also specify options if the defaults aren't
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/vertx'
+vertx = Vertx::Vertx.vertx({
+  'workerPoolSize' => 40
+})
+
 ----
 
 The `link:../cheatsheet/VertxOptions.html[VertxOptions]` object has many settings and allows you to configure things like clustering,
@@ -86,7 +92,8 @@ A fluent API is where multiple methods calls can be chained together. For exampl
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+request.response().put_header("Content-Type", "text/plain").write("some text").end()
+
 ----
 
 This is a common pattern throughout Vert.x APIs, so get used to it.
@@ -97,7 +104,11 @@ your code like this:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.put_header("Content-Type", "text/plain")
+response.write("some text")
+response.end()
+
 ----
 
 == Don't call us, we'll call you.
@@ -118,14 +129,23 @@ would do:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.set_periodic(1000) { |id|
+  # This handler will get called every second
+  puts "timer fired!"
+}
+
 ----
 
 Or to receive an HTTP request:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+# Respond to each http request with "Hello World"
+server.request_handler() { |request|
+  # This handler will be called every time an HTTP request is received at the server
+  request.response().end("hello world!")
+}
+
 ----
 
 Some time later when Vert.x has an event to pass to your handler Vert.x will call it *asynchronously*.
@@ -258,7 +278,14 @@ result handler to be called back asynchronous when the blocking code has been ex
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.execute_blocking(lambda { |future|
+  # Call some blocking API that takes a significant amount of time to return
+  result = someAPI.blocking_method("hello")
+  future.complete(result)
+}) { |res,res_err|
+  puts "The result is: #{res}"
+}
+
 ----
 
 An alternative way to run blocking code is to use a <<worker_verticles, worker verticle>>
@@ -326,7 +353,11 @@ If you want to deploy a verticle as a worker verticle you do that with `link:../
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'worker' => true
+}
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle", options)
+
 ----
 
 Worker verticle instances are never executed concurrently by Vert.x by more than one thread, but can executed by
@@ -350,7 +381,7 @@ NOTE: Deploying Verticle *instances* is Java only.
 
 [source,java]
 ----
-todo:implement-code-translation-for-ruby
+Code not translatable
 ----
 
 You can also deploy verticles by specifying the verticle *name*.
@@ -367,7 +398,17 @@ Here's an example of deploying some different types of verticles:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+# Deploy a Java verticle - the name is the fully qualified class name of the verticle class
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle")
+
+# Deploy a JavaScript verticle
+vertx.deploy_verticle("verticles/myverticle.js")
+
+# Deploy a Ruby verticle verticle
+vertx.deploy_verticle("verticles/my_verticle.rb")
+
+
 ----
 
 === Rules for mapping a verticle name to a verticle factory
@@ -404,7 +445,14 @@ If you want to be notified when deployment is complete you can deploy specifying
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle") { |res,res_err|
+  if (res_err == nil)
+    puts "Deployment id is: #{res}"
+  else
+    puts "Deployment failed!"
+  end
+}
+
 ----
 
 The completion handler will be passed a result containing the deployment ID string, if deployment succeeded.
@@ -419,7 +467,14 @@ Un-deployment is itself asynchronous so if you want to be notified when un-deplo
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.undeploy(deploymentID) { |res,res_err|
+  if (res_err == nil)
+    puts "Undeployed ok"
+  else
+    puts "Undeploy failed!"
+  end
+}
+
 ----
 
 === Specifying number of verticle instances
@@ -429,7 +484,11 @@ want to deploy:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'instances' => 16
+}
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle", options)
+
 ----
 
 This is useful for scaling easily across multiple cores. For example you might have a web-server verticle to deploy
@@ -441,7 +500,15 @@ Configuration in the form of JSON can be passed to a verticle at deployment time
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+config = {
+  'name' => "tim",
+  'directory' => "/blah"
+}
+options = {
+  'config' => config
+}
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle", options)
+
 ----
 
 This configuration is then available via the `link:yardoc/Vertx/Context.html[Context]` object.
@@ -471,7 +538,7 @@ Here's an example of using an isolation group to isolate a verticle deployment.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+Code not translatable
 ----
 
 Isolation groups are identified by a name, and the name can be used between different deployments if you want them
@@ -550,7 +617,12 @@ To set a timer to fire once you use `link:yardoc/Vertx/Vertx.html#set_timer-inst
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+timerID = vertx.set_timer(1000) { |id|
+  puts "And one second later this is printed"
+}
+
+puts "First this is printed"
+
 ----
 
 The return value is a unique timer id which can later be used to cancel the timer. The handler is also passed the timer id.
@@ -567,7 +639,12 @@ The argument passed into the timer event handler is also the unique timer id:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+timerID = vertx.set_periodic(1000) { |id|
+  puts "And every second this is printed"
+}
+
+puts "First this is printed"
+
 ----
 
 ==== Cancelling timers
@@ -576,7 +653,8 @@ To cancel a periodic timer, call `link:yardoc/Vertx/Vertx.html#cancel_timer-inst
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.cancel_timer(timerID)
+
 ----
 
 ==== Automatic clean-up in verticles

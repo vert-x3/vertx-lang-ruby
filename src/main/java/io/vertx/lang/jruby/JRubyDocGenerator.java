@@ -3,6 +3,8 @@ package io.vertx.lang.jruby;
 import io.vertx.codegen.Case;
 import io.vertx.codegen.ClassKind;
 import io.vertx.codegen.TypeInfo;
+import io.vertx.codetrans.CodeTranslator;
+import io.vertx.codetrans.RubyLang;
 import io.vertx.docgen.Coordinate;
 import io.vertx.docgen.DocGenerator;
 
@@ -20,10 +22,12 @@ import javax.lang.model.element.VariableElement;
 public class JRubyDocGenerator implements DocGenerator {
 
   private TypeInfo.Factory factory;
+  private CodeTranslator translator;
 
   @Override
   public void init(ProcessingEnvironment processingEnv) {
     factory = new TypeInfo.Factory(processingEnv.getElementUtils(), processingEnv.getTypeUtils());
+    translator = new CodeTranslator(processingEnv);
   }
 
   @Override
@@ -33,7 +37,13 @@ public class JRubyDocGenerator implements DocGenerator {
 
   @Override
   public String renderSource(ExecutableElement elt, String source) {
-    return "todo:implement-code-translation-for-ruby";
+    RubyLang lang = new RubyLang();
+    try {
+      return translator.translate(elt, lang);
+    } catch (Exception e) {
+      System.out.println("Cannot generate " + elt.getEnclosingElement().getSimpleName() + "#" + elt.getSimpleName() + " : " + e.getMessage());
+      return "Code not translatable";
+    }
   }
 
   @Override

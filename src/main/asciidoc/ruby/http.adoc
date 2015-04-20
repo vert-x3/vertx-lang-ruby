@@ -8,7 +8,9 @@ The simplest way to create an HTTP server, using all default options is as follo
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_http_server()
+
 ----
 
 === Configuring an HTTP server
@@ -18,7 +20,13 @@ instance when creating it:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+options = {
+  'maxWebsocketFrameSize' => 1000000
+}
+
+server = vertx.create_http_server(options)
+
 ----
 
 === Start the Server Listening
@@ -30,14 +38,20 @@ To tell the server to listen at the host and port as specified in the options:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_http_server()
+server.listen()
+
 ----
 
 Or to specify the host and port in the call to listen, ignoring what is configured in the options:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_http_server()
+server.listen(8080, "myhost.com")
+
 ----
 
 The default host is `0.0.0.0` which means 'listen on all available addresses' and the default port is `80`.
@@ -50,7 +64,16 @@ For example:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_http_server()
+server.listen(8080, "myhost.com") { |res,res_err|
+  if (res_err == nil)
+    puts "Server is now listening!"
+  else
+    puts "Failed to bind!"
+  end
+}
+
 ----
 
 === Getting notified of incoming requests
@@ -59,7 +82,12 @@ To be notified when a request arrives you need to set a `link:yardoc/Vertx/HttpS
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server = vertx.create_http_server()
+server.request_handler() { |request|
+  # Handle the request in here
+}
+
 ----
 
 === Handling requests
@@ -83,7 +111,12 @@ Here's a simple example of a server handling a request and replying with "hello 
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+vertx.create_http_server().request_handler() { |request|
+  request.response().end("Hello world")
+}.listen(8080)
+
+
 ----
 
 ==== Request version
@@ -138,7 +171,15 @@ It also has case-insensitive keys, that means you can do the following:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+headers = request.headers()
+
+# Get the User-Agent:
+puts "User agent is #{headers.get("user-agent")}"
+
+# You can also do this and get the same result:
+puts "User agent is #{headers.get("User-Agent")}"
+
 ----
 
 ==== Request parameters
@@ -190,7 +231,11 @@ this will get called every time a chunk of the request body arrives. Here's an e
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request.handler() { |buffer|
+  puts "I have received a chunk of the body of length #{buffer.length()}"
+}
+
 ----
 
 The object passed into the handler is a `link:yardoc/Vertx/Buffer.html[Buffer]`, and the handler can be called
@@ -201,7 +246,20 @@ the aggregation yourself as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+# Create an empty buffer
+totalBuffer = Vertx::Buffer.buffer()
+
+request.handler() { |buffer|
+  puts "I have received a chunk of the body of length #{buffer.length()}"
+  totalBuffer.append_buffer(buffer)
+}
+
+request.end_handler() { |v|
+  puts "Full body received, length = #{totalBuffer.length()}"
+}
+
 ----
 
 This is such a common case, that Vert.x provides a `link:yardoc/Vertx/HttpServerRequest.html#body_handler-instance_method[bodyHandler]` to do this
@@ -209,7 +267,11 @@ for you. The body handler is called once when all the body has been received:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request.body_handler() { |totalBuffer|
+  puts "Full body received, length = #{totalBuffer.length()}"
+}
+
 ----
 
 ==== Pumping requests
@@ -237,7 +299,15 @@ once the entire body has been read:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.request_handler() { |request|
+  request.set_expect_multipart(true)
+  request.end_handler() { |v|
+    # The body has now been fully read, so retrieve the form attributes
+    formAttributes = request.form_attributes()
+  }
+}
+
 ----
 
 ==== Handling form file uploads
@@ -254,7 +324,14 @@ The object passed into the handler is a `link:yardoc/Vertx/HttpServerFileUpload.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.request_handler() { |request|
+  request.set_expect_multipart(true)
+  request.upload_handler() { |upload|
+    puts "Got a file upload #{upload.name()}"
+  }
+}
+
 ----
 
 File uploads can be large we don't provide the entire upload in a single buffer as that might result in memory
@@ -262,7 +339,13 @@ exhaustion, instead, the upload data is received in chunks:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request.upload_handler() { |upload|
+  upload.handler() { |chunk|
+    puts "Received a chunk of the upload of length #{chunk.length()}"
+  }
+}
+
 ----
 
 The upload object is a `link:yardoc/Vertx/ReadStream.html[ReadStream]` so you can pump the request body to any
@@ -273,7 +356,11 @@ If you just want to upload the file to disk somewhere you can use `link:yardoc/V
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request.upload_handler() { |upload|
+  upload.stream_to_file_system("myuploads_directory/#{upload.filename()}")
+}
+
 ----
 
 WARNING: Make sure you check the filename in a production system to avoid malicious clients uploading files
@@ -306,14 +393,18 @@ With a single buffer:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.write(buffer)
+
 ----
 
 With a string. In this case the string will encoded using UTF-8 and the result written to the wire.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.write("hello world!")
+
 ----
 
 With a string and an encoding. In this case the string will encoded using the specified encoding and the
@@ -321,7 +412,9 @@ result written to the wire.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.write("hello world!", "UTF-16")
+
 ----
 
 Writing to a response is asynchronous and always returns immediately after the write has been queued.
@@ -343,7 +436,10 @@ With no arguments, the response is simply ended.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.write("hello world!")
+response.end()
+
 ----
 
 It can also be called with a string or buffer in the same way `write` is called. In this case it's just the same as
@@ -351,7 +447,9 @@ calling write with a string or buffer followed by calling end with no arguments.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.end("hello world!")
+
 ----
 
 ==== Closing the underlying connection
@@ -370,14 +468,20 @@ HTTP response headers can be added to the response by adding them directly to th
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+headers = response.headers()
+headers.set("content-type", "text/html")
+headers.set("other-header", "wibble")
+
 ----
 
 Or you can use `link:yardoc/Vertx/HttpServerResponse.html#put_header-instance_method[putHeader]`
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.put_header("content-type", "text/html").put_header("other-header", "wibble")
+
 ----
 
 Headers must all be added before any parts of the response body are written.
@@ -393,7 +497,9 @@ You put the HTTP response into chunked mode as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.set_chunked(true)
+
 ----
 
 Default is non-chunked. When in chunked mode, each call to one of the `link:yardoc/Vertx/HttpServerResponse.html#write-instance_method[write]`
@@ -406,14 +512,21 @@ To add trailers to the response, add them directly to the `link:yardoc/Vertx/Htt
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.set_chunked(true)
+trailers = response.trailers()
+trailers.set("X-wibble", "woobble").set("X-quux", "flooble")
+
 ----
 
 Or use `link:yardoc/Vertx/HttpServerResponse.html#put_trailer-instance_method[putTrailer]`.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+response = request.response()
+response.set_chunked(true)
+response.put_trailer("X-wibble", "woobble").put_trailer("X-quux", "flooble")
+
 ----
 
 ==== Serving files directly from disk
@@ -434,7 +547,17 @@ Here's a very simple web server that serves files from the file system using sen
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+vertx.create_http_server().request_handler() { |request|
+  file = ""
+  if (request.path().equals("/"))
+    file = "index.html"
+  else
+    if (!request.path().contains(".."))
+      file = request.path()
+    endend
+  request.response().send_file("web/#{file}")
+}.listen(8080)
+
 ----
 
 Sending a file is asynchronous and may not complete until some time after the call has returned. If you want to
@@ -459,7 +582,19 @@ at any one time:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/pump'
+vertx.create_http_server().request_handler() { |request|
+  response = request.response()
+  if (request.method() == :PUT)
+    response.set_chunked(true)
+    Vertx::Pump.pump(request, response).start()
+    request.end_handler() { |v|
+      response.end()}
+  else
+    response.set_status_code(400).end()
+  end
+}.listen(8080)
+
 ----
 
 === HTTP Compression
@@ -490,14 +625,19 @@ You create an `link:yardoc/Vertx/HttpClient.html[HttpClient]` instance with defa
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_http_client()
+
 ----
 
 If you want to configure options for the client, you create it as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+options = {
+  'keepAlive' => false
+}
+client = vertx.create_http_client()
+
 ----
 
 === Making requests
@@ -510,7 +650,16 @@ every time you make a request you can configure the client with a default host/p
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+# Set the default host
+options = {
+  'defaultHost' => "wibble.com"
+}
+# Can also set default port if you want...
+client = vertx.create_http_client(options)
+client.get_now("/some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
 ----
 
 Alternatively if you find yourself making lots of requests to different host/ports with the same client you can
@@ -518,7 +667,18 @@ simply specify the host/port when doing the request.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_http_client()
+
+# Specify both port and host name
+client.get_now(8080, "myserver.mycompany.com", "/some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+# This time use the default port 80 but specify the host name
+client.get_now("foo.othercompany.com", "/other-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
 ----
 
 Both methods of specifying host/port are supported for all the different ways of making requests with the client.
@@ -536,7 +696,19 @@ called with the http response when it comes back.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_http_client()
+
+# Send a GET request
+client.get_now("/some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+# Send a GET request
+client.head_now("/other-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+
 ----
 
 ==== Writing general requests
@@ -547,7 +719,16 @@ the HTTP method at run-time:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_http_client()
+
+client.request(:GET, "some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}.end()
+
+client.request(:POST, "foo-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}.end("some-data")
+
 ----
 
 ==== Writing request bodies
@@ -565,14 +746,53 @@ Here are some examples of writing a POST request with a body:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client = vertx.create_http_client()
+
+request = client.post("some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+# Now do stuff with the request
+request.put_header("content-length", "1000")
+request.put_header("content-type", "text/plain")
+request.write(body)
+
+# Make sure the request is ended when you're done with it
+request.end()
+
+# Or fluently:
+
+client.post("some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}.put_header("content-length", "1000").put_header("content-type", "text/plain").write(body).end()
+
+# Or event more simply:
+
+client.post("some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}.put_header("content-type", "text/plain").end(body)
+
+
 ----
 
 Methods exist to write strings in UTF-8 encoding and in any specific encoding and to write buffers:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+# Write string encoded in UTF-8
+request.write("some data")
+
+# Write string encoded in specific encoding
+request.write("some other data", "UTF-16")
+
+# Write a buffer
+buffer = Vertx::Buffer.buffer()
+buffer.append_int(123).append_long(245)
+request.write(buffer)
+
+
 ----
 
 If you are just writing a single string or buffer to the HTTP request you can write it and end the request in a
@@ -580,7 +800,16 @@ single call to the `end` function.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+# Write string and end the request (send it) in a single call
+request.end("some simple data")
+
+# Write buffer and end the request (send it) in a single call
+buffer = Vertx::Buffer.buffer().append_double(12.34).append_long(432)
+request.end(buffer)
+
+
 ----
 
 When you're writing to a request, the first call to `write` will result in the request headers being written
@@ -605,7 +834,13 @@ You can write headers to a request using the `link:yardoc/Vertx/HttpClientReques
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+# Write some headers using the headers() multimap
+
+headers = request.headers()
+headers.set("content-type", "application/json").set("other-header", "foo")
+
+
 ----
 
 The headers are an instance of `link:yardoc/Vertx/MultiMap.html[MultiMap]` which provides operations for adding, setting and removing
@@ -615,7 +850,12 @@ You can also write headers using `link:yardoc/Vertx/HttpClientRequest.html#put_h
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+# Write some headers using the putHeader method
+
+request.put_header("content-type", "application/json").put_header("other-header", "foo")
+
+
 ----
 
 If you wish to write headers to the request you must do so before any part of the request body is written.
@@ -632,7 +872,8 @@ Requests can be ended in several ways. With no arguments the request is simply e
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+request.end()
+
 ----
 
 Or a string or buffer can be provided in the call to `end`. This is like calling `write` with the string or buffer
@@ -640,7 +881,14 @@ before calling `end` with no arguments
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+# End the request with a string
+request.end("some-data")
+
+# End it with a buffer
+buffer = Vertx::Buffer.buffer().append_float(12.3).append_int(321)
+request.end(buffer)
+
 ----
 
 ==== Chunked HTTP requests
@@ -657,7 +905,18 @@ no need to set the `Content-Length` of the request up-front.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request.set_chunked(true)
+
+# Write some chunks
+i = 0
+while (i < 10)
+  request.write("this-is-chunk-#{i}")
+  i+=1
+end
+
+request.end()
+
 ----
 
 ==== Request timeouts
@@ -674,7 +933,15 @@ instance:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request = client.post("some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+request.exception_handler() { |e|
+  puts "Received exception: #{e.get_message()}"
+  e.print_stack_trace()
+}
+
 ----
 
 TODO - what about exceptions in the getNow methods where no exception handler can be provided??
@@ -689,7 +956,12 @@ not provide a handler when the request is created and set it later on the reques
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request = client.post("some-uri")
+request.handler() { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
 ----
 
 ==== Using the request as a stream
@@ -701,7 +973,15 @@ For, example, you could pump a file on disk to a http request body as follows:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/pump'
+
+request.set_chunked(true)
+pump = Vertx::Pump.pump(file, request)
+file.end_handler() { |v|
+  request.end()}
+pump.start()
+
+
 ----
 
 === Handling http responses
@@ -714,7 +994,16 @@ and `link:yardoc/Vertx/HttpClientResponse.html#status_message-instance_method[st
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+client.get_now("some-uri") { |response|
+  # the status code - e.g. 200 or 404
+  puts "Status code is #{response.status_code()}"
+
+  # the status message e.g. "OK" or "Not Found".
+  puts "Status message is #{response.status_message()}"
+}
+
+
 ----
 
 ==== Using the response as a stream
@@ -730,7 +1019,11 @@ The object returned is a `link:yardoc/Vertx/MultiMap.html[MultiMap]` as HTTP hea
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+contentType = response.headers().get("content-type")
+contentLength = response.headers().get("content-lengh")
+
+
 ----
 
 Chunked HTTP responses can also contain trailers - these are sent in the last chunk of the response body.
@@ -750,7 +1043,14 @@ a `link:yardoc/Vertx/Buffer.html[Buffer]` representing the piece of the body:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+client.get_now("some-uri") { |response|
+
+  response.handler() { |buffer|
+    puts "Received a part of the response body: #{buffer}"
+  }
+}
+
 ----
 
 If you know the response body is not very large and want to aggregate it all in memory before handling it, you can
@@ -758,7 +1058,25 @@ either aggregate it yourself:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+
+client.get_now("some-uri") { |response|
+
+  # Create an empty buffer
+  totalBuffer = Vertx::Buffer.buffer()
+
+  response.handler() { |buffer|
+    puts "Received a part of the response body: #{buffer.length()}"
+
+    totalBuffer.append_buffer(buffer)
+  }
+
+  response.end_handler() { |v|
+    # Now all the body has been read
+    puts "Total response body length is #{totalBuffer.length()}"
+  }
+}
+
 ----
 
 Or you can use the convenience `link:yardoc/Vertx/HttpClientResponse.html#body_handler-instance_method[bodyHandler]` which
@@ -766,7 +1084,15 @@ is called with the entire body when the response has been fully read:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+client.get_now("some-uri") { |response|
+
+  response.body_handler() { |totalBuffer|
+    # Now all the body has been read
+    puts "Total response body length is #{totalBuffer.length()}"
+  }
+}
+
 ----
 
 ==== Response end handler
@@ -805,7 +1131,20 @@ Here's an example:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+request = client.put("some-uri") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+request.put_header("Expect", "100-Continue")
+
+request.continue_handler() { |v|
+  # OK to send rest of body
+  request.write("Some data")
+  request.write("Some more data")
+  request.end()
+}
+
 ----
 
 === Enabling compression on the client
@@ -906,14 +1245,26 @@ When a WebSocket connection is made to the server, the handler will be called, p
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.websocket_handler() { |websocket|
+  puts "Connected!"
+}
+
 ----
 
 You can choose to reject the WebSocket by calling `link:yardoc/Vertx/ServerWebSocket.html#reject-instance_method[reject]`.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.websocket_handler() { |websocket|
+  if (websocket.path().equals("/myapi"))
+    websocket.reject()
+  else
+    # Do something
+  end
+}
+
 ----
 
 ===== Upgrading to WebSocket
@@ -923,7 +1274,19 @@ call `link:yardoc/Vertx/HttpServerRequest.html#upgrade-instance_method[upgrade]`
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+server.request_handler() { |request|
+  if (request.path().equals("/myapi"))
+
+    websocket = request.upgrade()
+    # Do something
+
+  else
+    # Reject
+    request.response().set_status_code(400).end()
+  end
+}
+
 ----
 
 ===== The server WebSocket
@@ -943,7 +1306,10 @@ The handler will be called with an instance of `link:yardoc/Vertx/WebSocket.html
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+client.websocket("/some-uri") { |websocket|
+  puts "Connected!"
+}
+
 ----
 
 ==== Writing messages to WebSockets
@@ -953,7 +1319,12 @@ common case) the simplest way to do this is to use `link:yardoc/Vertx/WebSocket.
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/buffer'
+# Write a simple message
+buffer = Vertx::Buffer.buffer().append_int(123).append_float(1.23)
+
+websocket.write_message(buffer)
+
 ----
 
 If the websocket message is larger than the maximum websocket frame size as configured with
@@ -977,7 +1348,19 @@ Here's an example for binary frames:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+require 'vertx/web_socket_frame'
+
+frame1 = Vertx::WebSocketFrame.binary_frame(buffer1, false)
+websocket.write_frame(frame1)
+
+frame2 = Vertx::WebSocketFrame.continuation_frame(buffer2, false)
+websocket.write_frame(frame2)
+
+# Write the final frame
+frame3 = Vertx::WebSocketFrame.continuation_frame(buffer2, true)
+websocket.write_frame(frame3)
+
+
 ----
 
 ==== Reading frames from WebSockets
@@ -989,7 +1372,12 @@ for example:
 
 [source,ruby]
 ----
-todo:implement-code-translation-for-ruby
+
+websocket.frame_handler() { |frame|
+  puts "Received a frame of size!"
+}
+
+
 ----
 
 ==== Closing WebSockets
