@@ -11,9 +11,11 @@ import org.jruby.RubyInstanceConfig;
 import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.ScriptingContainer;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.URL;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -30,7 +32,7 @@ public class JRubyVerticle implements Verticle {
   public JRubyVerticle(JRubyVerticleFactory factory, ClassLoader classLoader, String verticleName) {
     this.factory = factory;
     this.classLoader = classLoader;
-    this.verticleName = verticleName;
+    this.verticleName = VerticleFactory.removePrefix(verticleName);
   }
 
   @Override
@@ -52,13 +54,30 @@ public class JRubyVerticle implements Verticle {
     } else {
       container = factory.getContainer();
     }
-    String requireName = VerticleFactory.removePrefix(verticleName);
     try {
       container.runScriptlet("require 'vertx/context'");
       container.runScriptlet("$context=Vertx::Context.new($_context)");
       container.put("$_context", context);
       container.remove("_context");
-      container.runScriptlet("require '" + requireName + "'");
+      if (verticleName.endsWith(".rb")) {
+        URL url = classLoader.getResource(verticleName);
+        if (url == null) {
+          File f = new File(verticleName);
+          if (!f.isAbsolute()) {
+            f = new File(System.getProperty("user.dir"), verticleName);
+          }
+          if (f.exists() && f.isFile()) {
+            url = f.toURI().toURL();
+          }
+        }
+        if (url == null) {
+          throw new IllegalStateException("Cannot find verticle script: " + verticleName + " on classpath");
+        }
+        int idx = verticleName.lastIndexOf('/');
+        container.runScriptlet(url.openStream(), verticleName.substring(idx + 1));
+      } else {
+        container.runScriptlet("require '" + verticleName + "'");
+      }
       if (hasTopLevelFunction(container, "vertx_start")) {
         container.runScriptlet("vertx_start");
         startFuture.complete();
