@@ -19,7 +19,7 @@ module Vertx
     # @yield - this will be called some time later with the async result.
     # @return [void]
     def get(k=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && block_given?
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get(k)"
@@ -32,9 +32,9 @@ module Vertx
     # @yield the handler
     # @return [void]
     def put(k=nil,v=nil,timeout=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && block_given? && timeout == nil
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && timeout == nil
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
-      elsif k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && timeout.class == Fixnum && block_given?
+      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && timeout.class == Fixnum && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling put(k,v,timeout)"
@@ -47,9 +47,9 @@ module Vertx
     # @yield the handler
     # @return [void]
     def put_if_absent(k=nil,v=nil,timeout=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && block_given? && timeout == nil
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && timeout == nil
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putIfAbsent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
-      elsif k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && timeout.class == Fixnum && block_given?
+      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && timeout.class == Fixnum && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putIfAbsent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling put_if_absent(k,v,timeout)"
@@ -59,7 +59,7 @@ module Vertx
     # @yield - this will be called some time later to signify the value has been removed
     # @return [void]
     def remove(k=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && block_given?
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling remove(k)"
@@ -70,7 +70,7 @@ module Vertx
     # @yield - this will be called some time later to signify the value has been removed
     # @return [void]
     def remove_if_present(k=nil,v=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && block_given?
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:removeIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling remove_if_present(k,v)"
@@ -81,7 +81,7 @@ module Vertx
     # @yield the result handler will be passed the previous value
     # @return [void]
     def replace(k=nil,v=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && v.class == String  ||v.class == Hash || v.class == Array && block_given?
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replace,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling replace(k,v)"
@@ -93,7 +93,7 @@ module Vertx
     # @yield the result handler
     # @return [void]
     def replace_if_present(k=nil,oldValue=nil,newValue=nil)
-      if k.class == String  ||k.class == Hash || k.class == Array && oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array && newValue.class == String  ||newValue.class == Hash || newValue.class == Array && block_given?
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (oldValue.class == String  || oldValue.class == Hash || oldValue.class == Array || oldValue.class == NilClass || oldValue.class == TrueClass || oldValue.class == FalseClass || oldValue.class == Fixnum || oldValue.class == Float) && (newValue.class == String  || newValue.class == Hash || newValue.class == Array || newValue.class == NilClass || newValue.class == TrueClass || newValue.class == FalseClass || newValue.class == Fixnum || newValue.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replaceIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(oldValue),::Vertx::Util::Utils.to_object(newValue),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling replace_if_present(k,oldValue,newValue)"

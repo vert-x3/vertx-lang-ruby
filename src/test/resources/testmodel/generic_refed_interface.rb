@@ -16,7 +16,7 @@ module Testmodel
     # @param [Object] value
     # @return [void]
     def set_value(value=nil)
-      if value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setValue,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, "Invalid arguments when calling set_value(value)"

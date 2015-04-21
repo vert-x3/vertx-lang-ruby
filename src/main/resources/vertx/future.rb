@@ -28,7 +28,7 @@ module Vertx
     def self.succeeded_future(result=nil)
       if !block_given? && result == nil
         return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:succeededFuture))).invoke(@j_del))
-      elsif result.class == String  ||result.class == Hash || result.class == Array && !block_given?
+      elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
         return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:succeededFuture,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(result)))
       end
       raise ArgumentError, "Invalid arguments when calling succeeded_future(result)"
@@ -70,7 +70,7 @@ module Vertx
     def complete(result=nil)
       if !block_given? && result == nil
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:complete))).invoke(@j_del)
-      elsif result.class == String  ||result.class == Hash || result.class == Array && !block_given?
+      elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:complete,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(result))
       end
       raise ArgumentError, "Invalid arguments when calling complete(result)"

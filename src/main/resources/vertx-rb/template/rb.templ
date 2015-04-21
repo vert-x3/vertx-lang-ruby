@@ -189,7 +189,9 @@
         return "(" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
-      return expr + ".class == String  ||" + expr + ".class == Hash || " + expr + ".class == Array"
+      return "(" + expr + ".class == String  || " + expr + ".class == Hash || " + expr + ".class == Array || "
+      + expr + ".class == NilClass || " + expr + ".class == TrueClass || " + expr + ".class == FalseClass || "
+      + expr + ".class == Fixnum || " + expr + ".class == Float)";
     } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER) {

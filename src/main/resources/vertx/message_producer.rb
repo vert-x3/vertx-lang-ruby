@@ -36,7 +36,7 @@ module Vertx
     # @param [Object] data
     # @return [self]
     def write(data=nil)
-      if data.class == String  ||data.class == Hash || data.class == Array && !block_given?
+      if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
         (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(data))
         return self
       end

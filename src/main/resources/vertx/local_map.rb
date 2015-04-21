@@ -23,7 +23,7 @@ module Vertx
     # @param [Object] key the key
     # @return [Object] the value, or null if none
     def get(key=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && !block_given?
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, "Invalid arguments when calling get(key)"
@@ -33,7 +33,7 @@ module Vertx
     # @param [Object] value the value
     # @return [Object] return the old value, or null if none
     def put(key=nil,value=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
       end
       raise ArgumentError, "Invalid arguments when calling put(key,value)"
@@ -42,7 +42,7 @@ module Vertx
     # @param [Object] key the key
     # @return [Object] the old value
     def remove(key=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && !block_given?
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key)))
       end
       raise ArgumentError, "Invalid arguments when calling remove(key)"
@@ -76,7 +76,7 @@ module Vertx
     # @param [Object] value the value
     # @return [Object] the old value or null, if none
     def put_if_absent(key=nil,value=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putIfAbsent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
       end
       raise ArgumentError, "Invalid arguments when calling put_if_absent(key,value)"
@@ -86,7 +86,7 @@ module Vertx
     # @param [Object] value the value
     # @return [true,false] true if removed
     def remove_if_present(key=nil,value=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:removeIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, "Invalid arguments when calling remove_if_present(key,value)"
@@ -97,7 +97,7 @@ module Vertx
     # @param [Object] newValue the new value
     # @return [true,false] true if removed
     def replace_if_present(key=nil,oldValue=nil,newValue=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && oldValue.class == String  ||oldValue.class == Hash || oldValue.class == Array && newValue.class == String  ||newValue.class == Hash || newValue.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && (oldValue.class == String  || oldValue.class == Hash || oldValue.class == Array || oldValue.class == NilClass || oldValue.class == TrueClass || oldValue.class == FalseClass || oldValue.class == Fixnum || oldValue.class == Float) && (newValue.class == String  || newValue.class == Hash || newValue.class == Array || newValue.class == NilClass || newValue.class == TrueClass || newValue.class == FalseClass || newValue.class == Fixnum || newValue.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replaceIfPresent,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(oldValue),::Vertx::Util::Utils.to_object(newValue))
       end
       raise ArgumentError, "Invalid arguments when calling replace_if_present(key,oldValue,newValue)"
@@ -107,7 +107,7 @@ module Vertx
     # @param [Object] value the new value
     # @return [Object] the old value
     def replace(key=nil,value=nil)
-      if key.class == String  ||key.class == Hash || key.class == Array && value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if (key.class == String  || key.class == Hash || key.class == Array || key.class == NilClass || key.class == TrueClass || key.class == FalseClass || key.class == Fixnum || key.class == Float) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:replace,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(key),::Vertx::Util::Utils.to_object(value)))
       end
       raise ArgumentError, "Invalid arguments when calling replace(key,value)"

@@ -188,7 +188,7 @@ module Testmodel
     # @param [Object] obj
     # @return [void]
     def method_with_object_param(str=nil,obj=nil)
-      if str.class == String && obj.class == String  ||obj.class == Hash || obj.class == Array && !block_given?
+      if str.class == String && (obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithObjectParam,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,str,::Vertx::Util::Utils.to_object(obj))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_object_param(str,obj)"
@@ -566,7 +566,7 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_handler_generic_user_type(value=nil)
-      if value.class == String  ||value.class == Hash || value.class == Array && block_given?
+      if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerGenericUserType,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Testmodel::GenericRefedInterface.new(event)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_user_type(value)"
@@ -575,7 +575,7 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_handler_async_result_generic_user_type(value=nil)
-      if value.class == String  ||value.class == Hash || value.class == Array && block_given?
+      if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithHandlerAsyncResultGenericUserType,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_generic_user_type(value)"
@@ -686,7 +686,7 @@ module Testmodel
     # @param [Object] u
     # @return [void]
     def method_with_generic_param(type=nil,u=nil)
-      if type.class == String && u.class == String  ||u.class == Hash || u.class == Array && !block_given?
+      if type.class == String && (u.class == String  || u.class == Hash || u.class == Array || u.class == NilClass || u.class == TrueClass || u.class == FalseClass || u.class == Fixnum || u.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:methodWithGenericParam,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,type,::Vertx::Util::Utils.to_object(u))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_param(type,u)"

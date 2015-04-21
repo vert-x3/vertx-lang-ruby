@@ -75,6 +75,12 @@ def test_method_with_user_types
 end
 
 def test_object_param
+  $obj.method_with_object_param('null', nil)
+  $obj.method_with_object_param('string', 'wibble')
+  $obj.method_with_object_param('true', true)
+  $obj.method_with_object_param('false', false)
+  $obj.method_with_object_param('long', 123)
+  $obj.method_with_object_param('double', 123.456)
   json_obj = {:foo => 'hello', :bar => 123}
   $obj.method_with_object_param('JsonObject', json_obj)
   json_arr = %w(foo bar wib)

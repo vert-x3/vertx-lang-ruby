@@ -291,5 +291,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling upgrade()"
     end
+    #  Has the request ended? I.e. has the entire request, including the body been read?
+    # @return [true,false] true if ended
+    def is_ended
+      if !block_given?
+        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEnded))).invoke(@j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling is_ended()"
+    end
   end
 end

@@ -116,7 +116,7 @@ module Vertx
     # @param [Object] value the data
     # @return [void]
     def put(key=nil,value=nil)
-      if key.class == String && value.class == String  ||value.class == Hash || value.class == Array && !block_given?
+      if key.class == String && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
         return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,key,::Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, "Invalid arguments when calling put(key,value)"
