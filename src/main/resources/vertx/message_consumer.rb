@@ -28,7 +28,7 @@ module Vertx
     # @return [self]
     def exception_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
@@ -37,7 +37,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::Message.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Message.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -45,7 +45,7 @@ module Vertx
     # @return [self]
     def pause
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
+        @j_del.java_method(:pause, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling pause()"
@@ -53,7 +53,7 @@ module Vertx
     # @return [self]
     def resume
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
+        @j_del.java_method(:resume, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling resume()"
@@ -62,7 +62,7 @@ module Vertx
     # @return [self]
     def end_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:endHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
@@ -71,7 +71,7 @@ module Vertx
     # @return [::Vertx::ReadStream]
     def body_stream
       if !block_given?
-        return ::Vertx::ReadStreamImpl.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyStream))).invoke(@j_del))
+        return ::Vertx::ReadStreamImpl.new(@j_del.java_method(:bodyStream, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling body_stream()"
     end
@@ -79,7 +79,7 @@ module Vertx
     # @return [true,false]
     def is_registered
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isRegistered))).invoke(@j_del)
+        return @j_del.java_method(:isRegistered, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_registered()"
     end
@@ -87,7 +87,7 @@ module Vertx
     # @return [String]
     def address
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
+        return @j_del.java_method(:address, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling address()"
     end
@@ -98,7 +98,7 @@ module Vertx
     # @return [::Vertx::MessageConsumer] this registration
     def set_max_buffered_messages(maxBufferedMessages=nil)
       if maxBufferedMessages.class == Fixnum && !block_given?
-        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setMaxBufferedMessages,Java::int.java_class))).invoke(@j_del,maxBufferedMessages))
+        return ::Vertx::MessageConsumer.new(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages))
       end
       raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(maxBufferedMessages)"
     end
@@ -106,7 +106,7 @@ module Vertx
     # @return [Fixnum]
     def get_max_buffered_messages
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getMaxBufferedMessages))).invoke(@j_del)
+        return @j_del.java_method(:getMaxBufferedMessages, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling get_max_buffered_messages()"
     end
@@ -115,7 +115,7 @@ module Vertx
     # @return [void]
     def completion_handler
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:completionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:completionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling completion_handler()"
     end
@@ -124,9 +124,9 @@ module Vertx
     # @return [void]
     def unregister
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unregister))).invoke(@j_del)
+        return @j_del.java_method(:unregister, []).call()
       elsif block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unregister,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:unregister, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling unregister()"
     end

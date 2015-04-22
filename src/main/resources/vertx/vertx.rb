@@ -51,7 +51,7 @@ module Vertx
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+        return @j_del.java_method(:isMetricsEnabled, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
@@ -60,9 +60,9 @@ module Vertx
     # @return [::Vertx::Vertx] the instance
     def self.vertx(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::Vertx.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:vertx))).invoke(@j_del))
+        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.java_method(:vertx, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::Vertx.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:vertx,Java::IoVertxCore::VertxOptions.java_class))).invoke(@j_del,Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.java_method(:vertx, [Java::IoVertxCore::VertxOptions.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling vertx(options)"
     end
@@ -74,7 +74,7 @@ module Vertx
     # @return [void]
     def self.clustered_vertx(options=nil)
       if options.class == Hash && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:clusteredVertx,Java::IoVertxCore::VertxOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Vertx.new(ar.result) : nil) }))
+        return Java::IoVertxCore::Vertx.java_method(:clusteredVertx, [Java::IoVertxCore::VertxOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Vertx.new(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling clustered_vertx(options)"
     end
@@ -82,7 +82,7 @@ module Vertx
     # @return [::Vertx::Context] The current context or null if no current context
     def self.current_context
       if !block_given?
-        return ::Vertx::Context.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Vertx.java_class.declared_method(:currentContext))).invoke(@j_del))
+        return ::Vertx::Context.new(Java::IoVertxCore::Vertx.java_method(:currentContext, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling current_context()"
     end
@@ -90,7 +90,7 @@ module Vertx
     # @return [::Vertx::Context] The current context (created if didn't exist)
     def get_or_create_context
       if !block_given?
-        return ::Vertx::Context.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getOrCreateContext))).invoke(@j_del))
+        return ::Vertx::Context.new(@j_del.java_method(:getOrCreateContext, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling get_or_create_context()"
     end
@@ -99,9 +99,9 @@ module Vertx
     # @return [::Vertx::NetServer] the server
     def create_net_server(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetServer))).invoke(@j_del))
+        return ::Vertx::NetServer.new(@j_del.java_method(:createNetServer, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetServer,Java::IoVertxCoreNet::NetServerOptions.java_class))).invoke(@j_del,Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::NetServer.new(@j_del.java_method(:createNetServer, [Java::IoVertxCoreNet::NetServerOptions.java_class]).call(Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling create_net_server(options)"
     end
@@ -110,9 +110,9 @@ module Vertx
     # @return [::Vertx::NetClient] the client
     def create_net_client(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::NetClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetClient))).invoke(@j_del))
+        return ::Vertx::NetClient.new(@j_del.java_method(:createNetClient, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::NetClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createNetClient,Java::IoVertxCoreNet::NetClientOptions.java_class))).invoke(@j_del,Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::NetClient.new(@j_del.java_method(:createNetClient, [Java::IoVertxCoreNet::NetClientOptions.java_class]).call(Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling create_net_client(options)"
     end
@@ -121,9 +121,9 @@ module Vertx
     # @return [::Vertx::HttpServer] the server
     def create_http_server(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::HttpServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpServer))).invoke(@j_del))
+        return ::Vertx::HttpServer.new(@j_del.java_method(:createHttpServer, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::HttpServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpServer,Java::IoVertxCoreHttp::HttpServerOptions.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::HttpServer.new(@j_del.java_method(:createHttpServer, [Java::IoVertxCoreHttp::HttpServerOptions.java_class]).call(Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling create_http_server(options)"
     end
@@ -132,9 +132,9 @@ module Vertx
     # @return [::Vertx::HttpClient] the client
     def create_http_client(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpClient))).invoke(@j_del))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:createHttpClient, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createHttpClient,Java::IoVertxCoreHttp::HttpClientOptions.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:createHttpClient, [Java::IoVertxCoreHttp::HttpClientOptions.java_class]).call(Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling create_http_client(options)"
     end
@@ -143,9 +143,9 @@ module Vertx
     # @return [::Vertx::DatagramSocket] the socket
     def create_datagram_socket(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::DatagramSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createDatagramSocket))).invoke(@j_del))
+        return ::Vertx::DatagramSocket.new(@j_del.java_method(:createDatagramSocket, []).call())
       elsif options.class == Hash && !block_given?
-        return ::Vertx::DatagramSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createDatagramSocket,Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class))).invoke(@j_del,Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::DatagramSocket.new(@j_del.java_method(:createDatagramSocket, [Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class]).call(Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling create_datagram_socket(options)"
     end
@@ -156,7 +156,7 @@ module Vertx
         if @cached_file_system != nil
           return @cached_file_system
         end
-        return @cached_file_system = ::Vertx::FileSystem.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fileSystem))).invoke(@j_del))
+        return @cached_file_system = ::Vertx::FileSystem.new(@j_del.java_method(:fileSystem, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling file_system()"
     end
@@ -167,7 +167,7 @@ module Vertx
         if @cached_event_bus != nil
           return @cached_event_bus
         end
-        return @cached_event_bus = ::Vertx::EventBus.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:eventBus))).invoke(@j_del))
+        return @cached_event_bus = ::Vertx::EventBus.new(@j_del.java_method(:eventBus, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling event_bus()"
     end
@@ -177,7 +177,7 @@ module Vertx
     # @return [::Vertx::DnsClient] the DNS client
     def create_dns_client(port=nil,host=nil)
       if port.class == Fixnum && host.class == String && !block_given?
-        return ::Vertx::DnsClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:createDnsClient,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,port,host))
+        return ::Vertx::DnsClient.new(@j_del.java_method(:createDnsClient, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host))
       end
       raise ArgumentError, "Invalid arguments when calling create_dns_client(port,host)"
     end
@@ -188,7 +188,7 @@ module Vertx
         if @cached_shared_data != nil
           return @cached_shared_data
         end
-        return @cached_shared_data = ::Vertx::SharedData.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sharedData))).invoke(@j_del))
+        return @cached_shared_data = ::Vertx::SharedData.new(@j_del.java_method(:sharedData, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling shared_data()"
     end
@@ -199,7 +199,7 @@ module Vertx
     # @return [Fixnum] the unique ID of the timer
     def set_timer(delay=nil)
       if delay.class == Fixnum && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setTimer,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,delay,(Proc.new { |event| yield(event) }))
+        return @j_del.java_method(:setTimer, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(delay,(Proc.new { |event| yield(event) }))
       end
       raise ArgumentError, "Invalid arguments when calling set_timer(delay)"
     end
@@ -209,7 +209,7 @@ module Vertx
     # @return [::Vertx::TimeoutStream] the timer stream
     def timer_stream(delay=nil)
       if delay.class == Fixnum && !block_given?
-        return ::Vertx::TimeoutStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:timerStream,Java::long.java_class))).invoke(@j_del,delay))
+        return ::Vertx::TimeoutStream.new(@j_del.java_method(:timerStream, [Java::long.java_class]).call(delay))
       end
       raise ArgumentError, "Invalid arguments when calling timer_stream(delay)"
     end
@@ -220,7 +220,7 @@ module Vertx
     # @return [Fixnum] the unique ID of the timer
     def set_periodic(delay=nil)
       if delay.class == Fixnum && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setPeriodic,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,delay,(Proc.new { |event| yield(event) }))
+        return @j_del.java_method(:setPeriodic, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(delay,(Proc.new { |event| yield(event) }))
       end
       raise ArgumentError, "Invalid arguments when calling set_periodic(delay)"
     end
@@ -230,7 +230,7 @@ module Vertx
     # @return [::Vertx::TimeoutStream] the periodic stream
     def periodic_stream(delay=nil)
       if delay.class == Fixnum && !block_given?
-        return ::Vertx::TimeoutStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:periodicStream,Java::long.java_class))).invoke(@j_del,delay))
+        return ::Vertx::TimeoutStream.new(@j_del.java_method(:periodicStream, [Java::long.java_class]).call(delay))
       end
       raise ArgumentError, "Invalid arguments when calling periodic_stream(delay)"
     end
@@ -239,7 +239,7 @@ module Vertx
     # @return [true,false] true if the timer was successfully cancelled, or false if the timer does not exist.
     def cancel_timer(id=nil)
       if id.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cancelTimer,Java::long.java_class))).invoke(@j_del,id)
+        return @j_del.java_method(:cancelTimer, [Java::long.java_class]).call(id)
       end
       raise ArgumentError, "Invalid arguments when calling cancel_timer(id)"
     end
@@ -249,7 +249,7 @@ module Vertx
     # @return [void]
     def run_on_context
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:runOnContext,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        return @j_del.java_method(:runOnContext, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
       end
       raise ArgumentError, "Invalid arguments when calling run_on_context()"
     end
@@ -258,9 +258,9 @@ module Vertx
     # @return [void]
     def close
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+        return @j_del.java_method(:close, []).call()
       elsif block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:close, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
@@ -272,13 +272,13 @@ module Vertx
     # @return [void]
     def deploy_verticle(name=nil,options=nil)
       if name.class == String && !block_given? && options == nil
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class))).invoke(@j_del,name)
+        return @j_del.java_method(:deployVerticle, [Java::java.lang.String.java_class]).call(name)
       elsif name.class == String && block_given? && options == nil
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:deployVerticle, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       elsif name.class == String && options.class == Hash && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class))).invoke(@j_del,name,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        return @j_del.java_method(:deployVerticle, [Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class]).call(name,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       elsif name.class == String && options.class == Hash && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deployVerticle,Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,name,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:deployVerticle, [Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(name,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling deploy_verticle(name,options)"
     end
@@ -288,9 +288,9 @@ module Vertx
     # @return [void]
     def undeploy(deploymentID=nil)
       if deploymentID.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:undeploy,Java::java.lang.String.java_class))).invoke(@j_del,deploymentID)
+        return @j_del.java_method(:undeploy, [Java::java.lang.String.java_class]).call(deploymentID)
       elsif deploymentID.class == String && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:undeploy,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,deploymentID,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:undeploy, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(deploymentID,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling undeploy(deploymentID)"
     end
@@ -298,7 +298,7 @@ module Vertx
     # @return [Set<String>] Set of deployment IDs
     def deployment_i_ds
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentIDs))).invoke(@j_del).to_set.map! { |elt| elt }
+        return @j_del.java_method(:deploymentIDs, []).call().to_set.map! { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling deployment_i_ds()"
     end
@@ -306,7 +306,7 @@ module Vertx
     # @return [true,false] true if clustered
     def is_clustered
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isClustered))).invoke(@j_del)
+        return @j_del.java_method(:isClustered, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_clustered()"
     end
@@ -325,7 +325,7 @@ module Vertx
     # @return [void]
     def execute_blocking(blockingCodeHandler=nil)
       if blockingCodeHandler.class == Proc && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:executeBlocking,Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| blockingCodeHandler.call(::Vertx::Future.new(event)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Future.new(event)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler)"
     end

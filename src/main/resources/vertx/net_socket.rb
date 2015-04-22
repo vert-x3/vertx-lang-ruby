@@ -31,7 +31,7 @@ module Vertx
     # @return [true,false] true if write queue is full
     def write_queue_full
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+        return @j_del.java_method(:writeQueueFull, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling write_queue_full()"
     end
@@ -39,7 +39,7 @@ module Vertx
     # @return [self]
     def exception_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
@@ -48,7 +48,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -56,7 +56,7 @@ module Vertx
     # @return [self]
     def pause
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
+        @j_del.java_method(:pause, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling pause()"
@@ -64,7 +64,7 @@ module Vertx
     # @return [self]
     def resume
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
+        @j_del.java_method(:resume, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling resume()"
@@ -73,7 +73,7 @@ module Vertx
     # @return [self]
     def end_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:endHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
@@ -89,13 +89,13 @@ module Vertx
     # @return [self]
     def write(param_1=nil,param_2=nil)
       if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,param_1.j_del)
+        @j_del.java_method(:write, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1.j_del)
         return self
       elsif param_1.class == String && !block_given? && param_2 == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class))).invoke(@j_del,param_1)
+        @j_del.java_method(:write, [Java::java.lang.String.java_class]).call(param_1)
         return self
       elsif param_1.class == String && param_2.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2)
+        @j_del.java_method(:write, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
@@ -104,7 +104,7 @@ module Vertx
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
+        @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
@@ -113,7 +113,7 @@ module Vertx
     # @return [self]
     def drain_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:drainHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling drain_handler()"
@@ -127,7 +127,7 @@ module Vertx
     # @return [String] the write handler ID
     def write_handler_id
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeHandlerID))).invoke(@j_del)
+        return @j_del.java_method(:writeHandlerID, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling write_handler_id()"
     end
@@ -138,10 +138,10 @@ module Vertx
     # @return [self]
     def send_file(filename=nil)
       if filename.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class))).invoke(@j_del,filename)
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class]).call(filename)
         return self
       elsif filename.class == String && block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sendFile,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send_file(filename)"
@@ -153,7 +153,7 @@ module Vertx
         if @cached_remote_address != nil
           return @cached_remote_address
         end
-        return @cached_remote_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remoteAddress))).invoke(@j_del))
+        return @cached_remote_address = ::Vertx::SocketAddress.new(@j_del.java_method(:remoteAddress, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
@@ -164,7 +164,7 @@ module Vertx
         if @cached_local_address != nil
           return @cached_local_address
         end
-        return @cached_local_address = ::Vertx::SocketAddress.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localAddress))).invoke(@j_del))
+        return @cached_local_address = ::Vertx::SocketAddress.new(@j_del.java_method(:localAddress, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling local_address()"
     end
@@ -172,7 +172,7 @@ module Vertx
     # @return [void]
     def close
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+        return @j_del.java_method(:close, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
@@ -181,7 +181,7 @@ module Vertx
     # @return [self]
     def close_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:closeHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:closeHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling close_handler()"
@@ -191,7 +191,7 @@ module Vertx
     # @return [self]
     def upgrade_to_ssl
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:upgradeToSsl,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:upgradeToSsl, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling upgrade_to_ssl()"
@@ -200,7 +200,7 @@ module Vertx
     # @return [true,false]
     def is_ssl
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isSsl))).invoke(@j_del)
+        return @j_del.java_method(:isSsl, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_ssl()"
     end

@@ -16,7 +16,7 @@ module Testmodel
     # @return [String]
     def get_string
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString))).invoke(@j_del)
+        return @j_del.java_method(:getString, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling get_string()"
     end
@@ -24,7 +24,7 @@ module Testmodel
     # @return [self]
     def set_string(str=nil)
       if str.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::java.lang.String.java_class))).invoke(@j_del,str)
+        @j_del.java_method(:setString, [Java::java.lang.String.java_class]).call(str)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_string(str)"

@@ -47,7 +47,7 @@ module Vertx
     # @return [void]
     def run_on_context
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:runOnContext,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        return @j_del.java_method(:runOnContext, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
       end
       raise ArgumentError, "Invalid arguments when calling run_on_context()"
     end
@@ -55,7 +55,7 @@ module Vertx
     # @return [String] the deployment ID of the deployment or null if not a Verticle deployment
     def deployment_id
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deploymentID))).invoke(@j_del)
+        return @j_del.java_method(:deploymentID, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling deployment_id()"
     end
@@ -64,7 +64,7 @@ module Vertx
     # @return [Hash{String => Object}] the configuration of the deployment or null if not a Verticle deployment
     def config
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del) != nil ? JSON.parse((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:config))).invoke(@j_del).encode) : nil
+        return @j_del.java_method(:config, []).call() != nil ? JSON.parse(@j_del.java_method(:config, []).call().encode) : nil
       end
       raise ArgumentError, "Invalid arguments when calling config()"
     end
@@ -72,7 +72,7 @@ module Vertx
     # @return [Array<String>]
     def process_args
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:processArgs))).invoke(@j_del).to_a.map { |elt| elt }
+        return @j_del.java_method(:processArgs, []).call().to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling process_args()"
     end
@@ -80,7 +80,7 @@ module Vertx
     # @return [true,false]
     def is_event_loop_context
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEventLoopContext))).invoke(@j_del)
+        return @j_del.java_method(:isEventLoopContext, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_event_loop_context()"
     end
@@ -88,7 +88,7 @@ module Vertx
     # @return [true,false]
     def is_worker
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isWorker))).invoke(@j_del)
+        return @j_del.java_method(:isWorker, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_worker()"
     end
@@ -96,7 +96,7 @@ module Vertx
     # @return [true,false]
     def is_multi_threaded
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMultiThreaded))).invoke(@j_del)
+        return @j_del.java_method(:isMultiThreaded, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_multi_threaded()"
     end
@@ -105,7 +105,7 @@ module Vertx
     # @return [Object] the data
     def get(key=nil)
       if key.class == String && !block_given?
-        return ::Vertx::Util::Utils.from_object((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,key))
+        return ::Vertx::Util::Utils.from_object(@j_del.java_method(:get, [Java::java.lang.String.java_class]).call(key))
       end
       raise ArgumentError, "Invalid arguments when calling get(key)"
     end
@@ -117,7 +117,7 @@ module Vertx
     # @return [void]
     def put(key=nil,value=nil)
       if key.class == String && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,key,::Vertx::Util::Utils.to_object(value))
+        return @j_del.java_method(:put, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(key,::Vertx::Util::Utils.to_object(value))
       end
       raise ArgumentError, "Invalid arguments when calling put(key,value)"
     end
@@ -126,7 +126,7 @@ module Vertx
     # @return [true,false] true if removed successfully, false otherwise
     def remove(key=nil)
       if key.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.String.java_class))).invoke(@j_del,key)
+        return @j_del.java_method(:remove, [Java::java.lang.String.java_class]).call(key)
       end
       raise ArgumentError, "Invalid arguments when calling remove(key)"
     end

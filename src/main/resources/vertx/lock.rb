@@ -20,7 +20,7 @@ module Vertx
     # @return [void]
     def release
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:release))).invoke(@j_del)
+        return @j_del.java_method(:release, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling release()"
     end

@@ -18,11 +18,11 @@ module RubyCodegen
     # @return [void]
     def do_something(s=nil)
       if !block_given? && s == nil
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething))).invoke(@j_del)
+        return @j_del.java_method(:doSomething, []).call()
       elsif s.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class))).invoke(@j_del,s)
+        return @j_del.java_method(:doSomething, [Java::java.lang.String.java_class]).call(s)
       elsif s.class == String && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:doSomething,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,s,(Proc.new { |event| yield(event) }))
+        return @j_del.java_method(:doSomething, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(s,(Proc.new { |event| yield(event) }))
       end
       raise ArgumentError, "Invalid arguments when calling do_something(s)"
     end

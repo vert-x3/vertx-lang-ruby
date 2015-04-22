@@ -27,7 +27,7 @@ module Vertx
     # @return [self]
     def resume
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:resume))).invoke(@j_del)
+        @j_del.java_method(:resume, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling resume()"
@@ -36,7 +36,7 @@ module Vertx
     # @return [self]
     def exception_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
@@ -45,7 +45,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:handler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -53,7 +53,7 @@ module Vertx
     # @return [self]
     def pause
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:pause))).invoke(@j_del)
+        @j_del.java_method(:pause, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling pause()"
@@ -62,7 +62,7 @@ module Vertx
     # @return [self]
     def end_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:endHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:endHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
@@ -71,7 +71,7 @@ module Vertx
     # @return [Fixnum]
     def status_code
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:statusCode))).invoke(@j_del)
+        return @j_del.java_method(:statusCode, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling status_code()"
     end
@@ -79,7 +79,7 @@ module Vertx
     # @return [String]
     def status_message
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:statusMessage))).invoke(@j_del)
+        return @j_del.java_method(:statusMessage, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling status_message()"
     end
@@ -90,7 +90,7 @@ module Vertx
         if @cached_headers != nil
           return @cached_headers
         end
-        return @cached_headers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headers))).invoke(@j_del))
+        return @cached_headers = ::Vertx::MultiMap.new(@j_del.java_method(:headers, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling headers()"
     end
@@ -99,7 +99,7 @@ module Vertx
     # @return [String] the header value
     def get_header(headerName=nil)
       if headerName.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getHeader,Java::java.lang.String.java_class))).invoke(@j_del,headerName)
+        return @j_del.java_method(:getHeader, [Java::java.lang.String.java_class]).call(headerName)
       end
       raise ArgumentError, "Invalid arguments when calling get_header(headerName)"
     end
@@ -108,7 +108,7 @@ module Vertx
     # @return [String] the trailer value
     def get_trailer(trailerName=nil)
       if trailerName.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getTrailer,Java::java.lang.String.java_class))).invoke(@j_del,trailerName)
+        return @j_del.java_method(:getTrailer, [Java::java.lang.String.java_class]).call(trailerName)
       end
       raise ArgumentError, "Invalid arguments when calling get_trailer(trailerName)"
     end
@@ -119,7 +119,7 @@ module Vertx
         if @cached_trailers != nil
           return @cached_trailers
         end
-        return @cached_trailers = ::Vertx::MultiMap.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:trailers))).invoke(@j_del))
+        return @cached_trailers = ::Vertx::MultiMap.new(@j_del.java_method(:trailers, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling trailers()"
     end
@@ -130,7 +130,7 @@ module Vertx
         if @cached_cookies != nil
           return @cached_cookies
         end
-        return @cached_cookies = (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:cookies))).invoke(@j_del).to_a.map { |elt| elt }
+        return @cached_cookies = @j_del.java_method(:cookies, []).call().to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling cookies()"
     end
@@ -142,7 +142,7 @@ module Vertx
     # @return [self]
     def body_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:bodyHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:bodyHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling body_handler()"
@@ -159,7 +159,7 @@ module Vertx
         if @cached_net_socket != nil
           return @cached_net_socket
         end
-        return @cached_net_socket = ::Vertx::NetSocket.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:netSocket))).invoke(@j_del))
+        return @cached_net_socket = ::Vertx::NetSocket.new(@j_del.java_method(:netSocket, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling net_socket()"
     end

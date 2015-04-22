@@ -21,7 +21,7 @@ module Vertx
     # @return [true,false] true if write queue is full
     def write_queue_full
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+        return @j_del.java_method(:writeQueueFull, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling write_queue_full()"
     end
@@ -29,7 +29,7 @@ module Vertx
     # @return [self]
     def exception_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
@@ -38,7 +38,7 @@ module Vertx
     # @return [self]
     def write(data=nil)
       if data.class.method_defined?(:j_del) && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,data.j_del)
+        @j_del.java_method(:write, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
@@ -47,7 +47,7 @@ module Vertx
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
+        @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
@@ -56,7 +56,7 @@ module Vertx
     # @return [self]
     def drain_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:drainHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling drain_handler()"

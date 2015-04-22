@@ -60,8 +60,13 @@
     </dependency>
     <dependency>
       <groupId>org.jruby</groupId>
-      <artifactId>jruby</artifactId>
-      <version>1.7.18</version>
+      <artifactId>jruby-core</artifactId>
+      <version>1.7.20</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby-stdlib</artifactId>
+      <version>1.7.20</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>

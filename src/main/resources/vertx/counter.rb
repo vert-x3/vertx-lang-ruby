@@ -19,7 +19,7 @@ module Vertx
     # @return [void]
     def get
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:get, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get()"
     end
@@ -28,7 +28,7 @@ module Vertx
     # @return [void]
     def increment_and_get
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:incrementAndGet,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:incrementAndGet, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling increment_and_get()"
     end
@@ -37,7 +37,7 @@ module Vertx
     # @return [void]
     def get_and_increment
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAndIncrement,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:getAndIncrement, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_and_increment()"
     end
@@ -46,7 +46,7 @@ module Vertx
     # @return [void]
     def decrement_and_get
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:decrementAndGet,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:decrementAndGet, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling decrement_and_get()"
     end
@@ -56,7 +56,7 @@ module Vertx
     # @return [void]
     def add_and_get(value=nil)
       if value.class == Fixnum && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:addAndGet,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:addAndGet, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling add_and_get(value)"
     end
@@ -66,7 +66,7 @@ module Vertx
     # @return [void]
     def get_and_add(value=nil)
       if value.class == Fixnum && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAndAdd,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:getAndAdd, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_and_add(value)"
     end
@@ -78,7 +78,7 @@ module Vertx
     # @return [void]
     def compare_and_set(expected=nil,value=nil)
       if expected.class == Fixnum && value.class == Fixnum && block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:compareAndSet,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,expected,value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+        return @j_del.java_method(:compareAndSet, [Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(expected,value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling compare_and_set(expected,value)"
     end

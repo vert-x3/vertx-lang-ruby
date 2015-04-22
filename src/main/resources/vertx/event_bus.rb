@@ -29,7 +29,7 @@ module Vertx
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+        return @j_del.java_method(:isMetricsEnabled, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
@@ -42,16 +42,16 @@ module Vertx
     # @return [self]
     def send(address=nil,message=nil,options=nil)
       if address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given? && options == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(address,::Vertx::Util::Utils.to_object(message))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && block_given? && options == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:send,Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send(address,message,options)"
@@ -63,10 +63,10 @@ module Vertx
     # @return [self]
     def publish(address=nil,message=nil,options=nil)
       if address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given? && options == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:publish,Java::java.lang.String.java_class,Java::java.lang.Object.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message))
+        @j_del.java_method(:publish, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(address,::Vertx::Util::Utils.to_object(message))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:publish,Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        @j_del.java_method(:publish, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling publish(address,message,options)"
@@ -77,9 +77,9 @@ module Vertx
     # @return [::Vertx::MessageConsumer] the event bus message consumer
     def consumer(address=nil)
       if address.class == String && !block_given?
-        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:consumer,Java::java.lang.String.java_class))).invoke(@j_del,address))
+        return ::Vertx::MessageConsumer.new(@j_del.java_method(:consumer, [Java::java.lang.String.java_class]).call(address))
       elsif address.class == String && block_given?
-        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:consumer,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
+        return ::Vertx::MessageConsumer.new(@j_del.java_method(:consumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling consumer(address)"
     end
@@ -89,9 +89,9 @@ module Vertx
     # @return [::Vertx::MessageConsumer] the event bus message consumer
     def local_consumer(address=nil)
       if address.class == String && !block_given?
-        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localConsumer,Java::java.lang.String.java_class))).invoke(@j_del,address))
+        return ::Vertx::MessageConsumer.new(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class]).call(address))
       elsif address.class == String && block_given?
-        return ::Vertx::MessageConsumer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:localConsumer,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
+        return ::Vertx::MessageConsumer.new(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling local_consumer(address)"
     end
@@ -102,9 +102,9 @@ module Vertx
     # @return [::Vertx::MessageProducer] The sender
     def sender(address=nil,options=nil)
       if address.class == String && !block_given? && options == nil
-        return ::Vertx::MessageProducer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sender,Java::java.lang.String.java_class))).invoke(@j_del,address))
+        return ::Vertx::MessageProducer.new(@j_del.java_method(:sender, [Java::java.lang.String.java_class]).call(address))
       elsif address.class == String && options.class == Hash && !block_given?
-        return ::Vertx::MessageProducer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:sender,Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::MessageProducer.new(@j_del.java_method(:sender, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling sender(address,options)"
     end
@@ -115,9 +115,9 @@ module Vertx
     # @return [::Vertx::MessageProducer] The publisher
     def publisher(address=nil,options=nil)
       if address.class == String && !block_given? && options == nil
-        return ::Vertx::MessageProducer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:publisher,Java::java.lang.String.java_class))).invoke(@j_del,address))
+        return ::Vertx::MessageProducer.new(@j_del.java_method(:publisher, [Java::java.lang.String.java_class]).call(address))
       elsif address.class == String && options.class == Hash && !block_given?
-        return ::Vertx::MessageProducer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:publisher,Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::MessageProducer.new(@j_del.java_method(:publisher, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
       end
       raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
     end
@@ -126,7 +126,7 @@ module Vertx
     # @return [void]
     def close
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:close, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end

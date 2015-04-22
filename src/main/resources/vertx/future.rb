@@ -18,7 +18,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.future
       if !block_given?
-        return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:future))).invoke(@j_del))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:future, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling future()"
     end
@@ -27,9 +27,9 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.succeeded_future(result=nil)
       if !block_given? && result == nil
-        return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:succeededFuture))).invoke(@j_del))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:succeededFuture, []).call())
       elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
-        return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:succeededFuture,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(result)))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)))
       end
       raise ArgumentError, "Invalid arguments when calling succeeded_future(result)"
     end
@@ -38,7 +38,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.failed_future(failureMessage=nil)
       if failureMessage.class == String && !block_given?
-        return ::Vertx::Future.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCore::Future.java_class.declared_method(:failedFuture,Java::java.lang.String.java_class))).invoke(@j_del,failureMessage))
+        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage))
       end
       raise ArgumentError, "Invalid arguments when calling failed_future(failureMessage)"
     end
@@ -48,7 +48,7 @@ module Vertx
     # @return [true,false] true if completed, false if not
     def is_complete
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isComplete))).invoke(@j_del)
+        return @j_del.java_method(:isComplete, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_complete()"
     end
@@ -60,7 +60,7 @@ module Vertx
     # @return [void]
     def set_handler
       if block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.java_method(:setHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling set_handler()"
     end
@@ -69,9 +69,9 @@ module Vertx
     # @return [void]
     def complete(result=nil)
       if !block_given? && result == nil
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:complete))).invoke(@j_del)
+        return @j_del.java_method(:complete, []).call()
       elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:complete,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(result))
+        return @j_del.java_method(:complete, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result))
       end
       raise ArgumentError, "Invalid arguments when calling complete(result)"
     end
@@ -80,7 +80,7 @@ module Vertx
     # @return [void]
     def fail(failureMessage=nil)
       if failureMessage.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:fail,Java::java.lang.String.java_class))).invoke(@j_del,failureMessage)
+        return @j_del.java_method(:fail, [Java::java.lang.String.java_class]).call(failureMessage)
       end
       raise ArgumentError, "Invalid arguments when calling fail(failureMessage)"
     end

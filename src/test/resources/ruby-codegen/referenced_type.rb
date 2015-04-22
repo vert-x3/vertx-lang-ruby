@@ -16,7 +16,7 @@ module RubyCodegen
     # @return [String]
     def some_method
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:someMethod))).invoke(@j_del)
+        return @j_del.java_method(:someMethod, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling some_method()"
     end

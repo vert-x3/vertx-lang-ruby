@@ -21,7 +21,7 @@ module Vertx
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+        return @j_del.java_method(:isMetricsEnabled, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
@@ -31,7 +31,7 @@ module Vertx
     # @return [::Vertx::NetSocketStream] the connect stream
     def connect_stream
       if !block_given?
-        return ::Vertx::NetSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectStream))).invoke(@j_del))
+        return ::Vertx::NetSocketStream.new(@j_del.java_method(:connectStream, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling connect_stream()"
     end
@@ -42,7 +42,7 @@ module Vertx
     # @return [::Vertx::NetServer] a reference to this, so the API can be used fluently
     def connect_handler
       if block_given?
-        return ::Vertx::NetServer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:connectHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Vertx::NetSocket.new(event)) })))
+        return ::Vertx::NetServer.new(@j_del.java_method(:connectHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::NetSocket.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling connect_handler()"
     end
@@ -53,22 +53,22 @@ module Vertx
     # @return [self]
     def listen(port=nil,host=nil)
       if !block_given? && port == nil && host == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen))).invoke(@j_del)
+        @j_del.java_method(:listen, []).call()
         return self
       elsif block_given? && port == nil && host == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
         return self
       elsif port.class == Fixnum && !block_given? && host == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class))).invoke(@j_del,port)
+        @j_del.java_method(:listen, [Java::int.java_class]).call(port)
         return self
       elsif port.class == Fixnum && host.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,port,host)
+        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host)
         return self
       elsif port.class == Fixnum && block_given? && host == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
         return self
       elsif port.class == Fixnum && host.class == String && block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:listen,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling listen(port,host)"
@@ -78,9 +78,9 @@ module Vertx
     # @return [void]
     def close
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+        return @j_del.java_method(:close, []).call()
       elsif block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return @j_del.java_method(:close, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
@@ -89,7 +89,7 @@ module Vertx
     # @return [Fixnum] the actual port the server is listening on.
     def actual_port
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:actualPort))).invoke(@j_del)
+        return @j_del.java_method(:actualPort, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling actual_port()"
     end

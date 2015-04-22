@@ -17,7 +17,7 @@ module Vertx
     # @return [Fixnum]
     def total_space
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:totalSpace))).invoke(@j_del)
+        return @j_del.java_method(:totalSpace, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling total_space()"
     end
@@ -25,7 +25,7 @@ module Vertx
     # @return [Fixnum]
     def unallocated_space
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:unallocatedSpace))).invoke(@j_del)
+        return @j_del.java_method(:unallocatedSpace, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling unallocated_space()"
     end
@@ -33,7 +33,7 @@ module Vertx
     # @return [Fixnum]
     def usable_space
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:usableSpace))).invoke(@j_del)
+        return @j_del.java_method(:usableSpace, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling usable_space()"
     end

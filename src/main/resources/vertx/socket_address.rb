@@ -16,14 +16,14 @@ module Vertx
     # @return [String]
     def host
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:host))).invoke(@j_del)
+        return @j_del.java_method(:host, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling host()"
     end
     # @return [Fixnum]
     def port
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
+        return @j_del.java_method(:port, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling port()"
     end

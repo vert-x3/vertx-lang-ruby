@@ -20,7 +20,7 @@ module Vertx
     # @return [true,false] true if write queue is full
     def write_queue_full
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:writeQueueFull))).invoke(@j_del)
+        return @j_del.java_method(:writeQueueFull, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling write_queue_full()"
     end
@@ -28,7 +28,7 @@ module Vertx
     # @return [self]
     def exception_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:exceptionHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(event) }))
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
@@ -37,7 +37,7 @@ module Vertx
     # @return [self]
     def write(data=nil)
       if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:write,Java::java.lang.Object.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_object(data))
+        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(data))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
@@ -46,7 +46,7 @@ module Vertx
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
+        @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
@@ -55,7 +55,7 @@ module Vertx
     # @return [self]
     def drain_handler
       if block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:drainHandler,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Proc.new { yield })
+        @j_del.java_method(:drainHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling drain_handler()"
@@ -65,7 +65,7 @@ module Vertx
     # @return [self]
     def delivery_options(options=nil)
       if options.class == Hash && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deliveryOptions,Java::IoVertxCoreEventbus::DeliveryOptions.java_class))).invoke(@j_del,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
+        @j_del.java_method(:deliveryOptions, [Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling delivery_options(options)"
@@ -74,7 +74,7 @@ module Vertx
     # @return [String]
     def address
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:address))).invoke(@j_del)
+        return @j_del.java_method(:address, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling address()"
     end

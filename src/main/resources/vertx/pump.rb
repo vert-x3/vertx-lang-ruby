@@ -40,9 +40,9 @@ module Vertx
     # @return [::Vertx::Pump] the pump
     def self.pump(rs=nil,ws=nil,writeQueueMaxSize=nil)
       if rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && !block_given? && writeQueueMaxSize == nil
-        return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class))).invoke(@j_del,rs.j_del,ws.j_del))
+        return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class]).call(rs.j_del,ws.j_del))
       elsif rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && writeQueueMaxSize.class == Fixnum && !block_given?
-        return ::Vertx::Pump.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreStreams::Pump.java_class.declared_method(:pump,Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class))).invoke(@j_del,rs.j_del,ws.j_del,writeQueueMaxSize))
+        return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class]).call(rs.j_del,ws.j_del,writeQueueMaxSize))
       end
       raise ArgumentError, "Invalid arguments when calling pump(rs,ws,writeQueueMaxSize)"
     end
@@ -51,7 +51,7 @@ module Vertx
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setWriteQueueMaxSize,Java::int.java_class))).invoke(@j_del,maxSize)
+        @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
@@ -60,7 +60,7 @@ module Vertx
     # @return [self]
     def start
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:start))).invoke(@j_del)
+        @j_del.java_method(:start, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling start()"
@@ -69,7 +69,7 @@ module Vertx
     # @return [self]
     def stop
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:stop))).invoke(@j_del)
+        @j_del.java_method(:stop, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling stop()"
@@ -78,7 +78,7 @@ module Vertx
     # @return [Fixnum]
     def number_pumped
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:numberPumped))).invoke(@j_del)
+        return @j_del.java_method(:numberPumped, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling number_pumped()"
     end

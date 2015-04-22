@@ -31,13 +31,13 @@ module Vertx
     # @return [::Vertx::Buffer] the buffer
     def self.buffer(param_1=nil,param_2=nil)
       if !block_given? && param_1 == nil && param_2 == nil
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreBuffer::Buffer.java_class.declared_method(:buffer))).invoke(@j_del))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, []).call())
       elsif param_1.class == Fixnum && !block_given? && param_2 == nil
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreBuffer::Buffer.java_class.declared_method(:buffer,Java::int.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::int.java_class]).call(param_1))
       elsif param_1.class == String && !block_given? && param_2 == nil
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreBuffer::Buffer.java_class.declared_method(:buffer,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given?
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreBuffer::Buffer.java_class.declared_method(:buffer,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       end
       raise ArgumentError, "Invalid arguments when calling buffer(param_1,param_2)"
     end
@@ -46,7 +46,7 @@ module Vertx
     # @return [String]
     def to_string(enc=nil)
       if enc.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:toString,Java::java.lang.String.java_class))).invoke(@j_del,enc)
+        return @j_del.java_method(:toString, [Java::java.lang.String.java_class]).call(enc)
       end
       raise ArgumentError, "Invalid arguments when calling to_string(enc)"
     end
@@ -55,7 +55,7 @@ module Vertx
     # @return [Fixnum]
     def get_byte(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getByte,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getByte, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_byte(pos)"
     end
@@ -64,7 +64,7 @@ module Vertx
     # @return [Fixnum]
     def get_int(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getInt,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getInt, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_int(pos)"
     end
@@ -73,7 +73,7 @@ module Vertx
     # @return [Fixnum]
     def get_long(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getLong,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getLong, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_long(pos)"
     end
@@ -82,7 +82,7 @@ module Vertx
     # @return [Float]
     def get_double(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getDouble,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getDouble, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_double(pos)"
     end
@@ -91,7 +91,7 @@ module Vertx
     # @return [Float]
     def get_float(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getFloat,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getFloat, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_float(pos)"
     end
@@ -100,7 +100,7 @@ module Vertx
     # @return [Fixnum]
     def get_short(pos=nil)
       if pos.class == Fixnum && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getShort,Java::int.java_class))).invoke(@j_del,pos)
+        return @j_del.java_method(:getShort, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_short(pos)"
     end
@@ -111,7 +111,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def get_buffer(start=nil,_end=nil)
       if start.class == Fixnum && _end.class == Fixnum && !block_given?
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getBuffer,Java::int.java_class,Java::int.java_class))).invoke(@j_del,start,_end))
+        return ::Vertx::Buffer.new(@j_del.java_method(:getBuffer, [Java::int.java_class,Java::int.java_class]).call(start,_end))
       end
       raise ArgumentError, "Invalid arguments when calling get_buffer(start,_end)"
     end
@@ -123,9 +123,9 @@ module Vertx
     # @return [String]
     def get_string(start=nil,_end=nil,enc=nil)
       if start.class == Fixnum && _end.class == Fixnum && !block_given? && enc == nil
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString,Java::int.java_class,Java::int.java_class))).invoke(@j_del,start,_end)
+        return @j_del.java_method(:getString, [Java::int.java_class,Java::int.java_class]).call(start,_end)
       elsif start.class == Fixnum && _end.class == Fixnum && enc.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getString,Java::int.java_class,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,start,_end,enc)
+        return @j_del.java_method(:getString, [Java::int.java_class,Java::int.java_class,Java::java.lang.String.java_class]).call(start,_end,enc)
       end
       raise ArgumentError, "Invalid arguments when calling get_string(start,_end,enc)"
     end
@@ -138,10 +138,10 @@ module Vertx
     # @return [self]
     def append_buffer(buff=nil,offset=nil,len=nil)
       if buff.class.method_defined?(:j_del) && !block_given? && offset == nil && len == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendBuffer,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,buff.j_del)
+        @j_del.java_method(:appendBuffer, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(buff.j_del)
         return self
       elsif buff.class.method_defined?(:j_del) && offset.class == Fixnum && len.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendBuffer,Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::int.java_class))).invoke(@j_del,buff.j_del,offset,len)
+        @j_del.java_method(:appendBuffer, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::int.java_class]).call(buff.j_del,offset,len)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_buffer(buff,offset,len)"
@@ -152,7 +152,7 @@ module Vertx
     # @return [self]
     def append_byte(b=nil)
       if b.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendByte,Java::byte.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_byte(b))
+        @j_del.java_method(:appendByte, [Java::byte.java_class]).call(::Vertx::Util::Utils.to_byte(b))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_byte(b)"
@@ -163,7 +163,7 @@ module Vertx
     # @return [self]
     def append_int(i=nil)
       if i.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendInt,Java::int.java_class))).invoke(@j_del,i)
+        @j_del.java_method(:appendInt, [Java::int.java_class]).call(i)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_int(i)"
@@ -174,7 +174,7 @@ module Vertx
     # @return [self]
     def append_long(l=nil)
       if l.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendLong,Java::long.java_class))).invoke(@j_del,l)
+        @j_del.java_method(:appendLong, [Java::long.java_class]).call(l)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_long(l)"
@@ -185,7 +185,7 @@ module Vertx
     # @return [self]
     def append_short(s=nil)
       if s.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendShort,Java::short.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_short(s))
+        @j_del.java_method(:appendShort, [Java::short.java_class]).call(::Vertx::Util::Utils.to_short(s))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_short(s)"
@@ -196,7 +196,7 @@ module Vertx
     # @return [self]
     def append_float(f=nil)
       if f.class == Float && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendFloat,Java::float.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_float(f))
+        @j_del.java_method(:appendFloat, [Java::float.java_class]).call(::Vertx::Util::Utils.to_float(f))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_float(f)"
@@ -207,7 +207,7 @@ module Vertx
     # @return [self]
     def append_double(d=nil)
       if d.class == Float && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendDouble,Java::double.java_class))).invoke(@j_del,::Vertx::Util::Utils.to_double(d))
+        @j_del.java_method(:appendDouble, [Java::double.java_class]).call(::Vertx::Util::Utils.to_double(d))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_double(d)"
@@ -220,10 +220,10 @@ module Vertx
     # @return [self]
     def append_string(str=nil,enc=nil)
       if str.class == String && !block_given? && enc == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendString,Java::java.lang.String.java_class))).invoke(@j_del,str)
+        @j_del.java_method(:appendString, [Java::java.lang.String.java_class]).call(str)
         return self
       elsif str.class == String && enc.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:appendString,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,str,enc)
+        @j_del.java_method(:appendString, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(str,enc)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_string(str,enc)"
@@ -235,7 +235,7 @@ module Vertx
     # @return [self]
     def set_byte(pos=nil,b=nil)
       if pos.class == Fixnum && b.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setByte,Java::int.java_class,Java::byte.java_class))).invoke(@j_del,pos,::Vertx::Util::Utils.to_byte(b))
+        @j_del.java_method(:setByte, [Java::int.java_class,Java::byte.java_class]).call(pos,::Vertx::Util::Utils.to_byte(b))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_byte(pos,b)"
@@ -247,7 +247,7 @@ module Vertx
     # @return [self]
     def set_int(pos=nil,i=nil)
       if pos.class == Fixnum && i.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setInt,Java::int.java_class,Java::int.java_class))).invoke(@j_del,pos,i)
+        @j_del.java_method(:setInt, [Java::int.java_class,Java::int.java_class]).call(pos,i)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_int(pos,i)"
@@ -259,7 +259,7 @@ module Vertx
     # @return [self]
     def set_long(pos=nil,l=nil)
       if pos.class == Fixnum && l.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setLong,Java::int.java_class,Java::long.java_class))).invoke(@j_del,pos,l)
+        @j_del.java_method(:setLong, [Java::int.java_class,Java::long.java_class]).call(pos,l)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_long(pos,l)"
@@ -271,7 +271,7 @@ module Vertx
     # @return [self]
     def set_double(pos=nil,d=nil)
       if pos.class == Fixnum && d.class == Float && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setDouble,Java::int.java_class,Java::double.java_class))).invoke(@j_del,pos,::Vertx::Util::Utils.to_double(d))
+        @j_del.java_method(:setDouble, [Java::int.java_class,Java::double.java_class]).call(pos,::Vertx::Util::Utils.to_double(d))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_double(pos,d)"
@@ -283,7 +283,7 @@ module Vertx
     # @return [self]
     def set_float(pos=nil,f=nil)
       if pos.class == Fixnum && f.class == Float && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setFloat,Java::int.java_class,Java::float.java_class))).invoke(@j_del,pos,::Vertx::Util::Utils.to_float(f))
+        @j_del.java_method(:setFloat, [Java::int.java_class,Java::float.java_class]).call(pos,::Vertx::Util::Utils.to_float(f))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_float(pos,f)"
@@ -295,7 +295,7 @@ module Vertx
     # @return [self]
     def set_short(pos=nil,s=nil)
       if pos.class == Fixnum && s.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setShort,Java::int.java_class,Java::short.java_class))).invoke(@j_del,pos,::Vertx::Util::Utils.to_short(s))
+        @j_del.java_method(:setShort, [Java::int.java_class,Java::short.java_class]).call(pos,::Vertx::Util::Utils.to_short(s))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_short(pos,s)"
@@ -309,10 +309,10 @@ module Vertx
     # @return [self]
     def set_buffer(pos=nil,b=nil,offset=nil,len=nil)
       if pos.class == Fixnum && b.class.method_defined?(:j_del) && !block_given? && offset == nil && len == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setBuffer,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class))).invoke(@j_del,pos,b.j_del)
+        @j_del.java_method(:setBuffer, [Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(pos,b.j_del)
         return self
       elsif pos.class == Fixnum && b.class.method_defined?(:j_del) && offset.class == Fixnum && len.class == Fixnum && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setBuffer,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::int.java_class))).invoke(@j_del,pos,b.j_del,offset,len)
+        @j_del.java_method(:setBuffer, [Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::int.java_class]).call(pos,b.j_del,offset,len)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_buffer(pos,b,offset,len)"
@@ -325,10 +325,10 @@ module Vertx
     # @return [self]
     def set_string(pos=nil,str=nil,enc=nil)
       if pos.class == Fixnum && str.class == String && !block_given? && enc == nil
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::int.java_class,Java::java.lang.String.java_class))).invoke(@j_del,pos,str)
+        @j_del.java_method(:setString, [Java::int.java_class,Java::java.lang.String.java_class]).call(pos,str)
         return self
       elsif pos.class == Fixnum && str.class == String && enc.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setString,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,pos,str,enc)
+        @j_del.java_method(:setString, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(pos,str,enc)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_string(pos,str,enc)"
@@ -338,7 +338,7 @@ module Vertx
     # @return [Fixnum]
     def length
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:length))).invoke(@j_del)
+        return @j_del.java_method(:length, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling length()"
     end
@@ -346,7 +346,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def copy
       if !block_given?
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:copy))).invoke(@j_del))
+        return ::Vertx::Buffer.new(@j_del.java_method(:copy, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling copy()"
     end
@@ -358,9 +358,9 @@ module Vertx
     # @return [::Vertx::Buffer]
     def slice(start=nil,_end=nil)
       if !block_given? && start == nil && _end == nil
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:slice))).invoke(@j_del))
+        return ::Vertx::Buffer.new(@j_del.java_method(:slice, []).call())
       elsif start.class == Fixnum && _end.class == Fixnum && !block_given?
-        return ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:slice,Java::int.java_class,Java::int.java_class))).invoke(@j_del,start,_end))
+        return ::Vertx::Buffer.new(@j_del.java_method(:slice, [Java::int.java_class,Java::int.java_class]).call(start,_end))
       end
       raise ArgumentError, "Invalid arguments when calling slice(start,_end)"
     end

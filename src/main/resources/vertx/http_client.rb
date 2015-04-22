@@ -47,7 +47,7 @@ module Vertx
     # @return [true,false] true if the metrics are enabled
     def is_metrics_enabled
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isMetricsEnabled))).invoke(@j_del)
+        return @j_del.java_method(:isMetricsEnabled, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
     end
@@ -83,17 +83,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def request(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
       if param_1.class == Symbol && param_2.class == String && !block_given? && param_3 == nil && param_4 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2))
       elsif param_1.class == Symbol && param_2.class == String && param_3.class == String && !block_given? && param_4 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3))
       elsif param_1.class == Symbol && param_2.class == String && block_given? && param_3 == nil && param_4 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Symbol && param_2.class == Fixnum && param_3.class == String && param_4.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4))
       elsif param_1.class == Symbol && param_2.class == String && param_3.class == String && block_given? && param_4 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Symbol && param_2.class == Fixnum && param_3.class == String && param_4.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:request,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling request(param_1,param_2,param_3,param_4)"
     end
@@ -105,9 +105,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def request_abs(method=nil,absoluteURI=nil)
       if method.class == Symbol && absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:requestAbs,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(method),absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:requestAbs, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(method),absoluteURI))
       elsif method.class == Symbol && absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:requestAbs,Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,Java::IoVertxCoreHttp::HttpMethod.valueOf(method),absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:requestAbs, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(method),absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling request_abs(method,absoluteURI)"
     end
@@ -137,17 +137,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def get(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:get, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling get(param_1,param_2,param_3)"
     end
@@ -158,9 +158,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def get_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:getAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:getAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling get_abs(absoluteURI)"
     end
@@ -181,11 +181,11 @@ module Vertx
     # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def get_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getNow,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getNow,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getNow,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:getNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling get_now(param_1,param_2,param_3)"
     end
@@ -215,17 +215,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def post(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:post,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:post, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling post(param_1,param_2,param_3)"
     end
@@ -236,9 +236,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def post_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:postAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:postAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:postAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:postAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling post_abs(absoluteURI)"
     end
@@ -268,17 +268,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def head(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:head,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:head, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling head(param_1,param_2,param_3)"
     end
@@ -289,9 +289,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def head_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:headAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:headAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling head_abs(absoluteURI)"
     end
@@ -312,11 +312,11 @@ module Vertx
     # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def head_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headNow,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headNow,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:headNow,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:headNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling head_now(param_1,param_2,param_3)"
     end
@@ -346,17 +346,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def options(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:options,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:options, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling options(param_1,param_2,param_3)"
     end
@@ -367,9 +367,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def options_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:optionsAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:optionsAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:optionsAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:optionsAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling options_abs(absoluteURI)"
     end
@@ -390,11 +390,11 @@ module Vertx
     # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def options_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:optionsNow,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:optionsNow,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:optionsNow,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:optionsNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling options_now(param_1,param_2,param_3)"
     end
@@ -424,17 +424,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def put(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:put,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:put, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling put(param_1,param_2,param_3)"
     end
@@ -445,9 +445,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def put_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:putAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:putAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:putAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling put_abs(absoluteURI)"
     end
@@ -477,17 +477,17 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def delete(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:delete,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:delete, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling delete(param_1,param_2,param_3)"
     end
@@ -498,9 +498,9 @@ module Vertx
     # @return [::Vertx::HttpClientRequest] an HTTP client request object
     def delete_abs(absoluteURI=nil)
       if absoluteURI.class == String && !block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deleteAbs,Java::java.lang.String.java_class))).invoke(@j_del,absoluteURI))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:deleteAbs, [Java::java.lang.String.java_class]).call(absoluteURI))
       elsif absoluteURI.class == String && block_given?
-        return ::Vertx::HttpClientRequest.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:deleteAbs,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
+        return ::Vertx::HttpClientRequest.new(@j_del.java_method(:deleteAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::HttpClientResponse.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling delete_abs(absoluteURI)"
     end
@@ -575,29 +575,29 @@ module Vertx
     # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
     def websocket(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && param_4.class == String && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && block_given? && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && param_5.class == String && block_given? && param_6 == nil
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && param_6.class == String && block_given?
-        return ::Vertx::HttpClient.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocket,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
+        return ::Vertx::HttpClient.new(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| yield(::Vertx::WebSocket.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling websocket(param_1,param_2,param_3,param_4,param_5,param_6)"
     end
@@ -660,29 +660,29 @@ module Vertx
     # @return [::Vertx::WebSocketStream] a reference to this, so the API can be used fluently
     def websocket_stream(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil)
       if param_1.class == String && !block_given? && param_2 == nil && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class))).invoke(@j_del,param_1))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class]).call(param_1))
       elsif param_1.class == String && param_2.class == String && !block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && !block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,param_1,param_2.j_del))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class]).call(param_1,param_2.j_del))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && !block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && !block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class]).call(param_1,param_2,param_3.j_del))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && !block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class))).invoke(@j_del,param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3)))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3)))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && !block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class]).call(param_1,param_2,param_3,param_4.j_del))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && !block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4)))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4)))
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && param_4.class == String && !block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && !block_given? && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5)))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5)))
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && param_5.class == String && !block_given? && param_6 == nil
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5))
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && param_6.class == String && !block_given?
-        return ::Vertx::WebSocketStream.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:websocketStream,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class))).invoke(@j_del,param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6))
+        return ::Vertx::WebSocketStream.new(@j_del.java_method(:websocketStream, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6))
       end
       raise ArgumentError, "Invalid arguments when calling websocket_stream(param_1,param_2,param_3,param_4,param_5,param_6)"
     end
@@ -691,7 +691,7 @@ module Vertx
     # @return [void]
     def close
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:close))).invoke(@j_del)
+        return @j_del.java_method(:close, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end

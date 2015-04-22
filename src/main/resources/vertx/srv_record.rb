@@ -17,7 +17,7 @@ module Vertx
     # @return [Fixnum]
     def priority
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+        return @j_del.java_method(:priority, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling priority()"
     end
@@ -25,7 +25,7 @@ module Vertx
     # @return [Fixnum]
     def weight
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:weight))).invoke(@j_del)
+        return @j_del.java_method(:weight, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling weight()"
     end
@@ -33,7 +33,7 @@ module Vertx
     # @return [Fixnum]
     def port
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:port))).invoke(@j_del)
+        return @j_del.java_method(:port, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling port()"
     end
@@ -41,7 +41,7 @@ module Vertx
     # @return [String]
     def name
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+        return @j_del.java_method(:name, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling name()"
     end
@@ -49,7 +49,7 @@ module Vertx
     # @return [String]
     def protocol
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:protocol))).invoke(@j_del)
+        return @j_del.java_method(:protocol, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling protocol()"
     end
@@ -57,7 +57,7 @@ module Vertx
     # @return [String]
     def service
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:service))).invoke(@j_del)
+        return @j_del.java_method(:service, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling service()"
     end
@@ -65,7 +65,7 @@ module Vertx
     # @return [String]
     def target
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:target))).invoke(@j_del)
+        return @j_del.java_method(:target, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling target()"
     end

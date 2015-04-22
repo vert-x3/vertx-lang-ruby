@@ -216,23 +216,28 @@
    * @param params the parameter names to use
    */
   def genMethodCall(method,params) {
-    var args = "(@j_del";
-    var signature = "(:" + method.getName();
+    var args = "(";
+    var signature = "(:" + method.getName() + ", [";
     var index = 1;
     if (method.params.size() > 0) {
       for (param : method.params) {
-        args += ",";
-        signature += ",";
+        if (param != method.params[0]) {
+          args += ",";
+          signature += ",";
+        }
         args += genConvParam(param.type, params[index - 1]);
         signature += genJavaClassFqn(param.type) + ".java_class";
         index += 1;
       }
     }
     args += ")";
-    signature += ")";
+    signature += "])";
+    /*
     return "(Java::IoVertxLangJruby::Helper.fixJavaMethod(" + (method.staticMethod ? genJavaClassFqn(type) : "@j_del") +
        ".java_class.declared_method" + signature +
        ")).invoke" + args;
+    */
+    return (method.staticMethod ? genJavaClassFqn(type) : "@j_del") + ".java_method" + signature + ".call" + args;
   }
 
   /*

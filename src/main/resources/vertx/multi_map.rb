@@ -22,7 +22,7 @@ module Vertx
     # @return [String] The first header value or {@code null} if there is no such entry
     def get(name=nil)
       if name.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:get,Java::java.lang.String.java_class))).invoke(@j_del,name)
+        return @j_del.java_method(:get, [Java::java.lang.String.java_class]).call(name)
       end
       raise ArgumentError, "Invalid arguments when calling get(name)"
     end
@@ -31,7 +31,7 @@ module Vertx
     # @return [Array<String>] A immutable {@link java.util.List} of values which will be empty if no values are found
     def get_all(name=nil)
       if name.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:getAll,Java::java.lang.String.java_class))).invoke(@j_del,name).to_a.map { |elt| elt }
+        return @j_del.java_method(:getAll, [Java::java.lang.String.java_class]).call(name).to_a.map { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling get_all(name)"
     end
@@ -40,7 +40,7 @@ module Vertx
     # @return [true,false] true if at least one entry is found
     def contains(name=nil)
       if name.class == String && !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:contains,Java::java.lang.String.java_class))).invoke(@j_del,name)
+        return @j_del.java_method(:contains, [Java::java.lang.String.java_class]).call(name)
       end
       raise ArgumentError, "Invalid arguments when calling contains(name)"
     end
@@ -48,7 +48,7 @@ module Vertx
     # @return [true,false]
     def is_empty
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isEmpty))).invoke(@j_del)
+        return @j_del.java_method(:isEmpty, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_empty()"
     end
@@ -56,7 +56,7 @@ module Vertx
     # @return [Set<String>] A {@link java.util.Set} of all names
     def names
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:names))).invoke(@j_del).to_set.map! { |elt| elt }
+        return @j_del.java_method(:names, []).call().to_set.map! { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling names()"
     end
@@ -66,7 +66,7 @@ module Vertx
     # @return [self]
     def add(name=nil,value=nil)
       if name.class == String && value.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:add,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
+        @j_del.java_method(:add, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(name,value)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling add(name,value)"
@@ -76,7 +76,7 @@ module Vertx
     # @return [self]
     def add_all(map=nil)
       if map.class.method_defined?(:j_del) && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:addAll,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,map.j_del)
+        @j_del.java_method(:addAll, [Java::IoVertxCore::MultiMap.java_class]).call(map.j_del)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling add_all(map)"
@@ -89,7 +89,7 @@ module Vertx
     # @return [self]
     def set(name=nil,value=nil)
       if name.class == String && value.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:set,Java::java.lang.String.java_class,Java::java.lang.String.java_class))).invoke(@j_del,name,value)
+        @j_del.java_method(:set, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(name,value)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set(name,value)"
@@ -99,7 +99,7 @@ module Vertx
     # @return [self]
     def set_all(map=nil)
       if map.class.method_defined?(:j_del) && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:setAll,Java::IoVertxCore::MultiMap.java_class))).invoke(@j_del,map.j_del)
+        @j_del.java_method(:setAll, [Java::IoVertxCore::MultiMap.java_class]).call(map.j_del)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_all(map)"
@@ -109,7 +109,7 @@ module Vertx
     # @return [self]
     def remove(name=nil)
       if name.class == String && !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:remove,Java::java.lang.String.java_class))).invoke(@j_del,name)
+        @j_del.java_method(:remove, [Java::java.lang.String.java_class]).call(name)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling remove(name)"
@@ -118,7 +118,7 @@ module Vertx
     # @return [self]
     def clear
       if !block_given?
-        (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:clear))).invoke(@j_del)
+        @j_del.java_method(:clear, []).call()
         return self
       end
       raise ArgumentError, "Invalid arguments when calling clear()"
@@ -127,7 +127,7 @@ module Vertx
     # @return [Fixnum]
     def size
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:size))).invoke(@j_del)
+        return @j_del.java_method(:size, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling size()"
     end

@@ -21,7 +21,7 @@ module Testmodel
     # @return [::Testmodel::ConcreteHandlerUserType]
     def self.create_concrete_handler_user_type
       if block_given?
-        return ::Testmodel::ConcreteHandlerUserType.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
+        return ::Testmodel::ConcreteHandlerUserType.new(Java::IoVertxCodegenTestmodel::Factory.java_method(:createConcreteHandlerUserType, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling create_concrete_handler_user_type()"
     end
@@ -29,7 +29,7 @@ module Testmodel
     # @return [::Testmodel::AbstractHandlerUserType]
     def self.create_abstract_handler_user_type
       if block_given?
-        return ::Testmodel::AbstractHandlerUserTypeImpl.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createAbstractHandlerUserType,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
+        return ::Testmodel::AbstractHandlerUserTypeImpl.new(Java::IoVertxCodegenTestmodel::Factory.java_method(:createAbstractHandlerUserType, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling create_abstract_handler_user_type()"
     end
@@ -37,7 +37,7 @@ module Testmodel
     # @return [::Testmodel::ConcreteHandlerUserTypeExtension]
     def self.create_concrete_handler_user_type_extension
       if block_given?
-        return ::Testmodel::ConcreteHandlerUserTypeExtension.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCodegenTestmodel::Factory.java_class.declared_method(:createConcreteHandlerUserTypeExtension,Java::IoVertxCore::Handler.java_class))).invoke(@j_del,(Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
+        return ::Testmodel::ConcreteHandlerUserTypeExtension.new(Java::IoVertxCodegenTestmodel::Factory.java_method(:createConcreteHandlerUserTypeExtension, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) })))
       end
       raise ArgumentError, "Invalid arguments when calling create_concrete_handler_user_type_extension()"
     end

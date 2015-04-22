@@ -17,7 +17,7 @@ module Vertx
     # @return [Fixnum]
     def priority
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:priority))).invoke(@j_del)
+        return @j_del.java_method(:priority, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling priority()"
     end
@@ -25,7 +25,7 @@ module Vertx
     # @return [String]
     def name
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:name))).invoke(@j_del)
+        return @j_del.java_method(:name, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling name()"
     end

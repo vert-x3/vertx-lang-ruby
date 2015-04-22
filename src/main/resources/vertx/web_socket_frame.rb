@@ -27,7 +27,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.binary_frame(data=nil,isFinal=nil)
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreHttp::WebSocketFrame.java_class.declared_method(:binaryFrame,Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class))).invoke(@j_del,data.j_del,isFinal))
+        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:binaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal))
       end
       raise ArgumentError, "Invalid arguments when calling binary_frame(data,isFinal)"
     end
@@ -37,7 +37,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.text_frame(str=nil,isFinal=nil)
       if str.class == String && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreHttp::WebSocketFrame.java_class.declared_method(:textFrame,Java::java.lang.String.java_class,Java::boolean.java_class))).invoke(@j_del,str,isFinal))
+        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:textFrame, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(str,isFinal))
       end
       raise ArgumentError, "Invalid arguments when calling text_frame(str,isFinal)"
     end
@@ -47,7 +47,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.continuation_frame(data=nil,isFinal=nil)
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(Java::IoVertxCoreHttp::WebSocketFrame.java_class.declared_method(:continuationFrame,Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class))).invoke(@j_del,data.j_del,isFinal))
+        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:continuationFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal))
       end
       raise ArgumentError, "Invalid arguments when calling continuation_frame(data,isFinal)"
     end
@@ -55,7 +55,7 @@ module Vertx
     # @return [true,false]
     def is_text
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isText))).invoke(@j_del)
+        return @j_del.java_method(:isText, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_text()"
     end
@@ -63,7 +63,7 @@ module Vertx
     # @return [true,false]
     def is_binary
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isBinary))).invoke(@j_del)
+        return @j_del.java_method(:isBinary, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_binary()"
     end
@@ -71,7 +71,7 @@ module Vertx
     # @return [true,false]
     def is_continuation
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isContinuation))).invoke(@j_del)
+        return @j_del.java_method(:isContinuation, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_continuation()"
     end
@@ -83,7 +83,7 @@ module Vertx
         if @cached_text_data != nil
           return @cached_text_data
         end
-        return @cached_text_data = (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:textData))).invoke(@j_del)
+        return @cached_text_data = @j_del.java_method(:textData, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling text_data()"
     end
@@ -94,7 +94,7 @@ module Vertx
         if @cached_binary_data != nil
           return @cached_binary_data
         end
-        return @cached_binary_data = ::Vertx::Buffer.new((Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:binaryData))).invoke(@j_del))
+        return @cached_binary_data = ::Vertx::Buffer.new(@j_del.java_method(:binaryData, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling binary_data()"
     end
@@ -102,7 +102,7 @@ module Vertx
     # @return [true,false]
     def is_final
       if !block_given?
-        return (Java::IoVertxLangJruby::Helper.fixJavaMethod(@j_del.java_class.declared_method(:isFinal))).invoke(@j_del)
+        return @j_del.java_method(:isFinal, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling is_final()"
     end
