@@ -280,7 +280,7 @@ result handler to be called back asynchronous when the blocking code has been ex
 ----
 vertx.execute_blocking(lambda { |future|
   # Call some blocking API that takes a significant amount of time to return
-  result = someAPI.blocking_method("hello")
+  result = $someAPI.blocking_method("hello")
   future.complete(result)
 }) { |res,res_err|
   puts "The result is: #{res}"

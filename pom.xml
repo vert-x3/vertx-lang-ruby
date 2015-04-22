@@ -80,6 +80,13 @@
       <version>2.2.0.Final</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>rubygems</groupId>
+      <artifactId>yard</artifactId>
+      <version>0.8.7.6</version>
+      <type>gem</type>
+      <scope>provided</scope>
+    </dependency>
 
     <!-- Test dependencies -->
     <dependency>
@@ -114,15 +121,6 @@
 
   <build>
 
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/main/resources</directory>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/src/main/gems</directory>
-      </resource>
-    </resources>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -154,24 +152,24 @@
             </execution>
           </executions>
         </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>default-jar</id>
-              <configuration>
-                <excludes>
-                  <exclude>cache/**</exclude>
-                  <exclude>gems/**</exclude>
-                  <exclude>specifications/**</exclude>
-                </excludes>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>de.saumya.mojo</groupId>
+        <artifactId>gem-maven-plugin</artifactId>
+        <version>1.0.9</version>
+        <configuration>
+          <includeGemsInResources>true</includeGemsInResources>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>initialize</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
@@ -372,5 +370,22 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>repo</id>
+      <activation>
+        <property>
+          <name>!noRepo</name>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>rubygems-releases</id>
+          <url>http://rubygems-proxy.torquebox.org/releases</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
 </project>
