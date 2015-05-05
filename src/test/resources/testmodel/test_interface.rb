@@ -848,7 +848,7 @@ module Testmodel
     # @return [Hash{String => String}]
     def method_with_map_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_return()"
     end
@@ -856,7 +856,7 @@ module Testmodel
     # @return [Hash{String => String}]
     def method_with_map_string_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapStringReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapStringReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_string_return()"
     end
@@ -864,7 +864,7 @@ module Testmodel
     # @return [Hash{String => Fixnum}]
     def method_with_map_long_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapLongReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_long(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapLongReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_long(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_long_return()"
     end
@@ -872,7 +872,7 @@ module Testmodel
     # @return [Hash{String => Fixnum}]
     def method_with_map_integer_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapIntegerReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_integer(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapIntegerReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_integer(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_integer_return()"
     end
@@ -880,7 +880,7 @@ module Testmodel
     # @return [Hash{String => Fixnum}]
     def method_with_map_short_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapShortReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_short(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapShortReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_short(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_short_return()"
     end
@@ -888,7 +888,7 @@ module Testmodel
     # @return [Hash{String => Fixnum}]
     def method_with_map_byte_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapByteReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_byte(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapByteReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_byte(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_byte_return()"
     end
@@ -896,7 +896,7 @@ module Testmodel
     # @return [Hash{String => Fixnum}]
     def method_with_map_character_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapCharacterReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_character(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapCharacterReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_character(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_character_return()"
     end
@@ -904,7 +904,7 @@ module Testmodel
     # @return [Hash{String => true,false}]
     def method_with_map_boolean_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapBooleanReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_boolean(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapBooleanReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_boolean(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_boolean_return()"
     end
@@ -912,7 +912,7 @@ module Testmodel
     # @return [Hash{String => Float}]
     def method_with_map_float_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapFloatReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_float(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapFloatReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_float(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_float_return()"
     end
@@ -920,7 +920,7 @@ module Testmodel
     # @return [Hash{String => Float}]
     def method_with_map_double_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapDoubleReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_double(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapDoubleReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_double(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_double_return()"
     end
@@ -928,7 +928,7 @@ module Testmodel
     # @return [Hash{String => Hash{String => Object}}]
     def method_with_map_json_object_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapJsonObjectReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapJsonObjectReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_json_object_return()"
     end
@@ -936,14 +936,14 @@ module Testmodel
     # @return [Hash{String => Array<String,Object>}]
     def method_with_map_json_array_return
       if block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithMapJsonArrayReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapJsonArrayReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_json_array_return()"
     end
     # @return [Hash{String => String}]
     def method_with_null_map_return
       if !block_given?
-        return Java::IoVertxLangJruby::Helper.adaptingMap(@j_del.java_method(:methodWithNullMapReturn, []).call(), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithNullMapReturn, []).call(), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_map_return()"
     end

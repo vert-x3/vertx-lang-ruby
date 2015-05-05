@@ -1,2 +1,2 @@
-Java::IoVertxTestLangJruby::DeployTest.deployed
+Java::IoVertxTestLangRuby::DeployTest.deployed
 raise 'the_error'

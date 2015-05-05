@@ -3,4 +3,4 @@ if @test_ivar == nil
 else
   @test_ivar += 1
 end
-Java::IoVertxTestLangJruby::IsolationTest.registerCallback { @test_ivar }
+Java::IoVertxTestLangRuby::IsolationTest.registerCallback { @test_ivar }

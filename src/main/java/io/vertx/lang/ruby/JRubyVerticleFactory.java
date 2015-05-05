@@ -14,7 +14,7 @@
  * under the License.
  */
 
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
@@ -22,8 +22,6 @@ import io.vertx.core.spi.VerticleFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>

@@ -1,4 +1,4 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import io.vertx.core.Context;
 import io.vertx.core.Future;

@@ -3,4 +3,4 @@ if $global_var == nil
 else
   $global_var += 1
 end
-Java::IoVertxTestLangJruby::IsolationTest.registerCallback { $global_var }
+Java::IoVertxTestLangRuby::IsolationTest.registerCallback { $global_var }

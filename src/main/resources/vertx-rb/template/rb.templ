@@ -233,7 +233,7 @@
     args += ")";
     signature += "])";
     /*
-    return "(Java::IoVertxLangJruby::Helper.fixJavaMethod(" + (method.staticMethod ? genJavaClassFqn(type) : "@j_del") +
+    return "(Java::IoVertxLangRuby::Helper.fixJavaMethod(" + (method.staticMethod ? genJavaClassFqn(type) : "@j_del") +
        ".java_class.declared_method" + signature +
        ")).invoke" + args;
     */
@@ -368,7 +368,7 @@
             toJava = "to_double";
           }
         }
-        return "Java::IoVertxLangJruby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
+        return "Java::IoVertxLangRuby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
         return genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
       } else if (kind.json) {

@@ -1,4 +1,4 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import java.util.Map;
 import java.util.function.Function;

@@ -1,4 +1,4 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import org.jruby.RubyModule;
 

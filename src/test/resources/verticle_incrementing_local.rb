@@ -3,4 +3,4 @@ if defined?(test_local).nil?
 else
   test_local += 1
 end
-Java::IoVertxTestLangJruby::IsolationTest.registerCallback { test_local }
+Java::IoVertxTestLangRuby::IsolationTest.registerCallback { test_local }

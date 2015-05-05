@@ -1,4 +1,4 @@
-package io.vertx.test.lang.jruby;
+package io.vertx.test.lang.ruby;
 
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpClientOptions;

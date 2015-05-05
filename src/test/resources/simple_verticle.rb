@@ -1,1 +1,1 @@
-Java::IoVertxTestLangJruby::DeployTest.deployed
+Java::IoVertxTestLangRuby::DeployTest.deployed

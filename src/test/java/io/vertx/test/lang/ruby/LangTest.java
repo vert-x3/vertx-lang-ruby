@@ -1,4 +1,4 @@
-package io.vertx.test.lang.jruby;
+package io.vertx.test.lang.ruby;
 
 import org.junit.Test;
 

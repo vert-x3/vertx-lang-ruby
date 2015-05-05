@@ -1,4 +1,4 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import io.vertx.codegen.Case;
 import io.vertx.codegen.ClassKind;

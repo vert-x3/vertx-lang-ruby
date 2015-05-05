@@ -1,9 +1,8 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import org.jruby.CompatVersion;
-import org.jruby.Ruby;
 import org.jruby.RubyClass;
 import org.jruby.RubyInstanceConfig;
 import org.jruby.RubyModule;

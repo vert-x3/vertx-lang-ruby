@@ -1,10 +1,6 @@
-package io.vertx.test.lang.jruby;
+package io.vertx.test.lang.ruby;
 
 import org.junit.Test;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>

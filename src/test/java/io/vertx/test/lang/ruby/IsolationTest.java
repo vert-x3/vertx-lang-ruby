@@ -1,4 +1,4 @@
-package io.vertx.test.lang.jruby;
+package io.vertx.test.lang.ruby;
 
 import io.vertx.test.core.VertxTestBase;
 import org.junit.Test;

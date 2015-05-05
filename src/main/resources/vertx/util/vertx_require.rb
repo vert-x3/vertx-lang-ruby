@@ -8,14 +8,14 @@ module Kernel
   alias_method :original_load, :load
 
   def require(*args)
-    Java::IoVertxLangJruby::JRubyVerticleFactory.requireCallback do
+    Java::IoVertxLangRuby::JRubyVerticleFactory.requireCallback do
       #puts "in require callback"
       original_require(*args)
     end
   end
 
   def load(*args)
-    Java::IoVertxLangJruby::JRubyVerticleFactory.requireCallback do
+    Java::IoVertxLangRuby::JRubyVerticleFactory.requireCallback do
       #puts "in require callback"
       original_load(*args)
     end

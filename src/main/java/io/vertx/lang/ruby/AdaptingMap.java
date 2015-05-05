@@ -1,4 +1,4 @@
-package io.vertx.lang.jruby;
+package io.vertx.lang.ruby;
 
 import java.util.AbstractMap;
 import java.util.AbstractSet;

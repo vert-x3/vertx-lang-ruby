@@ -8,4 +8,4 @@ class Whatever
   end
 end
 Whatever.inc
-Java::IoVertxTestLangJruby::IsolationTest.registerCallback { Whatever.value }
+Java::IoVertxTestLangRuby::IsolationTest.registerCallback { Whatever.value }

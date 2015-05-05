@@ -278,7 +278,7 @@
               </optionMap>
               <sourceDirectory>${project.build.directory}/sources/codegen</sourceDirectory>
               <excludes>
-                <exclude>io/vertx/test/lang/jruby/**</exclude>
+                <exclude>io/vertx/test/lang/ruby/**</exclude>
               </excludes>
               <additionalSourceDirectories>
                 <additionalSourceDirectory>${project.basedir}/src/test/java</additionalSourceDirectory>
