@@ -4,18 +4,6 @@ import io.vertx.core.Context;
 import io.vertx.core.Future;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
-import io.vertx.core.spi.VerticleFactory;
-import org.jruby.CompatVersion;
-import org.jruby.RubyClass;
-import org.jruby.RubyInstanceConfig;
-import org.jruby.embed.LocalContextScope;
-import org.jruby.embed.ScriptingContainer;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.URL;
 
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
@@ -23,16 +11,18 @@ import java.net.URL;
 public class JRubyVerticle implements Verticle {
 
   private final JRubyVerticleFactory factory;
+  private final ContainerHolder holder;
   private final ClassLoader classLoader;
   private final String verticleName;
   private Vertx vertx;
   private Context context;
-  private ScriptingContainer container;
+  private Deployment instance;
 
-  public JRubyVerticle(JRubyVerticleFactory factory, ClassLoader classLoader, String verticleName) {
+  public JRubyVerticle(JRubyVerticleFactory factory, ContainerHolder holder, ClassLoader classLoader, String verticleName) {
     this.factory = factory;
+    this.holder = holder;
     this.classLoader = classLoader;
-    this.verticleName = VerticleFactory.removePrefix(verticleName);
+    this.verticleName = verticleName;
   }
 
   @Override
@@ -50,69 +40,16 @@ public class JRubyVerticle implements Verticle {
   public void start(Future<Void> startFuture) throws Exception {
     String gemPath = context.config().getString("GEM_PATH");
     if (gemPath != null && !gemPath.trim().isEmpty()) {
-      container = factory.createContainer(gemPath);
+      instance = holder.create(gemPath, vertx, classLoader, startFuture);
     } else {
-      container = factory.getContainer();
+      instance = holder.create(null, vertx, classLoader, startFuture);
     }
-    try {
-      container.runScriptlet("require 'vertx/context'");
-      container.runScriptlet("$context=Vertx::Context.new($_context)");
-      container.put("$_context", context);
-      container.remove("_context");
-      if (verticleName.endsWith(".rb")) {
-        URL url = classLoader.getResource(verticleName);
-        if (url == null) {
-          File f = new File(verticleName);
-          if (!f.isAbsolute()) {
-            f = new File(System.getProperty("user.dir"), verticleName);
-          }
-          if (f.exists() && f.isFile()) {
-            url = f.toURI().toURL();
-          }
-        }
-        if (url == null) {
-          throw new IllegalStateException("Cannot find verticle script: " + verticleName + " on classpath");
-        }
-        int idx = verticleName.lastIndexOf('/');
-        container.runScriptlet(url.openStream(), verticleName.substring(idx + 1));
-      } else {
-        container.runScriptlet("require '" + verticleName + "'");
-      }
-      if (hasTopLevelFunction(container, "vertx_start")) {
-        container.runScriptlet("vertx_start");
-        startFuture.complete();
-      } else if (hasTopLevelFunction(container, "vertx_async_start")) {
-        invokeAsync("vertx_async_start", startFuture);
-      } else {
-        startFuture.complete();
-      }
-    } catch (Throwable t) {
-      startFuture.fail(t);
-    }
-  }
-
-  private boolean hasTopLevelFunction(ScriptingContainer container, String name) {
-    return Boolean.TRUE.equals(container.runScriptlet("respond_to?(:" + name + ",true)"));
-  }
-
-  private void invokeAsync(String name, Future future) {
-    org.jruby.RubyClass rubyClass = (RubyClass) container.runScriptlet("return ::Vertx::Future");
-    Object wrappedFuture = container.callMethod(rubyClass, "new", future);
-    Object self = container.runScriptlet("return self");
-    container.callMethod(self, name, wrappedFuture);
   }
 
   @Override
   public void stop(Future<Void> stopFuture) throws Exception {
-    if (container != null) {
-      if (hasTopLevelFunction(container, "vertx_stop")) {
-        container.runScriptlet("vertx_stop");
-        stopFuture.complete();
-      } else if (hasTopLevelFunction(container, "vertx_async_stop")) {
-        invokeAsync("vertx_async_stop", stopFuture);
-      } else {
-        stopFuture.complete();
-      }
+    if (instance != null) {
+      holder.undeploy(instance, stopFuture);
     } else {
       stopFuture.complete();
     }

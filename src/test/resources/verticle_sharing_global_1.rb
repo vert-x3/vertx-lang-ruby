@@ -1,5 +1,7 @@
-$test_global = 1
+if $test_global == nil
+  $test_global = 1
+end
 
 Java::IoVertxTestLangJruby::IsolationTest.registerCallback do
-  puts "HELLO #{$test_global}"
+  $test_global
 end

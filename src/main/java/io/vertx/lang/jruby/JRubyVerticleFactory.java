@@ -19,25 +19,18 @@ package io.vertx.lang.jruby;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.spi.VerticleFactory;
-import org.jruby.CompatVersion;
-import org.jruby.RubyInstanceConfig;
-import org.jruby.embed.LocalContextScope;
-import org.jruby.embed.ScriptingContainer;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class JRubyVerticleFactory implements VerticleFactory {
 
-
-  private ScriptingContainer container;
+  final Map<String, ContainerHolder> holderMap = new HashMap<>();
   private Vertx vertx;
 
   @Override
@@ -52,40 +45,26 @@ public class JRubyVerticleFactory implements VerticleFactory {
 
   @Override
   public Verticle createVerticle(String verticleName, ClassLoader classLoader) throws Exception {
-    return new JRubyVerticle(this, classLoader, verticleName);
-  }
-
-  ScriptingContainer createContainer(String gemPath) {
-    ScriptingContainer container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
-    RubyInstanceConfig config = container.getProvider().getRubyInstanceConfig();
-    Map newEnv = new HashMap(config.getEnvironment());
-    newEnv.put("GEM_PATH", gemPath);
-    config.setEnvironment(newEnv);
-    initVertx(container);
-    return container;
-  }
-
-  synchronized ScriptingContainer getContainer() {
-    if (container == null) {
-      ScriptingContainer container = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
-      initVertx(container);
-      this.container = container;
-    }
-    return container;
-  }
-
-  private void initVertx(ScriptingContainer container) {
-    container.setCompatVersion(CompatVersion.RUBY1_9);
-    container.setError(new PrintStream(new OutputStream() {
-      @Override
-      public void write(int b) throws IOException {
-        // > /dev/null
+    verticleName = VerticleFactory.removePrefix(verticleName);
+    ContainerHolder holder;
+    synchronized (holderMap) {
+      holder = holderMap.get(verticleName);
+      if (holder == null) {
+        holderMap.put(verticleName, holder = new ContainerHolder(this, verticleName));
       }
-    }));
-    container.put("$_vertx", vertx);
-    container.runScriptlet("require 'vertx/vertx'");
-    container.runScriptlet("require 'vertx/future'");
-    container.runScriptlet("$vertx=Vertx::Vertx.new($_vertx)");
-    container.remove("$_vertx");
+    }
+    return new JRubyVerticle(this, holder, classLoader, verticleName);
+  }
+
+  void removeVerticle(ContainerHolder holder) {
+    synchronized (holderMap) {
+      holderMap.remove(holder.getVerticleName());
+    }
+  }
+
+  // This method synchronizes the callback into the JRuby code to make sure we don't have concurrent requires
+  // or loads occurring in the same JRuby container
+  public static synchronized void requireCallback(Runnable runnable) {
+    runnable.run();
   }
 }
