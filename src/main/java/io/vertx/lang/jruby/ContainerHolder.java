@@ -123,8 +123,8 @@ class ContainerHolder {
       if (wrappingModule.getMethods().containsKey("vertx_start")) {
         container.callMethod(wrappingModule, "vertx_start");
         startFuture.complete();
-      } else if (wrappingModule.getMethods().containsKey("vertx_async_start")) {
-        invokeAsync(wrappingModule, "vertx_async_start", startFuture);
+      } else if (wrappingModule.getMethods().containsKey("vertx_start_async")) {
+        invokeAsync(wrappingModule, "vertx_start_async", startFuture);
       } else {
         startFuture.complete();
       }
@@ -153,9 +153,6 @@ class ContainerHolder {
       if (--refs == 0) {
         factory.removeVerticle(this);
         container.terminate();
-        container.clear();
-        // JRuby keeps a static reference to a runtime - we must clear this manually to avoid a leak
-        Ruby.clearGlobalRuntime();
       }
 
       //
@@ -168,8 +165,8 @@ class ContainerHolder {
     if (deployment.wrappingModule.getMethods().containsKey("vertx_stop")) {
       container.callMethod(deployment.wrappingModule, "vertx_stop");
       fut.complete();
-    } else if (deployment.wrappingModule.getMethods().containsKey("vertx_async_stop")) {
-      invokeAsync(deployment.wrappingModule, "vertx_async_stop", fut);
+    } else if (deployment.wrappingModule.getMethods().containsKey("vertx_stop_async")) {
+      invokeAsync(deployment.wrappingModule, "vertx_stop_async", fut);
     } else {
       fut.complete();
     }
