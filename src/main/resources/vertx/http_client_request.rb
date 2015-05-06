@@ -46,11 +46,11 @@ module Vertx
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpClientRequest#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
-    def write_queue_full
+    def write_queue_full?
       if !block_given?
         return @j_del.java_method(:writeQueueFull, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling write_queue_full()"
+      raise ArgumentError, "Invalid arguments when calling write_queue_full?()"
     end
     # @yield 
     # @return [self]
@@ -147,11 +147,11 @@ module Vertx
     end
     #  @return Is the request chunked?
     # @return [true,false]
-    def is_chunked
+    def chunked?
       if !block_given?
         return @j_del.java_method(:isChunked, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_chunked()"
+      raise ArgumentError, "Invalid arguments when calling chunked?()"
     end
     #  The HTTP method for the request.
     # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]

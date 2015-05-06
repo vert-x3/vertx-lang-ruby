@@ -40,11 +40,11 @@ module Vertx
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WriteStream#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
-    def write_queue_full
+    def write_queue_full?
       if !block_given?
         return @j_del.java_method(:writeQueueFull, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling write_queue_full()"
+      raise ArgumentError, "Invalid arguments when calling write_queue_full?()"
     end
     #  Set a drain handler on the stream. If the write queue is full, then the handler will be called when the write
     #  queue has been reduced to maxSize / 2. See {::Vertx::Pump} for an example of this being used.

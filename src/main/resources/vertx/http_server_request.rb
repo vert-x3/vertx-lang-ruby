@@ -238,11 +238,11 @@ module Vertx
     end
     #  @return  true if we are expecting a multi-part body for this request. See {::Vertx::HttpServerRequest#set_expect_multipart}.
     # @return [true,false]
-    def is_expect_multipart
+    def expect_multipart?
       if !block_given?
         return @j_del.java_method(:isExpectMultipart, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_expect_multipart()"
+      raise ArgumentError, "Invalid arguments when calling expect_multipart?()"
     end
     #  Set an upload handler. The handler will get notified once a new file upload was received to allow you to deal
     #  with the file upload.
@@ -293,11 +293,11 @@ module Vertx
     end
     #  Has the request ended? I.e. has the entire request, including the body been read?
     # @return [true,false] true if ended
-    def is_ended
+    def ended?
       if !block_given?
         return @j_del.java_method(:isEnded, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_ended()"
+      raise ArgumentError, "Invalid arguments when calling ended?()"
     end
   end
 end

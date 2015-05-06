@@ -49,11 +49,11 @@ module Vertx
     end
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
-    def is_metrics_enabled
+    def metrics_enabled?
       if !block_given?
         return @j_del.java_method(:isMetricsEnabled, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
+      raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
     #  Creates a non clustered instance using the specified options
     # @param [Hash] options the options to use
@@ -237,11 +237,11 @@ module Vertx
     #  Cancels the timer with the specified <code>id</code>.
     # @param [Fixnum] id The id of the timer to cancel
     # @return [true,false] true if the timer was successfully cancelled, or false if the timer does not exist.
-    def cancel_timer(id=nil)
+    def cancel_timer?(id=nil)
       if id.class == Fixnum && !block_given?
         return @j_del.java_method(:cancelTimer, [Java::long.java_class]).call(id)
       end
-      raise ArgumentError, "Invalid arguments when calling cancel_timer(id)"
+      raise ArgumentError, "Invalid arguments when calling cancel_timer?(id)"
     end
     #  Puts the handler on the event queue for the current context so it will be run asynchronously ASAP after all
     #  preceeding events have been handled.
@@ -304,11 +304,11 @@ module Vertx
     end
     #  Is this Vert.x instance clustered?
     # @return [true,false] true if clustered
-    def is_clustered
+    def clustered?
       if !block_given?
         return @j_del.java_method(:isClustered, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_clustered()"
+      raise ArgumentError, "Invalid arguments when calling clustered?()"
     end
     #  Safely execute some blocking code.
     #  <p>

@@ -4,11 +4,11 @@ module Vertx
   module Measured
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
-    def is_metrics_enabled
+    def metrics_enabled?
       if !block_given?
         return @j_del.java_method(:isMetricsEnabled, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
+      raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
   end
   class MeasuredImpl

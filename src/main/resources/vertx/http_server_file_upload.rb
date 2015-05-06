@@ -120,11 +120,11 @@ module Vertx
     end
     #  @return true if the size of the upload can be retrieved via {::Vertx::HttpServerFileUpload#size}.
     # @return [true,false]
-    def is_size_available
+    def size_available?
       if !block_given?
         return @j_del.java_method(:isSizeAvailable, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_size_available()"
+      raise ArgumentError, "Invalid arguments when calling size_available?()"
     end
   end
 end

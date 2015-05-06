@@ -610,11 +610,11 @@ module Vertx
     #  Blocking version of {::Vertx::FileSystem#exists}
     # @param [String] path
     # @return [true,false]
-    def exists_blocking(path=nil)
+    def exists_blocking?(path=nil)
       if path.class == String && !block_given?
         return @j_del.java_method(:existsBlocking, [Java::java.lang.String.java_class]).call(path)
       end
-      raise ArgumentError, "Invalid arguments when calling exists_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling exists_blocking?(path)"
     end
     #  Returns properties of the file-system being used by the specified <code>path</code>, asynchronously.
     # @param [String] path path to anywhere on the filesystem

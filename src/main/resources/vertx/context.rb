@@ -78,27 +78,27 @@ module Vertx
     end
     #  @return true if this is an event loop context, false otherwise
     # @return [true,false]
-    def is_event_loop_context
+    def event_loop_context?
       if !block_given?
         return @j_del.java_method(:isEventLoopContext, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_event_loop_context()"
+      raise ArgumentError, "Invalid arguments when calling event_loop_context?()"
     end
     #  @return true if this is an worker context, false otherwise
     # @return [true,false]
-    def is_worker
+    def worker?
       if !block_given?
         return @j_del.java_method(:isWorker, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_worker()"
+      raise ArgumentError, "Invalid arguments when calling worker?()"
     end
     #  @return true if this is a multi-threaded worker context, false otherwise
     # @return [true,false]
-    def is_multi_threaded
+    def multi_threaded?
       if !block_given?
         return @j_del.java_method(:isMultiThreaded, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_multi_threaded()"
+      raise ArgumentError, "Invalid arguments when calling multi_threaded?()"
     end
     #  Get some data from the context.
     # @param [String] key the key of the data
@@ -124,11 +124,19 @@ module Vertx
     #  Remove some data from the context.
     # @param [String] key the key to remove
     # @return [true,false] true if removed successfully, false otherwise
-    def remove(key=nil)
+    def remove?(key=nil)
       if key.class == String && !block_given?
         return @j_del.java_method(:remove, [Java::java.lang.String.java_class]).call(key)
       end
-      raise ArgumentError, "Invalid arguments when calling remove(key)"
+      raise ArgumentError, "Invalid arguments when calling remove?(key)"
+    end
+    #  @return The Vertx instance that created the context
+    # @return [::Vertx::Vertx]
+    def owner
+      if !block_given?
+        return ::Vertx::Vertx.new(@j_del.java_method(:owner, []).call())
+      end
+      raise ArgumentError, "Invalid arguments when calling owner()"
     end
   end
 end

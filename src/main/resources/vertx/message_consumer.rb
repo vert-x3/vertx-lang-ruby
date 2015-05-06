@@ -77,11 +77,11 @@ module Vertx
     end
     #  @return true if the current consumer is registered
     # @return [true,false]
-    def is_registered
+    def registered?
       if !block_given?
         return @j_del.java_method(:isRegistered, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_registered()"
+      raise ArgumentError, "Invalid arguments when calling registered?()"
     end
     #  @return The address the handler was registered with.
     # @return [String]

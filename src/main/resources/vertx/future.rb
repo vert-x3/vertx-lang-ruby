@@ -46,11 +46,11 @@ module Vertx
     #  <p>
     #  It's completed if it's either succeeded or failed.
     # @return [true,false] true if completed, false if not
-    def is_complete
+    def complete?
       if !block_given?
         return @j_del.java_method(:isComplete, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_complete()"
+      raise ArgumentError, "Invalid arguments when calling complete?()"
     end
     #  Set a handler for the result.
     #  <p>

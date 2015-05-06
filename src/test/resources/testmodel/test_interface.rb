@@ -623,11 +623,11 @@ module Testmodel
       raise ArgumentError, "Invalid arguments when calling method_with_double_return()"
     end
     # @return [true,false]
-    def method_with_boolean_return
+    def method_with_boolean_return?
       if !block_given?
         return @j_del.java_method(:methodWithBooleanReturn, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_boolean_return()"
+      raise ArgumentError, "Invalid arguments when calling method_with_boolean_return?()"
     end
     # @return [Fixnum]
     def method_with_char_return

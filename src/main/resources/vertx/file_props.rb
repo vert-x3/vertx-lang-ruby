@@ -40,35 +40,35 @@ module Vertx
     end
     #  Is the file a directory?
     # @return [true,false]
-    def is_directory
+    def directory?
       if !block_given?
         return @j_del.java_method(:isDirectory, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_directory()"
+      raise ArgumentError, "Invalid arguments when calling directory?()"
     end
     #  Is the file some other type? (I.e. not a directory, regular file or symbolic link)
     # @return [true,false]
-    def is_other
+    def other?
       if !block_given?
         return @j_del.java_method(:isOther, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_other()"
+      raise ArgumentError, "Invalid arguments when calling other?()"
     end
     #  Is the file a regular file?
     # @return [true,false]
-    def is_regular_file
+    def regular_file?
       if !block_given?
         return @j_del.java_method(:isRegularFile, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_regular_file()"
+      raise ArgumentError, "Invalid arguments when calling regular_file?()"
     end
     #  Is the file a symbolic link?
     # @return [true,false]
-    def is_symbolic_link
+    def symbolic_link?
       if !block_given?
         return @j_del.java_method(:isSymbolicLink, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_symbolic_link()"
+      raise ArgumentError, "Invalid arguments when calling symbolic_link?()"
     end
     #  The size of the file, in bytes
     # @return [Fixnum]

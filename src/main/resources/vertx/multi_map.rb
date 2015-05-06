@@ -38,19 +38,19 @@ module Vertx
     #  Checks to see if there is a value with the specified name
     # @param [String] name The name to search for
     # @return [true,false] true if at least one entry is found
-    def contains(name=nil)
+    def contains?(name=nil)
       if name.class == String && !block_given?
         return @j_del.java_method(:contains, [Java::java.lang.String.java_class]).call(name)
       end
-      raise ArgumentError, "Invalid arguments when calling contains(name)"
+      raise ArgumentError, "Invalid arguments when calling contains?(name)"
     end
     #  Return true if empty
     # @return [true,false]
-    def is_empty
+    def empty?
       if !block_given?
         return @j_del.java_method(:isEmpty, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_empty()"
+      raise ArgumentError, "Invalid arguments when calling empty?()"
     end
     #  Gets a immutable Set of all names
     # @return [Set<String>] A {@link java.util.Set} of all names

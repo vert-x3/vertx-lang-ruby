@@ -27,11 +27,11 @@ module Vertx
     end
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
-    def is_metrics_enabled
+    def metrics_enabled?
       if !block_given?
         return @j_del.java_method(:isMetricsEnabled, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
+      raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
     #  Return the request stream for the server. As HTTP requests are received by the server,
     #  instances of {::Vertx::HttpServerRequest} will be created and passed to the stream {::Vertx::ReadStream#handler}.

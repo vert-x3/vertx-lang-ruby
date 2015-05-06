@@ -53,27 +53,27 @@ module Vertx
     end
     #  @return true if it's a text frame
     # @return [true,false]
-    def is_text
+    def text?
       if !block_given?
         return @j_del.java_method(:isText, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_text()"
+      raise ArgumentError, "Invalid arguments when calling text?()"
     end
     #  @return true if it's a binary frame
     # @return [true,false]
-    def is_binary
+    def binary?
       if !block_given?
         return @j_del.java_method(:isBinary, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_binary()"
+      raise ArgumentError, "Invalid arguments when calling binary?()"
     end
     #  @return true if it's a continuation frame
     # @return [true,false]
-    def is_continuation
+    def continuation?
       if !block_given?
         return @j_del.java_method(:isContinuation, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_continuation()"
+      raise ArgumentError, "Invalid arguments when calling continuation?()"
     end
     #  @return the content of this frame as a UTF-8 string and returns the
     #  converted string. Only use this for text frames.
@@ -100,11 +100,11 @@ module Vertx
     end
     #  @return true if this is the final frame.
     # @return [true,false]
-    def is_final
+    def final?
       if !block_given?
         return @j_del.java_method(:isFinal, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_final()"
+      raise ArgumentError, "Invalid arguments when calling final?()"
     end
   end
 end

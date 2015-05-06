@@ -27,11 +27,11 @@ module Vertx
     end
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
-    def is_metrics_enabled
+    def metrics_enabled?
       if !block_given?
         return @j_del.java_method(:isMetricsEnabled, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_metrics_enabled()"
+      raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
     #  Like {::Vertx::EventBus#send} but specifying a <code>replyHandler</code> that will be called if the recipient
     #  subsequently replies to the message.

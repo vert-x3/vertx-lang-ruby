@@ -36,11 +36,11 @@ module Vertx
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpServerResponse#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
-    def write_queue_full
+    def write_queue_full?
       if !block_given?
         return @j_del.java_method(:writeQueueFull, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling write_queue_full()"
+      raise ArgumentError, "Invalid arguments when calling write_queue_full?()"
     end
     # @yield 
     # @return [self]
@@ -151,11 +151,11 @@ module Vertx
     end
     #  @return is the response chunked?
     # @return [true,false]
-    def is_chunked
+    def chunked?
       if !block_given?
         return @j_del.java_method(:isChunked, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling is_chunked()"
+      raise ArgumentError, "Invalid arguments when calling chunked?()"
     end
     #  @return The HTTP headers
     # @return [::Vertx::MultiMap]
@@ -259,19 +259,19 @@ module Vertx
     end
     #  @return has the response already ended?
     # @return [true,false]
-    def ended
+    def ended?
       if !block_given?
         return @j_del.java_method(:ended, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling ended()"
+      raise ArgumentError, "Invalid arguments when calling ended?()"
     end
     #  @return have the headers for the response already been written?
     # @return [true,false]
-    def head_written
+    def head_written?
       if !block_given?
         return @j_del.java_method(:headWritten, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling head_written()"
+      raise ArgumentError, "Invalid arguments when calling head_written?()"
     end
     #  Provide a handler that will be called just before the headers are written to the wire.<p>
     #  This provides a hook allowing you to add any more headers or do any more operations before this occurs.
