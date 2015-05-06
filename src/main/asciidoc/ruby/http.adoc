@@ -552,7 +552,7 @@ vertx.create_http_server().request_handler() { |request|
   if (request.path().equals("/"))
     file = "index.html"
   else
-    if (!request.path().contains(".."))
+    if (!request.path().contains?(".."))
       file = request.path()
     endend
   request.response().send_file("web/#{file}")

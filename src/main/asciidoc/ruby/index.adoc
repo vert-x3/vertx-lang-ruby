@@ -653,7 +653,7 @@ To cancel a periodic timer, call `link:yardoc/Vertx/Vertx.html#cancel_timer-inst
 
 [source,ruby]
 ----
-vertx.cancel_timer(timerID)
+vertx.cancel_timer?(timerID)
 
 ----
 

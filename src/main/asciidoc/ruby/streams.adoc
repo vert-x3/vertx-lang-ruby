@@ -57,7 +57,7 @@ server = vertx.create_net_server({
 })
 server.connect_handler() { |sock|
   sock.handler() { |buffer|
-    if (!sock.write_queue_full())
+    if (!sock.write_queue_full?())
       sock.write(buffer)
     end
   }
@@ -78,7 +78,7 @@ server = vertx.create_net_server({
 server.connect_handler() { |sock|
   sock.handler() { |buffer|
     sock.write(buffer)
-    if (sock.write_queue_full())
+    if (sock.write_queue_full?())
       sock.pause()
     end
   }
@@ -98,7 +98,7 @@ server = vertx.create_net_server({
 server.connect_handler() { |sock|
   sock.handler() { |buffer|
     sock.write(buffer)
-    if (sock.write_queue_full())
+    if (sock.write_queue_full?())
       sock.pause()
       sock.drain_handler() { |done|
         sock.resume()
