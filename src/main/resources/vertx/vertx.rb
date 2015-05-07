@@ -298,7 +298,7 @@ module Vertx
     # @return [Set<String>] Set of deployment IDs
     def deployment_i_ds
       if !block_given?
-        return @j_del.java_method(:deploymentIDs, []).call().to_set.map! { |elt| elt }
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:deploymentIDs, []).call()).map! { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling deployment_i_ds()"
     end

@@ -56,7 +56,7 @@ module Vertx
     # @return [Set<String>] A {@link java.util.Set} of all names
     def names
       if !block_given?
-        return @j_del.java_method(:names, []).call().to_set.map! { |elt| elt }
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:names, []).call()).map! { |elt| elt }
       end
       raise ArgumentError, "Invalid arguments when calling names()"
     end

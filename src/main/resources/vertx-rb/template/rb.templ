@@ -352,7 +352,10 @@
         return expr + ".to_a.map { |elt| " + genConvReturn(elementType, "elt") + " }";
       } else if (kind == CLASS_SET) {
         var elementType = type.args[0];
+        /*
         return expr + ".to_set.map! { |elt| " + genConvReturn(elementType, "elt") + " }";
+        */
+        return "::Vertx::Util::Utils.to_set(" + expr + ").map! { |elt| " + genConvReturn(elementType, "elt") + " }";
       } else if (kind == CLASS_MAP) {
         var valueType = type.args[1];
         var valueKind = valueType.kind;

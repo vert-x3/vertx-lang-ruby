@@ -549,12 +549,11 @@ Here's a very simple web server that serves files from the file system using sen
 ----
 vertx.create_http_server().request_handler() { |request|
   file = ""
-  if (request.path().equals("/"))
+  if (request.path().==("/"))
     file = "index.html"
-  else
-    if (!request.path().contains?(".."))
-      file = request.path()
-    endend
+  elsif (!request.path().contains?(".."))
+    file = request.path()
+  end
   request.response().send_file("web/#{file}")
 }.listen(8080)
 
@@ -1258,7 +1257,7 @@ You can choose to reject the WebSocket by calling `link:yardoc/Vertx/ServerWebSo
 ----
 
 server.websocket_handler() { |websocket|
-  if (websocket.path().equals("/myapi"))
+  if (websocket.path().==("/myapi"))
     websocket.reject()
   else
     # Do something
@@ -1276,7 +1275,7 @@ call `link:yardoc/Vertx/HttpServerRequest.html#upgrade-instance_method[upgrade]`
 ----
 
 server.request_handler() { |request|
-  if (request.path().equals("/myapi"))
+  if (request.path().==("/myapi"))
 
     websocket = request.upgrade()
     # Do something

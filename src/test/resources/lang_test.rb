@@ -1,5 +1,5 @@
 require 'java'
-require "assert"
+require 'assert'
 require 'ruby-codegen/linear_overloaded_methods'
 require 'ruby-codegen/multi_overloaded_methods'
 require 'ruby-codegen/super_mixin'

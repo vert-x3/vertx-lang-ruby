@@ -1,4 +1,5 @@
 require 'json'
+require 'set'
 java_import 'io.vertx.core.json.JsonObject'
 java_import 'io.vertx.core.json.JsonArray'
 module Vertx
@@ -98,6 +99,11 @@ module Vertx
           # Best effort, we let jruby handle the conversion
           object
         end
+      end
+      def self.to_set(set)
+        ret = Set.new
+        set.each { |elt| ret.add elt }
+        ret
       end
     end
     class HashProxy < Hash
