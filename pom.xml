@@ -60,12 +60,7 @@
     </dependency>
     <dependency>
       <groupId>org.jruby</groupId>
-      <artifactId>jruby-core</artifactId>
-      <version>1.7.20</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jruby</groupId>
-      <artifactId>jruby-stdlib</artifactId>
+      <artifactId>jruby-complete</artifactId>
       <version>1.7.20</version>
     </dependency>
     <dependency>
