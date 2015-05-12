@@ -42,6 +42,36 @@ module Vertx
     def j_del
       @j_del
     end
+    #  Is the current thread a worker thread?
+    #  <p>
+    #  NOTE! This is not always the same as calling {::Vertx::Context#is_worker_context}. If you are running blocking code
+    #  from an event loop context, then this will return true but {::Vertx::Context#is_worker_context} will return false.
+    # @return [true,false] true if current thread is a worker thread, false otherwise
+    def self.on_worker_thread?
+      if !block_given?
+        return Java::IoVertxCore::Context.java_method(:isOnWorkerThread, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling on_worker_thread?()"
+    end
+    #  Is the current thread an event thread?
+    #  <p>
+    #  NOTE! This is not always the same as calling {::Vertx::Context#is_event_loop_context}. If you are running blocking code
+    #  from an event loop context, then this will return false but {::Vertx::Context#is_event_loop_context} will return true.
+    # @return [true,false] true if current thread is a worker thread, false otherwise
+    def self.on_event_loop_thread?
+      if !block_given?
+        return Java::IoVertxCore::Context.java_method(:isOnEventLoopThread, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling on_event_loop_thread?()"
+    end
+    #  Is the current thread a Vert.x thread? That's either a worker thread or an event loop thread
+    # @return [true,false] true if current thread is a Vert.x thread, false otherwise
+    def self.on_vertx_thread?
+      if !block_given?
+        return Java::IoVertxCore::Context.java_method(:isOnVertxThread, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling on_vertx_thread?()"
+    end
     #  Run the specified action asynchronously on the same context, some time after the current execution has completed.
     # @yield the action to run
     # @return [void]
@@ -76,29 +106,37 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling process_args()"
     end
-    #  @return true if this is an event loop context, false otherwise
-    # @return [true,false]
+    #  Is the current context an event loop context?
+    #  <p>
+    #  NOTE! when running blocking code using {::Vertx::Vertx#execute_blocking} from a
+    #  standard (not worker) verticle, the context will still an event loop context and this 
+    #  will return true.
+    # @return [true,false] true if false otherwise
     def event_loop_context?
       if !block_given?
         return @j_del.java_method(:isEventLoopContext, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling event_loop_context?()"
     end
-    #  @return true if this is an worker context, false otherwise
-    # @return [true,false]
-    def worker?
+    #  Is the current context a worker context?
+    #  <p>
+    #  NOTE! when running blocking code using {::Vertx::Vertx#execute_blocking} from a
+    #  standard (not worker) verticle, the context will still an event loop context and this 
+    #  will return false.
+    # @return [true,false] true if the current context is a worker context, false otherwise
+    def worker_context?
       if !block_given?
-        return @j_del.java_method(:isWorker, []).call()
+        return @j_del.java_method(:isWorkerContext, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling worker?()"
+      raise ArgumentError, "Invalid arguments when calling worker_context?()"
     end
-    #  @return true if this is a multi-threaded worker context, false otherwise
-    # @return [true,false]
-    def multi_threaded?
+    #  Is the current context a multi-threaded worker context?
+    # @return [true,false] true if the current context is a multi-threaded worker context, false otherwise
+    def multi_threaded_worker_context?
       if !block_given?
-        return @j_del.java_method(:isMultiThreaded, []).call()
+        return @j_del.java_method(:isMultiThreadedWorkerContext, []).call()
       end
-      raise ArgumentError, "Invalid arguments when calling multi_threaded?()"
+      raise ArgumentError, "Invalid arguments when calling multi_threaded_worker_context?()"
     end
     #  Get some data from the context.
     # @param [String] key the key of the data
