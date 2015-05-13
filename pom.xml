@@ -230,6 +230,23 @@
               <sourceDirectory>${project.build.directory}/sources/vertx-core</sourceDirectory>
             </configuration>
           </execution>
+          <!-- We have to run the annotation processor again to process doc overrides -->
+          <execution>
+            <id>generate-docoverride</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <phase>prepare-package</phase>
+            <configuration>
+              <processors>
+                <processor>io.vertx.docgen.DocGenProcessor</processor>
+              </processors>
+              <optionMap>
+                <docgen.output>${asciidoc.dir}/ruby</docgen.output>
+              </optionMap>
+              <sourceDirectory>src/main/docoverride</sourceDirectory>
+            </configuration>
+          </execution>
           <!-- Run the annotation processor on codegen and generate the ruby codegen -->
           <execution>
             <id>generate-codegen</id>
