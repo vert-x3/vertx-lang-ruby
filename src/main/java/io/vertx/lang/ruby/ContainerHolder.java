@@ -88,36 +88,29 @@ class ContainerHolder {
       String modName = "Mod___VertxInternalVert__" + seq.incrementAndGet();
       StringBuilder script = new StringBuilder("require 'vertx/util/vertx_require'\n").append("module ").append(modName).append(";extend self;");
 
-      RubyModule wrappingModule;
-      if (verticleName.endsWith(".rb")) {
-        URL url = classLoader.getResource(verticleName);
-        if (url == null) {
-          File f = new File(verticleName);
-          if (!f.isAbsolute()) {
-            f = new File(System.getProperty("user.dir"), verticleName);
-          }
-          if (f.exists() && f.isFile()) {
-            url = f.toURI().toURL();
-          }
+      URL url = classLoader.getResource(verticleName);
+      if (url == null) {
+        File f = new File(verticleName);
+        if (!f.isAbsolute()) {
+          f = new File(System.getProperty("user.dir"), verticleName);
         }
-        if (url == null) {
-          throw new IllegalStateException("Cannot find verticle script: " + verticleName + " on classpath");
+        if (f.exists() && f.isFile()) {
+          url = f.toURI().toURL();
         }
-        int idx = verticleName.lastIndexOf('/');
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-        for (String line = br.readLine(); line != null; line = br.readLine()) {
-          script.append(line).append("\n");
-        }
-        br.close();
-        script.append(";end;").append(modName);
-
-        wrappingModule = (RubyModule) container.runScriptlet(new StringReader(script.toString()), verticleName.substring(idx + 1));
-      } else {
-        script.append("require '").append(verticleName).append("'");
-        script.append(";end;").append(modName);
-        wrappingModule = (RubyModule) container.runScriptlet(script.toString());
       }
+      if (url == null) {
+        throw new IllegalStateException("Cannot find verticle script: " + verticleName + " on classpath");
+      }
+      int idx = verticleName.lastIndexOf('/');
+
+      BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+      for (String line = br.readLine(); line != null; line = br.readLine()) {
+        script.append(line).append("\n");
+      }
+      br.close();
+      script.append(";end;").append(modName);
+
+      RubyModule wrappingModule = (RubyModule) container.runScriptlet(new StringReader(script.toString()), verticleName.substring(idx + 1));
 
       if (wrappingModule.getMethods().containsKey("vertx_start")) {
         container.callMethod(wrappingModule, "vertx_start");

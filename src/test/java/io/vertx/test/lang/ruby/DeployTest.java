@@ -47,16 +47,6 @@ public class DeployTest extends VertxTestBase {
   }
 
   @Test
-  public void testDeployRubyVerticle2() {
-    vertx.deployVerticle("rb:simple_verticle", ar -> {
-      assertTrue(ar.succeeded());
-      assertEquals(1, deployedCount);
-      testComplete();
-    });
-    await();
-  }
-
-  @Test
   public void testDeployAbsentVerticle() {
     vertx.deployVerticle("doesnotexists.rb", ar -> {
       assertTrue(ar.failed());
@@ -66,7 +56,7 @@ public class DeployTest extends VertxTestBase {
   }
 
   @Test
-  public void testDeployGem() {
+  public void testGemPath() {
     File gemsDir = new File(System.getProperty("gems.path"));
     if (gemsDir.exists()) {
       if (!gemsDir.isDirectory()) {
@@ -80,7 +70,7 @@ public class DeployTest extends VertxTestBase {
         "require 'rubygems'\n" +
         "require 'rubygems/gem_runner'\n" +
         "require 'rubygems/exceptions'\n" +
-        "Gem::GemRunner.new.run ['install', 'src/test/gems/test_gem_verticle/test_gem_verticle-0.0.0.gem', '--install-dir', '" +
+        "Gem::GemRunner.new.run ['install', 'src/test/gems/test_gem/test_gem-0.0.0.gem', '--install-dir', '" +
             gemsDir.getAbsolutePath() + "']"
     );
     vertx.eventBus().consumer("deployment", msg -> {
@@ -88,7 +78,7 @@ public class DeployTest extends VertxTestBase {
       testComplete();
     });
     vertx.deployVerticle(
-        "rb:test_gem_verticle",
+        "verticle_requiring_gem.rb",
         new DeploymentOptions().setConfig(new JsonObject().put("GEM_PATH", gemsDir.getAbsolutePath())),
         ar -> {
       assertTrue(ar.succeeded());
