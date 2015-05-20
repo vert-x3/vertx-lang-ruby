@@ -438,6 +438,46 @@ def test_method_with_handler_async_result_set_null_json_array
   Assert.equals(1, count)
 end
 
+def test_method_with_handler_list_data_object
+  count = 0
+  @obj.method_with_handler_list_data_object do |val|
+    Assert.equals(val.class, Array)
+    val.each { |elt| Assert.equals(elt.is_a?(Hash), true) }
+    Assert.equals(val[0], {'foo'=>'String 1','bar'=>1,'wibble'=>1.1})
+    Assert.equals(val[1], {'foo'=>'String 2','bar'=>2,'wibble'=>2.2})
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def test_method_with_handler_list_null_data_object
+  count = 0
+  @obj.method_with_handler_list_null_data_object do |val|
+    Assert.equals(val.class, Array)
+    Assert.equals(val[0], nil)
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def test_method_with_handler_set_data_object
+  count = 0
+  @obj.method_with_handler_set_data_object do |val|
+    Assert.equals(val, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def test_method_with_handler_null_set_data_object
+  count = 0
+  @obj.method_with_handler_set_null_data_object do |val|
+    Assert.equals(val, Set.new([nil]))
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
 def test_method_with_handler_async_result_list_data_object
   count = 0
   @obj.method_with_handler_async_result_list_data_object do |err,val|

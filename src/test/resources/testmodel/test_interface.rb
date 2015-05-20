@@ -397,6 +397,38 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_list_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerListDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_list_null_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerListNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_null_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_set_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerSetDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_set_null_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerSetNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_data_object()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_async_result_list_vertx_gen
       if block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
