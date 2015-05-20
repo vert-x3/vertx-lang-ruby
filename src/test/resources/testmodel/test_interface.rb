@@ -172,7 +172,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_data_object(sendFailure=nil)
       if (sendFailure.class == TrueClass || sendFailure.class == FalseClass) && block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultDataObject, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(sendFailure,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? JSON.parse(ar.result.toJson.encode) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultDataObject, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(sendFailure,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.toJson.encode) : nil : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_data_object(sendFailure)"
     end
@@ -217,12 +217,13 @@ module Testmodel
     # @param [Array<Hash{String => Object}>] listJsonObject
     # @param [Array<Array<String,Object>>] listJsonArray
     # @param [Array<::Testmodel::RefedInterface1>] listVertxGen
+    # @param [Array<Hash>] listDataObject
     # @return [void]
-    def method_with_list_params(listString=nil,listByte=nil,listShort=nil,listInt=nil,listLong=nil,listJsonObject=nil,listJsonArray=nil,listVertxGen=nil)
-      if listString.class == Array && listByte.class == Array && listShort.class == Array && listInt.class == Array && listLong.class == Array && listJsonObject.class == Array && listJsonArray.class == Array && listVertxGen.class == Array && !block_given?
-        return @j_del.java_method(:methodWithListParams, [Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class]).call(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) },listJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) },listVertxGen.map { |element| element.j_del })
+    def method_with_list_params(listString=nil,listByte=nil,listShort=nil,listInt=nil,listLong=nil,listJsonObject=nil,listJsonArray=nil,listVertxGen=nil,listDataObject=nil)
+      if listString.class == Array && listByte.class == Array && listShort.class == Array && listInt.class == Array && listLong.class == Array && listJsonObject.class == Array && listJsonArray.class == Array && listVertxGen.class == Array && listDataObject.class == Array && !block_given?
+        return @j_del.java_method(:methodWithListParams, [Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class]).call(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) },listJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) },listVertxGen.map { |element| element.j_del },listDataObject.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) })
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen)"
+      raise ArgumentError, "Invalid arguments when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen,listDataObject)"
     end
     # @param [Set<String>] setString
     # @param [Set<Fixnum>] setByte
@@ -232,12 +233,13 @@ module Testmodel
     # @param [Set<Hash{String => Object}>] setJsonObject
     # @param [Set<Array<String,Object>>] setJsonArray
     # @param [Set<::Testmodel::RefedInterface1>] setVertxGen
+    # @param [Set<Hash>] setDataObject
     # @return [void]
-    def method_with_set_params(setString=nil,setByte=nil,setShort=nil,setInt=nil,setLong=nil,setJsonObject=nil,setJsonArray=nil,setVertxGen=nil)
-      if setString.class == Set && setByte.class == Set && setShort.class == Set && setInt.class == Set && setLong.class == Set && setJsonObject.class == Set && setJsonArray.class == Set && setVertxGen.class == Set && !block_given?
-        return @j_del.java_method(:methodWithSetParams, [Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }))
+    def method_with_set_params(setString=nil,setByte=nil,setShort=nil,setInt=nil,setLong=nil,setJsonObject=nil,setJsonArray=nil,setVertxGen=nil,setDataObject=nil)
+      if setString.class == Set && setByte.class == Set && setShort.class == Set && setInt.class == Set && setLong.class == Set && setJsonObject.class == Set && setJsonArray.class == Set && setVertxGen.class == Set && setDataObject.class == Set && !block_given?
+        return @j_del.java_method(:methodWithSetParams, [Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }),Java::JavaUtil::LinkedHashSet.new(setDataObject.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen)"
+      raise ArgumentError, "Invalid arguments when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen,setDataObject)"
     end
     # @param [Hash{String => String}] mapString
     # @param [Hash{String => Fixnum}] mapByte
@@ -491,6 +493,38 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_async_result_list_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultListDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_list_null_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultListNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_null_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_set_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_data_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_set_null_data_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_data_object()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_user_types
       if block_given?
         return @j_del.java_method(:methodWithHandlerUserTypes, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) }))
@@ -558,7 +592,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_data_object
       if block_given?
-        return @j_del.java_method(:methodWithHandlerDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(JSON.parse(event.toJson.encode)) }))
+        return @j_del.java_method(:methodWithHandlerDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event != nil ? JSON.parse(event.toJson.encode) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_data_object()"
     end

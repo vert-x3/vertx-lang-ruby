@@ -198,6 +198,26 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerAsyncResultListDataObject() {
+    runTest("test_method_with_handler_async_result_list_data_object");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultListNullDataObject() {
+    runTest("test_method_with_handler_async_result_list_null_data_object");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetDataObject() {
+    runTest("test_method_with_handler_async_result_set_data_object");
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultNullSetDataObject() {
+    runTest("test_method_with_handler_async_result_null_set_data_object");
+  }
+
+  @Test
   public void testMethodWithHandlerUserTypes() {
     runTest("test_method_with_handler_user_types");
   }
