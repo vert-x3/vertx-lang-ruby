@@ -1,6 +1,7 @@
 require 'vertx/buffer'
 require 'vertx/write_stream'
 require 'vertx/multi_map'
+require 'vertx/future'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerResponse
 module Vertx
@@ -275,11 +276,13 @@ module Vertx
     end
     #  Provide a handler that will be called just before the headers are written to the wire.<p>
     #  This provides a hook allowing you to add any more headers or do any more operations before this occurs.
+    #  The handler will be passed a future, when you've completed the work you want to do you should complete (or fail)
+    #  the future. This can be done after the handler has returned.
     # @yield the handler
     # @return [self]
     def headers_end_handler
       if block_given?
-        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
+        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Future.new(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling headers_end_handler()"
