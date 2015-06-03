@@ -19,7 +19,7 @@ module Vertx
     #  Returns the value of with the specified name.  If there are
     #  more than one values for the specified name, the first value is returned.
     # @param [String] name The name of the header to search
-    # @return [String] The first header value or {@code null} if there is no such entry
+    # @return [String] The first header value or <code>null</code> if there is no such entry
     def get(name=nil)
       if name.class == String && !block_given?
         return @j_del.java_method(:get, [Java::java.lang.String.java_class]).call(name)
@@ -28,7 +28,7 @@ module Vertx
     end
     #  Returns the values with the specified name
     # @param [String] name The name to search
-    # @return [Array<String>] A immutable {@link java.util.List} of values which will be empty if no values are found
+    # @return [Array<String>] A immutable List of values which will be empty if no values are found
     def get_all(name=nil)
       if name.class == String && !block_given?
         return @j_del.java_method(:getAll, [Java::java.lang.String.java_class]).call(name).to_a.map { |elt| elt }
@@ -53,7 +53,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling empty?()"
     end
     #  Gets a immutable Set of all names
-    # @return [Set<String>] A {@link java.util.Set} of all names
+    # @return [Set<String>] A Set of all names
     def names
       if !block_given?
         return ::Vertx::Util::Utils.to_set(@j_del.java_method(:names, []).call()).map! { |elt| elt }
