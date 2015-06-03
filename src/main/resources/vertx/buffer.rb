@@ -27,7 +27,7 @@ module Vertx
     #   @param [String] string the string
     # @overload buffer(string,enc)
     #   @param [String] string the string
-    #   @param [String] enc
+    #   @param [String] enc 
     # @return [::Vertx::Buffer] the buffer
     def self.buffer(param_1=nil,param_2=nil)
       if !block_given? && param_1 == nil && param_2 == nil
@@ -42,7 +42,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling buffer(param_1,param_2)"
     end
     #  Returns a <code>String</code> representation of the Buffer with the encoding specified by <code>enc</code>
-    # @param [String] enc
+    # @param [String] enc 
     # @return [String]
     def to_string(enc=nil)
       if enc.class == String && !block_given?
@@ -51,7 +51,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling to_string(enc)"
     end
     #  Returns the <code>byte</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Fixnum]
     def get_byte(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -60,7 +60,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_byte(pos)"
     end
     #  Returns the <code>int</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Fixnum]
     def get_int(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -69,7 +69,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_int(pos)"
     end
     #  Returns the <code>long</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Fixnum]
     def get_long(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -78,7 +78,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_long(pos)"
     end
     #  Returns the <code>double</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Float]
     def get_double(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -87,7 +87,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_double(pos)"
     end
     #  Returns the <code>float</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Float]
     def get_float(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -96,7 +96,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_float(pos)"
     end
     #  Returns the <code>short</code> at position <code>pos</code> in the Buffer.
-    # @param [Fixnum] pos
+    # @param [Fixnum] pos 
     # @return [Fixnum]
     def get_short(pos=nil)
       if pos.class == Fixnum && !block_given?
@@ -106,8 +106,8 @@ module Vertx
     end
     #  Returns a copy of a sub-sequence the Buffer as a {::Vertx::Buffer} starting at position <code>start</code>
     #  and ending at position <code>end - 1</code>
-    # @param [Fixnum] start
-    # @param [Fixnum] _end
+    # @param [Fixnum] start 
+    # @param [Fixnum] _end 
     # @return [::Vertx::Buffer]
     def get_buffer(start=nil,_end=nil)
       if start.class == Fixnum && _end.class == Fixnum && !block_given?
@@ -117,9 +117,9 @@ module Vertx
     end
     #  Returns a copy of a sub-sequence the Buffer as a <code>String</code> starting at position <code>start</code>
     #  and ending at position <code>end - 1</code> interpreted as a String in the specified encoding
-    # @param [Fixnum] start
-    # @param [Fixnum] _end
-    # @param [String] enc
+    # @param [Fixnum] start 
+    # @param [Fixnum] _end 
+    # @param [String] enc 
     # @return [String]
     def get_string(start=nil,_end=nil,enc=nil)
       if start.class == Fixnum && _end.class == Fixnum && !block_given? && enc == nil
@@ -132,9 +132,9 @@ module Vertx
     #  Appends the specified <code>Buffer</code> starting at the <code>offset</code> using <code>len</code> to the end of this Buffer. The buffer will expand as necessary to accommodate
     #  any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [::Vertx::Buffer] buff
-    # @param [Fixnum] offset
-    # @param [Fixnum] len
+    # @param [::Vertx::Buffer] buff 
+    # @param [Fixnum] offset 
+    # @param [Fixnum] len 
     # @return [self]
     def append_buffer(buff=nil,offset=nil,len=nil)
       if buff.class.method_defined?(:j_del) && !block_given? && offset == nil && len == nil
@@ -148,7 +148,7 @@ module Vertx
     end
     #  Appends the specified <code>byte</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Fixnum] b
+    # @param [Fixnum] b 
     # @return [self]
     def append_byte(b=nil)
       if b.class == Fixnum && !block_given?
@@ -159,7 +159,7 @@ module Vertx
     end
     #  Appends the specified <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Fixnum] i
+    # @param [Fixnum] i 
     # @return [self]
     def append_int(i=nil)
       if i.class == Fixnum && !block_given?
@@ -170,7 +170,7 @@ module Vertx
     end
     #  Appends the specified <code>long</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Fixnum] l
+    # @param [Fixnum] l 
     # @return [self]
     def append_long(l=nil)
       if l.class == Fixnum && !block_given?
@@ -181,7 +181,7 @@ module Vertx
     end
     #  Appends the specified <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Fixnum] s
+    # @param [Fixnum] s 
     # @return [self]
     def append_short(s=nil)
       if s.class == Fixnum && !block_given?
@@ -192,7 +192,7 @@ module Vertx
     end
     #  Appends the specified <code>float</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Float] f
+    # @param [Float] f 
     # @return [self]
     def append_float(f=nil)
       if f.class == Float && !block_given?
@@ -203,7 +203,7 @@ module Vertx
     end
     #  Appends the specified <code>double</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
-    # @param [Float] d
+    # @param [Float] d 
     # @return [self]
     def append_double(d=nil)
       if d.class == Float && !block_given?
@@ -215,8 +215,8 @@ module Vertx
     #  Appends the specified <code>String</code> to the end of the Buffer with the encoding as specified by <code>enc</code>.<p>
     #  The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.<p>
-    # @param [String] str
-    # @param [String] enc
+    # @param [String] str 
+    # @param [String] enc 
     # @return [self]
     def append_string(str=nil,enc=nil)
       if str.class == String && !block_given? && enc == nil
@@ -230,8 +230,8 @@ module Vertx
     end
     #  Sets the <code>byte</code> at position <code>pos</code> in the Buffer to the value <code>b</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Fixnum] b
+    # @param [Fixnum] pos 
+    # @param [Fixnum] b 
     # @return [self]
     def set_byte(pos=nil,b=nil)
       if pos.class == Fixnum && b.class == Fixnum && !block_given?
@@ -242,8 +242,8 @@ module Vertx
     end
     #  Sets the <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Fixnum] i
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
     # @return [self]
     def set_int(pos=nil,i=nil)
       if pos.class == Fixnum && i.class == Fixnum && !block_given?
@@ -254,8 +254,8 @@ module Vertx
     end
     #  Sets the <code>long</code> at position <code>pos</code> in the Buffer to the value <code>l</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Fixnum] l
+    # @param [Fixnum] pos 
+    # @param [Fixnum] l 
     # @return [self]
     def set_long(pos=nil,l=nil)
       if pos.class == Fixnum && l.class == Fixnum && !block_given?
@@ -266,8 +266,8 @@ module Vertx
     end
     #  Sets the <code>double</code> at position <code>pos</code> in the Buffer to the value <code>d</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Float] d
+    # @param [Fixnum] pos 
+    # @param [Float] d 
     # @return [self]
     def set_double(pos=nil,d=nil)
       if pos.class == Fixnum && d.class == Float && !block_given?
@@ -278,8 +278,8 @@ module Vertx
     end
     #  Sets the <code>float</code> at position <code>pos</code> in the Buffer to the value <code>f</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Float] f
+    # @param [Fixnum] pos 
+    # @param [Float] f 
     # @return [self]
     def set_float(pos=nil,f=nil)
       if pos.class == Fixnum && f.class == Float && !block_given?
@@ -290,8 +290,8 @@ module Vertx
     end
     #  Sets the <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [Fixnum] s
+    # @param [Fixnum] pos 
+    # @param [Fixnum] s 
     # @return [self]
     def set_short(pos=nil,s=nil)
       if pos.class == Fixnum && s.class == Fixnum && !block_given?
@@ -302,10 +302,10 @@ module Vertx
     end
     #  Sets the bytes at position <code>pos</code> in the Buffer to the bytes represented by the <code>Buffer b</code> on the given <code>offset</code> and <code>len</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [::Vertx::Buffer] b
-    # @param [Fixnum] offset
-    # @param [Fixnum] len
+    # @param [Fixnum] pos 
+    # @param [::Vertx::Buffer] b 
+    # @param [Fixnum] offset 
+    # @param [Fixnum] len 
     # @return [self]
     def set_buffer(pos=nil,b=nil,offset=nil,len=nil)
       if pos.class == Fixnum && b.class.method_defined?(:j_del) && !block_given? && offset == nil && len == nil
@@ -319,9 +319,9 @@ module Vertx
     end
     #  Sets the bytes at position <code>pos</code> in the Buffer to the value of <code>str</code> encoded in encoding <code>enc</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
-    # @param [Fixnum] pos
-    # @param [String] str
-    # @param [String] enc
+    # @param [Fixnum] pos 
+    # @param [String] str 
+    # @param [String] enc 
     # @return [self]
     def set_string(pos=nil,str=nil,enc=nil)
       if pos.class == Fixnum && str.class == String && !block_given? && enc == nil
@@ -353,8 +353,8 @@ module Vertx
     #  Returns a slice of this buffer. Modifying the content
     #  of the returned buffer or this buffer affects each other's content
     #  while they maintain separate indexes and marks.
-    # @param [Fixnum] start
-    # @param [Fixnum] _end
+    # @param [Fixnum] start 
+    # @param [Fixnum] _end 
     # @return [::Vertx::Buffer]
     def slice(start=nil,_end=nil)
       if !block_given? && start == nil && _end == nil

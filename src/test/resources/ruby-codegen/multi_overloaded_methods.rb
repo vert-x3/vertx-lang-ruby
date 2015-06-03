@@ -15,10 +15,10 @@ module RubyCodegen
     end
     # @overload method()
     # @overload method(foo)
-    #   @param [String] foo
+    #   @param [String] foo 
     # @overload method(bar,juu)
-    #   @param [Fixnum] bar
-    #   @param [true,false] juu
+    #   @param [Fixnum] bar 
+    #   @param [true,false] juu 
     # @return [void]
     def method(param_1=nil,param_2=nil)
       if !block_given? && param_1 == nil && param_2 == nil
@@ -31,14 +31,14 @@ module RubyCodegen
       raise ArgumentError, "Invalid arguments when calling method(param_1,param_2)"
     end
     # @overload optionalHandler(foo,bar)
-    #   @param [String] foo
+    #   @param [String] foo 
     #   @yield 
     # @overload optionalHandler(foo,bar)
-    #   @param [String] foo
-    #   @param [Fixnum] bar
+    #   @param [String] foo 
+    #   @param [Fixnum] bar 
     # @overload optionalHandler(foo,juu)
-    #   @param [String] foo
-    #   @param [true,false] juu
+    #   @param [String] foo 
+    #   @param [true,false] juu 
     # @return [void]
     def optional_handler(param_1=nil,param_2=nil)
       if param_1.class == String && block_given? && param_2 == nil
@@ -50,8 +50,8 @@ module RubyCodegen
       end
       raise ArgumentError, "Invalid arguments when calling optional_handler(param_1,param_2)"
     end
-    # @param [Proc] foo
-    # @param [Proc] bar
+    # @param [Proc] foo 
+    # @param [Proc] bar 
     # @yield 
     # @return [void]
     def handlers(foo=nil,bar=nil)

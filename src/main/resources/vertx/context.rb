@@ -1,9 +1,9 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Context
 module Vertx
-  #  The execution context of a {::Vertx::Handler} execution.
+  #  The execution context of a {Proc} execution.
   #  <p>
-  #  When Vert.x provides an event to a handler or calls the start or stop methods of a {::Vertx::Verticle},
+  #  When Vert.x provides an event to a handler or calls the start or stop methods of a {Nil},
   #  the execution is associated with a <code>Context</code>.
   #  <p>
   #  Usually a context is an *event-loop context* and is tied to a specific event loop thread. So executions for that

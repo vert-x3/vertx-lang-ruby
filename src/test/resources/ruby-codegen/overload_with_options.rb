@@ -13,7 +13,7 @@ module RubyCodegen
     def j_del
       @j_del
     end
-    # @param [Hash] options
+    # @param [Hash] options 
     # @return [void]
     def method(options=nil)
       if !block_given? && options == nil

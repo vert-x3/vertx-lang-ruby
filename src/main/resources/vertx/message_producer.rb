@@ -33,7 +33,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
-    # @param [Object] data
+    # @param [Object] data 
     # @return [self]
     def write(data=nil)
       if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
@@ -42,7 +42,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?

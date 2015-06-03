@@ -60,7 +60,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
-    # @param [::Vertx::Buffer] data
+    # @param [::Vertx::Buffer] data 
     # @return [self]
     def write(data=nil)
       if data.class.method_defined?(:j_del) && !block_given?
@@ -69,7 +69,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?

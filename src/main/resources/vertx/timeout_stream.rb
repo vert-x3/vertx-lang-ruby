@@ -2,7 +2,7 @@ require 'vertx/read_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.TimeoutStream
 module Vertx
-  #  A timeout stream is triggered by a timer, the {::Vertx::Handler} will be call when the timer is fired,
+  #  A timeout stream is triggered by a timer, the {Proc} will be call when the timer is fired,
   #  it can be once or several times depending on the nature of the timer related to this stream. The
   #   will be called after the timer handler has been called.
   #  <p>

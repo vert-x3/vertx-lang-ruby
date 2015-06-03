@@ -309,7 +309,7 @@ Vertx::Vertx.clustered_vertx(options) { |res,res_err|
 ----
 
 You should also make sure you have a `link:unavailable[ClusterManager]` implementation on your classpath,
-for example the default .
+for example the default `HazelcastClusterManager`.
 
 ==== Clustering on the command line
 

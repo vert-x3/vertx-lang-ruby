@@ -43,8 +43,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling copy(from,to)"
     end
     #  Blocking version of {::Vertx::FileSystem#copy}
-    # @param [String] from
-    # @param [String] to
+    # @param [String] from 
+    # @param [String] to 
     # @return [self]
     def copy_blocking(from=nil,to=nil)
       if from.class == String && to.class == String && !block_given?
@@ -61,7 +61,7 @@ module Vertx
     #  The copy will fail if the destination if the destination already exists.
     # @param [String] from the path to copy from
     # @param [String] to the path to copy to
-    # @param [true,false] recursive
+    # @param [true,false] recursive 
     # @yield the handler that will be called on completion
     # @return [self]
     def copy_recursive(from=nil,to=nil,recursive=nil)
@@ -72,9 +72,9 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling copy_recursive(from,to,recursive)"
     end
     #  Blocking version of {::Vertx::FileSystem#copy_recursive}
-    # @param [String] from
-    # @param [String] to
-    # @param [true,false] recursive
+    # @param [String] from 
+    # @param [String] to 
+    # @param [true,false] recursive 
     # @return [self]
     def copy_recursive_blocking(from=nil,to=nil,recursive=nil)
       if from.class == String && to.class == String && (recursive.class == TrueClass || recursive.class == FalseClass) && !block_given?
@@ -98,8 +98,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling move(from,to)"
     end
     #  Blocking version of {::Vertx::FileSystem#move}
-    # @param [String] from
-    # @param [String] to
+    # @param [String] from 
+    # @param [String] to 
     # @return [self]
     def move_blocking(from=nil,to=nil)
       if from.class == String && to.class == String && !block_given?
@@ -123,8 +123,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling truncate(path,len)"
     end
     #  Blocking version of {::Vertx::FileSystem#truncate}
-    # @param [String] path
-    # @param [Fixnum] len
+    # @param [String] path 
+    # @param [Fixnum] len 
     # @return [self]
     def truncate_blocking(path=nil,len=nil)
       if path.class == String && len.class == Fixnum && !block_given?
@@ -148,9 +148,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling chmod(path,perms)"
     end
-    #  Blocking version of {::Vertx::FileSystem #chmod(String, String, Handler)}
-    # @param [String] path
-    # @param [String] perms
+    #  Blocking version of {::Vertx::FileSystem#chmod(String, String, Handler)}
+    # @param [String] path 
+    # @param [String] perms 
     # @return [self]
     def chmod_blocking(path=nil,perms=nil)
       if path.class == String && perms.class == String && !block_given?
@@ -178,9 +178,9 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling chmod_recursive(path,perms,dirPerms)"
     end
     #  Blocking version of {::Vertx::FileSystem#chmod_recursive}
-    # @param [String] path
-    # @param [String] perms
-    # @param [String] dirPerms
+    # @param [String] path 
+    # @param [String] perms 
+    # @param [String] dirPerms 
     # @return [self]
     def chmod_recursive_blocking(path=nil,perms=nil,dirPerms=nil)
       if path.class == String && perms.class == String && dirPerms.class == String && !block_given?
@@ -204,9 +204,9 @@ module Vertx
     end
     #  Blocking version of {::Vertx::FileSystem#chown}
     # 
-    # @param [String] path
-    # @param [String] user
-    # @param [String] group
+    # @param [String] path 
+    # @param [String] user 
+    # @param [String] group 
     # @return [self]
     def chown_blocking(path=nil,user=nil,group=nil)
       if path.class == String && user.class == String && group.class == String && !block_given?
@@ -229,7 +229,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling props(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#props}
-    # @param [String] path
+    # @param [String] path 
     # @return [::Vertx::FileProps]
     def props_blocking(path=nil)
       if path.class == String && !block_given?
@@ -251,7 +251,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling lprops(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#lprops}
-    # @param [String] path
+    # @param [String] path 
     # @return [::Vertx::FileProps]
     def lprops_blocking(path=nil)
       if path.class == String && !block_given?
@@ -272,8 +272,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling link(link,existing)"
     end
     #  Blocking version of {::Vertx::FileSystem#link}
-    # @param [String] link
-    # @param [String] existing
+    # @param [String] link 
+    # @param [String] existing 
     # @return [self]
     def link_blocking(link=nil,existing=nil)
       if link.class == String && existing.class == String && !block_given?
@@ -295,8 +295,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling symlink(link,existing)"
     end
     #  Blocking version of {::Vertx::FileSystem#link}
-    # @param [String] link
-    # @param [String] existing
+    # @param [String] link 
+    # @param [String] existing 
     # @return [self]
     def symlink_blocking(link=nil,existing=nil)
       if link.class == String && existing.class == String && !block_given?
@@ -317,7 +317,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling unlink(link)"
     end
     #  Blocking version of {::Vertx::FileSystem#unlink}
-    # @param [String] link
+    # @param [String] link 
     # @return [self]
     def unlink_blocking(link=nil)
       if link.class == String && !block_given?
@@ -338,7 +338,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling read_symlink(link)"
     end
     #  Blocking version of {::Vertx::FileSystem#read_symlink}
-    # @param [String] link
+    # @param [String] link 
     # @return [String]
     def read_symlink_blocking(link=nil)
       if link.class == String && !block_given?
@@ -358,7 +358,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling delete(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#delete}
-    # @param [String] path
+    # @param [String] path 
     # @return [self]
     def delete_blocking(path=nil)
       if path.class == String && !block_given?
@@ -383,8 +383,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling delete_recursive(path,recursive)"
     end
     #  Blocking version of {::Vertx::FileSystem#delete_recursive}
-    # @param [String] path
-    # @param [true,false] recursive
+    # @param [String] path 
+    # @param [true,false] recursive 
     # @return [self]
     def delete_recursive_blocking(path=nil,recursive=nil)
       if path.class == String && (recursive.class == TrueClass || recursive.class == FalseClass) && !block_given?
@@ -416,8 +416,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling mkdir(path,perms)"
     end
     #  Blocking version of {::Vertx::FileSystem#mkdir}
-    # @param [String] path
-    # @param [String] perms
+    # @param [String] path 
+    # @param [String] perms 
     # @return [self]
     def mkdir_blocking(path=nil,perms=nil)
       if path.class == String && !block_given? && perms == nil
@@ -452,8 +452,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling mkdirs(path,perms)"
     end
     #  Blocking version of {::Vertx::FileSystem#mkdirs}
-    # @param [String] path
-    # @param [String] perms
+    # @param [String] path 
+    # @param [String] perms 
     # @return [self]
     def mkdirs_blocking(path=nil,perms=nil)
       if path.class == String && !block_given? && perms == nil
@@ -486,8 +486,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling read_dir(path,filter)"
     end
     #  Blocking version of {::Vertx::FileSystem#read_dir}
-    # @param [String] path
-    # @param [String] filter
+    # @param [String] path 
+    # @param [String] filter 
     # @return [Array<String>]
     def read_dir_blocking(path=nil,filter=nil)
       if path.class == String && !block_given? && filter == nil
@@ -511,7 +511,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling read_file(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#read_file}
-    # @param [String] path
+    # @param [String] path 
     # @return [::Vertx::Buffer]
     def read_file_blocking(path=nil)
       if path.class == String && !block_given?
@@ -522,7 +522,7 @@ module Vertx
     #  Creates the file, and writes the specified <code>Buffer data</code> to the file represented by the path <code>path</code>,
     #  asynchronously.
     # @param [String] path path to the file
-    # @param [::Vertx::Buffer] data
+    # @param [::Vertx::Buffer] data 
     # @yield the handler that will be called on completion
     # @return [self]
     def write_file(path=nil,data=nil)
@@ -533,8 +533,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling write_file(path,data)"
     end
     #  Blocking version of {::Vertx::FileSystem#write_file}
-    # @param [String] path
-    # @param [::Vertx::Buffer] data
+    # @param [String] path 
+    # @param [::Vertx::Buffer] data 
     # @return [self]
     def write_file_blocking(path=nil,data=nil)
       if path.class == String && data.class.method_defined?(:j_del) && !block_given?
@@ -558,8 +558,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling open(path,options)"
     end
     #  Blocking version of {::Vertx::FileSystem#open}
-    # @param [String] path
-    # @param [Hash] options
+    # @param [String] path 
+    # @param [Hash] options 
     # @return [::Vertx::AsyncFile]
     def open_blocking(path=nil,options=nil)
       if path.class == String && options.class == Hash && !block_given?
@@ -583,8 +583,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling create_file(path,perms)"
     end
     #  Blocking version of {::Vertx::FileSystem#create_file}
-    # @param [String] path
-    # @param [String] perms
+    # @param [String] path 
+    # @param [String] perms 
     # @return [self]
     def create_file_blocking(path=nil,perms=nil)
       if path.class == String && !block_given? && perms == nil
@@ -608,7 +608,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling exists(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#exists}
-    # @param [String] path
+    # @param [String] path 
     # @return [true,false]
     def exists_blocking?(path=nil)
       if path.class == String && !block_given?
@@ -628,7 +628,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling fs_props(path)"
     end
     #  Blocking version of {::Vertx::FileSystem#fs_props}
-    # @param [String] path
+    # @param [String] path 
     # @return [::Vertx::FileSystemProps]
     def fs_props_blocking(path=nil)
       if path.class == String && !block_given?

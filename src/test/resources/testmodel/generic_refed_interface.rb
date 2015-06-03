@@ -13,7 +13,7 @@ module Testmodel
     def j_del
       @j_del
     end
-    # @param [Object] value
+    # @param [Object] value 
     # @return [void]
     def set_value(value=nil)
       if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?

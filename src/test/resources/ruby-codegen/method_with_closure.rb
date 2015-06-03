@@ -13,7 +13,7 @@ module RubyCodegen
     def j_del
       @j_del
     end
-    # @param [String] s
+    # @param [String] s 
     # @yield 
     # @return [void]
     def do_something(s=nil)

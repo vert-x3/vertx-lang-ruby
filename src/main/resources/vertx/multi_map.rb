@@ -72,7 +72,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling add(name,value)"
     end
     #  Adds all the entries from another MultiMap to this one
-    # @param [::Vertx::MultiMap] map
+    # @param [::Vertx::MultiMap] map 
     # @return [self]
     def add_all(map=nil)
       if map.class.method_defined?(:j_del) && !block_given?
@@ -95,7 +95,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling set(name,value)"
     end
     #  Cleans this instance.
-    # @param [::Vertx::MultiMap] map
+    # @param [::Vertx::MultiMap] map 
     # @return [self]
     def set_all(map=nil)
       if map.class.method_defined?(:j_del) && !block_given?

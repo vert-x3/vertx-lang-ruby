@@ -78,9 +78,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
-    #  Write a  to the connection, encoded using the encoding <code>enc</code>.
+    #  Write a String to the connection, encoded using the encoding <code>enc</code>.
     # @overload write(data)
-    #   @param [::Vertx::Buffer] data
+    #   @param [::Vertx::Buffer] data 
     # @overload write(str)
     #   @param [String] str the string to write
     # @overload write(str,enc)
@@ -100,7 +100,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?

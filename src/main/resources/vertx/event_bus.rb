@@ -36,9 +36,9 @@ module Vertx
     #  Like {::Vertx::EventBus#send} but specifying a <code>replyHandler</code> that will be called if the recipient
     #  subsequently replies to the message.
     # @param [String] address the address to send it to
-    # @param [Object] message the message, may be {@code null}
+    # @param [Object] message the message, may be <code>null</code>
     # @param [Hash] options delivery options
-    # @yield reply handler will be called when any reply from the recipient is received, may be {@code null}
+    # @yield reply handler will be called when any reply from the recipient is received, may be <code>null</code>
     # @return [self]
     def send(address=nil,message=nil,options=nil)
       if address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given? && options == nil
@@ -58,7 +58,7 @@ module Vertx
     end
     #  Like {::Vertx::EventBus#publish} but specifying <code>options</code> that can be used to configure the delivery.
     # @param [String] address the address to publish it to
-    # @param [Object] message the message, may be {@code null}
+    # @param [Object] message the message, may be <code>null</code>
     # @param [Hash] options the delivery options
     # @return [self]
     def publish(address=nil,message=nil,options=nil)
@@ -122,7 +122,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
     end
     #  Close the event bus and release any resources held
-    # @yield may be {@code null}
+    # @yield may be <code>null</code>
     # @return [void]
     def close
       if block_given?

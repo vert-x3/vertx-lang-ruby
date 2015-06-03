@@ -88,7 +88,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(buffer,position)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?

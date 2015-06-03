@@ -9,7 +9,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling get_string()"
     end
-    # @param [String] str
+    # @param [String] str 
     # @return [self]
     def set_string(str=nil)
       if str.class == String && !block_given?

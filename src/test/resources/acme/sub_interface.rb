@@ -13,7 +13,7 @@ module Acme
     def j_del
       @j_del
     end
-    # @param [String] s
+    # @param [String] s 
     # @return [String]
     def reverse(s=nil)
       if s.class == String && !block_given?

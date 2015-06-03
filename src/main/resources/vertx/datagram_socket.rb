@@ -38,24 +38,24 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
-    #  Write the given  to the {::Vertx::SocketAddress} using the given encoding.
+    #  Write the given String to the {::Vertx::SocketAddress} using the given encoding.
     #  The  will be notified once the write completes.
     # @overload send(packet,port,host,handler)
-    #   @param [::Vertx::Buffer] packet the {@link io.vertx.core.buffer.Buffer} to write
+    #   @param [::Vertx::Buffer] packet the {::Vertx::Buffer} to write
     #   @param [Fixnum] port the host port of the remote peer
     #   @param [String] host the host address of the remote peer
-    #   @yield the {@link io.vertx.core.Handler} to notify once the write completes.
+    #   @yield the {Proc} to notify once the write completes.
     # @overload send(str,port,host,handler)
-    #   @param [String] str the {@link String} to write
+    #   @param [String] str the String to write
     #   @param [Fixnum] port the host port of the remote peer
     #   @param [String] host the host address of the remote peer
-    #   @yield the {@link io.vertx.core.Handler} to notify once the write completes.
+    #   @yield the {Proc} to notify once the write completes.
     # @overload send(str,enc,port,host,handler)
-    #   @param [String] str the {@link String} to write
+    #   @param [String] str the String to write
     #   @param [String] enc the charset used for encoding
     #   @param [Fixnum] port the host port of the remote peer
     #   @param [String] host the host address of the remote peer
-    #   @yield the {@link io.vertx.core.Handler} to notify once the write completes.
+    #   @yield the {Proc} to notify once the write completes.
     # @return [self]
     def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
       if param_1.class.method_defined?(:j_del) && param_2.class == Fixnum && param_3.class == String && block_given? && param_4 == nil

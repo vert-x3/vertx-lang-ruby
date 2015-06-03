@@ -13,10 +13,10 @@ module RubyCodegen
     def j_del
       @j_del
     end
-    # @param [String] foo
-    # @param [String] bar
-    # @param [String] juu
-    # @param [String] daa
+    # @param [String] foo 
+    # @param [String] bar 
+    # @param [String] juu 
+    # @param [String] daa 
     # @return [void]
     def method(foo=nil,bar=nil,juu=nil,daa=nil)
       if !block_given? && foo == nil && bar == nil && juu == nil && daa == nil

@@ -14,7 +14,7 @@ module Testmodel
     def j_del
       @j_del
     end
-    # @param [::Testmodel::RefedInterface1] arg0
+    # @param [::Testmodel::RefedInterface1] arg0 
     # @return [void]
     def handle(arg0=nil)
       if arg0.class.method_defined?(:j_del) && !block_given?

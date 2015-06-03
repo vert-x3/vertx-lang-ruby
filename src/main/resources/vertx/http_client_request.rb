@@ -61,14 +61,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
-    #  Write a  to the request body, encoded using the encoding <code>enc</code>.
+    #  Write a String to the request body, encoded using the encoding <code>enc</code>.
     # @overload write(data)
-    #   @param [::Vertx::Buffer] data
+    #   @param [::Vertx::Buffer] data 
     # @overload write(chunk)
-    #   @param [String] chunk
+    #   @param [String] chunk 
     # @overload write(chunk,enc)
-    #   @param [String] chunk
-    #   @param [String] enc
+    #   @param [String] chunk 
+    #   @param [String] enc 
     # @return [self]
     def write(param_1=nil,param_2=nil)
       if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil
@@ -83,7 +83,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
@@ -222,12 +222,12 @@ module Vertx
     #  Same as {::Vertx::HttpClientRequest#end} but writes a String with the specified encoding
     # @overload end()
     # @overload end(chunk)
-    #   @param [String] chunk
+    #   @param [String] chunk 
     # @overload end(chunk)
-    #   @param [::Vertx::Buffer] chunk
+    #   @param [::Vertx::Buffer] chunk 
     # @overload end(chunk,enc)
-    #   @param [String] chunk
-    #   @param [String] enc
+    #   @param [String] chunk 
+    #   @param [String] enc 
     # @return [void]
     def end(param_1=nil,param_2=nil)
       if !block_given? && param_1 == nil && param_2 == nil

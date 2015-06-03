@@ -52,9 +52,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
     end
-    #  Write a  to the response body, encoded using the encoding <code>enc</code>.
+    #  Write a String to the response body, encoded using the encoding <code>enc</code>.
     # @overload write(data)
-    #   @param [::Vertx::Buffer] data
+    #   @param [::Vertx::Buffer] data 
     # @overload write(chunk)
     #   @param [String] chunk the string to write
     # @overload write(chunk,enc)
@@ -74,7 +74,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
     end
-    # @param [Fixnum] maxSize
+    # @param [Fixnum] maxSize 
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
       if maxSize.class == Fixnum && !block_given?
@@ -102,7 +102,7 @@ module Vertx
     end
     #  Set the status code. If the status message hasn't been explicitly set, a default status message corresponding
     #  to the code will be looked-up and used.
-    # @param [Fixnum] statusCode
+    # @param [Fixnum] statusCode 
     # @return [self]
     def set_status_code(statusCode=nil)
       if statusCode.class == Fixnum && !block_given?
@@ -121,7 +121,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_status_message()"
     end
     #  Set the status message
-    # @param [String] statusMessage
+    # @param [String] statusMessage 
     # @return [self]
     def set_status_message(statusMessage=nil)
       if statusMessage.class == String && !block_given?
@@ -141,7 +141,7 @@ module Vertx
     #  data is written out.
     #  <p>
     #  An HTTP chunked response is typically used when you do not know the total size of the request body up front.
-    # @param [true,false] chunked
+    # @param [true,false] chunked 
     # @return [self]
     def set_chunked(chunked=nil)
       if (chunked.class == TrueClass || chunked.class == FalseClass) && !block_given?

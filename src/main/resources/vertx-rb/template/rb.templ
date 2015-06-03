@@ -20,6 +20,8 @@
       return "Hash{String => Object}";
     } else if (kind == CLASS_JSON_ARRAY) {
       return "Array<String,Object>";
+    } else if (kind == CLASS_ASYNC_RESULT) {
+      return "AsyncResult"; /* Find something better than that... */
     } else if (kind == CLASS_HANDLER) {
       return "Proc";
     } else if (kind.collection) {
@@ -72,20 +74,23 @@
 
   def renderLinkToHtml(link) {
     var rawType = link.targetType.raw;
+    var label = link.label.trim();
     if (rawType.module != null) {
-      var label = link.label.trim();
-      if (label.length() > 0) {
-        label = " " + label
-      }
       var elt = link.targetElement;
-      var rubyType = genRubyClassFqn(rawType);
+      var rubyType = genRubyDocType(rawType);
       var kind = elt.getKind().name();
       if (kind == "CLASS" || kind == "INTERFACE") {
         return "{" + rubyType + label + "}";
       } else if (kind == "METHOD") {
-        return "{" + rubyType + "#" + CASE_SNAKE.format(CASE_CAMEL.parse(elt.getSimpleName().toString())) + label + "}";
+        return "{" + rubyType + "#" + CASE_SNAKE.format(CASE_CAMEL.parse(elt.getSimpleName().toString())) + (label.length() > 0 ? " " : "") + label + "}";
       } else {
-        System.out.println("Unhandled kind " + kind);
+        System.out.println("Unhandled kind " + kind + " for " + link.targetType);
+      }
+    } else {
+      if (label != null) {
+        return label;
+      } else {
+        return genRubyDocType(link.targetType);
       }
     }
   }
@@ -584,10 +589,11 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @comment{""}
 @declare{'methodParamsTags'}
 	@foreach{param:methodParams}
+		@code{description = param.description != null ? renderTokensToHtml("", param.description.tokens, renderLinkToHtml, "") : ""}
 		@if{param == methodParams[methodParams.size() - 1] && param.type.kind == CLASS_HANDLER}
-    # @{indent}@yield @if{param.description != null}@{param.description}@end{}\n
+    # @{indent}@yield @{description}\n
 		@else{}
-    # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)}@if{param.description != null} @{param.description}@end{}\n
+    # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)} @{description}\n
 		@end{}
 	@end{}
 @end{}

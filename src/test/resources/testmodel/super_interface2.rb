@@ -2,15 +2,15 @@ require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.SuperInterface2
 module Testmodel
   module SuperInterface2
-    # @param [Fixnum] b
-    # @param [Fixnum] s
-    # @param [Fixnum] i
-    # @param [Fixnum] l
-    # @param [Float] f
-    # @param [Float] d
-    # @param [true,false] bool
-    # @param [Fixnum] ch
-    # @param [String] str
+    # @param [Fixnum] b 
+    # @param [Fixnum] s 
+    # @param [Fixnum] i 
+    # @param [Fixnum] l 
+    # @param [Float] f 
+    # @param [Float] d 
+    # @param [true,false] bool 
+    # @param [Fixnum] ch 
+    # @param [String] str 
     # @return [void]
     def other_super_method_with_basic_params(b=nil,s=nil,i=nil,l=nil,f=nil,d=nil,bool=nil,ch=nil,str=nil)
       if b.class == Fixnum && s.class == Fixnum && i.class == Fixnum && l.class == Fixnum && f.class == Float && d.class == Float && (bool.class == TrueClass || bool.class == FalseClass) && ch.class == Fixnum && str.class == String && !block_given?

@@ -23,15 +23,15 @@ module Testmodel
     def j_del
       @j_del
     end
-    # @param [Fixnum] b
-    # @param [Fixnum] s
-    # @param [Fixnum] i
-    # @param [Fixnum] l
-    # @param [Float] f
-    # @param [Float] d
-    # @param [true,false] bool
-    # @param [Fixnum] ch
-    # @param [String] str
+    # @param [Fixnum] b 
+    # @param [Fixnum] s 
+    # @param [Fixnum] i 
+    # @param [Fixnum] l 
+    # @param [Float] f 
+    # @param [Float] d 
+    # @param [true,false] bool 
+    # @param [Fixnum] ch 
+    # @param [String] str 
     # @return [void]
     def other_super_method_with_basic_params(b=nil,s=nil,i=nil,l=nil,f=nil,d=nil,bool=nil,ch=nil,str=nil)
       if b.class == Fixnum && s.class == Fixnum && i.class == Fixnum && l.class == Fixnum && f.class == Float && d.class == Float && (bool.class == TrueClass || bool.class == FalseClass) && ch.class == Fixnum && str.class == String && !block_given?
@@ -39,15 +39,15 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling other_super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
     end
-    # @param [Fixnum] b
-    # @param [Fixnum] s
-    # @param [Fixnum] i
-    # @param [Fixnum] l
-    # @param [Float] f
-    # @param [Float] d
-    # @param [true,false] bool
-    # @param [Fixnum] ch
-    # @param [String] str
+    # @param [Fixnum] b 
+    # @param [Fixnum] s 
+    # @param [Fixnum] i 
+    # @param [Fixnum] l 
+    # @param [Float] f 
+    # @param [Float] d 
+    # @param [true,false] bool 
+    # @param [Fixnum] ch 
+    # @param [String] str 
     # @return [void]
     def method_with_basic_params(b=nil,s=nil,i=nil,l=nil,f=nil,d=nil,bool=nil,ch=nil,str=nil)
       if b.class == Fixnum && s.class == Fixnum && i.class == Fixnum && l.class == Fixnum && f.class == Float && d.class == Float && (bool.class == TrueClass || bool.class == FalseClass) && ch.class == Fixnum && str.class == String && !block_given?
@@ -55,14 +55,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
     end
-    # @param [Fixnum] b
-    # @param [Fixnum] s
-    # @param [Fixnum] i
-    # @param [Fixnum] l
-    # @param [Float] f
-    # @param [Float] d
-    # @param [true,false] bool
-    # @param [Fixnum] ch
+    # @param [Fixnum] b 
+    # @param [Fixnum] s 
+    # @param [Fixnum] i 
+    # @param [Fixnum] l 
+    # @param [Float] f 
+    # @param [Float] d 
+    # @param [true,false] bool 
+    # @param [Fixnum] ch 
     # @return [void]
     def method_with_basic_boxed_params(b=nil,s=nil,i=nil,l=nil,f=nil,d=nil,bool=nil,ch=nil)
       if b.class == Fixnum && s.class == Fixnum && i.class == Fixnum && l.class == Fixnum && f.class == Float && d.class == Float && (bool.class == TrueClass || bool.class == FalseClass) && ch.class == Fixnum && !block_given?
@@ -70,14 +70,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_basic_boxed_params(b,s,i,l,f,d,bool,ch)"
     end
-    # @param [Proc] byteHandler
-    # @param [Proc] shortHandler
-    # @param [Proc] intHandler
-    # @param [Proc] longHandler
-    # @param [Proc] floatHandler
-    # @param [Proc] doubleHandler
-    # @param [Proc] booleanHandler
-    # @param [Proc] charHandler
+    # @param [Proc] byteHandler 
+    # @param [Proc] shortHandler 
+    # @param [Proc] intHandler 
+    # @param [Proc] longHandler 
+    # @param [Proc] floatHandler 
+    # @param [Proc] doubleHandler 
+    # @param [Proc] booleanHandler 
+    # @param [Proc] charHandler 
     # @yield 
     # @return [void]
     def method_with_handler_basic_types(byteHandler=nil,shortHandler=nil,intHandler=nil,longHandler=nil,floatHandler=nil,doubleHandler=nil,booleanHandler=nil,charHandler=nil)
@@ -86,7 +86,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_basic_types(byteHandler,shortHandler,intHandler,longHandler,floatHandler,doubleHandler,booleanHandler,charHandler)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_byte(sendFailure=nil)
@@ -95,7 +95,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_byte(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_short(sendFailure=nil)
@@ -104,7 +104,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_short(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_integer(sendFailure=nil)
@@ -113,7 +113,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_integer(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_long(sendFailure=nil)
@@ -122,7 +122,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_long(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_float(sendFailure=nil)
@@ -131,7 +131,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_float(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_double(sendFailure=nil)
@@ -140,7 +140,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_double(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_boolean(sendFailure=nil)
@@ -149,7 +149,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_boolean(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_character(sendFailure=nil)
@@ -158,7 +158,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_character(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_string(sendFailure=nil)
@@ -167,7 +167,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_string(sendFailure)"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_data_object(sendFailure=nil)
@@ -176,7 +176,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_data_object(sendFailure)"
     end
-    # @param [::Testmodel::RefedInterface1] refed
+    # @param [::Testmodel::RefedInterface1] refed 
     # @return [void]
     def method_with_user_types(refed=nil)
       if refed.class.method_defined?(:j_del) && !block_given?
@@ -184,8 +184,8 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_user_types(refed)"
     end
-    # @param [String] str
-    # @param [Object] obj
+    # @param [String] str 
+    # @param [Object] obj 
     # @return [void]
     def method_with_object_param(str=nil,obj=nil)
       if str.class == String && (obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float) && !block_given?
@@ -193,7 +193,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_object_param(str,obj)"
     end
-    # @param [Hash] dataObject
+    # @param [Hash] dataObject 
     # @return [void]
     def method_with_data_object_param(dataObject=nil)
       if dataObject.class == Hash && !block_given?
@@ -201,7 +201,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_data_object_param(dataObject)"
     end
-    # @param [Hash] dataObject
+    # @param [Hash] dataObject 
     # @return [void]
     def method_with_null_data_object_param(dataObject=nil)
       if dataObject.class == Hash && !block_given?
@@ -209,15 +209,15 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_data_object_param(dataObject)"
     end
-    # @param [Array<String>] listString
-    # @param [Array<Fixnum>] listByte
-    # @param [Array<Fixnum>] listShort
-    # @param [Array<Fixnum>] listInt
-    # @param [Array<Fixnum>] listLong
-    # @param [Array<Hash{String => Object}>] listJsonObject
-    # @param [Array<Array<String,Object>>] listJsonArray
-    # @param [Array<::Testmodel::RefedInterface1>] listVertxGen
-    # @param [Array<Hash>] listDataObject
+    # @param [Array<String>] listString 
+    # @param [Array<Fixnum>] listByte 
+    # @param [Array<Fixnum>] listShort 
+    # @param [Array<Fixnum>] listInt 
+    # @param [Array<Fixnum>] listLong 
+    # @param [Array<Hash{String => Object}>] listJsonObject 
+    # @param [Array<Array<String,Object>>] listJsonArray 
+    # @param [Array<::Testmodel::RefedInterface1>] listVertxGen 
+    # @param [Array<Hash>] listDataObject 
     # @return [void]
     def method_with_list_params(listString=nil,listByte=nil,listShort=nil,listInt=nil,listLong=nil,listJsonObject=nil,listJsonArray=nil,listVertxGen=nil,listDataObject=nil)
       if listString.class == Array && listByte.class == Array && listShort.class == Array && listInt.class == Array && listLong.class == Array && listJsonObject.class == Array && listJsonArray.class == Array && listVertxGen.class == Array && listDataObject.class == Array && !block_given?
@@ -225,15 +225,15 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen,listDataObject)"
     end
-    # @param [Set<String>] setString
-    # @param [Set<Fixnum>] setByte
-    # @param [Set<Fixnum>] setShort
-    # @param [Set<Fixnum>] setInt
-    # @param [Set<Fixnum>] setLong
-    # @param [Set<Hash{String => Object}>] setJsonObject
-    # @param [Set<Array<String,Object>>] setJsonArray
-    # @param [Set<::Testmodel::RefedInterface1>] setVertxGen
-    # @param [Set<Hash>] setDataObject
+    # @param [Set<String>] setString 
+    # @param [Set<Fixnum>] setByte 
+    # @param [Set<Fixnum>] setShort 
+    # @param [Set<Fixnum>] setInt 
+    # @param [Set<Fixnum>] setLong 
+    # @param [Set<Hash{String => Object}>] setJsonObject 
+    # @param [Set<Array<String,Object>>] setJsonArray 
+    # @param [Set<::Testmodel::RefedInterface1>] setVertxGen 
+    # @param [Set<Hash>] setDataObject 
     # @return [void]
     def method_with_set_params(setString=nil,setByte=nil,setShort=nil,setInt=nil,setLong=nil,setJsonObject=nil,setJsonArray=nil,setVertxGen=nil,setDataObject=nil)
       if setString.class == Set && setByte.class == Set && setShort.class == Set && setInt.class == Set && setLong.class == Set && setJsonObject.class == Set && setJsonArray.class == Set && setVertxGen.class == Set && setDataObject.class == Set && !block_given?
@@ -241,14 +241,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen,setDataObject)"
     end
-    # @param [Hash{String => String}] mapString
-    # @param [Hash{String => Fixnum}] mapByte
-    # @param [Hash{String => Fixnum}] mapShort
-    # @param [Hash{String => Fixnum}] mapInt
-    # @param [Hash{String => Fixnum}] mapLong
-    # @param [Hash{String => Hash{String => Object}}] mapJsonObject
-    # @param [Hash{String => Array<String,Object>}] mapJsonArray
-    # @param [Hash{String => ::Testmodel::RefedInterface1}] mapVertxGen
+    # @param [Hash{String => String}] mapString 
+    # @param [Hash{String => Fixnum}] mapByte 
+    # @param [Hash{String => Fixnum}] mapShort 
+    # @param [Hash{String => Fixnum}] mapInt 
+    # @param [Hash{String => Fixnum}] mapLong 
+    # @param [Hash{String => Hash{String => Object}}] mapJsonObject 
+    # @param [Hash{String => Array<String,Object>}] mapJsonArray 
+    # @param [Hash{String => ::Testmodel::RefedInterface1}] mapVertxGen 
     # @return [void]
     def method_with_map_params(mapString=nil,mapByte=nil,mapShort=nil,mapInt=nil,mapLong=nil,mapJsonObject=nil,mapJsonArray=nil,mapVertxGen=nil)
       if mapString.class == Hash && mapByte.class == Hash && mapShort.class == Hash && mapInt.class == Hash && mapLong.class == Hash && mapJsonObject.class == Hash && mapJsonArray.class == Hash && mapVertxGen.class == Hash && !block_given?
@@ -256,9 +256,9 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
     end
-    # @param [Proc] listStringHandler
-    # @param [Proc] listIntHandler
-    # @param [Proc] setStringHandler
+    # @param [Proc] listStringHandler 
+    # @param [Proc] listIntHandler 
+    # @param [Proc] setStringHandler 
     # @yield 
     # @return [void]
     def method_with_handler_list_and_set(listStringHandler=nil,listIntHandler=nil,setStringHandler=nil)
@@ -571,7 +571,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_user_types()"
     end
-    # @param [::Testmodel::ConcreteHandlerUserType] handler
+    # @param [::Testmodel::ConcreteHandlerUserType] handler 
     # @return [void]
     def method_with_concrete_handler_user_type_subtype(handler=nil)
       if handler.class.method_defined?(:j_del) && !block_given?
@@ -579,7 +579,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_concrete_handler_user_type_subtype(handler)"
     end
-    # @param [::Testmodel::AbstractHandlerUserType] handler
+    # @param [::Testmodel::AbstractHandlerUserType] handler 
     # @return [void]
     def method_with_abstract_handler_user_type_subtype(handler=nil)
       if handler.class.method_defined?(:j_del) && !block_given?
@@ -587,7 +587,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_abstract_handler_user_type_subtype(handler)"
     end
-    # @param [::Testmodel::ConcreteHandlerUserTypeExtension] handler
+    # @param [::Testmodel::ConcreteHandlerUserTypeExtension] handler 
     # @return [void]
     def method_with_concrete_handler_user_type_subtype_extension(handler=nil)
       if handler.class.method_defined?(:j_del) && !block_given?
@@ -603,7 +603,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_void()"
     end
-    # @param [true,false] sendFailure
+    # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_void(sendFailure=nil)
@@ -628,7 +628,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_data_object()"
     end
-    # @param [Object] value
+    # @param [Object] value 
     # @yield 
     # @return [void]
     def method_with_handler_generic_user_type(value=nil)
@@ -637,7 +637,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_user_type(value)"
     end
-    # @param [Object] value
+    # @param [Object] value 
     # @yield 
     # @return [void]
     def method_with_handler_async_result_generic_user_type(value=nil)
@@ -723,9 +723,9 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_abstract_vertx_gen_return()"
     end
-    # @param [String] str
-    # @param [::Testmodel::RefedInterface1] refed
-    # @param [Fixnum] period
+    # @param [String] str 
+    # @param [::Testmodel::RefedInterface1] refed 
+    # @param [Fixnum] period 
     # @yield 
     # @return [String]
     def overloaded_method(str=nil,refed=nil,period=nil)
@@ -740,7 +740,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling overloaded_method(str,refed,period)"
     end
-    # @param [String] type
+    # @param [String] type 
     # @return [Object]
     def method_with_generic_return(type=nil)
       if type.class == String && !block_given?
@@ -748,8 +748,8 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_return(type)"
     end
-    # @param [String] type
-    # @param [Object] u
+    # @param [String] type 
+    # @param [Object] u 
     # @return [void]
     def method_with_generic_param(type=nil,u=nil)
       if type.class == String && (u.class == String  || u.class == Hash || u.class == Array || u.class == NilClass || u.class == TrueClass || u.class == FalseClass || u.class == Fixnum || u.class == Float) && !block_given?
@@ -757,7 +757,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_param(type,u)"
     end
-    # @param [String] type
+    # @param [String] type 
     # @yield 
     # @return [void]
     def method_with_generic_handler(type=nil)
@@ -766,7 +766,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_handler(type)"
     end
-    # @param [String] type
+    # @param [String] type 
     # @yield 
     # @return [void]
     def method_with_generic_handler_async_result(type=nil)
@@ -775,7 +775,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_handler_async_result(type)"
     end
-    # @param [String] str
+    # @param [String] str 
     # @return [self]
     def fluent_method(str=nil)
       if str.class == String && !block_given?
@@ -784,7 +784,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling fluent_method(str)"
     end
-    # @param [String] foo
+    # @param [String] foo 
     # @return [::Testmodel::RefedInterface1]
     def self.static_factory_method(foo=nil)
       if foo.class == String && !block_given?
@@ -792,7 +792,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling static_factory_method(foo)"
     end
-    # @param [String] foo
+    # @param [String] foo 
     # @return [::Testmodel::RefedInterface1]
     def method_with_cached_return(foo=nil)
       if foo.class == String && !block_given?
@@ -803,7 +803,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_cached_return(foo)"
     end
-    # @param [Fixnum] arg
+    # @param [Fixnum] arg 
     # @return [Fixnum]
     def method_with_cached_return_primitive(arg=nil)
       if arg.class == Fixnum && !block_given?
@@ -842,8 +842,8 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_json_array_return()"
     end
-    # @param [Hash{String => Object}] jsonObject
-    # @param [Array<String,Object>] jsonArray
+    # @param [Hash{String => Object}] jsonObject 
+    # @param [Array<String,Object>] jsonArray 
     # @return [void]
     def method_with_json_params(jsonObject=nil,jsonArray=nil)
       if jsonObject.class == Hash && jsonArray.class == Array && !block_given?
@@ -851,8 +851,8 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_json_params(jsonObject,jsonArray)"
     end
-    # @param [Hash{String => Object}] jsonObject
-    # @param [Array<String,Object>] jsonArray
+    # @param [Hash{String => Object}] jsonObject 
+    # @param [Array<String,Object>] jsonArray 
     # @return [void]
     def method_with_null_json_params(jsonObject=nil,jsonArray=nil)
       if jsonObject.class == Hash && jsonArray.class == Array && !block_given?
@@ -860,7 +860,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_json_params(jsonObject,jsonArray)"
     end
-    # @param [Proc] jsonObjectHandler
+    # @param [Proc] jsonObjectHandler 
     # @yield 
     # @return [void]
     def method_with_handler_json(jsonObjectHandler=nil)
@@ -869,7 +869,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_json(jsonObjectHandler)"
     end
-    # @param [Proc] jsonObjectHandler
+    # @param [Proc] jsonObjectHandler 
     # @yield 
     # @return [void]
     def method_with_handler_null_json(jsonObjectHandler=nil)
@@ -1097,8 +1097,8 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_set_return()"
     end
-    # @param [String] strVal
-    # @param [:TIM,:JULIEN,:NICK,:WESTON] weirdo
+    # @param [String] strVal 
+    # @param [:TIM,:JULIEN,:NICK,:WESTON] weirdo 
     # @return [String]
     def method_with_enum_param(strVal=nil,weirdo=nil)
       if strVal.class == String && weirdo.class == Symbol && !block_given?
@@ -1106,7 +1106,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_enum_param(strVal,weirdo)"
     end
-    # @param [String] strVal
+    # @param [String] strVal 
     # @return [:TIM,:JULIEN,:NICK,:WESTON]
     def method_with_enum_return(strVal=nil)
       if strVal.class == String && !block_given?
@@ -1114,7 +1114,7 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_enum_return(strVal)"
     end
-    # @param [String] strVal
+    # @param [String] strVal 
     # @return [Nil]
     def method_with_throwable_return(strVal=nil)
       if strVal.class == String && !block_given?

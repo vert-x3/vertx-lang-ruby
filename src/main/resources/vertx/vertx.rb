@@ -264,7 +264,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  Like {::Vertx::Vertx#deploy_verticle} but {::Vertx::DeploymentOptions} are provided to configure the
+    #  Like {::Vertx::Vertx#deploy_verticle} but {Hash} are provided to configure the
     #  deployment.
     # @param [String] name the name
     # @param [Hash] options the deployment options.
@@ -282,7 +282,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling deploy_verticle(name,options)"
     end
-    #  Like {::Vertx::Vertx #undeploy(String)} but the completionHandler will be notified when the undeployment is complete.
+    #  Like {::Vertx::Vertx#undeploy(String)} but the completionHandler will be notified when the undeployment is complete.
     # @param [String] deploymentID the deployment ID
     # @yield a handler which will be notified when the undeployment is complete
     # @return [void]
