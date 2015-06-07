@@ -60,9 +60,9 @@ module Vertx
     # @return [::Vertx::Vertx] the instance
     def self.vertx(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.java_method(:vertx, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Vertx.java_method(:vertx, []).call(),::Vertx::Vertx)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::Vertx.new(Java::IoVertxCore::Vertx.java_method(:vertx, [Java::IoVertxCore::VertxOptions.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Vertx.java_method(:vertx, [Java::IoVertxCore::VertxOptions.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::Vertx)
       end
       raise ArgumentError, "Invalid arguments when calling vertx(options)"
     end
@@ -74,7 +74,7 @@ module Vertx
     # @return [void]
     def self.clustered_vertx(options=nil)
       if options.class == Hash && block_given?
-        return Java::IoVertxCore::Vertx.java_method(:clusteredVertx, [Java::IoVertxCore::VertxOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Vertx.new(ar.result) : nil) }))
+        return Java::IoVertxCore::Vertx.java_method(:clusteredVertx, [Java::IoVertxCore::VertxOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Vertx) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling clustered_vertx(options)"
     end
@@ -82,7 +82,7 @@ module Vertx
     # @return [::Vertx::Context] The current context or null if no current context
     def self.current_context
       if !block_given?
-        return ::Vertx::Context.new(Java::IoVertxCore::Vertx.java_method(:currentContext, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Vertx.java_method(:currentContext, []).call(),::Vertx::Context)
       end
       raise ArgumentError, "Invalid arguments when calling current_context()"
     end
@@ -90,7 +90,7 @@ module Vertx
     # @return [::Vertx::Context] The current context (created if didn't exist)
     def get_or_create_context
       if !block_given?
-        return ::Vertx::Context.new(@j_del.java_method(:getOrCreateContext, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getOrCreateContext, []).call(),::Vertx::Context)
       end
       raise ArgumentError, "Invalid arguments when calling get_or_create_context()"
     end
@@ -99,9 +99,9 @@ module Vertx
     # @return [::Vertx::NetServer] the server
     def create_net_server(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::NetServer.new(@j_del.java_method(:createNetServer, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetServer, []).call(),::Vertx::NetServer)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::NetServer.new(@j_del.java_method(:createNetServer, [Java::IoVertxCoreNet::NetServerOptions.java_class]).call(Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetServer, [Java::IoVertxCoreNet::NetServerOptions.java_class]).call(Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::NetServer)
       end
       raise ArgumentError, "Invalid arguments when calling create_net_server(options)"
     end
@@ -110,9 +110,9 @@ module Vertx
     # @return [::Vertx::NetClient] the client
     def create_net_client(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::NetClient.new(@j_del.java_method(:createNetClient, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetClient, []).call(),::Vertx::NetClient)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::NetClient.new(@j_del.java_method(:createNetClient, [Java::IoVertxCoreNet::NetClientOptions.java_class]).call(Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetClient, [Java::IoVertxCoreNet::NetClientOptions.java_class]).call(Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::NetClient)
       end
       raise ArgumentError, "Invalid arguments when calling create_net_client(options)"
     end
@@ -121,9 +121,9 @@ module Vertx
     # @return [::Vertx::HttpServer] the server
     def create_http_server(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::HttpServer.new(@j_del.java_method(:createHttpServer, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpServer, []).call(),::Vertx::HttpServer)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::HttpServer.new(@j_del.java_method(:createHttpServer, [Java::IoVertxCoreHttp::HttpServerOptions.java_class]).call(Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpServer, [Java::IoVertxCoreHttp::HttpServerOptions.java_class]).call(Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::HttpServer)
       end
       raise ArgumentError, "Invalid arguments when calling create_http_server(options)"
     end
@@ -132,9 +132,9 @@ module Vertx
     # @return [::Vertx::HttpClient] the client
     def create_http_client(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::HttpClient.new(@j_del.java_method(:createHttpClient, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpClient, []).call(),::Vertx::HttpClient)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::HttpClient.new(@j_del.java_method(:createHttpClient, [Java::IoVertxCoreHttp::HttpClientOptions.java_class]).call(Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpClient, [Java::IoVertxCoreHttp::HttpClientOptions.java_class]).call(Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::HttpClient)
       end
       raise ArgumentError, "Invalid arguments when calling create_http_client(options)"
     end
@@ -143,9 +143,9 @@ module Vertx
     # @return [::Vertx::DatagramSocket] the socket
     def create_datagram_socket(options=nil)
       if !block_given? && options == nil
-        return ::Vertx::DatagramSocket.new(@j_del.java_method(:createDatagramSocket, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createDatagramSocket, []).call(),::Vertx::DatagramSocket)
       elsif options.class == Hash && !block_given?
-        return ::Vertx::DatagramSocket.new(@j_del.java_method(:createDatagramSocket, [Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class]).call(Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createDatagramSocket, [Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class]).call(Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::DatagramSocket)
       end
       raise ArgumentError, "Invalid arguments when calling create_datagram_socket(options)"
     end
@@ -156,7 +156,7 @@ module Vertx
         if @cached_file_system != nil
           return @cached_file_system
         end
-        return @cached_file_system = ::Vertx::FileSystem.new(@j_del.java_method(:fileSystem, []).call())
+        return @cached_file_system = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:fileSystem, []).call(),::Vertx::FileSystem)
       end
       raise ArgumentError, "Invalid arguments when calling file_system()"
     end
@@ -167,7 +167,7 @@ module Vertx
         if @cached_event_bus != nil
           return @cached_event_bus
         end
-        return @cached_event_bus = ::Vertx::EventBus.new(@j_del.java_method(:eventBus, []).call())
+        return @cached_event_bus = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:eventBus, []).call(),::Vertx::EventBus)
       end
       raise ArgumentError, "Invalid arguments when calling event_bus()"
     end
@@ -177,7 +177,7 @@ module Vertx
     # @return [::Vertx::DnsClient] the DNS client
     def create_dns_client(port=nil,host=nil)
       if port.class == Fixnum && host.class == String && !block_given?
-        return ::Vertx::DnsClient.new(@j_del.java_method(:createDnsClient, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createDnsClient, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host),::Vertx::DnsClient)
       end
       raise ArgumentError, "Invalid arguments when calling create_dns_client(port,host)"
     end
@@ -188,7 +188,7 @@ module Vertx
         if @cached_shared_data != nil
           return @cached_shared_data
         end
-        return @cached_shared_data = ::Vertx::SharedData.new(@j_del.java_method(:sharedData, []).call())
+        return @cached_shared_data = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sharedData, []).call(),::Vertx::SharedData)
       end
       raise ArgumentError, "Invalid arguments when calling shared_data()"
     end
@@ -209,7 +209,7 @@ module Vertx
     # @return [::Vertx::TimeoutStream] the timer stream
     def timer_stream(delay=nil)
       if delay.class == Fixnum && !block_given?
-        return ::Vertx::TimeoutStream.new(@j_del.java_method(:timerStream, [Java::long.java_class]).call(delay))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:timerStream, [Java::long.java_class]).call(delay),::Vertx::TimeoutStream)
       end
       raise ArgumentError, "Invalid arguments when calling timer_stream(delay)"
     end
@@ -230,7 +230,7 @@ module Vertx
     # @return [::Vertx::TimeoutStream] the periodic stream
     def periodic_stream(delay=nil)
       if delay.class == Fixnum && !block_given?
-        return ::Vertx::TimeoutStream.new(@j_del.java_method(:periodicStream, [Java::long.java_class]).call(delay))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:periodicStream, [Java::long.java_class]).call(delay),::Vertx::TimeoutStream)
       end
       raise ArgumentError, "Invalid arguments when calling periodic_stream(delay)"
     end
@@ -325,7 +325,7 @@ module Vertx
     # @return [void]
     def execute_blocking(blockingCodeHandler=nil)
       if blockingCodeHandler.class == Proc && block_given?
-        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Future.new(event)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler)"
     end

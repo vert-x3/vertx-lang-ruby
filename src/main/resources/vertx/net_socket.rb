@@ -48,7 +48,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -153,7 +153,7 @@ module Vertx
         if @cached_remote_address != nil
           return @cached_remote_address
         end
-        return @cached_remote_address = ::Vertx::SocketAddress.new(@j_del.java_method(:remoteAddress, []).call())
+        return @cached_remote_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:remoteAddress, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
@@ -164,7 +164,7 @@ module Vertx
         if @cached_local_address != nil
           return @cached_local_address
         end
-        return @cached_local_address = ::Vertx::SocketAddress.new(@j_del.java_method(:localAddress, []).call())
+        return @cached_local_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localAddress, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling local_address()"
     end

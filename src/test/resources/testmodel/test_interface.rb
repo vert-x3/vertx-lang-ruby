@@ -303,7 +303,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_list_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
+        return @j_del.java_method(:methodWithHandlerListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_list_vertx_gen()"
     end
@@ -311,7 +311,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_set_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerSetVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| ::Testmodel::RefedInterface1.new(elt) }) }))
+        return @j_del.java_method(:methodWithHandlerSetVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_set_vertx_gen()"
     end
@@ -319,7 +319,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_list_abstract_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerListAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
+        return @j_del.java_method(:methodWithHandlerListAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface2Impl) }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_list_abstract_vertx_gen()"
     end
@@ -327,7 +327,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_set_abstract_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerSetAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) }) }))
+        return @j_del.java_method(:methodWithHandlerSetAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface2Impl) }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_set_abstract_vertx_gen()"
     end
@@ -431,7 +431,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_list_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_vertx_gen()"
     end
@@ -439,7 +439,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_set_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultSetVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| ::Testmodel::RefedInterface1.new(elt) } : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_vertx_gen()"
     end
@@ -447,7 +447,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_list_abstract_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultListAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultListAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface2Impl) } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_abstract_vertx_gen()"
     end
@@ -455,7 +455,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_set_abstract_vertx_gen
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultSetAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| ::Testmodel::RefedInterface2Impl.new(elt) } : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetAbstractVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface2Impl) } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_abstract_vertx_gen()"
     end
@@ -559,7 +559,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_user_types
       if block_given?
-        return @j_del.java_method(:methodWithHandlerUserTypes, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Testmodel::RefedInterface1.new(event)) }))
+        return @j_del.java_method(:methodWithHandlerUserTypes, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::RefedInterface1)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_user_types()"
     end
@@ -567,7 +567,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_user_types
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultUserTypes, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::RefedInterface1.new(ar.result) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultUserTypes, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::RefedInterface1) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_user_types()"
     end
@@ -633,7 +633,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_generic_user_type(value=nil)
       if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
-        return @j_del.java_method(:methodWithHandlerGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Testmodel::GenericRefedInterface.new(event)) }))
+        return @j_del.java_method(:methodWithHandlerGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_user_type(value)"
     end
@@ -642,7 +642,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_generic_user_type(value=nil)
       if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Testmodel::GenericRefedInterface.new(ar.result) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_generic_user_type(value)"
     end
@@ -712,14 +712,21 @@ module Testmodel
     # @return [::Testmodel::RefedInterface1]
     def method_with_vertx_gen_return
       if !block_given?
-        return ::Testmodel::RefedInterface1.new(@j_del.java_method(:methodWithVertxGenReturn, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithVertxGenReturn, []).call(),::Testmodel::RefedInterface1)
       end
       raise ArgumentError, "Invalid arguments when calling method_with_vertx_gen_return()"
+    end
+    # @return [::Testmodel::RefedInterface1]
+    def method_with_vertx_gen_null_return
+      if !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithVertxGenNullReturn, []).call(),::Testmodel::RefedInterface1)
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_vertx_gen_null_return()"
     end
     # @return [::Testmodel::RefedInterface2]
     def method_with_abstract_vertx_gen_return
       if !block_given?
-        return ::Testmodel::RefedInterface2Impl.new(@j_del.java_method(:methodWithAbstractVertxGenReturn, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithAbstractVertxGenReturn, []).call(),::Testmodel::RefedInterface2Impl)
       end
       raise ArgumentError, "Invalid arguments when calling method_with_abstract_vertx_gen_return()"
     end
@@ -788,7 +795,7 @@ module Testmodel
     # @return [::Testmodel::RefedInterface1]
     def self.static_factory_method(foo=nil)
       if foo.class == String && !block_given?
-        return ::Testmodel::RefedInterface1.new(Java::IoVertxCodegenTestmodel::TestInterface.java_method(:staticFactoryMethod, [Java::java.lang.String.java_class]).call(foo))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCodegenTestmodel::TestInterface.java_method(:staticFactoryMethod, [Java::java.lang.String.java_class]).call(foo),::Testmodel::RefedInterface1)
       end
       raise ArgumentError, "Invalid arguments when calling static_factory_method(foo)"
     end
@@ -799,7 +806,7 @@ module Testmodel
         if @cached_method_with_cached_return != nil
           return @cached_method_with_cached_return
         end
-        return @cached_method_with_cached_return = ::Testmodel::RefedInterface1.new(@j_del.java_method(:methodWithCachedReturn, [Java::java.lang.String.java_class]).call(foo))
+        return @cached_method_with_cached_return = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithCachedReturn, [Java::java.lang.String.java_class]).call(foo),::Testmodel::RefedInterface1)
       end
       raise ArgumentError, "Invalid arguments when calling method_with_cached_return(foo)"
     end
@@ -1030,7 +1037,7 @@ module Testmodel
     # @return [Array<::Testmodel::RefedInterface1>]
     def method_with_list_vertx_gen_return
       if !block_given?
-        return @j_del.java_method(:methodWithListVertxGenReturn, []).call().to_a.map { |elt| ::Testmodel::RefedInterface1.new(elt) }
+        return @j_del.java_method(:methodWithListVertxGenReturn, []).call().to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_vertx_gen_return()"
     end
@@ -1072,7 +1079,7 @@ module Testmodel
     # @return [Set<::Testmodel::RefedInterface1>]
     def method_with_set_vertx_gen_return
       if !block_given?
-        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetVertxGenReturn, []).call()).map! { |elt| ::Testmodel::RefedInterface1.new(elt) }
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetVertxGenReturn, []).call()).map! { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_vertx_gen_return()"
     end

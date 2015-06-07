@@ -38,7 +38,7 @@ module Vertx
     # @return [::Vertx::HttpServerRequestStream] the request stream
     def request_stream
       if !block_given?
-        return ::Vertx::HttpServerRequestStream.new(@j_del.java_method(:requestStream, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestStream, []).call(),::Vertx::HttpServerRequestStream)
       end
       raise ArgumentError, "Invalid arguments when calling request_stream()"
     end
@@ -48,7 +48,7 @@ module Vertx
     # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
     def request_handler
       if block_given?
-        return ::Vertx::HttpServer.new(@j_del.java_method(:requestHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::HttpServerRequest.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpServerRequest)) })),::Vertx::HttpServer)
       end
       raise ArgumentError, "Invalid arguments when calling request_handler()"
     end
@@ -57,7 +57,7 @@ module Vertx
     # @return [::Vertx::ServerWebSocketStream] the websocket stream
     def websocket_stream
       if !block_given?
-        return ::Vertx::ServerWebSocketStream.new(@j_del.java_method(:websocketStream, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketStream, []).call(),::Vertx::ServerWebSocketStream)
       end
       raise ArgumentError, "Invalid arguments when calling websocket_stream()"
     end
@@ -67,7 +67,7 @@ module Vertx
     # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
     def websocket_handler
       if block_given?
-        return ::Vertx::HttpServer.new(@j_del.java_method(:websocketHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::ServerWebSocket.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::ServerWebSocket)) })),::Vertx::HttpServer)
       end
       raise ArgumentError, "Invalid arguments when calling websocket_handler()"
     end
@@ -85,16 +85,16 @@ module Vertx
         @j_del.java_method(:listen, [Java::int.java_class]).call(port)
         return self
       elsif block_given? && port == nil && host == nil
-        @j_del.java_method(:listen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServer) : nil) }))
         return self
       elsif port.class == Fixnum && host.class == String && !block_given?
         @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host)
         return self
       elsif port.class == Fixnum && block_given? && host == nil
-        @j_del.java_method(:listen, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServer) : nil) }))
         return self
       elsif port.class == Fixnum && host.class == String && block_given?
-        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::HttpServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServer) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling listen(port,host)"

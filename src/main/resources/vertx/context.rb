@@ -172,7 +172,7 @@ module Vertx
     # @return [::Vertx::Vertx]
     def owner
       if !block_given?
-        return ::Vertx::Vertx.new(@j_del.java_method(:owner, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:owner, []).call(),::Vertx::Vertx)
       end
       raise ArgumentError, "Invalid arguments when calling owner()"
     end

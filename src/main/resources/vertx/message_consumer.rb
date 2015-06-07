@@ -37,7 +37,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Message.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -71,7 +71,7 @@ module Vertx
     # @return [::Vertx::ReadStream]
     def body_stream
       if !block_given?
-        return ::Vertx::ReadStreamImpl.new(@j_del.java_method(:bodyStream, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:bodyStream, []).call(),::Vertx::ReadStreamImpl)
       end
       raise ArgumentError, "Invalid arguments when calling body_stream()"
     end
@@ -98,7 +98,7 @@ module Vertx
     # @return [::Vertx::MessageConsumer] this registration
     def set_max_buffered_messages(maxBufferedMessages=nil)
       if maxBufferedMessages.class == Fixnum && !block_given?
-        return ::Vertx::MessageConsumer.new(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages),::Vertx::MessageConsumer)
       end
       raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(maxBufferedMessages)"
     end

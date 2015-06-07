@@ -5,6 +5,12 @@ java_import 'io.vertx.core.json.JsonArray'
 module Vertx
   module Util
     class Utils
+      def self.safe_create(object, clazz)
+        if nil != object
+          return clazz.new(object)
+        end
+        return nil
+      end
       def self.to_object(object)
         if object.is_a? Hash
           JsonObject.new(JSON.generate(object))

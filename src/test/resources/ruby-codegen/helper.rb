@@ -17,7 +17,7 @@ module RubyCodegen
     # @return [::Vertx::MultiMap]
     def self.get_multi_map
       if !block_given?
-        return ::Vertx::MultiMap.new(Java::IoVertxTestSupport::Helper.java_method(:getMultiMap, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxTestSupport::Helper.java_method(:getMultiMap, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling get_multi_map()"
     end

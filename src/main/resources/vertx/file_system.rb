@@ -223,7 +223,7 @@ module Vertx
     # @return [self]
     def props(path=nil)
       if path.class == String && block_given?
-        @j_del.java_method(:props, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
+        @j_del.java_method(:props, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileProps) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling props(path)"
@@ -233,7 +233,7 @@ module Vertx
     # @return [::Vertx::FileProps]
     def props_blocking(path=nil)
       if path.class == String && !block_given?
-        return ::Vertx::FileProps.new(@j_del.java_method(:propsBlocking, [Java::java.lang.String.java_class]).call(path))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:propsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileProps)
       end
       raise ArgumentError, "Invalid arguments when calling props_blocking(path)"
     end
@@ -245,7 +245,7 @@ module Vertx
     # @return [self]
     def lprops(path=nil)
       if path.class == String && block_given?
-        @j_del.java_method(:lprops, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileProps.new(ar.result) : nil) }))
+        @j_del.java_method(:lprops, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileProps) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling lprops(path)"
@@ -255,7 +255,7 @@ module Vertx
     # @return [::Vertx::FileProps]
     def lprops_blocking(path=nil)
       if path.class == String && !block_given?
-        return ::Vertx::FileProps.new(@j_del.java_method(:lpropsBlocking, [Java::java.lang.String.java_class]).call(path))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:lpropsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileProps)
       end
       raise ArgumentError, "Invalid arguments when calling lprops_blocking(path)"
     end
@@ -505,7 +505,7 @@ module Vertx
     # @return [self]
     def read_file(path=nil)
       if path.class == String && block_given?
-        @j_del.java_method(:readFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Buffer.new(ar.result) : nil) }))
+        @j_del.java_method(:readFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Buffer) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling read_file(path)"
@@ -515,7 +515,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def read_file_blocking(path=nil)
       if path.class == String && !block_given?
-        return ::Vertx::Buffer.new(@j_del.java_method(:readFileBlocking, [Java::java.lang.String.java_class]).call(path))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:readFileBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling read_file_blocking(path)"
     end
@@ -552,7 +552,7 @@ module Vertx
     # @return [self]
     def open(path=nil,options=nil)
       if path.class == String && options.class == Hash && block_given?
-        @j_del.java_method(:open, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncFile.new(ar.result) : nil) }))
+        @j_del.java_method(:open, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncFile) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling open(path,options)"
@@ -563,7 +563,7 @@ module Vertx
     # @return [::Vertx::AsyncFile]
     def open_blocking(path=nil,options=nil)
       if path.class == String && options.class == Hash && !block_given?
-        return ::Vertx::AsyncFile.new(@j_del.java_method(:openBlocking, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:openBlocking, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::AsyncFile)
       end
       raise ArgumentError, "Invalid arguments when calling open_blocking(path,options)"
     end
@@ -622,7 +622,7 @@ module Vertx
     # @return [self]
     def fs_props(path=nil)
       if path.class == String && block_given?
-        @j_del.java_method(:fsProps, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::FileSystemProps.new(ar.result) : nil) }))
+        @j_del.java_method(:fsProps, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileSystemProps) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling fs_props(path)"
@@ -632,7 +632,7 @@ module Vertx
     # @return [::Vertx::FileSystemProps]
     def fs_props_blocking(path=nil)
       if path.class == String && !block_given?
-        return ::Vertx::FileSystemProps.new(@j_del.java_method(:fsPropsBlocking, [Java::java.lang.String.java_class]).call(path))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:fsPropsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileSystemProps)
       end
       raise ArgumentError, "Invalid arguments when calling fs_props_blocking(path)"
     end

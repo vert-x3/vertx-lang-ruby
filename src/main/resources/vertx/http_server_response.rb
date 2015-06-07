@@ -165,7 +165,7 @@ module Vertx
         if @cached_headers != nil
           return @cached_headers
         end
-        return @cached_headers = ::Vertx::MultiMap.new(@j_del.java_method(:headers, []).call())
+        return @cached_headers = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headers, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling headers()"
     end
@@ -187,7 +187,7 @@ module Vertx
         if @cached_trailers != nil
           return @cached_trailers
         end
-        return @cached_trailers = ::Vertx::MultiMap.new(@j_del.java_method(:trailers, []).call())
+        return @cached_trailers = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:trailers, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling trailers()"
     end
@@ -282,7 +282,7 @@ module Vertx
     # @return [self]
     def headers_end_handler
       if block_given?
-        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Future.new(event)) }))
+        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling headers_end_handler()"

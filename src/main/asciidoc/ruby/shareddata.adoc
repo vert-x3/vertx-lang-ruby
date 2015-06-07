@@ -150,7 +150,8 @@ sd.get_lock("mylock") { |res,res_err|
     # 5 seconds later we release the lock so someone else can get it
 
     vertx.set_timer(5000) { |tid|
-      lock.release()}
+      lock.release()
+    }
 
   else
     # Something went wrong

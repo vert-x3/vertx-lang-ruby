@@ -17,7 +17,7 @@ module RubyCodegen
     # @return [::RubyCodegen::ReferencedType]
     def get_referenced
       if !block_given?
-        return ::RubyCodegen::ReferencedType.new(@j_del.java_method(:getReferenced, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getReferenced, []).call(),::RubyCodegen::ReferencedType)
       end
       raise ArgumentError, "Invalid arguments when calling get_referenced()"
     end

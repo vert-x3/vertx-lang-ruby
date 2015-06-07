@@ -40,9 +40,9 @@ module Vertx
     # @return [::Vertx::Pump] the pump
     def self.pump(rs=nil,ws=nil,writeQueueMaxSize=nil)
       if rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && !block_given? && writeQueueMaxSize == nil
-        return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class]).call(rs.j_del,ws.j_del))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class]).call(rs.j_del,ws.j_del),::Vertx::Pump)
       elsif rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && writeQueueMaxSize.class == Fixnum && !block_given?
-        return ::Vertx::Pump.new(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class]).call(rs.j_del,ws.j_del,writeQueueMaxSize))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class]).call(rs.j_del,ws.j_del,writeQueueMaxSize),::Vertx::Pump)
       end
       raise ArgumentError, "Invalid arguments when calling pump(rs,ws,writeQueueMaxSize)"
     end

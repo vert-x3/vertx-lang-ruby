@@ -31,7 +31,7 @@ module Vertx
     # @return [::Vertx::NetSocketStream] the connect stream
     def connect_stream
       if !block_given?
-        return ::Vertx::NetSocketStream.new(@j_del.java_method(:connectStream, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:connectStream, []).call(),::Vertx::NetSocketStream)
       end
       raise ArgumentError, "Invalid arguments when calling connect_stream()"
     end
@@ -42,7 +42,7 @@ module Vertx
     # @return [::Vertx::NetServer] a reference to this, so the API can be used fluently
     def connect_handler
       if block_given?
-        return ::Vertx::NetServer.new(@j_del.java_method(:connectHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::NetSocket.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:connectHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::NetSocket)) })),::Vertx::NetServer)
       end
       raise ArgumentError, "Invalid arguments when calling connect_handler()"
     end
@@ -56,7 +56,7 @@ module Vertx
         @j_del.java_method(:listen, []).call()
         return self
       elsif block_given? && port == nil && host == nil
-        @j_del.java_method(:listen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::NetServer) : nil) }))
         return self
       elsif port.class == Fixnum && !block_given? && host == nil
         @j_del.java_method(:listen, [Java::int.java_class]).call(port)
@@ -65,10 +65,10 @@ module Vertx
         @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host)
         return self
       elsif port.class == Fixnum && block_given? && host == nil
-        @j_del.java_method(:listen, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(port,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::NetServer) : nil) }))
         return self
       elsif port.class == Fixnum && host.class == String && block_given?
-        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetServer.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::NetServer) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling listen(port,host)"

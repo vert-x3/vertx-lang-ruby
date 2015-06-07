@@ -20,7 +20,7 @@ module Vertx
     # @return [::Vertx::SocketAddress] the address of the sender
     def sender
       if !block_given?
-        return ::Vertx::SocketAddress.new(@j_del.java_method(:sender, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sender, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling sender()"
     end
@@ -28,7 +28,7 @@ module Vertx
     # @return [::Vertx::Buffer] the data
     def data
       if !block_given?
-        return ::Vertx::Buffer.new(@j_del.java_method(:data, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:data, []).call(),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling data()"
     end

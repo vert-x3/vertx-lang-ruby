@@ -34,7 +34,7 @@ module Vertx
     # @return [void]
     def get_cluster_wide_map(name=nil)
       if name.class == String && block_given?
-        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::AsyncMap.new(ar.result) : nil) }))
+        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(name)"
     end
@@ -44,7 +44,7 @@ module Vertx
     # @return [void]
     def get_lock(name=nil)
       if name.class == String && block_given?
-        return @j_del.java_method(:getLock, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Lock.new(ar.result) : nil) }))
+        return @j_del.java_method(:getLock, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_lock(name)"
     end
@@ -56,7 +56,7 @@ module Vertx
     # @return [void]
     def get_lock_with_timeout(name=nil,timeout=nil)
       if name.class == String && timeout.class == Fixnum && block_given?
-        return @j_del.java_method(:getLockWithTimeout, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(name,timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Lock.new(ar.result) : nil) }))
+        return @j_del.java_method(:getLockWithTimeout, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(name,timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_lock_with_timeout(name,timeout)"
     end
@@ -66,7 +66,7 @@ module Vertx
     # @return [void]
     def get_counter(name=nil)
       if name.class == String && block_given?
-        return @j_del.java_method(:getCounter, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Counter.new(ar.result) : nil) }))
+        return @j_del.java_method(:getCounter, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Counter) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_counter(name)"
     end
@@ -75,7 +75,7 @@ module Vertx
     # @return [::Vertx::LocalMap] the msp
     def get_local_map(name=nil)
       if name.class == String && !block_given?
-        return ::Vertx::LocalMap.new(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap)
       end
       raise ArgumentError, "Invalid arguments when calling get_local_map(name)"
     end

@@ -31,13 +31,13 @@ module Vertx
     # @return [::Vertx::Buffer] the buffer
     def self.buffer(param_1=nil,param_2=nil)
       if !block_given? && param_1 == nil && param_2 == nil
-        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, []).call(),::Vertx::Buffer)
       elsif param_1.class == Fixnum && !block_given? && param_2 == nil
-        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::int.java_class]).call(param_1))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::int.java_class]).call(param_1),::Vertx::Buffer)
       elsif param_1.class == String && !block_given? && param_2 == nil
-        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class]).call(param_1))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class]).call(param_1),::Vertx::Buffer)
       elsif param_1.class == String && param_2.class == String && !block_given?
-        return ::Vertx::Buffer.new(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreBuffer::Buffer.java_method(:buffer, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling buffer(param_1,param_2)"
     end
@@ -111,7 +111,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def get_buffer(start=nil,_end=nil)
       if start.class == Fixnum && _end.class == Fixnum && !block_given?
-        return ::Vertx::Buffer.new(@j_del.java_method(:getBuffer, [Java::int.java_class,Java::int.java_class]).call(start,_end))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getBuffer, [Java::int.java_class,Java::int.java_class]).call(start,_end),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling get_buffer(start,_end)"
     end
@@ -346,7 +346,7 @@ module Vertx
     # @return [::Vertx::Buffer]
     def copy
       if !block_given?
-        return ::Vertx::Buffer.new(@j_del.java_method(:copy, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:copy, []).call(),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling copy()"
     end
@@ -358,9 +358,9 @@ module Vertx
     # @return [::Vertx::Buffer]
     def slice(start=nil,_end=nil)
       if !block_given? && start == nil && _end == nil
-        return ::Vertx::Buffer.new(@j_del.java_method(:slice, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:slice, []).call(),::Vertx::Buffer)
       elsif start.class == Fixnum && _end.class == Fixnum && !block_given?
-        return ::Vertx::Buffer.new(@j_del.java_method(:slice, [Java::int.java_class,Java::int.java_class]).call(start,_end))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:slice, [Java::int.java_class,Java::int.java_class]).call(start,_end),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling slice(start,_end)"
     end

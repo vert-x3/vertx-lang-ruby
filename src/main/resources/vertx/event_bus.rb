@@ -45,13 +45,13 @@ module Vertx
         @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(address,::Vertx::Util::Utils.to_object(message))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && block_given? && options == nil
-        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) }))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && !block_given?
         @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       elsif address.class == String && (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && block_given?
-        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Message.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send(address,message,options)"
@@ -77,9 +77,9 @@ module Vertx
     # @return [::Vertx::MessageConsumer] the event bus message consumer
     def consumer(address=nil)
       if address.class == String && !block_given?
-        return ::Vertx::MessageConsumer.new(@j_del.java_method(:consumer, [Java::java.lang.String.java_class]).call(address))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:consumer, [Java::java.lang.String.java_class]).call(address),::Vertx::MessageConsumer)
       elsif address.class == String && block_given?
-        return ::Vertx::MessageConsumer.new(@j_del.java_method(:consumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:consumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message)) })),::Vertx::MessageConsumer)
       end
       raise ArgumentError, "Invalid arguments when calling consumer(address)"
     end
@@ -89,9 +89,9 @@ module Vertx
     # @return [::Vertx::MessageConsumer] the event bus message consumer
     def local_consumer(address=nil)
       if address.class == String && !block_given?
-        return ::Vertx::MessageConsumer.new(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class]).call(address))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class]).call(address),::Vertx::MessageConsumer)
       elsif address.class == String && block_given?
-        return ::Vertx::MessageConsumer.new(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Message.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message)) })),::Vertx::MessageConsumer)
       end
       raise ArgumentError, "Invalid arguments when calling local_consumer(address)"
     end
@@ -102,9 +102,9 @@ module Vertx
     # @return [::Vertx::MessageProducer] The sender
     def sender(address=nil,options=nil)
       if address.class == String && !block_given? && options == nil
-        return ::Vertx::MessageProducer.new(@j_del.java_method(:sender, [Java::java.lang.String.java_class]).call(address))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sender, [Java::java.lang.String.java_class]).call(address),::Vertx::MessageProducer)
       elsif address.class == String && options.class == Hash && !block_given?
-        return ::Vertx::MessageProducer.new(@j_del.java_method(:sender, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sender, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::MessageProducer)
       end
       raise ArgumentError, "Invalid arguments when calling sender(address,options)"
     end
@@ -115,9 +115,9 @@ module Vertx
     # @return [::Vertx::MessageProducer] The publisher
     def publisher(address=nil,options=nil)
       if address.class == String && !block_given? && options == nil
-        return ::Vertx::MessageProducer.new(@j_del.java_method(:publisher, [Java::java.lang.String.java_class]).call(address))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:publisher, [Java::java.lang.String.java_class]).call(address),::Vertx::MessageProducer)
       elsif address.class == String && options.class == Hash && !block_given?
-        return ::Vertx::MessageProducer.new(@j_del.java_method(:publisher, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:publisher, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::MessageProducer)
       end
       raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
     end

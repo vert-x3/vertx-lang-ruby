@@ -27,7 +27,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.binary_frame(data=nil,isFinal=nil)
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:binaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:binaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal),::Vertx::WebSocketFrame)
       end
       raise ArgumentError, "Invalid arguments when calling binary_frame(data,isFinal)"
     end
@@ -37,7 +37,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.text_frame(str=nil,isFinal=nil)
       if str.class == String && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:textFrame, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(str,isFinal))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:textFrame, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(str,isFinal),::Vertx::WebSocketFrame)
       end
       raise ArgumentError, "Invalid arguments when calling text_frame(str,isFinal)"
     end
@@ -47,7 +47,7 @@ module Vertx
     # @return [::Vertx::WebSocketFrame] the frame
     def self.continuation_frame(data=nil,isFinal=nil)
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
-        return ::Vertx::WebSocketFrame.new(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:continuationFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:continuationFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal),::Vertx::WebSocketFrame)
       end
       raise ArgumentError, "Invalid arguments when calling continuation_frame(data,isFinal)"
     end
@@ -94,7 +94,7 @@ module Vertx
         if @cached_binary_data != nil
           return @cached_binary_data
         end
-        return @cached_binary_data = ::Vertx::Buffer.new(@j_del.java_method(:binaryData, []).call())
+        return @cached_binary_data = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:binaryData, []).call(),::Vertx::Buffer)
       end
       raise ArgumentError, "Invalid arguments when calling binary_data()"
     end

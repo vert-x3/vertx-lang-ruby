@@ -59,13 +59,13 @@ module Vertx
     # @return [self]
     def send(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
       if param_1.class.method_defined?(:j_del) && param_2.class == Fixnum && param_3.class == String && block_given? && param_4 == nil
-        @j_del.java_method(:send, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1.j_del,param_2,param_3,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1.j_del,param_2,param_3,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       elsif param_1.class == String && param_2.class == Fixnum && param_3.class == String && block_given? && param_4 == nil
-        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       elsif param_1.class == String && param_2.class == String && param_3.class == Fixnum && param_4.class == String && block_given?
-        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send(param_1,param_2,param_3,param_4)"
@@ -77,7 +77,7 @@ module Vertx
     # @return [::Vertx::PacketWritestream] the write stream for sending packets
     def sender(port=nil,host=nil)
       if port.class == Fixnum && host.class == String && !block_given?
-        return ::Vertx::PacketWritestream.new(@j_del.java_method(:sender, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host))
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sender, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host),::Vertx::PacketWritestream)
       end
       raise ArgumentError, "Invalid arguments when calling sender(port,host)"
     end
@@ -101,7 +101,7 @@ module Vertx
         if @cached_local_address != nil
           return @cached_local_address
         end
-        return @cached_local_address = ::Vertx::SocketAddress.new(@j_del.java_method(:localAddress, []).call())
+        return @cached_local_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localAddress, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling local_address()"
     end
@@ -114,10 +114,10 @@ module Vertx
     # @return [self]
     def listen_multicast_group(multicastAddress=nil,networkInterface=nil,source=nil)
       if multicastAddress.class == String && block_given? && networkInterface == nil && source == nil
-        @j_del.java_method(:listenMulticastGroup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:listenMulticastGroup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       elsif multicastAddress.class == String && networkInterface.class == String && source.class == String && block_given?
-        @j_del.java_method(:listenMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,source,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:listenMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,source,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling listen_multicast_group(multicastAddress,networkInterface,source)"
@@ -131,10 +131,10 @@ module Vertx
     # @return [self]
     def unlisten_multicast_group(multicastAddress=nil,networkInterface=nil,source=nil)
       if multicastAddress.class == String && block_given? && networkInterface == nil && source == nil
-        @j_del.java_method(:unlistenMulticastGroup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:unlistenMulticastGroup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       elsif multicastAddress.class == String && networkInterface.class == String && source.class == String && block_given?
-        @j_del.java_method(:unlistenMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,source,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:unlistenMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,source,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling unlisten_multicast_group(multicastAddress,networkInterface,source)"
@@ -148,10 +148,10 @@ module Vertx
     # @return [self]
     def block_multicast_group(multicastAddress=nil,networkInterface=nil,sourceToBlock=nil)
       if multicastAddress.class == String && networkInterface.class == String && block_given? && sourceToBlock == nil
-        @j_del.java_method(:blockMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:blockMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       elsif multicastAddress.class == String && networkInterface.class == String && sourceToBlock.class == String && block_given?
-        @j_del.java_method(:blockMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,sourceToBlock,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:blockMulticastGroup, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(multicastAddress,networkInterface,sourceToBlock,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling block_multicast_group(multicastAddress,networkInterface,sourceToBlock)"
@@ -163,7 +163,7 @@ module Vertx
     # @return [self]
     def listen(port=nil,host=nil)
       if port.class == Fixnum && host.class == String && block_given?
-        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::DatagramSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::DatagramSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling listen(port,host)"
@@ -197,7 +197,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::DatagramPacket.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::DatagramPacket)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"

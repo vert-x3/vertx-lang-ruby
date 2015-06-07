@@ -43,7 +43,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -121,7 +121,7 @@ module Vertx
         if @cached_response != nil
           return @cached_response
         end
-        return @cached_response = ::Vertx::HttpServerResponse.new(@j_del.java_method(:response, []).call())
+        return @cached_response = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:response, []).call(),::Vertx::HttpServerResponse)
       end
       raise ArgumentError, "Invalid arguments when calling response()"
     end
@@ -132,7 +132,7 @@ module Vertx
         if @cached_headers != nil
           return @cached_headers
         end
-        return @cached_headers = ::Vertx::MultiMap.new(@j_del.java_method(:headers, []).call())
+        return @cached_headers = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headers, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling headers()"
     end
@@ -152,7 +152,7 @@ module Vertx
         if @cached_params != nil
           return @cached_params
         end
-        return @cached_params = ::Vertx::MultiMap.new(@j_del.java_method(:params, []).call())
+        return @cached_params = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:params, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling params()"
     end
@@ -172,7 +172,7 @@ module Vertx
         if @cached_remote_address != nil
           return @cached_remote_address
         end
-        return @cached_remote_address = ::Vertx::SocketAddress.new(@j_del.java_method(:remoteAddress, []).call())
+        return @cached_remote_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:remoteAddress, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
@@ -183,7 +183,7 @@ module Vertx
         if @cached_local_address != nil
           return @cached_local_address
         end
-        return @cached_local_address = ::Vertx::SocketAddress.new(@j_del.java_method(:localAddress, []).call())
+        return @cached_local_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localAddress, []).call(),::Vertx::SocketAddress)
       end
       raise ArgumentError, "Invalid arguments when calling local_address()"
     end
@@ -203,7 +203,7 @@ module Vertx
     # @return [self]
     def body_handler
       if block_given?
-        @j_del.java_method(:bodyHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:bodyHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling body_handler()"
@@ -221,7 +221,7 @@ module Vertx
         if @cached_net_socket != nil
           return @cached_net_socket
         end
-        return @cached_net_socket = ::Vertx::NetSocket.new(@j_del.java_method(:netSocket, []).call())
+        return @cached_net_socket = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:netSocket, []).call(),::Vertx::NetSocket)
       end
       raise ArgumentError, "Invalid arguments when calling net_socket()"
     end
@@ -250,7 +250,7 @@ module Vertx
     # @return [self]
     def upload_handler
       if block_given?
-        @j_del.java_method(:uploadHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::HttpServerFileUpload.new(event)) }))
+        @j_del.java_method(:uploadHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpServerFileUpload)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling upload_handler()"
@@ -267,7 +267,7 @@ module Vertx
         if @cached_form_attributes != nil
           return @cached_form_attributes
         end
-        return @cached_form_attributes = ::Vertx::MultiMap.new(@j_del.java_method(:formAttributes, []).call())
+        return @cached_form_attributes = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:formAttributes, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling form_attributes()"
     end
@@ -287,7 +287,7 @@ module Vertx
     # @return [::Vertx::ServerWebSocket] the WebSocket
     def upgrade
       if !block_given?
-        return ::Vertx::ServerWebSocket.new(@j_del.java_method(:upgrade, []).call())
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:upgrade, []).call(),::Vertx::ServerWebSocket)
       end
       raise ArgumentError, "Invalid arguments when calling upgrade()"
     end

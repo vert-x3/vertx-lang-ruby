@@ -18,7 +18,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.future
       if !block_given?
-        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:future, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:future, []).call(),::Vertx::Future)
       end
       raise ArgumentError, "Invalid arguments when calling future()"
     end
@@ -27,9 +27,9 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.succeeded_future(result=nil)
       if !block_given? && result == nil
-        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:succeededFuture, []).call())
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, []).call(),::Vertx::Future)
       elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
-        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)),::Vertx::Future)
       end
       raise ArgumentError, "Invalid arguments when calling succeeded_future(result)"
     end
@@ -38,7 +38,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.failed_future(failureMessage=nil)
       if failureMessage.class == String && !block_given?
-        return ::Vertx::Future.new(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage),::Vertx::Future)
       end
       raise ArgumentError, "Invalid arguments when calling failed_future(failureMessage)"
     end

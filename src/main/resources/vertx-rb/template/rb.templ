@@ -389,7 +389,7 @@
         }
         return "Java::IoVertxLangRuby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
-        return genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ".new(" + expr + ")";
+        return "::Vertx::Util::Utils.safe_create(" + expr + "," + genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ")";
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {

@@ -46,7 +46,7 @@ module Vertx
     # @return [void]
     def set_output
       if block_given?
-        return @j_del.java_method(:setOutput, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        return @j_del.java_method(:setOutput, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
       end
       raise ArgumentError, "Invalid arguments when calling set_output()"
     end
@@ -63,9 +63,9 @@ module Vertx
     # @return [::Vertx::RecordParser]
     def self.new_delimited(param_1=nil)
       if param_1.class == String && block_given?
-        return ::Vertx::RecordParser.new(Java::IoVertxCoreParsetools::RecordParser.java_method(:newDelimited, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreParsetools::RecordParser.java_method(:newDelimited, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) })),::Vertx::RecordParser)
       elsif param_1.class.method_defined?(:j_del) && block_given?
-        return ::Vertx::RecordParser.new(Java::IoVertxCoreParsetools::RecordParser.java_method(:newDelimited, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1.j_del,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreParsetools::RecordParser.java_method(:newDelimited, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) })),::Vertx::RecordParser)
       end
       raise ArgumentError, "Invalid arguments when calling new_delimited(param_1)"
     end
@@ -78,7 +78,7 @@ module Vertx
     # @return [::Vertx::RecordParser]
     def self.new_fixed(size=nil)
       if size.class == Fixnum && block_given?
-        return ::Vertx::RecordParser.new(Java::IoVertxCoreParsetools::RecordParser.java_method(:newFixed, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(size,(Proc.new { |event| yield(::Vertx::Buffer.new(event)) })))
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreParsetools::RecordParser.java_method(:newFixed, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(size,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) })),::Vertx::RecordParser)
       end
       raise ArgumentError, "Invalid arguments when calling new_fixed(size)"
     end

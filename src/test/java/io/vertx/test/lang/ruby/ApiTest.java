@@ -318,6 +318,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testVertxGenNullReturn() {
+    runTest("test_vertx_gen_null_return");
+  }
+
+  @Test
   public void testAbstractVertxGenReturn() {
     runTest("test_abstract_vertx_gen_return");
   }

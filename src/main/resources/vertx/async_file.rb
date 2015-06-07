@@ -35,7 +35,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -143,7 +143,7 @@ module Vertx
     # @return [self]
     def read(buffer=nil,offset=nil,position=nil,length=nil)
       if buffer.class.method_defined?(:j_del) && offset.class == Fixnum && position.class == Fixnum && length.class == Fixnum && block_given?
-        @j_del.java_method(:read, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::long.java_class,Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(buffer.j_del,offset,position,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Buffer.new(ar.result) : nil) }))
+        @j_del.java_method(:read, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::long.java_class,Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(buffer.j_del,offset,position,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Buffer) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling read(buffer,offset,position,length)"

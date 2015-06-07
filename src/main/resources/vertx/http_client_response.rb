@@ -45,7 +45,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -90,7 +90,7 @@ module Vertx
         if @cached_headers != nil
           return @cached_headers
         end
-        return @cached_headers = ::Vertx::MultiMap.new(@j_del.java_method(:headers, []).call())
+        return @cached_headers = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headers, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling headers()"
     end
@@ -119,7 +119,7 @@ module Vertx
         if @cached_trailers != nil
           return @cached_trailers
         end
-        return @cached_trailers = ::Vertx::MultiMap.new(@j_del.java_method(:trailers, []).call())
+        return @cached_trailers = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:trailers, []).call(),::Vertx::MultiMap)
       end
       raise ArgumentError, "Invalid arguments when calling trailers()"
     end
@@ -142,7 +142,7 @@ module Vertx
     # @return [self]
     def body_handler
       if block_given?
-        @j_del.java_method(:bodyHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Buffer.new(event)) }))
+        @j_del.java_method(:bodyHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling body_handler()"
@@ -159,7 +159,7 @@ module Vertx
         if @cached_net_socket != nil
           return @cached_net_socket
         end
-        return @cached_net_socket = ::Vertx::NetSocket.new(@j_del.java_method(:netSocket, []).call())
+        return @cached_net_socket = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:netSocket, []).call(),::Vertx::NetSocket)
       end
       raise ArgumentError, "Invalid arguments when calling net_socket()"
     end

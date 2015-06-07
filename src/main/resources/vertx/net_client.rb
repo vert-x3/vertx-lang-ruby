@@ -39,7 +39,7 @@ module Vertx
     # @return [self]
     def connect(port=nil,host=nil)
       if port.class == Fixnum && host.class == String && block_given?
-        @j_del.java_method(:connect, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::NetSocket.new(ar.result) : nil) }))
+        @j_del.java_method(:connect, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::NetSocket) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling connect(port,host)"

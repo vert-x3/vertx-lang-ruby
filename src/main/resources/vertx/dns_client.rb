@@ -89,7 +89,7 @@ module Vertx
     # @return [self]
     def resolve_mx(name=nil)
       if name.class == String && block_given?
-        @j_del.java_method(:resolveMX, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::MxRecord.new(elt) } : nil) }))
+        @j_del.java_method(:resolveMX, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Vertx::MxRecord) } : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling resolve_mx(name)"
@@ -133,7 +133,7 @@ module Vertx
     # @return [self]
     def resolve_srv(name=nil)
       if name.class == String && block_given?
-        @j_del.java_method(:resolveSRV, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::SrvRecord.new(elt) } : nil) }))
+        @j_del.java_method(:resolveSRV, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Vertx::SrvRecord) } : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling resolve_srv(name)"

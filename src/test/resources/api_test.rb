@@ -719,6 +719,11 @@ def test_vertx_gen_return
   Assert.equals(ret.get_string, 'chaffinch')
 end
 
+def test_vertx_gen_null_return
+  ret = @obj.method_with_vertx_gen_null_return
+  Assert.equals(nil, ret)
+end
+
 def test_abstract_vertx_gen_return
   ret = @obj.method_with_abstract_vertx_gen_return
   Assert.equals(ret.is_a?(Testmodel::RefedInterface2), true)
