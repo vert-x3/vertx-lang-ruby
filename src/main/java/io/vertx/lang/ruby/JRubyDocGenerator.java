@@ -4,7 +4,7 @@ import io.vertx.codegen.Case;
 import io.vertx.codegen.ClassKind;
 import io.vertx.codegen.TypeInfo;
 import io.vertx.codetrans.CodeTranslator;
-import io.vertx.codetrans.RubyLang;
+import io.vertx.codetrans.lang.ruby.RubyLang;
 import io.vertx.docgen.Coordinate;
 import io.vertx.docgen.DocGenerator;
 

@@ -1225,7 +1225,7 @@ Let's take a verticle creating a HTTP server such as:
 [source,ruby]
 ----
 vertx.create_http_server().request_handler() { |request|
-  request.response().end("Hello from server #{$this}")
+  request.response().end("Hello from server #{}")
 }.listen(8080)
 
 ----
