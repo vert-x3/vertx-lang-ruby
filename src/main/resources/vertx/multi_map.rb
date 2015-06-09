@@ -16,6 +16,14 @@ module Vertx
     def j_del
       @j_del
     end
+    #  Create a multi-map implementation with case insensitive keys, for instance it can be used to hold some HTTP headers.
+    # @return [::Vertx::MultiMap] the multi-map
+    def self.case_insensitive_multi_map
+      if !block_given?
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::MultiMap.java_method(:caseInsensitiveMultiMap, []).call(),::Vertx::MultiMap)
+      end
+      raise ArgumentError, "Invalid arguments when calling case_insensitive_multi_map()"
+    end
     #  Returns the value of with the specified name.  If there are
     #  more than one values for the specified name, the first value is returned.
     # @param [String] name The name of the header to search

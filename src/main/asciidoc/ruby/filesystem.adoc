@@ -46,7 +46,48 @@ Let's see a couple of examples using asynchronous methods:
 
 [source,ruby]
 ----
-Code not translatable
+require 'vertx/vertx'
+require 'vertx/buffer'
+vertx = Vertx::Vertx.vertx()
+
+# Read a file
+vertx.file_system().read_file("target/classes/readme.txt") { |result,result_err|
+  if (result_err == nil)
+    puts result
+  else
+    STDERR.puts "Oh oh ...#{result_err}"
+  end
+}
+
+# Copy a file
+vertx.file_system().copy("target/classes/readme.txt", "target/classes/readme2.txt") { |result,result_err|
+  if (result_err == nil)
+    puts "File copied"
+  else
+    STDERR.puts "Oh oh ...#{result_err}"
+  end
+}
+
+# Write a file
+vertx.file_system().write_file("target/classes/hello.txt", Vertx::Buffer.buffer("Hello")) { |result,result_err|
+  if (result_err == nil)
+    puts "File written"
+  else
+    STDERR.puts "Oh oh ...#{result_err}"
+  end
+}
+
+# Check existence and delete
+vertx.file_system().exists("target/classes/junk.txt") { |result,result_err|
+  if (result_err == nil && result)
+    vertx.file_system().delete("target/classes/junk.txt") { |r,r_err|
+      puts "File deleted"
+    }
+  else
+    STDERR.puts "Oh oh ... - cannot delete the file: #{result_err}"
+  end
+}
+
 ----
 
 === Asynchronous files
@@ -90,7 +131,31 @@ Here is an example of random access writes:
 
 [source,ruby]
 ----
-Code not translatable
+require 'vertx/vertx'
+require 'vertx/buffer'
+vertx = Vertx::Vertx.vertx()
+vertx.file_system().open("target/classes/hello.txt", {
+}) { |result,result_err|
+  if (result_err == nil)
+    file = result
+    buff = Vertx::Buffer.buffer("foo")
+    i = 0
+    while (i < 5)
+      file.write(buff, buff.length() * i) { |ar,ar_err|
+        if (ar_err == nil)
+          puts "Written ok!"
+          # etc
+        else
+          STDERR.puts "Failed to write: #{ar_err}"
+        end
+      }
+      i+=1
+    end
+  else
+    STDERR.puts "Cannot open file #{result_err}"
+  end
+}
+
 ----
 
 ==== Random access reads
@@ -111,7 +176,30 @@ Here's an example of random access reads:
 
 [source,ruby]
 ----
-Code not translatable
+require 'vertx/vertx'
+require 'vertx/buffer'
+vertx = Vertx::Vertx.vertx()
+vertx.file_system().open("target/classes/les_miserables.txt", {
+}) { |result,result_err|
+  if (result_err == nil)
+    file = result
+    buff = Vertx::Buffer.buffer(1000)
+    i = 0
+    while (i < 10)
+      file.read(buff, i * 100, i * 100, 100) { |ar,ar_err|
+        if (ar_err == nil)
+          puts "Read ok!"
+        else
+          STDERR.puts "Failed to write: #{ar_err}"
+        end
+      }
+      i+=1
+    end
+  else
+    STDERR.puts "Cannot open file #{result_err}"
+  end
+}
+
 ----
 
 ==== Opening Options
@@ -144,7 +232,25 @@ copy the content to another `AsyncFile`:
 
 [source,ruby]
 ----
-Code not translatable
+require 'vertx/vertx'
+require 'vertx/pump'
+vertx = Vertx::Vertx.vertx()
+output = vertx.file_system().open_blocking("target/classes/plagiary.txt", {
+})
+
+vertx.file_system().open("target/classes/les_miserables.txt", {
+}) { |result,result_err|
+  if (result_err == nil)
+    file = result
+    Vertx::Pump.pump(file, output).start()
+    file.end_handler() { |r|
+      puts "Copy done"
+    }
+  else
+    STDERR.puts "Cannot open file #{result_err}"
+  end
+}
+
 ----
 
 You can also use the _pump_ to write file content into HTTP responses, or more generally in any
