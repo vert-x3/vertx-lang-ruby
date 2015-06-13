@@ -321,13 +321,16 @@ module Vertx
     #  the handler should call the {::Vertx::Future#complete} or {::Vertx::Future#complete} method, or the {::Vertx::Future#fail}
     #  method if it failed.
     # @param [Proc] blockingCodeHandler handler representing the blocking code to run
+    # @param [true,false] ordered if true then if executeBlocking is called several times on the same context, the executions for that context will be executed serially, not in parallel. if false then they will be no ordering guarantees
     # @yield handler that will be called when the blocking code is complete
     # @return [void]
-    def execute_blocking(blockingCodeHandler=nil)
-      if blockingCodeHandler.class == Proc && block_given?
+    def execute_blocking(blockingCodeHandler=nil,ordered=nil)
+      if blockingCodeHandler.class == Proc && block_given? && ordered == nil
         return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      elsif blockingCodeHandler.class == Proc && (ordered.class == TrueClass || ordered.class == FalseClass) && block_given?
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler)"
+      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
     end
   end
 end

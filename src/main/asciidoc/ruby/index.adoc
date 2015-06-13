@@ -289,7 +289,16 @@ vertx.execute_blocking(lambda { |future|
 
 ----
 
+By default, if executeBlocking is called several times from the same context (e.g. the same verticle instance) then
+the different executeBlocking are executed _serially_ (i.e. one after another).
+
+If you don't care about ordering you can call `link:yardoc/Vertx/Vertx.html#execute_blocking-instance_method[executeBlocking]`
+specifying `false` as the argument to `ordered`. In this case any executeBlocking may be executed in parallel
+on the worker pool.
+
 An alternative way to run blocking code is to use a <<worker_verticles, worker verticle>>
+
+A worker verticle is always executed with a thread from the worker pool.
 
 == Verticles
 
@@ -498,38 +507,7 @@ vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle", options)
 This is useful for scaling easily across multiple cores. For example you might have a web-server verticle to deploy
 and multiple cores on your machine, so you want to deploy multiple instances to take utilise all the cores.
 
-=== Passing configuration to a verticle
-
-Configuration in the form of JSON can be passed to a verticle at deployment time:
-
-[source,ruby]
-----
-config = {
-  'name' => "tim",
-  'directory' => "/blah"
-}
-options = {
-  'config' => config
-}
-vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle", options)
-
-----
-
-This configuration is then available via the `link:yardoc/Vertx/Context.html[Context]` object or directly using the
-`link:unavailable#config-instance_method[config]` method. The configuration is returned as a JSON object so you can
-retrieve data as follows:
-
-[source,ruby]
-----
-Code not translatable
-----
-
-=== Accessing environment variables in a Verticle
-
-Environment variables and system properties are accessible from a verticle by following the Java way. To retrieve
-system properties, use `link:unavailable#get_property-class_method[System.getProperty]`
-(or `link:unavailable#get_property-class_method[System.getProperty]`). You can also retrieve the
-environment variables using `link:unavailable#getenv-class_method[System.getenv]`.
+include::override/verticle-configuration.adoc[]
 
 === Verticle Isolation Groups
 
