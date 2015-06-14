@@ -92,7 +92,7 @@ def test_data_object_param
   @obj.method_with_data_object_param(data_object)
 end
 
-def test_method_with_null_data_object_param
+def test_null_data_object_param
   Assert.argument_error { @obj.method_with_null_data_object_param(nil) }
 end
 
@@ -267,7 +267,7 @@ def test_method_with_handler_list_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_async_result_handler_list_json_object
+def test_method_with_handler_async_result_list_json_object
   count = 0
   @obj.method_with_handler_async_result_list_json_object do |err,val|
     Assert.is_nil(err)
@@ -316,7 +316,7 @@ def test_method_with_handler_set_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_async_result_handler_set_json_object
+def test_method_with_handler_async_result_set_json_object
   count = 0
   @obj.method_with_handler_async_result_set_json_object do |err,val|
     Assert.is_nil(err)
@@ -365,7 +365,7 @@ def test_method_with_handler_list_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_async_result_handler_list_json_array
+def test_method_with_handler_async_result_list_json_array
   count = 0
   @obj.method_with_handler_async_result_list_json_array do |err,val|
     Assert.is_nil(err)
@@ -414,7 +414,7 @@ def test_method_with_handler_set_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_async_result_handler_set_json_array
+def test_method_with_handler_async_result_set_json_array
   count = 0
   @obj.method_with_handler_async_result_set_json_array do |err,val|
     Assert.is_nil(err)
