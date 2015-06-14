@@ -17,15 +17,15 @@ java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
 @obj = Testmodel::TestInterface.new(TestInterfaceImpl.new)
 @refed_obj = Testmodel::RefedInterface1.new(RefedInterface1Impl.new)
 
-def test_method_with_basic_params
+def testMethodWithBasicParams
   @obj.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar');
 end
 
-def test_method_with_basic_boxed_params
+def testMethodWithBasicBoxedParams
   @obj.method_with_basic_boxed_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88);
 end
 
-def test_method_with_handler_basic_types
+def testMethodWithHandlerBasicTypes
   count = 0
   @obj.method_with_handler_basic_types(
       Proc.new { |val| Assert.equals(val, 123); Assert.equals(val.class, Fixnum) ; count += 1 },
@@ -41,7 +41,7 @@ def test_method_with_handler_basic_types
   Assert.equals(count, 9)
 end
 
-def test_method_with_handler_async_result_basic_types
+def testMethodWithHandlerAsyncResultBasicTypes
   count = 0
   @obj.method_with_handler_async_result_byte(false) { |err,val| Assert.is_nil err; Assert.equals(val, 123); Assert.equals(val.class, Fixnum); count += 1 }
   @obj.method_with_handler_async_result_short(false) { |err,val| Assert.is_nil err; Assert.equals(val, 12345); Assert.equals(val.class, Fixnum); count += 1 }
@@ -55,7 +55,7 @@ def test_method_with_handler_async_result_basic_types
   Assert.equals(count, 9)
 end
 
-def test_method_with_handler_async_result_basic_types_fails
+def testMethodWithHandlerAsyncResultBasicTypesFails
   count = 0
   @obj.method_with_handler_async_result_byte(true) { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 }
   @obj.method_with_handler_async_result_short(true) { |err,val| Assert.is_nil val; Assert.is_not_nil err; Assert.equals(err.message, 'foobar!'); count += 1 }
@@ -69,12 +69,12 @@ def test_method_with_handler_async_result_basic_types_fails
   Assert.equals(count, 9)
 end
 
-def test_method_with_user_types
+def testMethodWithUserTypes
   @refed_obj.set_string('aardvarks')
   @obj.method_with_user_types(@refed_obj)
 end
 
-def test_object_param
+def testObjectParam
   @obj.method_with_object_param('null', nil)
   @obj.method_with_object_param('string', 'wibble')
   @obj.method_with_object_param('true', true)
@@ -87,34 +87,34 @@ def test_object_param
   @obj.method_with_object_param('JsonArray', json_arr)
 end
 
-def test_data_object_param
+def testDataObjectParam
   data_object = {:foo => 'hello', :bar => 123, :wibble => 1.23}
   @obj.method_with_data_object_param(data_object)
 end
 
-def test_null_data_object_param
+def testNullDataObjectParam
   Assert.argument_error { @obj.method_with_null_data_object_param(nil) }
 end
 
-def test_method_with_handler_data_object
+def testMethodWithHandlerDataObject
   count = 0
   @obj.method_with_handler_data_object { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
   Assert.equals(count, 1)
 end
 
-def test_method_with_handler_async_result_data_object
+def testMethodWithHandlerAsyncResultDataObject
   count = 0
   @obj.method_with_handler_async_result_data_object(false) { |err,val| Assert.is_nil(err); Assert.equals(val, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
   Assert.equals(count, 1)
 end
 
-def test_method_with_handler_async_result_data_object_fails
+def testMethodWithHandlerAsyncResultDataObjectFails
   count = 0
   @obj.method_with_handler_async_result_data_object(true) { |err,val| Assert.is_nil(val); Assert.is_not_nil(err); Assert.equals(err.message, 'foobar!'); count += 1 }
   Assert.equals(count, 1)
 end
 
-def test_method_with_handler_list_and_set
+def testMethodWithHandlerListAndSet
   count = 0
   @obj.method_with_handler_list_and_set(
       Proc.new { |val| Assert.equals(val, %w(foo bar wibble)); count += 1 },
@@ -125,7 +125,7 @@ def test_method_with_handler_list_and_set
   Assert.equals(4, count)
 end
 
-def test_method_with_handler_async_result_list_and_set
+def testMethodWithHandlerAsyncResultListAndSet
   count = 0
   @obj.method_with_handler_async_result_list_string { |err,val| Assert.is_nil(err); Assert.equals(val, %w(foo bar wibble)); count += 1 }
   @obj.method_with_handler_async_result_list_integer { |err,val| Assert.is_nil(err); Assert.equals(val, [5,12,100]); count += 1 }
@@ -134,21 +134,21 @@ def test_method_with_handler_async_result_list_and_set
   Assert.equals(4, count)
 end
 
-def test_method_with_handler_list_vertx_gen
+def testMethodWithHandlerListVertxGen
   count = 0
   @obj.method_with_handler_list_vertx_gen do |val|
-     Assert.equals(val.class, Array)
-     Assert.equals(val.size, 2)
-     Assert.equals(val[0].class, Testmodel::RefedInterface1)
-     Assert.equals(val[0].get_string, 'foo')
-     Assert.equals(val[1].class, Testmodel::RefedInterface1)
-     Assert.equals(val[1].get_string, 'bar')
-     count += 1
+    Assert.equals(val.class, Array)
+    Assert.equals(val.size, 2)
+    Assert.equals(val[0].class, Testmodel::RefedInterface1)
+    Assert.equals(val[0].get_string, 'foo')
+    Assert.equals(val[1].class, Testmodel::RefedInterface1)
+    Assert.equals(val[1].get_string, 'bar')
+    count += 1
   end
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_abstract_vertx_gen
+def testMethodWithHandlerListAbstractVertxGen
   count = 0
   @obj.method_with_handler_list_abstract_vertx_gen do |val|
     Assert.equals(val.class, Array)
@@ -162,7 +162,7 @@ def test_method_with_handler_list_abstract_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_vertx_gen
+def testMethodWithHandlerAsyncResultListVertxGen
   count = 0
   @obj.method_with_handler_async_result_list_vertx_gen do |err,val|
     Assert.is_nil(err)
@@ -177,7 +177,7 @@ def test_method_with_handler_async_result_list_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_abstract_vertx_gen
+def testMethodWithHandlerAsyncResultListAbstractVertxGen
   count = 0
   @obj.method_with_handler_async_result_list_abstract_vertx_gen do |err,val|
     Assert.is_nil(err)
@@ -192,7 +192,7 @@ def test_method_with_handler_async_result_list_abstract_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_vertx_gen
+def testMethodWithHandlerSetVertxGen
   count = 0
   @obj.method_with_handler_set_vertx_gen do |val|
     Assert.equals(val.class, Set)
@@ -204,7 +204,7 @@ def test_method_with_handler_set_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_abstract_vertx_gen
+def testMethodWithHandlerSetAbstractVertxGen
   count = 0
   @obj.method_with_handler_set_abstract_vertx_gen do |val|
     Assert.equals(val.class, Set)
@@ -216,7 +216,7 @@ def test_method_with_handler_set_abstract_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_vertx_gen
+def testMethodWithHandlerAsyncResultSetVertxGen
   count = 0
   @obj.method_with_handler_async_result_set_vertx_gen do |err,val|
     Assert.is_nil(err)
@@ -229,7 +229,7 @@ def test_method_with_handler_async_result_set_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_abstract_vertx_gen
+def testMethodWithHandlerAsyncResultSetAbstractVertxGen
   count = 0
   @obj.method_with_handler_async_result_set_abstract_vertx_gen do |err,val|
     Assert.is_nil(err)
@@ -242,7 +242,7 @@ def test_method_with_handler_async_result_set_abstract_vertx_gen
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_json_object
+def testMethodWithHandlerListJsonObject
   count = 0
   @obj.method_with_handler_list_json_object do |val|
     Assert.equals(val.class, Array)
@@ -256,7 +256,7 @@ def test_method_with_handler_list_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_null_json_object
+def testMethodWithHandlerListNullJsonObject
   count = 0
   @obj.method_with_handler_list_null_json_object do |val|
     Assert.equals(val.class, Array)
@@ -267,7 +267,7 @@ def test_method_with_handler_list_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_json_object
+def testMethodWithHandlerAsyncResultListJsonObject
   count = 0
   @obj.method_with_handler_async_result_list_json_object do |err,val|
     Assert.is_nil(err)
@@ -282,7 +282,7 @@ def test_method_with_handler_async_result_list_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_null_json_object
+def testMethodWithHandlerAsyncResultListNullJsonObject
   count = 0
   @obj.method_with_handler_async_result_list_null_json_object do |err,val|
     Assert.is_nil(err)
@@ -294,7 +294,7 @@ def test_method_with_handler_async_result_list_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_json_object
+def testMethodWithHandlerSetJsonObject
   count = 0
   @obj.method_with_handler_set_json_object do |val|
     Assert.equals(val.class, Set)
@@ -305,7 +305,7 @@ def test_method_with_handler_set_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_null_json_object
+def testMethodWithHandlerSetNullJsonObject
   count = 0
   @obj.method_with_handler_set_null_json_object do |val|
     Assert.equals(val.class, Set)
@@ -316,7 +316,7 @@ def test_method_with_handler_set_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_json_object
+def testMethodWithHandlerAsyncResultSetJsonObject
   count = 0
   @obj.method_with_handler_async_result_set_json_object do |err,val|
     Assert.is_nil(err)
@@ -328,7 +328,7 @@ def test_method_with_handler_async_result_set_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_null_json_object
+def testMethodWithHandlerAsyncResultSetNullJsonObject
   count = 0
   @obj.method_with_handler_async_result_set_null_json_object do |err,val|
     Assert.is_nil(err)
@@ -340,7 +340,7 @@ def test_method_with_handler_async_result_set_null_json_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_json_array
+def testMethodWithHandlerListJsonArray
   count = 0
   @obj.method_with_handler_list_json_array do |val|
     Assert.equals(val.class, Array)
@@ -354,7 +354,7 @@ def test_method_with_handler_list_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_null_json_array
+def testMethodWithHandlerListNullJsonArray
   count = 0
   @obj.method_with_handler_list_null_json_array do |val|
     Assert.equals(val.class, Array)
@@ -365,7 +365,7 @@ def test_method_with_handler_list_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_json_array
+def testMethodWithHandlerAsyncResultListJsonArray
   count = 0
   @obj.method_with_handler_async_result_list_json_array do |err,val|
     Assert.is_nil(err)
@@ -380,7 +380,7 @@ def test_method_with_handler_async_result_list_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_null_json_array
+def testMethodWithHandlerAsyncResultListNullJsonArray
   count = 0
   @obj.method_with_handler_async_result_list_null_json_array do |err,val|
     Assert.is_nil(err)
@@ -392,7 +392,7 @@ def test_method_with_handler_async_result_list_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_json_array
+def testMethodWithHandlerSetJsonArray
   count = 0
   @obj.method_with_handler_set_json_array do |val|
     Assert.equals(val.class, Set)
@@ -403,7 +403,7 @@ def test_method_with_handler_set_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_null_json_array
+def testMethodWithHandlerSetNullJsonArray
   count = 0
   @obj.method_with_handler_set_null_json_array do |val|
     Assert.equals(val.class, Set)
@@ -414,7 +414,7 @@ def test_method_with_handler_set_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_json_array
+def testMethodWithHandlerAsyncResultSetJsonArray
   count = 0
   @obj.method_with_handler_async_result_set_json_array do |err,val|
     Assert.is_nil(err)
@@ -426,7 +426,7 @@ def test_method_with_handler_async_result_set_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_null_json_array
+def testMethodWithHandlerAsyncResultSetNullJsonArray
   count = 0
   @obj.method_with_handler_async_result_set_null_json_array do |err,val|
     Assert.is_nil(err)
@@ -438,7 +438,7 @@ def test_method_with_handler_async_result_set_null_json_array
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_data_object
+def testMethodWithHandlerListDataObject
   count = 0
   @obj.method_with_handler_list_data_object do |val|
     Assert.equals(val.class, Array)
@@ -450,7 +450,7 @@ def test_method_with_handler_list_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_list_null_data_object
+def testMethodWithHandlerListNullDataObject
   count = 0
   @obj.method_with_handler_list_null_data_object do |val|
     Assert.equals(val.class, Array)
@@ -460,7 +460,7 @@ def test_method_with_handler_list_null_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_set_data_object
+def testMethodWithHandlerSetDataObject
   count = 0
   @obj.method_with_handler_set_data_object do |val|
     Assert.equals(val, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
@@ -469,7 +469,7 @@ def test_method_with_handler_set_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_null_set_data_object
+def testMethodWithHandlerNullSetDataObject
   count = 0
   @obj.method_with_handler_set_null_data_object do |val|
     Assert.equals(val, Set.new([nil]))
@@ -478,7 +478,7 @@ def test_method_with_handler_null_set_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_data_object
+def testMethodWithHandlerAsyncResultListDataObject
   count = 0
   @obj.method_with_handler_async_result_list_data_object do |err,val|
     Assert.is_nil(err)
@@ -491,7 +491,7 @@ def test_method_with_handler_async_result_list_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_list_null_data_object
+def testMethodWithHandlerAsyncResultListNullDataObject
   count = 0
   @obj.method_with_handler_async_result_list_null_data_object do |err,val|
     Assert.is_nil(err)
@@ -502,7 +502,7 @@ def test_method_with_handler_async_result_list_null_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_set_data_object
+def testMethodWithHandlerAsyncResultSetDataObject
   count = 0
   @obj.method_with_handler_async_result_set_data_object do |err,val|
     Assert.is_nil(err)
@@ -512,7 +512,7 @@ def test_method_with_handler_async_result_set_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_null_set_data_object
+def testMethodWithHandlerAsyncResultNullSetDataObject
   count = 0
   @obj.method_with_handler_async_result_set_null_data_object do |err,val|
     Assert.is_nil(err)
@@ -522,7 +522,7 @@ def test_method_with_handler_async_result_null_set_data_object
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_user_types
+def testMethodWithHandlerUserTypes
   count = 0
   @obj.method_with_handler_user_types do |val|
     Assert.equals(val.class, Testmodel::RefedInterface1)
@@ -532,7 +532,7 @@ def test_method_with_handler_user_types
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_user_types
+def testMethodWithHandlerAsyncResultUserTypes
   count = 0
   @obj.method_with_handler_async_result_user_types do |err,val|
     Assert.is_nil(err)
@@ -543,7 +543,7 @@ def test_method_with_handler_async_result_user_types
   Assert.equals(1, count)
 end
 
-def test_method_with_concrete_handler_user_type_subtype
+def testMethodWithConcreteHandlerUserTypeSubtype
   count = 0
   arg = Testmodel::Factory.create_concrete_handler_user_type do |refedObj|
     Assert.equals(refedObj.class, Testmodel::RefedInterface1)
@@ -554,7 +554,7 @@ def test_method_with_concrete_handler_user_type_subtype
   Assert.equals(1, count)
 end
 
-def test_method_with_abstract_handler_user_type_subtype
+def testMethodWithAbstractHandlerUserTypeSubtype
   count = 0
   arg = Testmodel::Factory.create_abstract_handler_user_type do |refedObj|
     Assert.equals(refedObj.class, Testmodel::RefedInterface1)
@@ -565,7 +565,7 @@ def test_method_with_abstract_handler_user_type_subtype
   Assert.equals(1, count)
 end
 
-def test_method_with_concrete_handler_user_type_subtype_extension
+def testMethodWithConcreteHandlerUserTypeSubtypeExtension
   count = 0
   arg = Testmodel::Factory.create_concrete_handler_user_type_extension do |refedObj|
     Assert.equals(refedObj.class, Testmodel::RefedInterface1)
@@ -576,7 +576,7 @@ def test_method_with_concrete_handler_user_type_subtype_extension
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_void
+def testMethodWithHandlerVoid
   count = 0
   @obj.method_with_handler_void do |val|
     Assert.is_nil(val)
@@ -585,7 +585,7 @@ def test_method_with_handler_void
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_void
+def testMethodWithHandlerAsyncResultVoid
   count = 0
   @obj.method_with_handler_async_result_void(false) do |err|
     Assert.is_nil(err)
@@ -594,7 +594,7 @@ def test_method_with_handler_async_result_void
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_async_result_void_fails
+def testMethodWithHandlerAsyncResultVoidFails
   count = 0
   @obj.method_with_handler_async_result_void(true) do |err|
     Assert.is_not_nil err
@@ -604,7 +604,7 @@ def test_method_with_handler_async_result_void_fails
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_throwable
+def testMethodWithHandlerThrowable
   count = 0
   @obj.method_with_handler_throwable do |err|
     Assert.is_not_nil err
@@ -614,7 +614,7 @@ def test_method_with_handler_throwable
   Assert.equals(1, count)
 end
 
-def test_method_with_handler_generic_user_type
+def testMethodWithHandlerGenericUserType
   def run_test(value, &assert)
     count = 0
     @obj.method_with_handler_generic_user_type(value) do |refedObj|
@@ -630,7 +630,7 @@ def test_method_with_handler_generic_user_type
   run_test(%w(foo bar juu)) { |value| Assert.equals(value, %w(foo bar juu)) }
 end
 
-def test_method_with_handler_async_result_generic_user_type
+def testMethodWithHandlerAsyncResultGenericUserType
   def run_test(value, &assert)
     count = 0
     @obj.method_with_handler_async_result_generic_user_type(value) do |err,refedObj|
@@ -647,13 +647,13 @@ def test_method_with_handler_async_result_generic_user_type
   run_test(%w(foo bar juu)) { |value| Assert.equals(value, %w(foo bar juu)) }
 end
 
-def test_method_with_generic_param
+def testMethodWithGenericParam
   @obj.method_with_generic_param 'String', 'foo'
   @obj.method_with_generic_param 'JsonObject', {'foo'=>'hello','bar'=>123}
   @obj.method_with_generic_param 'JsonArray', ['foo', 'bar', 'wib']
 end
 
-def test_method_with_generic_handler
+def testMethodWithGenericHandler
   count = 0
   @obj.method_with_generic_handler('String') { |val| Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 }
   Assert.equals(1, count)
@@ -668,7 +668,7 @@ def test_method_with_generic_handler
   Assert.equals(1, count)
 end
 
-def test_method_with_generic_handler_async_result
+def testMethodWithGenericHandlerAsyncResult
   count = 0
   @obj.method_with_generic_handler_async_result('String') { |err,val| Assert.is_nil(err); Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 }
   Assert.equals(1, count)
@@ -683,7 +683,7 @@ def test_method_with_generic_handler_async_result
   Assert.equals(1, count)
 end
 
-def test_basic_returns
+def testBasicReturns
   ret = @obj.method_with_byte_return
   Assert.equals(ret.class, Fixnum)
   Assert.equals(ret, 123)
@@ -713,24 +713,24 @@ def test_basic_returns
   Assert.equals(ret, 'orangutan')
 end
 
-def test_vertx_gen_return
+def testVertxGenReturn
   ret = @obj.method_with_vertx_gen_return
   Assert.equals(ret.class, Testmodel::RefedInterface1)
   Assert.equals(ret.get_string, 'chaffinch')
 end
 
-def test_vertx_gen_null_return
+def testVertxGenNullReturn
   ret = @obj.method_with_vertx_gen_null_return
   Assert.equals(nil, ret)
 end
 
-def test_abstract_vertx_gen_return
+def testAbstractVertxGenReturn
   ret = @obj.method_with_abstract_vertx_gen_return
   Assert.equals(ret.is_a?(Testmodel::RefedInterface2), true)
   Assert.equals(ret.get_string, 'abstractchaffinch')
 end
 
-def test_overloaded_methods
+def testOverloadedMethods
   @refed_obj.set_string('dog')
   called = false
   ret = @obj.overloaded_method('cat', @refed_obj)
@@ -752,14 +752,14 @@ def test_overloaded_methods
   Assert.argument_error { @obj.overloaded_method {} }
 end
 
-def test_super_interfaces
+def testSuperInterfaces
   @obj.super_method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
   Assert.equals(@obj.is_a?(Testmodel::SuperInterface1), true)
   @obj.other_super_method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
   Assert.equals(@obj.is_a?(Testmodel::SuperInterface2), true)
 end
 
-def test_method_with_generic_return
+def testMethodWithGenericReturn
   ret = @obj.method_with_generic_return('JsonObject')
   Assert.equals(ret.class, Hash)
   Assert.equals(ret, {'foo'=>'hello','bar'=>123})
@@ -768,18 +768,18 @@ def test_method_with_generic_return
   Assert.equals(ret, %w(foo bar wib))
 end
 
-def test_fluent_method
+def testFluentMethod
   ret = @obj.fluent_method('bar')
   Assert.equals(ret, @obj)
 end
 
-def test_static_factory_method
+def testStaticFactoryMethod
   ret = Testmodel::TestInterface.static_factory_method('bar')
   Assert.equals(ret.class, Testmodel::RefedInterface1)
   Assert.equals(ret.get_string, 'bar')
 end
 
-def test_method_with_cached_return
+def testMethodWithCachedReturn
   ret = @obj.method_with_cached_return('bar')
   ret2 = @obj.method_with_cached_return('bar')
   Assert.equals ret, ret2
@@ -793,29 +793,29 @@ def test_method_with_cached_return
   Assert.equals ret3.get_string, 'foo'
 end
 
-def test_json_returns
+def testJsonReturns
   ret = @obj.method_with_json_object_return
   Assert.equals(ret, {'cheese'=>'stilton'})
   ret = @obj.method_with_json_array_return
   Assert.equals(ret, %w(socks shoes))
 end
 
-def test_null_json_returns
+def testNullJsonReturns
   ret = @obj.method_with_null_json_object_return
   Assert.is_nil(ret)
   ret = @obj.method_with_null_json_array_return
   Assert.is_nil(ret)
 end
 
-def test_json_params
+def testJsonParams
   @obj.method_with_json_params({'cat' => 'lion', 'cheese' => 'cheddar'}, %w(house spider))
 end
 
-def test_null_json_params
+def testNullJsonParams
   Assert.argument_error { @obj.method_with_null_json_params(nil, nil) }
 end
 
-def test_json_handler_params
+def testJsonHandlerParams
   count = 0
   @obj.method_with_handler_json(
       Proc.new { |val| Assert.equals(val, {'cheese'=>'stilton'}); count += 1 }) do  |val|
@@ -824,7 +824,7 @@ def test_json_handler_params
   Assert.equals(2, count)
 end
 
-def test_null_json_handler_params
+def testNullJsonHandlerParams
   count = 0
   @obj.method_with_handler_null_json(
       Proc.new { |val| Assert.is_nil(val); count += 1 }) do |val|
@@ -833,31 +833,31 @@ def test_null_json_handler_params
   Assert.equals(2, count)
 end
 
-def test_json_handler_async_result_params
+def testJsonHandlerAsyncResultParams
   count = 0
   @obj.method_with_handler_async_result_json_object { |err,val| Assert.is_nil(err); Assert.equals(val, {'cheese'=>'stilton'}); count += 1 }
   @obj.method_with_handler_async_result_json_array { |err,val| Assert.is_nil(err); Assert.equals(val, ['socks','shoes']); count += 1 }
   Assert.equals(2, count)
 end
 
-def test_null_json_handler_async_result_params
+def testNullJsonHandlerAsyncResultParams
   count = 0
   @obj.method_with_handler_async_result_null_json_object { |err,val| Assert.is_nil(err); Assert.is_nil(val); count += 1 }
   @obj.method_with_handler_async_result_null_json_array { |err,val| Assert.is_nil(err); Assert.is_nil(val); count += 1 }
   Assert.equals(2, count)
 end
 
-def test_enum_param
+def testEnumParam
   ret = @obj.method_with_enum_param('sausages', :TIM)
   Assert.equals(ret, 'sausagesTIM')
 end
 
-def test_enum_return
+def testEnumReturn
   ret = @obj.method_with_enum_return('JULIEN')
   Assert.equals(:JULIEN, ret)
 end
 
-def test_map_return
+def testMapReturn
   readLog = []
   writeLog = []
   map = @obj.method_with_map_return{ |op|
@@ -910,7 +910,7 @@ def test_map_return
   Assert.equals writeLog, ['clear()']
 end
 
-def test_map_string_return
+def testMapStringReturn
   map = @obj.method_with_map_string_return {}
   val = map['foo']
   Assert.equals val.class, String
@@ -921,7 +921,7 @@ def test_map_string_return
   Assert.equals map, {'foo'=>'bar','juu'=>'daa'}
 end
 
-def test_map_json_object_return
+def testMapJsonObjectReturn
   map = @obj.method_with_map_json_object_return {}
   json = map['foo']
   Assert.equals json.class, Hash
@@ -932,7 +932,7 @@ def test_map_json_object_return
   Assert.equals map, {'foo'=>{'wibble'=>'eek'},'bar'=>{'juu'=>'daa'}}
 end
 
-def test_map_json_array_return
+def testMapJsonArrayReturn
   map = @obj.method_with_map_json_array_return {}
   arr = map['foo']
   Assert.equals arr.class, Array
@@ -943,7 +943,7 @@ def test_map_json_array_return
   Assert.equals map, {'foo'=>['wibble'],'bar'=>['spidey']}
 end
 
-def test_map_long_return
+def testMapLongReturn
   map = @obj.method_with_map_long_return {}
   num = map['foo']
   Assert.equals num.class, Fixnum
@@ -954,7 +954,7 @@ def test_map_long_return
   Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
-def test_map_integer_return
+def testMapIntegerReturn
   map = @obj.method_with_map_integer_return {}
   num = map['foo']
   Assert.equals num.class, Fixnum
@@ -965,7 +965,7 @@ def test_map_integer_return
   Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
-def test_map_short_return
+def testMapShortReturn
   map = @obj.method_with_map_short_return {}
   num = map['foo']
   Assert.equals num.class, Fixnum
@@ -976,7 +976,7 @@ def test_map_short_return
   Assert.equals map, {'foo'=>123,'bar'=>321}
 end
 
-def test_map_byte_return
+def testMapByteReturn
   map = @obj.method_with_map_byte_return {}
   num = map['foo']
   Assert.equals num.class, Fixnum
@@ -987,7 +987,7 @@ def test_map_byte_return
   Assert.equals map, {'foo'=>123,'bar'=>12}
 end
 
-def test_map_character_return
+def testMapCharacterReturn
   map = @obj.method_with_map_character_return {}
   num = map['foo']
   Assert.equals num.class, Fixnum
@@ -998,7 +998,7 @@ def test_map_character_return
   Assert.equals map, {'foo'=>88,'bar'=>89}
 end
 
-def test_map_boolean_return
+def testMapBooleanReturn
   map = @obj.method_with_map_boolean_return {}
   num = map['foo']
   Assert.equals num.class, TrueClass
@@ -1010,7 +1010,7 @@ def test_map_boolean_return
   Assert.equals map, {'foo'=>true,'bar'=>false,'juu'=>true,'daa'=>false}
 end
 
-def test_map_float_return
+def testMapFloatReturn
   map = @obj.method_with_map_float_return {}
   num = map['foo']
   Assert.equals num.class, Float
@@ -1025,7 +1025,7 @@ def test_map_float_return
   Assert.equals map.keys.sort, %w(bar foo)
 end
 
-def test_map_double_return
+def testMapDoubleReturn
   map = @obj.method_with_map_double_return {}
   num = map['foo']
   Assert.equals num.class, Float
@@ -1036,36 +1036,36 @@ def test_map_double_return
   Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
 end
 
-def test_map_null_return
+def testMapNullReturn
   map = @obj.method_with_null_map_return
   Assert.is_nil map
 end
 
-def test_list_string_return
+def testListStringReturn
   ret = @obj.method_with_list_string_return
   Assert.has_class ret, Array
   Assert.equals ret, %w(foo bar wibble)
 end
 
-def test_list_long_return
+def testListLongReturn
   ret = @obj.method_with_list_long_return
   Assert.has_class ret, Array
   Assert.equals ret, [123,456]
 end
 
-def test_list_json_object_return
+def testListJsonObjectReturn
   ret = @obj.method_with_list_json_object_return
   Assert.has_class ret, Array
   Assert.equals ret, [{'foo'=>'bar'},{'blah'=>'eek'}]
 end
 
-def test_list_json_array_return
+def testListJsonArrayReturn
   ret = @obj.method_with_list_json_array_return
   Assert.has_class ret, Array
   Assert.equals ret, [['foo'],['blah']]
 end
 
-def test_list_vertx_gen_return
+def testListVertxGenReturn
   ret = @obj.method_with_list_vertx_gen_return
   Assert.has_class ret, Array
   Assert.has_class ret[0], Testmodel::RefedInterface1
@@ -1074,43 +1074,43 @@ def test_list_vertx_gen_return
   Assert.equals ret[1].get_string, 'bar'
 end
 
-def test_set_string_return
+def testSetStringReturn
   ret = @obj.method_with_set_string_return
   Assert.has_class ret, Set
   Assert.equals ret, Set.new(%w(foo bar wibble))
 end
 
-def test_set_long_return
+def testSetLongReturn
   ret = @obj.method_with_set_long_return
   Assert.has_class ret, Set
   Assert.equals ret, Set.new([123,456])
 end
 
-def test_set_json_object_return
+def testSetJsonObjectReturn
   ret = @obj.method_with_set_json_object_return
   Assert.has_class ret, Set
   Assert.equals ret, Set.new([{'foo'=>'bar'},{'blah'=>'eek'}])
 end
 
-def test_set_json_array_return
+def testSetJsonArrayReturn
   ret = @obj.method_with_set_json_array_return
   Assert.has_class ret, Set
   Assert.equals ret, Set.new([['foo'],['blah']])
 end
 
-def test_set_vertx_gen_return
+def testSetVertxGenReturn
   ret = @obj.method_with_set_vertx_gen_return
   Assert.has_class ret, Set
   ret.each { |elt| Assert.has_class(elt, Testmodel::RefedInterface1) }
   Assert.equals(ret.map { |o| o.get_string }.to_set, Set.new(%w(foo bar)))
 end
 
-def test_throwable_return
+def testThrowableReturn
   ret = @obj.method_with_throwable_return 'bogies'
   Assert.equals('bogies', ret.message)
 end
 
-def test_custom_module
+def testCustomModule
   my = Acme::MyInterface.create
   test_interface = my.method
   test_interface.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar')
@@ -1119,22 +1119,22 @@ def test_custom_module
   Assert.equals ret, "olleh"
 end
 
-def test_method_with_list_params
+def testMethodWithListParams
   @obj.method_with_list_params(
-    %w(foo bar),
-    [2, 3],
-    [12, 13],
-    [1234, 1345],
-    [123, 456],
-    [{:foo=>'bar'}, {:eek=>'wibble'}],
-    [['foo'], ['blah']],
-    [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')],
-    [{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}]
+      %w(foo bar),
+      [2, 3],
+      [12, 13],
+      [1234, 1345],
+      [123, 456],
+      [{:foo=>'bar'}, {:eek=>'wibble'}],
+      [['foo'], ['blah']],
+      [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')],
+      [{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}]
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
 
-def test_method_with_set_params
+def testMethodWithSetParams
   @obj.method_with_set_params(
       Set.new(['foo', 'bar']),
       Set.new([2, 3]),
@@ -1149,7 +1149,7 @@ def test_method_with_set_params
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
 
-def test_method_with_map_params
+def testMethodWithMapParams
   @obj.method_with_map_params(
       {'foo'=>'bar','eek'=>'wibble'},
       {'foo'=>2,'eek'=>3},

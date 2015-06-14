@@ -349,6 +349,14 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_list_complex_json_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerListComplexJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_complex_json_object()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_set_json_object
       if block_given?
         return @j_del.java_method(:methodWithHandlerSetJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -362,6 +370,14 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerSetNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_json_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_set_complex_json_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerSetComplexJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_complex_json_object()"
     end
     # @yield 
     # @return [void]
@@ -381,6 +397,14 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_list_complex_json_array
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerListComplexJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_complex_json_array()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_set_json_array
       if block_given?
         return @j_del.java_method(:methodWithHandlerSetJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
@@ -394,6 +418,14 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerSetNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_json_array()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_set_complex_json_array
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerSetComplexJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_complex_json_array()"
     end
     # @yield 
     # @return [void]
@@ -477,6 +509,14 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_async_result_list_complex_json_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultListComplexJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_complex_json_object()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_async_result_set_json_object
       if block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultSetJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -490,6 +530,14 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerAsyncResultSetNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_json_object()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_set_complex_json_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetComplexJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_complex_json_object()"
     end
     # @yield 
     # @return [void]
@@ -509,6 +557,14 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_async_result_list_complex_json_array
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultListComplexJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_complex_json_array()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_async_result_set_json_array
       if block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultSetJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
@@ -522,6 +578,14 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerAsyncResultSetNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_json_array()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_set_complex_json_array
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultSetComplexJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_complex_json_array()"
     end
     # @yield 
     # @return [void]
@@ -835,6 +899,13 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_json_object_return()"
     end
+    # @return [Hash{String => Object}]
+    def method_with_complex_json_object_return
+      if !block_given?
+        return @j_del.java_method(:methodWithComplexJsonObjectReturn, []).call() != nil ? JSON.parse(@j_del.java_method(:methodWithComplexJsonObjectReturn, []).call().encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_complex_json_object_return()"
+    end
     # @return [Array<String,Object>]
     def method_with_json_array_return
       if !block_given?
@@ -848,6 +919,13 @@ module Testmodel
         return @j_del.java_method(:methodWithNullJsonArrayReturn, []).call() != nil ? JSON.parse(@j_del.java_method(:methodWithNullJsonArrayReturn, []).call().encode) : nil
       end
       raise ArgumentError, "Invalid arguments when calling method_with_null_json_array_return()"
+    end
+    # @return [Array<String,Object>]
+    def method_with_complex_json_array_return
+      if !block_given?
+        return @j_del.java_method(:methodWithComplexJsonArrayReturn, []).call() != nil ? JSON.parse(@j_del.java_method(:methodWithComplexJsonArrayReturn, []).call().encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_complex_json_array_return()"
     end
     # @param [Hash{String => Object}] jsonObject 
     # @param [Array<String,Object>] jsonArray 
@@ -885,6 +963,15 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_null_json(jsonObjectHandler)"
     end
+    # @param [Proc] jsonObjectHandler 
+    # @yield 
+    # @return [void]
+    def method_with_handler_complex_json(jsonObjectHandler=nil)
+      if jsonObjectHandler.class == Proc && block_given?
+        return @j_del.java_method(:methodWithHandlerComplexJson, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| jsonObjectHandler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| yield(event != nil ? JSON.parse(event.encode) : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_complex_json(jsonObjectHandler)"
+    end
     # @yield 
     # @return [void]
     def method_with_handler_async_result_json_object
@@ -903,6 +990,14 @@ module Testmodel
     end
     # @yield 
     # @return [void]
+    def method_with_handler_async_result_complex_json_object
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultComplexJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_complex_json_object()"
+    end
+    # @yield 
+    # @return [void]
     def method_with_handler_async_result_json_array
       if block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
@@ -916,6 +1011,14 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerAsyncResultNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_null_json_array()"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_complex_json_array
+      if block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultComplexJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result != nil ? JSON.parse(ar.result.encode) : nil : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_complex_json_array()"
     end
     # @yield 
     # @return [Hash{String => String}]
@@ -1006,12 +1109,28 @@ module Testmodel
       raise ArgumentError, "Invalid arguments when calling method_with_map_json_object_return()"
     end
     # @yield 
+    # @return [Hash{String => Hash{String => Object}}]
+    def method_with_map_complex_json_object_return
+      if block_given?
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapComplexJsonObjectReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_object(val) })
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_map_complex_json_object_return()"
+    end
+    # @yield 
     # @return [Hash{String => Array<String,Object>}]
     def method_with_map_json_array_return
       if block_given?
         return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapJsonArrayReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_json_array_return()"
+    end
+    # @yield 
+    # @return [Hash{String => Array<String,Object>}]
+    def method_with_map_complex_json_array_return
+      if block_given?
+        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithMapComplexJsonArrayReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) })), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_json_array(val) })
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_map_complex_json_array_return()"
     end
     # @return [Hash{String => String}]
     def method_with_null_map_return
@@ -1048,12 +1167,26 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_json_object_return()"
     end
+    # @return [Array<Hash{String => Object}>]
+    def method_with_list_complex_json_object_return
+      if !block_given?
+        return @j_del.java_method(:methodWithListComplexJsonObjectReturn, []).call().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_list_complex_json_object_return()"
+    end
     # @return [Array<Array<String,Object>>]
     def method_with_list_json_array_return
       if !block_given?
         return @j_del.java_method(:methodWithListJsonArrayReturn, []).call().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_json_array_return()"
+    end
+    # @return [Array<Array<String,Object>>]
+    def method_with_list_complex_json_array_return
+      if !block_given?
+        return @j_del.java_method(:methodWithListComplexJsonArrayReturn, []).call().to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_list_complex_json_array_return()"
     end
     # @return [Array<String>]
     def method_with_null_list_return
@@ -1090,12 +1223,26 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_json_object_return()"
     end
+    # @return [Set<Hash{String => Object}>]
+    def method_with_set_complex_json_object_return
+      if !block_given?
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetComplexJsonObjectReturn, []).call()).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_set_complex_json_object_return()"
+    end
     # @return [Set<Array<String,Object>>]
     def method_with_set_json_array_return
       if !block_given?
         return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetJsonArrayReturn, []).call()).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_json_array_return()"
+    end
+    # @return [Set<Array<String,Object>>]
+    def method_with_set_complex_json_array_return
+      if !block_given?
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetComplexJsonArrayReturn, []).call()).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_set_complex_json_array_return()"
     end
     # @return [Set<String>]
     def method_with_null_set_return

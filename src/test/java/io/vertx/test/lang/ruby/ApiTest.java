@@ -554,6 +554,6 @@ public class ApiTest extends RubyTestBase {
   }
 
   private void runTest() {
-    runTest("api_test", Case.SNAKE.format(Case.CAMEL.parse(testName.getMethodName())));
+    runTest("api_test", testName.getMethodName());
   }
 }
