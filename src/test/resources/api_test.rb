@@ -267,6 +267,17 @@ def testMethodWithHandlerListNullJsonObject
   Assert.equals(1, count)
 end
 
+def testMethodWithHandlerListComplexJsonObject
+  count = 0
+  @obj.method_with_handler_list_complex_json_object do |val|
+    Assert.equals(val.class, Array)
+    Assert.equals(val.size, 1)
+    Assert.equals(val[0], {'outer' => {'socks' => 'tartan'}, 'list' => ['yellow', 'blue']})
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
 def testMethodWithHandlerAsyncResultListJsonObject
   count = 0
   @obj.method_with_handler_async_result_list_json_object do |err,val|
@@ -294,6 +305,18 @@ def testMethodWithHandlerAsyncResultListNullJsonObject
   Assert.equals(1, count)
 end
 
+def testMethodWithHandlerAsyncResultListComplexJsonObject
+  count = 0
+  @obj.method_with_handler_async_result_list_complex_json_object do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val.class, Array)
+    Assert.equals(val.size, 1)
+    Assert.equals(val[0], {'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']})
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
 def testMethodWithHandlerSetJsonObject
   count = 0
   @obj.method_with_handler_set_json_object do |val|
@@ -311,6 +334,17 @@ def testMethodWithHandlerSetNullJsonObject
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 1)
     val.each { |elt| Assert.is_nil(elt) }
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerSetComplexJsonObject
+  count = 0
+  @obj.method_with_handler_set_complex_json_object do |val|
+    Assert.equals(val.class, Set)
+    Assert.equals(val.size, 1)
+    Assert.equals(val, [{'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}].to_set)
     count += 1
   end
   Assert.equals(1, count)
@@ -335,6 +369,18 @@ def testMethodWithHandlerAsyncResultSetNullJsonObject
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 1)
     val.each { |elt| Assert.is_nil(elt) }
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerAsyncResultSetComplexJsonObject
+  count = 0
+  @obj.method_with_handler_async_result_set_complex_json_object do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val.class, Set)
+    Assert.equals(val.size, 1)
+    Assert.equals(val, [{'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}].to_set)
     count += 1
   end
   Assert.equals(1, count)
@@ -392,6 +438,17 @@ def testMethodWithHandlerAsyncResultListNullJsonArray
   Assert.equals(1, count)
 end
 
+def testMethodWithHandlerAsyncResultListComplexJsonArray
+  count = 0
+  @obj.method_with_handler_async_result_list_complex_json_array do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val.class, Array)
+    Assert.equals(val, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]])
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
 def testMethodWithHandlerSetJsonArray
   count = 0
   @obj.method_with_handler_set_json_array do |val|
@@ -409,6 +466,16 @@ def testMethodWithHandlerSetNullJsonArray
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 1)
     val.each { |elt| Assert.is_nil(elt) }
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerSetComplexJsonArray
+  count = 0
+  @obj.method_with_handler_set_complex_json_array do |val|
+    Assert.equals(val.class, Set)
+    Assert.equals(val, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]].to_set)
     count += 1
   end
   Assert.equals(1, count)
@@ -433,6 +500,16 @@ def testMethodWithHandlerAsyncResultSetNullJsonArray
     Assert.equals(val.class, Set)
     Assert.equals(val.size, 1)
     val.each { |elt| Assert.is_nil(elt) }
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerListComplexJsonArray
+  count = 0
+  @obj.method_with_handler_list_complex_json_array do |val|
+    Assert.equals(val.class, Array)
+    Assert.equals(val, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]])
     count += 1
   end
   Assert.equals(1, count)
@@ -473,6 +550,17 @@ def testMethodWithHandlerNullSetDataObject
   count = 0
   @obj.method_with_handler_set_null_data_object do |val|
     Assert.equals(val, Set.new([nil]))
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerAsyncResultSetComplexJsonArray
+  count = 0
+  @obj.method_with_handler_async_result_set_complex_json_array do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val.class, Set)
+    Assert.equals(val, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]].to_set)
     count += 1
   end
   Assert.equals(1, count)
@@ -666,6 +754,9 @@ def testMethodWithGenericHandler
   count = 0
   @obj.method_with_generic_handler('JsonArray') { |val| Assert.equals(val.class, Array); Assert.equals(val, ['foo','bar','wib']); count += 1 }
   Assert.equals(1, count)
+  count = 0
+  @obj.method_with_generic_handler('JsonObjectComplex') { |val| Assert.equals(val.class, Hash); Assert.equals(val, {'outer' => {'foo' => 'hello'}, 'bar'=> ['this', 'that']}); count += 1 }
+  Assert.equals(1, count)
 end
 
 def testMethodWithGenericHandlerAsyncResult
@@ -677,6 +768,9 @@ def testMethodWithGenericHandlerAsyncResult
   Assert.equals(1, count)
   count = 0
   @obj.method_with_generic_handler_async_result('JsonObject') { |err,val| Assert.is_nil(err); Assert.equals(val.class, Hash); Assert.equals(val, {'foo'=>'hello','bar'=>123}); count += 1 }
+  Assert.equals(1, count)
+  count = 0
+  @obj.method_with_generic_handler_async_result('JsonObjectComplex') { |err,val| Assert.is_nil(err); Assert.equals(val.class, Hash); Assert.equals(val, {'outer' => {'foo' => 'hello'}, 'bar'=> ['this', 'that']}); count += 1 }
   Assert.equals(1, count)
   count = 0
   @obj.method_with_generic_handler_async_result('JsonArray') { |err,val| Assert.is_nil(err); Assert.equals(val.class, Array); Assert.equals(val, ['foo','bar','wib']); count += 1 }
@@ -728,6 +822,12 @@ def testAbstractVertxGenReturn
   ret = @obj.method_with_abstract_vertx_gen_return
   Assert.equals(ret.is_a?(Testmodel::RefedInterface2), true)
   Assert.equals(ret.get_string, 'abstractchaffinch')
+end
+
+def testMapComplexJsonArrayReturn
+  map = @obj.method_with_map_complex_json_array_return {}
+  m = map['foo']
+  Assert.equals m, [{'foo' => 'hello'}, {'bar' => 'bye'}]
 end
 
 def testOverloadedMethods
@@ -807,6 +907,13 @@ def testNullJsonReturns
   Assert.is_nil(ret)
 end
 
+def testComplexJsonReturns
+  ret = @obj.method_with_complex_json_object_return
+  Assert.equals ret, {'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}
+  ret = @obj.method_with_complex_json_array_return
+  Assert.equals ret, [{'foo' => 'hello'}, {'bar' => 'bye'}]
+end
+
 def testJsonParams
   @obj.method_with_json_params({'cat' => 'lion', 'cheese' => 'cheddar'}, %w(house spider))
 end
@@ -829,6 +936,16 @@ def testNullJsonHandlerParams
   @obj.method_with_handler_null_json(
       Proc.new { |val| Assert.is_nil(val); count += 1 }) do |val|
     Assert.is_nil(val); count += 1
+  end
+  Assert.equals(2, count)
+end
+
+def testComplexJsonHandlerParams
+  count = 0
+  @obj.method_with_handler_complex_json(
+      Proc.new { |val| Assert.equals(val, {'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}); count += 1 }) do |val|
+    Assert.equals(val, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]])
+    count += 1
   end
   Assert.equals(2, count)
 end
@@ -930,6 +1047,12 @@ def testMapJsonObjectReturn
   Assert.equals map, {'foo'=>{'wibble'=>'eek'},'bar'=>{'juu'=>'daa'}}
   Assert.argument_error { map['juu'] = 123 }
   Assert.equals map, {'foo'=>{'wibble'=>'eek'},'bar'=>{'juu'=>'daa'}}
+end
+
+def testMapComplexJsonObjectReturn
+  map = @obj.method_with_map_complex_json_object_return {}
+  m = map['foo']
+  Assert.equals m, {'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}
 end
 
 def testMapJsonArrayReturn
@@ -1059,10 +1182,22 @@ def testListJsonObjectReturn
   Assert.equals ret, [{'foo'=>'bar'},{'blah'=>'eek'}]
 end
 
+def testListComplexJsonObjectReturn
+  ret = @obj.method_with_list_complex_json_object_return
+  Assert.has_class ret, Array
+  Assert.equals ret, [{'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}]
+end
+
 def testListJsonArrayReturn
   ret = @obj.method_with_list_json_array_return
   Assert.has_class ret, Array
   Assert.equals ret, [['foo'],['blah']]
+end
+
+def testListComplexJsonArrayReturn
+  ret = @obj.method_with_list_complex_json_array_return
+  Assert.has_class ret, Array
+  Assert.equals ret, [[{'foo' => 'hello'}],[{'bar' => 'bye'}]]
 end
 
 def testListVertxGenReturn
@@ -1092,10 +1227,22 @@ def testSetJsonObjectReturn
   Assert.equals ret, Set.new([{'foo'=>'bar'},{'blah'=>'eek'}])
 end
 
+def testSetComplexJsonObjectReturn
+  ret = @obj.method_with_set_complex_json_object_return
+  Assert.has_class ret, Set
+  Assert.equals ret, [{'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']}].to_set
+end
+
 def testSetJsonArrayReturn
   ret = @obj.method_with_set_json_array_return
   Assert.has_class ret, Set
   Assert.equals ret, Set.new([['foo'],['blah']])
+end
+
+def testSetComplexJsonArrayReturn
+  ret = @obj.method_with_set_complex_json_array_return
+  Assert.has_class ret, Set
+  Assert.equals ret, [[{'foo' => 'hello'}], [{'bar' => 'bye'}]].to_set
 end
 
 def testSetVertxGenReturn
@@ -1103,6 +1250,21 @@ def testSetVertxGenReturn
   Assert.has_class ret, Set
   ret.each { |elt| Assert.has_class(elt, Testmodel::RefedInterface1) }
   Assert.equals(ret.map { |o| o.get_string }.to_set, Set.new(%w(foo bar)))
+end
+
+def testComplexJsonHandlerAsyncResultParams
+  count = 0
+  @obj.method_with_handler_async_result_complex_json_object { |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val, {'outer' => {'socks' => 'tartan'}, 'list'=> ['yellow', 'blue']})
+    count += 1
+  }
+  @obj.method_with_handler_async_result_complex_json_array { |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val, [{'foo' => 'hello'}, {'bar' => 'bye'}])
+    count += 1
+  }
+  Assert.equals(2, count)
 end
 
 def testThrowableReturn

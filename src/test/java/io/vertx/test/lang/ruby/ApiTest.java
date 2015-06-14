@@ -134,12 +134,22 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerListComplexJsonObject() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerAsyncResultListJsonObject() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultListNullJsonObject() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultListComplexJsonObject() {
     runTest();
   }
 
@@ -154,12 +164,22 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerSetComplexJsonObject() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerAsyncResultSetJsonObject() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultSetNullJsonObject() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetComplexJsonObject() {
     runTest();
   }
 
@@ -184,6 +204,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerAsyncResultListComplexJsonArray() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerSetJsonArray() {
     runTest();
   }
@@ -194,12 +219,22 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerSetComplexJsonArray() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerAsyncResultSetJsonArray() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultSetNullJsonArray() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerListComplexJsonArray() {
     runTest();
   }
 
@@ -220,6 +255,11 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testMethodWithHandlerNullSetDataObject() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetComplexJsonArray() {
     runTest();
   }
 
@@ -334,6 +374,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMapComplexJsonArrayReturn() {
+    runTest();
+  }
+
+  @Test
   public void testOverloadedMethods() {
     runTest();
   }
@@ -374,6 +419,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testComplexJsonReturns() {
+    runTest();
+  }
+
+  @Test
   public void testJsonParams() {
     runTest();
   }
@@ -390,6 +440,11 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testNullJsonHandlerParams() {
+    runTest();
+  }
+
+  @Test
+  public void testComplexJsonHandlerParams() {
     runTest();
   }
 
@@ -425,6 +480,11 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testMapJsonObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testMapComplexJsonObjectReturn() {
     runTest();
   }
 
@@ -494,7 +554,17 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testListComplexJsonObjectReturn() {
+    runTest();
+  }
+
+  @Test
   public void testListJsonArrayReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testListComplexJsonArrayReturn() {
     runTest();
   }
 
@@ -519,12 +589,27 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testSetComplexJsonObjectReturn() {
+    runTest();
+  }
+
+  @Test
   public void testSetJsonArrayReturn() {
     runTest();
   }
 
   @Test
+  public void testSetComplexJsonArrayReturn() {
+    runTest();
+  }
+
+  @Test
   public void testSetVertxGenReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testComplexJsonHandlerAsyncResultParams() {
     runTest();
   }
 
