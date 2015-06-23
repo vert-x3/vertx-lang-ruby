@@ -161,14 +161,32 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write_frame(frame)"
     end
-    # @param [::Vertx::Buffer] data 
+    # @param [String] text 
     # @return [self]
-    def write_message(data=nil)
-      if data.class.method_defined?(:j_del) && !block_given?
-        @j_del.java_method(:writeMessage, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
+    def write_final_text_frame(text=nil)
+      if text.class == String && !block_given?
+        @j_del.java_method(:writeFinalTextFrame, [Java::java.lang.String.java_class]).call(text)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_message(data)"
+      raise ArgumentError, "Invalid arguments when calling write_final_text_frame(text)"
+    end
+    # @param [::Vertx::Buffer] data 
+    # @return [self]
+    def write_final_binary_frame(data=nil)
+      if data.class.method_defined?(:j_del) && !block_given?
+        @j_del.java_method(:writeFinalBinaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_final_binary_frame(data)"
+    end
+    # @param [::Vertx::Buffer] data 
+    # @return [self]
+    def write_binary_message(data=nil)
+      if data.class.method_defined?(:j_del) && !block_given?
+        @j_del.java_method(:writeBinaryMessage, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_binary_message(data)"
     end
     # @yield 
     # @return [self]

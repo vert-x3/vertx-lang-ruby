@@ -55,11 +55,11 @@ socket = vertx.create_datagram_socket({
 })
 buffer = Vertx::Buffer.buffer("content")
 # Send a Buffer
-socket.send(buffer, 1234, "10.0.0.1") { |asyncResult,asyncResult_err|
+socket.send(buffer, 1234, "10.0.0.1") { |asyncResult_err,asyncResult|
   puts "Send succeeded? #{asyncResult_err == nil}"
 }
 # Send a String
-socket.send("A string used as content", 1234, "10.0.0.1") { |asyncResult,asyncResult_err|
+socket.send("A string used as content", 1234, "10.0.0.1") { |asyncResult_err,asyncResult|
   puts "Send succeeded? #{asyncResult_err == nil}"
 }
 
@@ -86,7 +86,7 @@ So to listen on a specific address and port you would do something like shown he
 ----
 socket = vertx.create_datagram_socket({
 })
-socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+socket.listen(1234, "0.0.0.0") { |asyncResult_err,asyncResult|
   if (asyncResult_err == nil)
     socket.handler() { |packet|
       # Do something with the packet
@@ -125,7 +125,7 @@ socket = vertx.create_datagram_socket({
 })
 buffer = Vertx::Buffer.buffer("content")
 # Send a Buffer to a multicast address
-socket.send(buffer, 1234, "230.0.0.1") { |asyncResult,asyncResult_err|
+socket.send(buffer, 1234, "230.0.0.1") { |asyncResult_err,asyncResult|
   puts "Send succeeded? #{asyncResult_err == nil}"
 }
 
@@ -155,14 +155,14 @@ would do something like shown here:
 ----
 socket = vertx.create_datagram_socket({
 })
-socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+socket.listen(1234, "0.0.0.0") { |asyncResult_err,asyncResult|
   if (asyncResult_err == nil)
     socket.handler() { |packet|
       # Do something with the packet
     }
 
     # join the multicast group
-    socket.listen_multicast_group("230.0.0.1") { |asyncResult2,asyncResult2_err|
+    socket.listen_multicast_group("230.0.0.1") { |asyncResult2_err,asyncResult2|
       puts "Listen succeeded? #{asyncResult2_err == nil}"
     }
   else
@@ -184,20 +184,20 @@ This is shown here:
 ----
 socket = vertx.create_datagram_socket({
 })
-socket.listen(1234, "0.0.0.0") { |asyncResult,asyncResult_err|
+socket.listen(1234, "0.0.0.0") { |asyncResult_err,asyncResult|
   if (asyncResult_err == nil)
     socket.handler() { |packet|
       # Do something with the packet
     }
 
     # join the multicast group
-    socket.listen_multicast_group("230.0.0.1") { |asyncResult2,asyncResult2_err|
+    socket.listen_multicast_group("230.0.0.1") { |asyncResult2_err,asyncResult2|
       if (asyncResult2_err == nil)
         # will now receive packets for group
 
         # do some work
 
-        socket.unlisten_multicast_group("230.0.0.1") { |asyncResult3,asyncResult3_err|
+        socket.unlisten_multicast_group("230.0.0.1") { |asyncResult3_err,asyncResult3|
           puts "Unlisten succeeded? #{asyncResult3_err == nil}"
         }
       else
@@ -231,7 +231,7 @@ socket = vertx.create_datagram_socket({
 # Some code
 
 # This would block packets which are send from 10.0.0.2
-socket.block_multicast_group("230.0.0.1", "10.0.0.2") { |asyncResult,asyncResult_err|
+socket.block_multicast_group("230.0.0.1", "10.0.0.2") { |asyncResult_err,asyncResult|
   puts "block succeeded? #{asyncResult_err == nil}"
 }
 

@@ -14,7 +14,7 @@ Here's an example of an asynchronous copy of a file:
 fs = vertx.file_system()
 
 # Copy file from foo.txt to bar.txt
-fs.copy("foo.txt", "bar.txt") { |res,res_err|
+fs.copy("foo.txt", "bar.txt") { |res_err,res|
   if (res_err == nil)
     # Copied ok!
   else
@@ -51,7 +51,7 @@ require 'vertx/buffer'
 vertx = Vertx::Vertx.vertx()
 
 # Read a file
-vertx.file_system().read_file("target/classes/readme.txt") { |result,result_err|
+vertx.file_system().read_file("target/classes/readme.txt") { |result_err,result|
   if (result_err == nil)
     puts result
   else
@@ -60,7 +60,7 @@ vertx.file_system().read_file("target/classes/readme.txt") { |result,result_err|
 }
 
 # Copy a file
-vertx.file_system().copy("target/classes/readme.txt", "target/classes/readme2.txt") { |result,result_err|
+vertx.file_system().copy("target/classes/readme.txt", "target/classes/readme2.txt") { |result_err,result|
   if (result_err == nil)
     puts "File copied"
   else
@@ -69,7 +69,7 @@ vertx.file_system().copy("target/classes/readme.txt", "target/classes/readme2.tx
 }
 
 # Write a file
-vertx.file_system().write_file("target/classes/hello.txt", Vertx::Buffer.buffer("Hello")) { |result,result_err|
+vertx.file_system().write_file("target/classes/hello.txt", Vertx::Buffer.buffer("Hello")) { |result_err,result|
   if (result_err == nil)
     puts "File written"
   else
@@ -78,9 +78,9 @@ vertx.file_system().write_file("target/classes/hello.txt", Vertx::Buffer.buffer(
 }
 
 # Check existence and delete
-vertx.file_system().exists("target/classes/junk.txt") { |result,result_err|
+vertx.file_system().exists("target/classes/junk.txt") { |result_err,result|
   if (result_err == nil && result)
-    vertx.file_system().delete("target/classes/junk.txt") { |r,r_err|
+    vertx.file_system().delete("target/classes/junk.txt") { |r_err,r|
       puts "File deleted"
     }
   else
@@ -100,7 +100,7 @@ You open an `link:yardoc/Vertx/AsyncFile.html[AsyncFile]` as follows:
 ----
 options = {
 }
-fileSystem.open("myfile.txt", options) { |res,res_err|
+fileSystem.open("myfile.txt", options) { |res_err,res|
   if (res_err == nil)
     file = res
   else
@@ -135,13 +135,13 @@ require 'vertx/vertx'
 require 'vertx/buffer'
 vertx = Vertx::Vertx.vertx()
 vertx.file_system().open("target/classes/hello.txt", {
-}) { |result,result_err|
+}) { |result_err,result|
   if (result_err == nil)
     file = result
     buff = Vertx::Buffer.buffer("foo")
     i = 0
     while (i < 5)
-      file.write(buff, buff.length() * i) { |ar,ar_err|
+      file.write(buff, buff.length() * i) { |ar_err,ar|
         if (ar_err == nil)
           puts "Written ok!"
           # etc
@@ -180,13 +180,13 @@ require 'vertx/vertx'
 require 'vertx/buffer'
 vertx = Vertx::Vertx.vertx()
 vertx.file_system().open("target/classes/les_miserables.txt", {
-}) { |result,result_err|
+}) { |result_err,result|
   if (result_err == nil)
     file = result
     buff = Vertx::Buffer.buffer(1000)
     i = 0
     while (i < 10)
-      file.read(buff, i * 100, i * 100, 100) { |ar,ar_err|
+      file.read(buff, i * 100, i * 100, 100) { |ar_err,ar|
         if (ar_err == nil)
           puts "Read ok!"
         else
@@ -239,7 +239,7 @@ output = vertx.file_system().open_blocking("target/classes/plagiary.txt", {
 })
 
 vertx.file_system().open("target/classes/les_miserables.txt", {
-}) { |result,result_err|
+}) { |result_err,result|
   if (result_err == nil)
     file = result
     Vertx::Pump.pump(file, output).start()

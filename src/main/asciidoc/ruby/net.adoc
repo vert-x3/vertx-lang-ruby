@@ -66,7 +66,7 @@ For example:
 ----
 
 server = vertx.create_net_server()
-server.listen(1234, "localhost") { |res,res_err|
+server.listen(1234, "localhost") { |res_err,res|
   if (res_err == nil)
     puts "Server is now listening!"
   else
@@ -86,7 +86,7 @@ To find out the real port the server is listening on you can call `link:yardoc/V
 ----
 
 server = vertx.create_net_server()
-server.listen(0, "localhost") { |res,res_err|
+server.listen(0, "localhost") { |res_err,res|
   if (res_err == nil)
     puts "Server is now listening on actual port: #{server.actual_port()}"
   else
@@ -235,7 +235,7 @@ This handler will then be called when the close has fully completed.
 [source,ruby]
 ----
 
-server.close() { |res,res_err|
+server.close() { |res_err,res|
   if (res_err == nil)
     puts "Server is now closed"
   else
@@ -353,7 +353,7 @@ options = {
   'connectTimeout' => 10000
 }
 client = vertx.create_net_client(options)
-client.connect(4321, "localhost") { |res,res_err|
+client.connect(4321, "localhost") { |res_err,res|
   if (res_err == nil)
     puts "Connected!"
     socket = res

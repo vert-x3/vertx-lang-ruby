@@ -64,7 +64,7 @@ Getting the map is asynchronous and the result is returned to you in the handler
 
 sd = vertx.shared_data()
 
-sd.get_cluster_wide_map("mymap") { |res,res_err|
+sd.get_cluster_wide_map("mymap") { |res_err,res|
   if (res_err == nil)
     map = res
   else
@@ -84,7 +84,7 @@ The actual put is asynchronous and the handler is notified once it is complete:
 [source,ruby]
 ----
 
-map.put("foo", "bar") { |resPut,resPut_err|
+map.put("foo", "bar") { |resPut_err,resPut|
   if (resPut_err == nil)
     # Successfully put the value
   else
@@ -104,7 +104,7 @@ The actual get is asynchronous and the handler is notified with the result some 
 [source,ruby]
 ----
 
-map.get("foo") { |resGet,resGet_err|
+map.get("foo") { |resGet_err,resGet|
   if (resGet_err == nil)
     # Successfully got the value
     val = resGet
@@ -142,7 +142,7 @@ another caller can obtain it.
 
 [source,ruby]
 ----
-sd.get_lock("mylock") { |res,res_err|
+sd.get_lock("mylock") { |res_err,res|
   if (res_err == nil)
     # Got the lock!
     lock = res
@@ -165,7 +165,7 @@ with a failure:
 
 [source,ruby]
 ----
-sd.get_lock_with_timeout("mylock", 10000) { |res,res_err|
+sd.get_lock_with_timeout("mylock", 10000) { |res_err,res|
   if (res_err == nil)
     # Got the lock!
     lock = res
@@ -187,7 +187,7 @@ You obtain an instance with `link:yardoc/Vertx/SharedData.html#get_counter-insta
 
 [source,ruby]
 ----
-sd.get_counter("mycounter") { |res,res_err|
+sd.get_counter("mycounter") { |res_err,res|
   if (res_err == nil)
     counter = res
   else

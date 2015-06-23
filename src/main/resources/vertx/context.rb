@@ -176,5 +176,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling owner()"
     end
+    #  @return  the number of instances of the verticle that were deployed in the deployment (if any) related
+    #  to this context
+    # @return [Fixnum]
+    def get_instance_count
+      if !block_given?
+        return @j_del.java_method(:getInstanceCount, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling get_instance_count()"
+    end
   end
 end

@@ -123,16 +123,36 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write_frame(frame)"
     end
-    #  Writes a (potentially large) piece of data to the connection. This data might be written as multiple frames
+    #  Write a final WebSocket text frame to the connection
+    # @param [String] text The text to write
+    # @return [self]
+    def write_final_text_frame(text=nil)
+      if text.class == String && !block_given?
+        @j_del.java_method(:writeFinalTextFrame, [Java::java.lang.String.java_class]).call(text)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_final_text_frame(text)"
+    end
+    #  Write a final WebSocket binary frame to the connection
+    # @param [::Vertx::Buffer] data The data to write
+    # @return [self]
+    def write_final_binary_frame(data=nil)
+      if data.class.method_defined?(:j_del) && !block_given?
+        @j_del.java_method(:writeFinalBinaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_final_binary_frame(data)"
+    end
+    #  Writes a (potentially large) piece of binary data to the connection. This data might be written as multiple frames
     #  if it exceeds the maximum WebSocket frame size.
     # @param [::Vertx::Buffer] data the data to write
     # @return [self]
-    def write_message(data=nil)
+    def write_binary_message(data=nil)
       if data.class.method_defined?(:j_del) && !block_given?
-        @j_del.java_method(:writeMessage, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
+        @j_del.java_method(:writeBinaryMessage, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_message(data)"
+      raise ArgumentError, "Invalid arguments when calling write_binary_message(data)"
     end
     #  Set a close handler. This will be called when the WebSocket is closed.
     # @yield the handler

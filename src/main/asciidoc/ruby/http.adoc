@@ -66,7 +66,7 @@ For example:
 ----
 
 server = vertx.create_http_server()
-server.listen(8080, "myhost.com") { |res,res_err|
+server.listen(8080, "myhost.com") { |res_err,res|
   if (res_err == nil)
     puts "Server is now listening!"
   else
@@ -364,7 +364,7 @@ request.upload_handler() { |upload|
 ----
 
 WARNING: Make sure you check the filename in a production system to avoid malicious clients uploading files
-to arbitrary places on your filesystem. See <<security_notes, security notes>> for more information.
+to arbitrary places on your filesystem. See <<Security notes, security notes>> for more information.
 
 === Sending back responses
 
@@ -567,7 +567,7 @@ directly from disk to socket it doesn't give us an opportunity to apply any encr
 
 WARNING: If you're going to write web servers directly using Vert.x be careful that users cannot exploit the
 path to access files outside the directory from which you want to serve them. It may be safer instead to use
-Vert.x Apex.
+Vert.x Web.
 
 ==== Pumping responses
 
@@ -1286,7 +1286,7 @@ server on your multi-core machine.
 
 Vert.x http servers and clients can be configured to use HTTPS in exactly the same way as net servers.
 
-Please see <<netserver_ssl, configuring net servers to use SSL>> for more information.
+Please see <<ssl, configuring net servers to use SSL>> for more information.
 
 === WebSockets
 
@@ -1378,8 +1378,8 @@ client.websocket("/some-uri") { |websocket|
 
 ==== Writing messages to WebSockets
 
-If you wish to write a single binary WebSocket message containing a single WebSocket frame to the WebSocket (a
-common case) the simplest way to do this is to use `link:yardoc/Vertx/WebSocket.html#write_message-instance_method[writeMessage]`:
+If you wish to write a single binary WebSocket message to the WebSocket you can do this with
+`link:yardoc/Vertx/WebSocket.html#write_binary_message-instance_method[writeBinaryMessage]`:
 
 [source,ruby]
 ----
@@ -1387,18 +1387,18 @@ require 'vertx/buffer'
 # Write a simple message
 buffer = Vertx::Buffer.buffer().append_int(123).append_float(1.23)
 
-websocket.write_message(buffer)
+websocket.write_binary_message(buffer)
 
 ----
 
-If the websocket message is larger than the maximum websocket frame size as configured with
+If the WebSocket message is larger than the maximum websocket frame size as configured with
 `link:../cheatsheet/HttpClientOptions.html#maxWebsocketFrameSize[maxWebsocketFrameSize]`
 then Vert.x will split it into multiple WebSocket frames before sending it on the wire.
 
 ==== Writing frames to WebSockets
 
 A WebSocket message can be composed of multiple frames. In this case the first frame is either a _binary_ or _text_ frame
-followed by one or more _continuation_ frames.
+followed by zero or more _continuation_ frames.
 
 The last frame in the message is marked as _final_.
 
@@ -1423,6 +1423,30 @@ websocket.write_frame(frame2)
 # Write the final frame
 frame3 = Vertx::WebSocketFrame.continuation_frame(buffer2, true)
 websocket.write_frame(frame3)
+
+
+----
+
+In many cases you just want to send a websocket message that consists of a single final frame, so we provide a couple
+of shortcut methods to do that with `link:yardoc/Vertx/WebSocket.html#write_final_binary_frame-instance_method[writeFinalBinaryFrame]`
+and `link:yardoc/Vertx/WebSocket.html#write_final_text_frame-instance_method[writeFinalTextFrame]`.
+
+Here's an example:
+
+[source,ruby]
+----
+require 'vertx/buffer'
+
+# Send a websocket messages consisting of a single final text frame:
+
+websocket.write_final_text_frame("Geronimo!")
+
+# Send a websocket messages consisting of a single final binary frame:
+
+buff = Vertx::Buffer.buffer().append_int(12).append_string("foo")
+
+websocket.write_final_binary_frame(buff)
+
 
 
 ----

@@ -149,7 +149,7 @@ on the +MessageConsumer+ object.
 
 [source,ruby]
 ----
-consumer.completion_handler() { |res,res_err|
+consumer.completion_handler() { |res_err,res|
   if (res_err == nil)
     puts "The handler registration has reached all nodes"
   else
@@ -168,7 +168,7 @@ be notified when this is complete use `link:yardoc/Vertx/MessageConsumer.html#un
 
 [source,ruby]
 ----
-consumer.unregister() { |res,res_err|
+consumer.unregister() { |res_err,res|
   if (res_err == nil)
     puts "The handler un-registration has reached all nodes"
   else
@@ -243,7 +243,7 @@ The sender:
 
 [source,ruby]
 ----
-eventBus.send("news.uk.sport", "Yay! Someone kicked a ball across a patch of grass") { |ar,ar_err|
+eventBus.send("news.uk.sport", "Yay! Someone kicked a ball across a patch of grass") { |ar_err,ar|
   if (ar_err == nil)
     puts "Received reply: #{ar.body()}"
   end
@@ -288,7 +288,7 @@ instance as clustered;
 require 'vertx/vertx'
 options = {
 }
-Vertx::Vertx.clustered_vertx(options) { |res,res_err|
+Vertx::Vertx.clustered_vertx(options) { |res_err,res|
   if (res_err == nil)
     vertx = res
     eventBus = vertx.event_bus()

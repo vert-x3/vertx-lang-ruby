@@ -283,7 +283,7 @@ vertx.execute_blocking(lambda { |future|
   # Call some blocking API that takes a significant amount of time to return
   result = @someAPI.blocking_method("hello")
   future.complete(result)
-}) { |res,res_err|
+}) { |res_err,res|
   puts "The result is: #{res}"
 }
 
@@ -458,7 +458,7 @@ If you want to be notified when deployment is complete you can deploy specifying
 
 [source,ruby]
 ----
-vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle") { |res,res_err|
+vertx.deploy_verticle("com.mycompany.MyOrderProcessorVerticle") { |res_err,res|
   if (res_err == nil)
     puts "Deployment id is: #{res}"
   else
@@ -480,7 +480,7 @@ Un-deployment is itself asynchronous so if you want to be notified when un-deplo
 
 [source,ruby]
 ----
-vertx.undeploy(deploymentID) { |res,res_err|
+vertx.undeploy(deploymentID) { |res_err,res|
   if (res_err == nil)
     puts "Undeployed ok"
   else
@@ -1011,8 +1011,9 @@ The default cluster manager used in the Vert.x distributions is one that uses ht
 can be easily replaced by a different implementation as Vert.x cluster managers are pluggable.
 
 A cluster manager must implement the interface `link:unavailable[ClusterManager]`. Vert.x locates
-cluster managers at run-time by using the Java `ServiceLoader` functionality to locate instances of
-`link:unavailable[ClusterManager]` on the classpath.
+cluster managers at run-time by using the Java
+https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html[Service Loader] functionality to locate
+instances of `link:unavailable[ClusterManager]` on the classpath.
 
 If you are using Vert.x at the command line and you want to use clustering you should make sure the `lib` directory
 of the Vert.x installation contains your cluster manager jar.
@@ -1034,7 +1035,7 @@ A JUL logging configuration file can be specified in the normal JUL way by provi
 the structure of a JUL config file please consult the JUL logging documentation.
 
 Vert.x also provides a slightly more convenient way to specify a configuration file without having to set a system
-property. Just provide a JUL config file with the name `default-jul-logging.properties` on your classpath (e.g.
+property. Just provide a JUL config file with the name `vertx-default-jul-logging.properties` on your classpath (e.g.
 inside your fatjar) and Vert.x will use that to configure JUL.
 
 === Using another logging framework
