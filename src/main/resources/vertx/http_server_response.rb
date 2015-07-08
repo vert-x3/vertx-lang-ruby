@@ -213,6 +213,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close_handler()"
     end
+    #  Used to write an interim 100 Continue response to signify that the client should send the rest of the request.
+    #  Must only be used if the request contains an "Expect:100-Continue" header
+    # @return [self]
+    def write_continue
+      if !block_given?
+        @j_del.java_method(:writeContinue, []).call()
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_continue()"
+    end
     #  Same as {::Vertx::HttpServerResponse#end} but writes a String with the specified encoding before ending the response.
     # @overload end()
     # @overload end(chunk)
