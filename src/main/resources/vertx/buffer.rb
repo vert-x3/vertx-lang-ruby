@@ -59,6 +59,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_byte(pos)"
     end
+    #  Returns the unsigned <code>byte</code> at position <code>pos</code> in the Buffer, as a <code>short</code>.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_byte(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedByte, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_byte(pos)"
+    end
     #  Returns the <code>int</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos 
     # @return [Fixnum]
@@ -67,6 +76,15 @@ module Vertx
         return @j_del.java_method(:getInt, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_int(pos)"
+    end
+    #  Returns the unsigned <code>int</code> at position <code>pos</code> in the Buffer, as a <code>long</code>.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_int(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedInt, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_int(pos)"
     end
     #  Returns the <code>long</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos 
@@ -103,6 +121,15 @@ module Vertx
         return @j_del.java_method(:getShort, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_short(pos)"
+    end
+    #  Returns the unsigned <code>short</code> at position <code>pos</code> in the Buffer, as an <code>int</code>.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_short(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedShort, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_short(pos)"
     end
     #  Returns a copy of a sub-sequence the Buffer as a {::Vertx::Buffer} starting at position <code>start</code>
     #  and ending at position <code>end - 1</code>
@@ -157,6 +184,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling append_byte(b)"
     end
+    #  Appends the specified unsigned <code>byte</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] b 
+    # @return [self]
+    def append_unsigned_byte(b=nil)
+      if b.class == Fixnum && !block_given?
+        @j_del.java_method(:appendUnsignedByte, [Java::short.java_class]).call(::Vertx::Util::Utils.to_short(b))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_unsigned_byte(b)"
+    end
     #  Appends the specified <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] i 
@@ -167,6 +205,17 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_int(i)"
+    end
+    #  Appends the specified unsigned <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] i 
+    # @return [self]
+    def append_unsigned_int(i=nil)
+      if i.class == Fixnum && !block_given?
+        @j_del.java_method(:appendUnsignedInt, [Java::long.java_class]).call(i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_unsigned_int(i)"
     end
     #  Appends the specified <code>long</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
@@ -189,6 +238,17 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_short(s)"
+    end
+    #  Appends the specified unsigned <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] s 
+    # @return [self]
+    def append_unsigned_short(s=nil)
+      if s.class == Fixnum && !block_given?
+        @j_del.java_method(:appendUnsignedShort, [Java::int.java_class]).call(s)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_unsigned_short(s)"
     end
     #  Appends the specified <code>float</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
@@ -240,6 +300,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_byte(pos,b)"
     end
+    #  Sets the unsigned <code>byte</code> at position <code>pos</code> in the Buffer to the value <code>b</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] b 
+    # @return [::Vertx::Buffer]
+    def set_unsigned_byte(pos=nil,b=nil)
+      if pos.class == Fixnum && b.class == Fixnum && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setUnsignedByte, [Java::int.java_class,Java::short.java_class]).call(pos,::Vertx::Util::Utils.to_short(b)),::Vertx::Buffer)
+      end
+      raise ArgumentError, "Invalid arguments when calling set_unsigned_byte(pos,b)"
+    end
     #  Sets the <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos 
@@ -251,6 +322,18 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_int(pos,i)"
+    end
+    #  Sets the unsigned <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
+    # @return [self]
+    def set_unsigned_int(pos=nil,i=nil)
+      if pos.class == Fixnum && i.class == Fixnum && !block_given?
+        @j_del.java_method(:setUnsignedInt, [Java::int.java_class,Java::long.java_class]).call(pos,i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_unsigned_int(pos,i)"
     end
     #  Sets the <code>long</code> at position <code>pos</code> in the Buffer to the value <code>l</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
@@ -299,6 +382,18 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_short(pos,s)"
+    end
+    #  Sets the unsigned <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] s 
+    # @return [self]
+    def set_unsigned_short(pos=nil,s=nil)
+      if pos.class == Fixnum && s.class == Fixnum && !block_given?
+        @j_del.java_method(:setUnsignedShort, [Java::int.java_class,Java::int.java_class]).call(pos,s)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_unsigned_short(pos,s)"
     end
     #  Sets the bytes at position <code>pos</code> in the Buffer to the bytes represented by the <code>Buffer b</code> on the given <code>offset</code> and <code>len</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.

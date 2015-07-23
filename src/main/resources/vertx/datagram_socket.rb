@@ -1,7 +1,7 @@
 require 'vertx/packet_writestream'
 require 'vertx/buffer'
-require 'vertx/measured'
 require 'vertx/datagram_packet'
+require 'vertx/measured'
 require 'vertx/read_stream'
 require 'vertx/socket_address'
 require 'vertx/util/utils.rb'

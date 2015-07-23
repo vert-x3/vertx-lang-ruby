@@ -1,10 +1,10 @@
 require 'testmodel/generic_refed_interface'
 require 'testmodel/refed_interface1'
+require 'testmodel/abstract_handler_user_type'
+require 'testmodel/concrete_handler_user_type'
+require 'testmodel/concrete_handler_user_type_extension'
 require 'testmodel/super_interface1'
 require 'testmodel/refed_interface2'
-require 'testmodel/concrete_handler_user_type'
-require 'testmodel/abstract_handler_user_type'
-require 'testmodel/concrete_handler_user_type_extension'
 require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
@@ -1275,6 +1275,14 @@ module Testmodel
         return @j_del.java_method(:methodWithThrowableReturn, [Java::java.lang.String.java_class]).call(strVal)
       end
       raise ArgumentError, "Invalid arguments when calling method_with_throwable_return(strVal)"
+    end
+    # @param [Nil] t 
+    # @return [String]
+    def method_with_throwable_param(t=nil)
+      if false && !block_given?
+        return @j_del.java_method(:methodWithThrowableParam, [Java::JavaLang::Throwable.java_class]).call(nil)
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_throwable_param(t)"
     end
   end
 end
