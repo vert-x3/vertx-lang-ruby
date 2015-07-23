@@ -459,6 +459,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testThrowableParam() {
+    runTest();
+  }
+
+  @Test
   public void testEnumParam() {
     runTest();
   }

@@ -680,7 +680,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_throwable
       if block_given?
-        return @j_del.java_method(:methodWithHandlerThrowable, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event) }))
+        return @j_del.java_method(:methodWithHandlerThrowable, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_throwable(event)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_throwable()"
     end
@@ -1269,18 +1269,18 @@ module Testmodel
       raise ArgumentError, "Invalid arguments when calling method_with_enum_return(strVal)"
     end
     # @param [String] strVal 
-    # @return [Nil]
+    # @return [Exception]
     def method_with_throwable_return(strVal=nil)
       if strVal.class == String && !block_given?
-        return @j_del.java_method(:methodWithThrowableReturn, [Java::java.lang.String.java_class]).call(strVal)
+        return ::Vertx::Util::Utils.from_throwable(@j_del.java_method(:methodWithThrowableReturn, [Java::java.lang.String.java_class]).call(strVal))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_throwable_return(strVal)"
     end
-    # @param [Nil] t 
+    # @param [Exception] t 
     # @return [String]
     def method_with_throwable_param(t=nil)
-      if false && !block_given?
-        return @j_del.java_method(:methodWithThrowableParam, [Java::JavaLang::Throwable.java_class]).call(nil)
+      if t.is_a?(Exception) && !block_given?
+        return @j_del.java_method(:methodWithThrowableParam, [Java::JavaLang::Throwable.java_class]).call(::Vertx::Util::Utils.to_throwable(t))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_throwable_param(t)"
     end

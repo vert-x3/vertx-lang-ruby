@@ -5,6 +5,19 @@ java_import 'io.vertx.core.json.JsonArray'
 module Vertx
   module Util
     class Utils
+      def self.raise_runtime_exception(err)
+        raise err.getMessage
+      end
+      def self.from_throwable(err)
+        begin
+          raise_runtime_exception(err)
+        rescue Exception => e;
+          return e;
+        end
+      end
+      def self.to_throwable(err)
+        Java::IoVertxLangRuby::Helper.catchAndReturnThrowable(Proc.new { raise err });
+      end
       def self.safe_create(object, clazz)
         if nil != object
           return clazz.new(object)

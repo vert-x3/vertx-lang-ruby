@@ -18,6 +18,8 @@
       return "Object";
     } else if (kind == CLASS_JSON_OBJECT) {
       return "Hash{String => Object}";
+    } else if (kind == CLASS_THROWABLE) {
+      return "Exception";
     } else if (kind == CLASS_JSON_ARRAY) {
       return "Array<String,Object>";
     } else if (kind == CLASS_ASYNC_RESULT) {
@@ -189,6 +191,8 @@
     var kind = type.kind;
     if (kind == CLASS_STRING) {
       return expr + ".class == String";
+    } else if (kind == CLASS_THROWABLE) {
+      return expr + ".is_a?(Exception)";
     } else if (kind == CLASS_ENUM) {
       return expr + ".class == Symbol";
     } else if (kind.basic) {
@@ -283,6 +287,8 @@
       } else {
         return expr;
       }
+    } else if (kind == CLASS_THROWABLE) {
+        return "::Vertx::Util::Utils.to_throwable(" + expr + ")";
     } else if (kind == CLASS_HANDLER) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
@@ -348,8 +354,10 @@
       return expr;
     } else {
       var kind = type.kind;
-      if (kind.basic || kind == CLASS_THROWABLE) {
+      if (kind.basic) {
         return expr;
+      } else if (kind == CLASS_THROWABLE) {
+        return "::Vertx::Util::Utils.from_throwable(" + expr + ")";
       } else if (kind == CLASS_DATA_OBJECT) {
         return expr + " != nil ? JSON.parse(" + expr + ".toJson.encode) : nil";
       } else if (kind == CLASS_LIST) {

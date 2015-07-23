@@ -969,6 +969,16 @@ def testEnumParam
   Assert.equals(ret, 'sausagesTIM')
 end
 
+def testThrowableParam
+  begin
+    raise 'the_throwable'
+    Assert.fail 'should not be here'
+  rescue Exception => t
+    ret = @obj.method_with_throwable_param(t)
+    Assert.equals(ret, '(RuntimeError) the_throwable')
+  end
+end
+
 def testEnumReturn
   ret = @obj.method_with_enum_return('JULIEN')
   Assert.equals(:JULIEN, ret)
@@ -1269,6 +1279,7 @@ end
 
 def testThrowableReturn
   ret = @obj.method_with_throwable_return 'bogies'
+  Assert.equals(true, ret.is_a?(Exception))
   Assert.equals('bogies', ret.message)
 end
 

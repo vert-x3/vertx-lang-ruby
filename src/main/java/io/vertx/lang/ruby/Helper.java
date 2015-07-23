@@ -1,6 +1,7 @@
 package io.vertx.lang.ruby;
 
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.function.Function;
 
 /**
@@ -13,5 +14,14 @@ public class Helper {
       return null;
     }
     return new AdaptingMap(map, toRuby, toJava);
+  }
+
+  public static Throwable catchAndReturnThrowable(Callable<?> c) {
+    try {
+      c.call();
+    } catch (Throwable t) {
+      return t;
+    }
+    throw new AssertionError("Should not happen");
   }
 }
