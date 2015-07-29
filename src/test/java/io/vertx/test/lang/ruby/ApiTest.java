@@ -579,6 +579,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testListDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
   public void testSetStringReturn() {
     runTest();
   }
@@ -610,6 +615,11 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testSetVertxGenReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testSetDataObjectReturn() {
     runTest();
   }
 

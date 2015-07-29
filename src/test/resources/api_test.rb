@@ -1219,6 +1219,14 @@ def testListVertxGenReturn
   Assert.equals ret[1].get_string, 'bar'
 end
 
+def testListDataObjectReturn
+  ret = @obj.method_with_list_data_object_return
+  Assert.equals(ret.class, Array)
+  ret.each { |elt| Assert.equals(elt.is_a?(Hash), true) }
+  Assert.equals(ret[0], {'foo'=>'String 1','bar'=>1,'wibble'=>1.1})
+  Assert.equals(ret[1], {'foo'=>'String 2','bar'=>2,'wibble'=>2.2})
+end
+
 def testSetStringReturn
   ret = @obj.method_with_set_string_return
   Assert.has_class ret, Set
@@ -1260,6 +1268,11 @@ def testSetVertxGenReturn
   Assert.has_class ret, Set
   ret.each { |elt| Assert.has_class(elt, Testmodel::RefedInterface1) }
   Assert.equals(ret.map { |o| o.get_string }.to_set, Set.new(%w(foo bar)))
+end
+
+def testSetDataObjectReturn
+  ret = @obj.method_with_set_data_object_return
+  Assert.equals(ret, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
 end
 
 def testComplexJsonHandlerAsyncResultParams

@@ -1188,6 +1188,13 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_complex_json_array_return()"
     end
+    # @return [Array<Hash>]
+    def method_with_list_data_object_return
+      if !block_given?
+        return @j_del.java_method(:methodWithListDataObjectReturn, []).call().to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_list_data_object_return()"
+    end
     # @return [Array<String>]
     def method_with_null_list_return
       if !block_given?
@@ -1243,6 +1250,13 @@ module Testmodel
         return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetComplexJsonArrayReturn, []).call()).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_complex_json_array_return()"
+    end
+    # @return [Set<Hash>]
+    def method_with_set_data_object_return
+      if !block_given?
+        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetDataObjectReturn, []).call()).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_set_data_object_return()"
     end
     # @return [Set<String>]
     def method_with_null_set_return
