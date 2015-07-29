@@ -824,6 +824,16 @@ def testAbstractVertxGenReturn
   Assert.equals(ret.get_string, 'abstractchaffinch')
 end
 
+def testDataObjectReturn
+  ret = @obj.method_with_data_object_return
+  Assert.equals(ret, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0})
+end
+
+def testDataObjectNullReturn
+  ret = @obj.method_with_data_object_null_return
+  Assert.equals(nil, ret)
+end
+
 def testMapComplexJsonArrayReturn
   map = @obj.method_with_map_complex_json_array_return {}
   m = map['foo']

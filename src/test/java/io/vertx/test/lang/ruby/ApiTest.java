@@ -374,6 +374,16 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testDataObjectNullReturn() {
+    runTest();
+  }
+
+  @Test
   public void testMapComplexJsonArrayReturn() {
     runTest();
   }

@@ -794,6 +794,20 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_abstract_vertx_gen_return()"
     end
+    # @return [Hash]
+    def method_with_data_object_return
+      if !block_given?
+        return @j_del.java_method(:methodWithDataObjectReturn, []).call() != nil ? JSON.parse(@j_del.java_method(:methodWithDataObjectReturn, []).call().toJson.encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_data_object_return()"
+    end
+    # @return [Hash]
+    def method_with_data_object_null_return
+      if !block_given?
+        return @j_del.java_method(:methodWithDataObjectNullReturn, []).call() != nil ? JSON.parse(@j_del.java_method(:methodWithDataObjectNullReturn, []).call().toJson.encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_data_object_null_return()"
+    end
     # @param [String] str 
     # @param [::Testmodel::RefedInterface1] refed 
     # @param [Fixnum] period 
