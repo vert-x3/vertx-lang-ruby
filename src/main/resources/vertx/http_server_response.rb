@@ -245,20 +245,22 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end(param_1,param_2)"
     end
-    #  Like {::Vertx::HttpServerResponse#send_file} but providing a handler which will be notified once the file has been completely
-    #  written to the wire.
+    #  Like {::Vertx::HttpServerResponse#send_file} but providing a handler which will be notified once the file has been
+    #  completely written to the wire.
     # @param [String] filename path to the file to serve
+    # @param [Fixnum] offset the offset to serve from
+    # @param [Fixnum] length the length to serve to
     # @yield handler that will be called on completion
     # @return [self]
-    def send_file(filename=nil)
-      if filename.class == String && !block_given?
-        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class]).call(filename)
+    def send_file(filename=nil,offset=nil,length=nil)
+      if filename.class == String && offset.class == Fixnum && length.class == Fixnum && !block_given?
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class]).call(filename,offset,length)
         return self
-      elsif filename.class == String && block_given?
-        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+      elsif filename.class == String && offset.class == Fixnum && length.class == Fixnum && block_given?
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling send_file(filename)"
+      raise ArgumentError, "Invalid arguments when calling send_file(filename,offset,length)"
     end
     #  Close the underlying TCP connection corresponding to the request.
     # @return [void]
@@ -275,6 +277,14 @@ module Vertx
         return @j_del.java_method(:ended, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling ended?()"
+    end
+    #  @return has the underlying TCP connection corresponding to the request already been closed?
+    # @return [true,false]
+    def closed?
+      if !block_given?
+        return @j_del.java_method(:closed, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling closed?()"
     end
     #  @return have the headers for the response already been written?
     # @return [true,false]
