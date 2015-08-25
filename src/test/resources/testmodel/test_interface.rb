@@ -201,6 +201,22 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_data_object_param(dataObject)"
     end
+    # @param [Array<Hash>] dataObjects 
+    # @return [void]
+    def method_with_list_of_data_objects_param(dataObjects=nil)
+      if dataObjects.class == Array && !block_given?
+        return @j_del.java_method(:methodWithListOfDataObjectsParam, [Java::JavaUtil::List.java_class]).call(dataObjects.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) })
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_list_of_data_objects_param(dataObjects)"
+    end
+    # @param [Set<Hash>] dataObjects 
+    # @return [void]
+    def method_with_set_of_data_objects_param(dataObjects=nil)
+      if dataObjects.class == Set && !block_given?
+        return @j_del.java_method(:methodWithSetOfDataObjectsParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(dataObjects.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_set_of_data_objects_param(dataObjects)"
+    end
     # @param [Hash] dataObject 
     # @return [void]
     def method_with_null_data_object_param(dataObject=nil)

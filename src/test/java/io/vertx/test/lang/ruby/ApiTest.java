@@ -49,6 +49,16 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testListOfDataObjectsParam() {
+    runTest();
+  }
+
+  @Test
+  public void testSetOfDataObjectsParam() {
+    runTest();
+  }
+
+  @Test
   public void testDataObjectParam() {
     runTest();
   }

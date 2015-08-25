@@ -92,6 +92,22 @@ def testDataObjectParam
   @obj.method_with_data_object_param(data_object)
 end
 
+def testListOfDataObjectsParam
+  list = [
+    {:foo => 'hello', :bar => 123, :wibble => 1.23},
+    {:foo => 'world', :bar => 123, :wibble => 1.23}
+  ]
+  @obj.method_with_list_of_data_objects_param(list)
+end
+
+def testSetOfDataObjectsParam
+  set = Set.new [
+      {:foo => 'hello', :bar => 123, :wibble => 1.23},
+      {:foo => 'world', :bar => 123, :wibble => 1.23}
+    ]
+    @obj.method_with_set_of_data_objects_param(set)
+end
+
 def testNullDataObjectParam
   Assert.argument_error { @obj.method_with_null_data_object_param(nil) }
 end
