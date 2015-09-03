@@ -915,6 +915,16 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_cached_return_primitive(arg)"
     end
+    # @return [Array<::Testmodel::RefedInterface1>]
+    def method_with_cached_list_return
+      if !block_given?
+        if @cached_method_with_cached_list_return != nil
+          return @cached_method_with_cached_list_return
+        end
+        return @cached_method_with_cached_list_return = @j_del.java_method(:methodWithCachedListReturn, []).call().to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_cached_list_return()"
+    end
     # @return [Hash{String => Object}]
     def method_with_json_object_return
       if !block_given?

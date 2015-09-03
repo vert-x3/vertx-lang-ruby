@@ -429,6 +429,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithCachedListReturn() {
+    runTest();
+  }
+
+  @Test
   public void testJsonReturns() {
     runTest();
   }

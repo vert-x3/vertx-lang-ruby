@@ -919,6 +919,17 @@ def testMethodWithCachedReturn
   Assert.equals ret3.get_string, 'foo'
 end
 
+def testMethodWithCachedListReturn
+  ret = @obj.method_with_cached_list_return()
+  ret2 = @obj.method_with_cached_list_return()
+  Assert.equals ret, ret2
+  ret3 = @obj.method_with_cached_list_return()
+  Assert.equals ret, ret3
+  Assert.equals ret.size, 2
+  Assert.equals ret[0].get_string, 'foo'
+  Assert.equals ret[1].get_string, 'bar'
+end
+
 def testJsonReturns
   ret = @obj.method_with_json_object_return
   Assert.equals(ret, {'cheese'=>'stilton'})
