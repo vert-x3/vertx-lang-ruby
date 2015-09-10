@@ -1323,6 +1323,23 @@ module Testmodel
       raise ArgumentError, "Invalid arguments when calling method_with_enum_return(strVal)"
     end
     # @param [String] strVal 
+    # @param [:LAURA,:BOB,:MIKE,:LELAND] weirdo 
+    # @return [String]
+    def method_with_gen_enum_param(strVal=nil,weirdo=nil)
+      if strVal.class == String && weirdo.class == Symbol && !block_given?
+        return @j_del.java_method(:methodWithGenEnumParam, [Java::java.lang.String.java_class,Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(strVal,Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(weirdo))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_gen_enum_param(strVal,weirdo)"
+    end
+    # @param [String] strVal 
+    # @return [:LAURA,:BOB,:MIKE,:LELAND]
+    def method_with_gen_enum_return(strVal=nil)
+      if strVal.class == String && !block_given?
+        return @j_del.java_method(:methodWithGenEnumReturn, [Java::java.lang.String.java_class]).call(strVal).name.intern
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_gen_enum_return(strVal)"
+    end
+    # @param [String] strVal 
     # @return [Exception]
     def method_with_throwable_return(strVal=nil)
       if strVal.class == String && !block_given?

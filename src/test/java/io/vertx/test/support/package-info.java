@@ -1,7 +1,7 @@
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-@GenModule(name = "ruby-codegen")
+@ModuleGen(name = "ruby-codegen", groupPackage = "io.vertx")
 package io.vertx.test.support;
 
-import io.vertx.codegen.annotations.GenModule;
+import io.vertx.codegen.annotations.ModuleGen;

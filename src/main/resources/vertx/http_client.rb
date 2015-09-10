@@ -178,14 +178,17 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @yield the response handler
-    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
+    # @return [self]
     def get_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:getNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:getNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling get_now(param_1,param_2,param_3)"
     end
@@ -309,14 +312,17 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @yield the response handler
-    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
+    # @return [self]
     def head_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:headNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:headNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling head_now(param_1,param_2,param_3)"
     end
@@ -387,14 +393,17 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @yield the response handler
-    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
+    # @return [self]
     def options_now(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:optionsNow, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:optionsNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClient)
+        @j_del.java_method(:optionsNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling options_now(param_1,param_2,param_3)"
     end
@@ -572,32 +581,44 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols to use
     #   @yield handler that will be called with the websocket when connected
-    # @return [::Vertx::HttpClient] a reference to this, so the API can be used fluently
+    # @return [self]
     def websocket(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && block_given? && param_4 == nil && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class.method_defined?(:j_del) && param_3.class == Symbol && param_4.class == String && block_given? && param_5 == nil && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_3),param_4,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && block_given? && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == String && param_2.class == String && param_3.class.method_defined?(:j_del) && param_4.class == Symbol && param_5.class == String && block_given? && param_6 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_4),param_5,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && param_6.class == String && block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) })),::Vertx::HttpClient)
+        @j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling websocket(param_1,param_2,param_3,param_4,param_5,param_6)"
     end
