@@ -37,15 +37,12 @@ module Vertx
     end
     #  Parses the user command line interface and create a new {::Vertx::CommandLine} containing extracting values.
     # @param [Array<String>] arguments the arguments
-    # @param [true,false] validate enable / disable parsing validation
     # @return [::Vertx::CommandLine] the creates command line
-    def parse(arguments=nil,validate=nil)
-      if arguments.class == Array && !block_given? && validate == nil
+    def parse(arguments=nil)
+      if arguments.class == Array && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:parse, [Java::JavaUtil::List.java_class]).call(arguments.map { |element| element }),::Vertx::CommandLine)
-      elsif arguments.class == Array && (validate.class == TrueClass || validate.class == FalseClass) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:parse, [Java::JavaUtil::List.java_class,Java::boolean.java_class]).call(arguments.map { |element| element },validate),::Vertx::CommandLine)
       end
-      raise ArgumentError, "Invalid arguments when calling parse(arguments,validate)"
+      raise ArgumentError, "Invalid arguments when calling parse(arguments)"
     end
     #  @return the CLI name.
     # @return [String]

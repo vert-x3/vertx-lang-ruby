@@ -55,6 +55,15 @@ public class JRubyDocGenerator implements DocGenerator {
       System.out.println("Could not resolve doc likn for type " + elt.getQualifiedName());
       return null;
     }
+    if (type.getKind() == ClassKind.ENUM && ((TypeInfo.Class.Enum) type).isGen()) {
+      String baselink;
+      if (coordinate == null) {
+        baselink = "../";
+      } else {
+        baselink = "../../" + coordinate.getArtifactId() + "/";
+      }
+      return baselink + "enums.html#" + elt.getSimpleName().toString();
+    }
     if (type.getKind() == ClassKind.DATA_OBJECT) {
       String baselink;
       if (coordinate == null) {
@@ -62,7 +71,7 @@ public class JRubyDocGenerator implements DocGenerator {
       } else {
         baselink = "../../" + coordinate.getArtifactId() + "/";
       }
-      return baselink + "cheatsheet/" + elt.getSimpleName().toString() + ".html";
+      return baselink + "dataobjects.html#" + elt.getSimpleName().toString();
     }
     if (type.getKind() == ClassKind.API) {
       String baselink = "";

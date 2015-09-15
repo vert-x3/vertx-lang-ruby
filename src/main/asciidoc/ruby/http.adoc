@@ -15,7 +15,7 @@ server = vertx.create_http_server()
 
 === Configuring an HTTP server
 
-If you don't want the default, a server can be configured by passing in a `link:../cheatsheet/HttpServerOptions.html[HttpServerOptions]`
+If you don't want the default, a server can be configured by passing in a `link:../dataobjects.html#HttpServerOptions[HttpServerOptions]`
 instance when creating it:
 
 [source,ruby]
@@ -459,7 +459,7 @@ You can close the underlying TCP connection with `link:yardoc/Vertx/HttpServerRe
 Non keep-alive connections will be automatically closed by Vert.x when the response is ended.
 
 Keep-alive connections are not automatically closed by Vert.x by default. If you want keep-alive connections to be
-closed after an idle time, then you configure `link:../cheatsheet/HttpServerOptions.html#idleTimeout[idleTimeout]`.
+closed after an idle time, then you configure `link:../dataobjects.html#HttpServerOptions#set_idle_timeout-instance_method[idleTimeout]`.
 
 ==== Setting response headers
 
@@ -652,7 +652,7 @@ If the client does not support HTTP compression the responses are sent back with
 
 This allows to handle Client that support HTTP Compression and those that not support it at the same time.
 
-To enable compression use can configure it with `link:../cheatsheet/HttpServerOptions.html#compressionSupported[compressionSupported]`.
+To enable compression use can configure it with `link:../dataobjects.html#HttpServerOptions#set_compression_supported-instance_method[compressionSupported]`.
 
 By default compression is not enabled.
 
@@ -1212,7 +1212,7 @@ request.continue_handler() { |v|
 
 On the server side a Vert.x http server can be configured to automatically send back 100 Continue interim responses
 when it receives an `Expect: 100-Continue` header.
-This is done by setting the option `link:../cheatsheet/HttpServerOptions.html#handle100ContinueAutomatically[handle100ContinueAutomatically]`.
+This is done by setting the option `link:../dataobjects.html#HttpServerOptions#set_handle100_continue_automatically-instance_method[handle100ContinueAutomatically]`.
 
 If you'd prefer to decide whether to send back continue responses manually, then this property should be set to
 `false` (the default), then you can inspect the headers and call `link:yardoc/Vertx/HttpServerResponse.html#write_continue-instance_method[writeContinue]`
@@ -1244,7 +1244,7 @@ If the body of the response was compressed via gzip it will include for example 
 
  Content-Encoding: gzip
 
-To enable compression set `link:../cheatsheet/HttpClientOptions.html#tryUseCompression[tryUseCompression]` on the options
+To enable compression set `link:../dataobjects.html#HttpClientOptions#set_try_use_compression-instance_method[tryUseCompression]` on the options
 used when creating the client.
 
 By default compression is disabled.
@@ -1256,21 +1256,21 @@ connections when you're making multiple requests to the same server.
 
 The http client supports pooling of connections, allowing you to reuse connections between requests.
 
-For pooling to work, keep alive must be true using `link:../cheatsheet/HttpClientOptions.html#keepAlive[keepAlive]`
+For pooling to work, keep alive must be true using `link:../dataobjects.html#HttpClientOptions#set_keep_alive-instance_method[keepAlive]`
 on the options used when configuring the client. The default value is true.
 
 When keep alive is enabled. Vert.x will add a `Connection: Keep-Alive` header to each HTTP/1.0 request sent.
 When keep alive is disabled. Vert.x will add a `Connection: Close` header to each HTTP/1.1 request sent to signal
 that the connection will be closed after completion of the response.
 
-The maximum number of connections to pool *for each server* is configured using `link:../cheatsheet/HttpClientOptions.html#maxPoolSize[maxPoolSize]`
+The maximum number of connections to pool *for each server* is configured using `link:../dataobjects.html#HttpClientOptions#set_max_pool_size-instance_method[maxPoolSize]`
 
 When making a request with pooling enabled, Vert.x will create a new connection if there are less than the maximum number of
 connections already created for that server, otherwise it will add the request to a queue.
 
 Keep alive connections will not be closed by the client automatically. To close them you can close the client instance.
 
-Alternatively you can set idle timeout using `link:../cheatsheet/HttpClientOptions.html#idleTimeout[idleTimeout]` - any
+Alternatively you can set idle timeout using `link:../dataobjects.html#HttpClientOptions#set_idle_timeout-instance_method[idleTimeout]` - any
 connections not used within this timeout will be closed. Please note the idle timeout value is in seconds not milliseconds.
 
 === Pipe-lining
@@ -1280,7 +1280,7 @@ The client also supports pipe-lining of requests on a connection.
 Pipe-lining means another request is sent on the same connection before the response from the preceding one has
 returned. Pipe-lining is not appropriate for all requests.
 
-To enable pipe-lining, it must be enabled using `link:../cheatsheet/HttpClientOptions.html#pipelining[pipelining]`.
+To enable pipe-lining, it must be enabled using `link:../dataobjects.html#HttpClientOptions#set_pipelining-instance_method[pipelining]`.
 By default pipe-lining is disabled.
 
 When pipe-lining is enabled requests will be written to connections without waiting for previous responses to return.
@@ -1446,7 +1446,7 @@ websocket.write_binary_message(buffer)
 ----
 
 If the WebSocket message is larger than the maximum websocket frame size as configured with
-`link:../cheatsheet/HttpClientOptions.html#maxWebsocketFrameSize[maxWebsocketFrameSize]`
+`link:../dataobjects.html#HttpClientOptions#set_max_websocket_frame_size-instance_method[maxWebsocketFrameSize]`
 then Vert.x will split it into multiple WebSocket frames before sending it on the wire.
 
 ==== Writing frames to WebSockets

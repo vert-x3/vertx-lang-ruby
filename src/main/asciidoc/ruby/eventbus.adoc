@@ -260,7 +260,7 @@ consisting of multiple rounds.
 
 ==== Sending with timeouts
 
-When sending a message with a reply handler you can specify a timeout in the `link:../cheatsheet/DeliveryOptions.html[DeliveryOptions]`.
+When sending a message with a reply handler you can specify a timeout in the `link:../dataobjects.html#DeliveryOptions[DeliveryOptions]`.
 
 If a reply is not received within that time, the reply handler will be called with a failure.
 

@@ -240,20 +240,20 @@ socket.block_multicast_group("230.0.0.1", "10.0.0.2") { |asyncResult_err,asyncRe
 ==== DatagramSocket properties
 
 When creating a `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` there are multiple properties you can set to
-change it's behaviour with the `link:../cheatsheet/DatagramSocketOptions.html[DatagramSocketOptions]` object. Those are listed here:
+change it's behaviour with the `link:../dataobjects.html#DatagramSocketOptions[DatagramSocketOptions]` object. Those are listed here:
 
-- `link:../cheatsheet/DatagramSocketOptions.html#sendBufferSize[sendBufferSize]` Sets the send buffer size in bytes.
-- `link:../cheatsheet/DatagramSocketOptions.html#receiveBufferSize[receiveBufferSize]` Sets the TCP receive buffer size
+- `link:../dataobjects.html#DatagramSocketOptions#set_send_buffer_size-instance_method[sendBufferSize]` Sets the send buffer size in bytes.
+- `link:../dataobjects.html#DatagramSocketOptions#set_receive_buffer_size-instance_method[receiveBufferSize]` Sets the TCP receive buffer size
 in bytes.
-- `link:../cheatsheet/DatagramSocketOptions.html#reuseAddress[reuseAddress]` If true then addresses in TIME_WAIT
+- `link:../dataobjects.html#DatagramSocketOptions#set_reuse_address-instance_method[reuseAddress]` If true then addresses in TIME_WAIT
 state can be reused after they have been closed.
-- `link:../cheatsheet/DatagramSocketOptions.html#trafficClass[trafficClass]`
-- `link:../cheatsheet/DatagramSocketOptions.html#broadcast[broadcast]` Sets or clears the SO_BROADCAST socket
+- `link:../dataobjects.html#DatagramSocketOptions#set_traffic_class-instance_method[trafficClass]`
+- `link:../dataobjects.html#DatagramSocketOptions#set_broadcast-instance_method[broadcast]` Sets or clears the SO_BROADCAST socket
 option. When this option is set, Datagram (UDP) packets may be sent to a local interface's broadcast address.
-- `link:../cheatsheet/DatagramSocketOptions.html#multicastNetworkInterface[multicastNetworkInterface]` Sets or clears
+- `link:../dataobjects.html#DatagramSocketOptions#set_multicast_network_interface-instance_method[multicastNetworkInterface]` Sets or clears
 the IP_MULTICAST_LOOP socket option. When this option is set, multicast packets will also be received on the
 local interface.
-- `link:../cheatsheet/DatagramSocketOptions.html#multicastTimeToLive[multicastTimeToLive]` Sets the IP_MULTICAST_TTL socket
+- `link:../dataobjects.html#DatagramSocketOptions#set_multicast_time_to_live-instance_method[multicastTimeToLive]` Sets the IP_MULTICAST_TTL socket
 option. TTL stands for "Time to Live," but in this context it specifies the number of IP hops that a packet is
 allowed to go through, specifically for multicast traffic. Each router or gateway that forwards a packet decrements
 the TTL. If the TTL is decremented to 0 by a router, it will not be forwarded.
