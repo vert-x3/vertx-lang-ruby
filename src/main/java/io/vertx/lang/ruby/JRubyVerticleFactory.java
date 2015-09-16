@@ -29,11 +29,17 @@ import java.util.Map;
 public class JRubyVerticleFactory implements VerticleFactory {
 
   final Map<String, ContainerHolder> holderMap = new HashMap<>();
+
   private Vertx vertx;
 
   @Override
   public String prefix() {
     return "rb";
+  }
+
+  @Override
+  public boolean blockingCreate() {
+    return true;
   }
 
   @Override
