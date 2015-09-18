@@ -17,9 +17,12 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
 import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * Wrap a JRuby scripting container to allow the deployment of several verticle instances for
@@ -57,12 +60,30 @@ class ContainerHolder {
   synchronized Deployment create(String gemPath, Vertx vertx, ClassLoader classLoader, Future<?> startFuture) {
     if (refs++ == 0) {
       ScriptingContainer cont = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
+      RubyInstanceConfig config = cont.getProvider().getRubyInstanceConfig();
       if (gemPath != null) {
-        RubyInstanceConfig config = cont.getProvider().getRubyInstanceConfig();
         Map newEnv = new HashMap(config.getEnvironment());
         newEnv.put("GEM_PATH", gemPath);
         config.setEnvironment(newEnv);
       }
+
+      // In jruby 9, it it not able to load classes or rb files from a classloader.
+      // We need to explode the classloader content in the `LOAD_PATH` building "jar" URIs pointing to the root of the
+      // jar.
+      if (classLoader instanceof URLClassLoader) {
+        config.setLoadPaths(Arrays.stream(((URLClassLoader) classLoader).getURLs())
+            .map(u -> {
+              String form = u.toExternalForm();
+              if (form.endsWith(".jar")) {
+                return "jar:" + form + "!";
+              } else {
+                return form;
+              }
+            }).collect(Collectors.toList()));
+      }
+      // In addition we need to the set delegating classloader.
+      cont.setClassLoader(classLoader);
+
       cont.setError(new PrintStream(new OutputStream() {
         @Override
         public void write(int b) throws IOException {
