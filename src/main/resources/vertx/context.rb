@@ -1,4 +1,5 @@
 require 'vertx/vertx'
+require 'vertx/future'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Context
 module Vertx
@@ -81,6 +82,28 @@ module Vertx
         return @j_del.java_method(:runOnContext, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
       end
       raise ArgumentError, "Invalid arguments when calling run_on_context()"
+    end
+    #  Safely execute some blocking code.
+    #  <p>
+    #  Executes the blocking code in the handler <code>blockingCodeHandler</code> using a thread from the worker pool.
+    #  <p>
+    #  When the code is complete the handler <code>resultHandler</code> will be called with the result on the original context
+    #  (e.g. on the original event loop of the caller).
+    #  <p>
+    #  A <code>Future</code> instance is passed into <code>blockingCodeHandler</code>. When the blocking code successfully completes,
+    #  the handler should call the {::Vertx::Future#complete} or {::Vertx::Future#complete} method, or the {::Vertx::Future#fail}
+    #  method if it failed.
+    # @param [Proc] blockingCodeHandler handler representing the blocking code to run
+    # @param [true,false] ordered if true then if executeBlocking is called several times on the same context, the executions for that context will be executed serially, not in parallel. if false then they will be no ordering guarantees
+    # @yield handler that will be called when the blocking code is complete
+    # @return [void]
+    def execute_blocking(blockingCodeHandler=nil,ordered=nil)
+      if blockingCodeHandler.class == Proc && block_given? && ordered == nil
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      elsif blockingCodeHandler.class == Proc && (ordered.class == TrueClass || ordered.class == FalseClass) && block_given?
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
     end
     #  If the context is associated with a Verticle deployment, this returns the deployment ID of that deployment.
     # @return [String] the deployment ID of the deployment or null if not a Verticle deployment

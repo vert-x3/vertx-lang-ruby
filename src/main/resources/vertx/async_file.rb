@@ -181,5 +181,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_write_pos(writePos)"
     end
+    #  Sets the buffer size that will be used to read the data from the file. Changing this value will impact how much
+    #  the data will be read at a time from the file system.
+    # @param [Fixnum] readBufferSize the buffer size
+    # @return [self]
+    def set_read_buffer_size(readBufferSize=nil)
+      if readBufferSize.class == Fixnum && !block_given?
+        @j_del.java_method(:setReadBufferSize, [Java::int.java_class]).call(readBufferSize)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_read_buffer_size(readBufferSize)"
+    end
   end
 end

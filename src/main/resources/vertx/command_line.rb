@@ -96,7 +96,7 @@ module Vertx
     end
     #  Gets the raw value of the given option. Raw values are the values as given in the user command line.
     # @param [Hash] option the option
-    # @return [String] the value,  if none.
+    # @return [String] the value, <code>null</code> if none.
     def get_raw_value_for_option(option=nil)
       if option.class == Hash && !block_given?
         return @j_del.java_method(:getRawValueForOption, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
@@ -114,7 +114,7 @@ module Vertx
     end
     #  Gets the raw value of the given argument. Raw values are the values as given in the user command line.
     # @param [Hash] arg the argument
-    # @return [String] the value,  if none.
+    # @return [String] the value, <code>null</code> if none.
     def get_raw_value_for_argument(arg=nil)
       if arg.class == Hash && !block_given?
         return @j_del.java_method(:getRawValueForArgument, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(arg)))

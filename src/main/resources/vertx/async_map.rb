@@ -28,31 +28,31 @@ module Vertx
     #  failure will be passed to the handler
     # @param [Object] k the key
     # @param [Object] v the value
-    # @param [Fixnum] timeout the timoeout, in ms
+    # @param [Fixnum] ttl The time to live (in ms) for the entry
     # @yield the handler
     # @return [void]
-    def put(k=nil,v=nil,timeout=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && timeout == nil
+    def put(k=nil,v=nil,ttl=nil)
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && ttl == nil
         return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
-      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && timeout.class == Fixnum && block_given?
-        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && ttl.class == Fixnum && block_given?
+        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling put(k,v,timeout)"
+      raise ArgumentError, "Invalid arguments when calling put(k,v,ttl)"
     end
     #  Link {::Vertx::AsyncMap#put_if_absent} but specifying a timeout. If the value cannot be put within the timeout a
     #  failure will be passed to the handler
     # @param [Object] k the key
     # @param [Object] v the value
-    # @param [Fixnum] timeout the timeout, in ms
+    # @param [Fixnum] ttl The time to live (in ms) for the entry
     # @yield the handler
     # @return [void]
-    def put_if_absent(k=nil,v=nil,timeout=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && timeout == nil
+    def put_if_absent(k=nil,v=nil,ttl=nil)
+      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && ttl == nil
         return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
-      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && timeout.class == Fixnum && block_given?
-        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && ttl.class == Fixnum && block_given?
+        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling put_if_absent(k,v,timeout)"
+      raise ArgumentError, "Invalid arguments when calling put_if_absent(k,v,ttl)"
     end
     #  Remove a value from the map, asynchronously.
     # @param [Object] k the key

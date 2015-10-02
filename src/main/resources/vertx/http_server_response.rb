@@ -1,7 +1,6 @@
 require 'vertx/buffer'
 require 'vertx/write_stream'
 require 'vertx/multi_map'
-require 'vertx/future'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServerResponse
 module Vertx
@@ -253,8 +252,20 @@ module Vertx
     # @yield handler that will be called on completion
     # @return [self]
     def send_file(filename=nil,offset=nil,length=nil)
-      if filename.class == String && offset.class == Fixnum && length.class == Fixnum && !block_given?
+      if filename.class == String && !block_given? && offset == nil && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class]).call(filename)
+        return self
+      elsif filename.class == String && offset.class == Fixnum && !block_given? && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class]).call(filename,offset)
+        return self
+      elsif filename.class == String && block_given? && offset == nil && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return self
+      elsif filename.class == String && offset.class == Fixnum && length.class == Fixnum && !block_given?
         @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class]).call(filename,offset,length)
+        return self
+      elsif filename.class == String && offset.class == Fixnum && block_given? && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       elsif filename.class == String && offset.class == Fixnum && length.class == Fixnum && block_given?
         @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
@@ -296,13 +307,11 @@ module Vertx
     end
     #  Provide a handler that will be called just before the headers are written to the wire.<p>
     #  This provides a hook allowing you to add any more headers or do any more operations before this occurs.
-    #  The handler will be passed a future, when you've completed the work you want to do you should complete (or fail)
-    #  the future. This can be done after the handler has returned.
     # @yield the handler
     # @return [self]
     def headers_end_handler
       if block_given?
-        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }))
+        @j_del.java_method(:headersEndHandler, [Java::IoVertxCore::Handler.java_class]).call(Proc.new { yield })
         return self
       end
       raise ArgumentError, "Invalid arguments when calling headers_end_handler()"

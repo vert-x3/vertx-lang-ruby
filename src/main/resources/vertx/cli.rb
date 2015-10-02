@@ -27,7 +27,7 @@ module Vertx
       @j_del
     end
     #  Creates an instance of {::Vertx::CLI} using the default implementation.
-    # @param [String] name the name of the CLI (must not be )
+    # @param [String] name the name of the CLI (must not be <code>null</code>)
     # @return [::Vertx::CLI] the created instance of {::Vertx::CLI}
     def self.create(name=nil)
       if name.class == String && !block_given?
@@ -37,12 +37,15 @@ module Vertx
     end
     #  Parses the user command line interface and create a new {::Vertx::CommandLine} containing extracting values.
     # @param [Array<String>] arguments the arguments
+    # @param [true,false] validate enable / disable parsing validation
     # @return [::Vertx::CommandLine] the creates command line
-    def parse(arguments=nil)
-      if arguments.class == Array && !block_given?
+    def parse(arguments=nil,validate=nil)
+      if arguments.class == Array && !block_given? && validate == nil
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:parse, [Java::JavaUtil::List.java_class]).call(arguments.map { |element| element }),::Vertx::CommandLine)
+      elsif arguments.class == Array && (validate.class == TrueClass || validate.class == FalseClass) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:parse, [Java::JavaUtil::List.java_class,Java::boolean.java_class]).call(arguments.map { |element| element },validate),::Vertx::CommandLine)
       end
-      raise ArgumentError, "Invalid arguments when calling parse(arguments)"
+      raise ArgumentError, "Invalid arguments when calling parse(arguments,validate)"
     end
     #  @return the CLI name.
     # @return [String]
@@ -125,7 +128,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_options()"
     end
     #  Adds an option.
-    # @param [Hash] option the option, must not be .
+    # @param [Hash] option the option, must not be <code>null</code>.
     # @return [self]
     def add_option(option=nil)
       if option.class == Hash && !block_given?
@@ -136,7 +139,7 @@ module Vertx
     end
     #  Adds a set of options. Unlike {::Vertx::CLI#set_options}}, this method does not remove the existing options.
     #  The given list is appended to the existing list.
-    # @param [Array<Hash>] options the options, must not be 
+    # @param [Array<Hash>] options the options, must not be <code>null</code>
     # @return [self]
     def add_options(options=nil)
       if options.class == Array && !block_given?
@@ -146,7 +149,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling add_options(options)"
     end
     #  Sets the list of arguments.
-    # @param [Array<Hash>] options the list of options, must not be 
+    # @param [Array<Hash>] options the list of options, must not be <code>null</code>
     # @return [self]
     def set_options(options=nil)
       if options.class == Array && !block_given?
@@ -164,7 +167,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling get_arguments()"
     end
     #  Adds an argument.
-    # @param [Hash] arg the argument, must not be 
+    # @param [Hash] arg the argument, must not be <code>null</code>
     # @return [self]
     def add_argument(arg=nil)
       if arg.class == Hash && !block_given?
@@ -175,7 +178,7 @@ module Vertx
     end
     #  Adds a set of arguments. Unlike {::Vertx::CLI#set_arguments}, this method does not remove the existing arguments.
     #  The given list is appended to the existing list.
-    # @param [Array<Hash>] args the arguments, must not be 
+    # @param [Array<Hash>] args the arguments, must not be <code>null</code>
     # @return [self]
     def add_arguments(args=nil)
       if args.class == Array && !block_given?
@@ -185,7 +188,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling add_arguments(args)"
     end
     #  Sets the list of arguments.
-    # @param [Array<Hash>] args the list of arguments, must not be 
+    # @param [Array<Hash>] args the list of arguments, must not be <code>null</code>
     # @return [self]
     def set_arguments(args=nil)
       if args.class == Array && !block_given?
@@ -195,8 +198,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling set_arguments(args)"
     end
     #  Gets an {Hash} based on its name (short name, long name or argument name).
-    # @param [String] name the name, must not be 
-    # @return [Hash] the {Hash},  if not found
+    # @param [String] name the name, must not be <code>null</code>
+    # @return [Hash] the {Hash}, <code>null</code> if not found
     def get_option(name=nil)
       if name.class == String && !block_given?
         return @j_del.java_method(:getOption, [Java::java.lang.String.java_class]).call(name) != nil ? JSON.parse(@j_del.java_method(:getOption, [Java::java.lang.String.java_class]).call(name).toJson.encode) : nil
@@ -205,10 +208,10 @@ module Vertx
     end
     #  Gets an {Hash} based on its index.
     # @overload getArgument(name)
-    #   @param [String] name the name of the argument, must not be 
+    #   @param [String] name the name of the argument, must not be <code>null</code>
     # @overload getArgument(index)
     #   @param [Fixnum] index the index, must be positive or zero.
-    # @return [Hash] the {Hash},  if not found.
+    # @return [Hash] the {Hash}, <code>null</code> if not found.
     def get_argument(param_1=nil)
       if param_1.class == String && !block_given?
         return @j_del.java_method(:getArgument, [Java::java.lang.String.java_class]).call(param_1) != nil ? JSON.parse(@j_del.java_method(:getArgument, [Java::java.lang.String.java_class]).call(param_1).toJson.encode) : nil

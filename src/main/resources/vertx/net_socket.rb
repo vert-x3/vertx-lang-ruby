@@ -139,8 +139,20 @@ module Vertx
     # @yield handler
     # @return [self]
     def send_file(filename=nil,offset=nil,length=nil)
-      if filename.class == String && offset.class == Fixnum && length.class == Fixnum && !block_given?
+      if filename.class == String && !block_given? && offset == nil && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class]).call(filename)
+        return self
+      elsif filename.class == String && offset.class == Fixnum && !block_given? && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class]).call(filename,offset)
+        return self
+      elsif filename.class == String && block_given? && offset == nil && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+        return self
+      elsif filename.class == String && offset.class == Fixnum && length.class == Fixnum && !block_given?
         @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class]).call(filename,offset,length)
+        return self
+      elsif filename.class == String && offset.class == Fixnum && block_given? && length == nil
+        @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       elsif filename.class == String && offset.class == Fixnum && length.class == Fixnum && block_given?
         @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
