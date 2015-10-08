@@ -535,11 +535,11 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@if{doc != null}
 		@{renderDocToHtml("  # ", doc, renderLinkToHtml)}
 	@end{}
-  class @{type.raw.simpleName}@if{concreteSuperTypes.size() == 1} < @{genRubyClassFqn(concreteSuperTypes[0].raw)}@end{}\n
+  class @{type.raw.simpleName}@if{concreteSuperType != null} < @{genRubyClassFqn(concreteSuperType)}@end{}\n
 	@foreach{abstractSuperType:abstractSuperTypes}
     include @{genRubyClassFqn(abstractSuperType.raw)}\n
 	@end{}
-	@includeNamed{'initializer';callSuper=concreteSuperTypes.size() == 1}
+	@includeNamed{'initializer';callSuper=concreteSuperType != null}
 @else{}
   module @{type.raw.simpleName}\n
 	@foreach{superType:superTypes}
