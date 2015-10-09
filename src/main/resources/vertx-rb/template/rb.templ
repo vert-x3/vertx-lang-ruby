@@ -535,7 +535,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@if{doc != null}
 		@{renderDocToHtml("  # ", doc, renderLinkToHtml)}
 	@end{}
-  class @{type.raw.simpleName}@if{concreteSuperType != null} < @{genRubyClassFqn(concreteSuperType)}@end{}\n
+  class @{type.raw.simpleName}@if{concreteSuperType != null} < @{genRubyClassFqn(concreteSuperType.raw)}@end{}\n
 	@foreach{abstractSuperType:abstractSuperTypes}
     include @{genRubyClassFqn(abstractSuperType.raw)}\n
 	@end{}
