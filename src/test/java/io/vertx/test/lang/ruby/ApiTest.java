@@ -364,6 +364,26 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerListEnum() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerSetEnum() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultListEnum() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultSetEnum() {
+    runTest();
+  }
+
+  @Test
   public void testBasicReturns() {
     runTest();
   }
@@ -609,6 +629,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testListEnumReturn() {
+    runTest();
+  }
+
+  @Test
   public void testSetStringReturn() {
     runTest();
   }
@@ -645,6 +670,11 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testSetDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testSetEnumReturn() {
     runTest();
   }
 

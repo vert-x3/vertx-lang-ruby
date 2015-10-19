@@ -793,6 +793,44 @@ def testMethodWithGenericHandlerAsyncResult
   Assert.equals(1, count)
 end
 
+def testMethodWithHandlerListEnum
+  count = 0
+  @obj.method_with_handler_list_enum do |val|
+    Assert.equals(val, [:TIM,:JULIEN])
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerSetEnum
+  count = 0
+  @obj.method_with_handler_set_enum do |val|
+    Assert.equals(val, Set.new([:TIM,:JULIEN]))
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerAsyncResultListEnum
+  count = 0
+  @obj.method_with_handler_async_result_list_enum do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val, [:TIM,:JULIEN])
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
+def testMethodWithHandlerAsyncResultSetEnum
+  count = 0
+  @obj.method_with_handler_async_result_set_enum do |err,val|
+    Assert.is_nil(err)
+    Assert.equals(val, Set.new([:TIM,:JULIEN]))
+    count += 1
+  end
+  Assert.equals(1, count)
+end
+
 def testBasicReturns
   ret = @obj.method_with_byte_return
   Assert.equals(ret.class, Fixnum)
@@ -1264,6 +1302,13 @@ def testListDataObjectReturn
   Assert.equals(ret[1], {'foo'=>'String 2','bar'=>2,'wibble'=>2.2})
 end
 
+def testListEnumReturn
+  ret = @obj.method_with_list_enum_return
+  Assert.equals(ret.class, Array)
+  Assert.equals(ret[0], :JULIEN)
+  Assert.equals(ret[1], :TIM)
+end
+
 def testSetStringReturn
   ret = @obj.method_with_set_string_return
   Assert.has_class ret, Set
@@ -1312,6 +1357,11 @@ def testSetDataObjectReturn
   Assert.equals(ret, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
 end
 
+def testSetEnumReturn
+  ret = @obj.method_with_set_enum_return
+  Assert.equals(ret, Set.new([:JULIEN,:TIM]))
+end
+
 def testComplexJsonHandlerAsyncResultParams
   count = 0
   @obj.method_with_handler_async_result_complex_json_object { |err,val|
@@ -1352,7 +1402,8 @@ def testMethodWithListParams
       [{:foo=>'bar'}, {:eek=>'wibble'}],
       [['foo'], ['blah']],
       [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')],
-      [{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}]
+      [{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}],
+      ['JULIEN','TIM']
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
@@ -1367,7 +1418,8 @@ def testMethodWithSetParams
       Set.new([{:foo=>'bar'}, {:eek=>'wibble'}]),
       Set.new([['foo'], ['blah']]),
       Set.new([Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')]),
-      Set.new([{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}])
+      Set.new([{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}]),
+      Set.new(['TIM','JULIEN'])
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end

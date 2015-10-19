@@ -94,6 +94,24 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_raw_values(option)"
     end
+    #  Gets the raw values of the given option. Raw values are simple "String", not converted to the option type.
+    # @param [Hash] option the option
+    # @return [Array<String>] the list of values, empty if none
+    def get_raw_values_for_option(option=nil)
+      if option.class == Hash && !block_given?
+        return @j_del.java_method(:getRawValuesForOption, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option))).to_a.map { |elt| elt }
+      end
+      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_option(option)"
+    end
+    #  Gets the raw values of the given argument. Raw values are simple "String", not converted to the argument type.
+    # @param [Hash] argument the argument
+    # @return [Array<String>] the list of values, empty if none
+    def get_raw_values_for_argument(argument=nil)
+      if argument.class == Hash && !block_given?
+        return @j_del.java_method(:getRawValuesForArgument, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(argument))).to_a.map { |elt| elt }
+      end
+      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_argument(argument)"
+    end
     #  Gets the raw value of the given option. Raw values are the values as given in the user command line.
     # @param [Hash] option the option
     # @return [String] the value, <code>null</code> if none.
@@ -130,7 +148,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling argument_assigned?(arg)"
     end
-    #  check whether or not the given option has been seen in the user command line.
+    #  Checks whether or not the given option has been seen in the user command line.
     # @param [Hash] option the option
     # @return [true,false] <code>true</code> if the user command line has used the option
     def seen_in_command_line?(option=nil)
@@ -138,6 +156,23 @@ module Vertx
         return @j_del.java_method(:isSeenInCommandLine, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
       end
       raise ArgumentError, "Invalid arguments when calling seen_in_command_line?(option)"
+    end
+    #  Checks whether or not the command line is valid, i.e. all constraints from arguments and options have been
+    #  satisfied. This method is used when the parser validation is disabled.
+    # @return [true,false] <code>true</code> if the current {::Vertx::CommandLine} object is valid.  otherwise.
+    def valid?
+      if !block_given?
+        return @j_del.java_method(:isValid, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling valid?()"
+    end
+    #  Checks whether or not the user has passed a "help" option and is asking for help.
+    # @return [true,false] <code>true</code> if the user command line has enabled a "Help" option,  otherwise.
+    def asking_for_help?
+      if !block_given?
+        return @j_del.java_method(:isAskingForHelp, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling asking_for_help?()"
     end
   end
 end
