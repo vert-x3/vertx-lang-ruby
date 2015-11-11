@@ -1,7 +1,7 @@
 require 'vertx/read_stream'
 require 'vertx/message'
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.core.eventbus.MessageConsumer<T>
+# Generated from io.vertx.core.eventbus.MessageConsumer
 module Vertx
   #  An event bus consumer object representing a stream of message to an {::Vertx::EventBus} address that can
   #  be read from.

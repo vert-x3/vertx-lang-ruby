@@ -1,5 +1,5 @@
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.core.shareddata.LocalMap<K,V>
+# Generated from io.vertx.core.shareddata.LocalMap
 module Vertx
   #  Local maps can be used to share data safely in a single Vert.x instance.
   #  <p>

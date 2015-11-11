@@ -121,23 +121,5 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
     end
-    #  Start the event bus. This would not normally be called in user code
-    # @yield 
-    # @return [void]
-    def start
-      if block_given?
-        return @j_del.java_method(:start, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling start()"
-    end
-    #  Close the event bus and release any resources held. This would not normally be called in user code
-    # @yield may be <code>null</code>
-    # @return [void]
-    def close
-      if block_given?
-        return @j_del.java_method(:close, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling close()"
-    end
   end
 end

@@ -1,5 +1,5 @@
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.core.Future<T>
+# Generated from io.vertx.core.Future
 module Vertx
   #  Represents the result of an action that may, or may not, have occurred yet.
   #  <p>

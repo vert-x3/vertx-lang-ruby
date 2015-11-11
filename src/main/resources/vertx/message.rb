@@ -1,6 +1,6 @@
 require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.core.eventbus.Message<T>
+# Generated from io.vertx.core.eventbus.Message
 module Vertx
   #  Represents a message that is received from the event bus in a handler.
   #  <p>

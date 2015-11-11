@@ -209,7 +209,7 @@ module Vertx
     #  Forces the head of the request to be written before {::Vertx::HttpClientRequest#end} is called on the request or any data is
     #  written to it.
     #  <p>
-    #  This is normally used to implement HTTP 100-continue handling, see {::Vertx::HttpClientRequest#continue_handler} for
+    #  This is normally used to implement HTTP 100-continue handling, see  for
     #  more information.
     # @return [self]
     def send_head

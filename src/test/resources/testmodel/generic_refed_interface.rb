@@ -1,5 +1,5 @@
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.codegen.testmodel.GenericRefedInterface<T>
+# Generated from io.vertx.codegen.testmodel.GenericRefedInterface
 module Testmodel
   #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class GenericRefedInterface

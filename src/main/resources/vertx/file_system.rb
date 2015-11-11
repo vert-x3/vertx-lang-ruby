@@ -191,8 +191,8 @@ module Vertx
     end
     #  Change the ownership on the file represented by <code>path</code> to <code>user</code> and {code group}, asynchronously.
     # @param [String] path the path to the file
-    # @param [String] user the user name
-    # @param [String] group the user group
+    # @param [String] user the user name, <code>null</code> will not change the user name
+    # @param [String] group the user group, <code>null</code> will not change the user group name
     # @yield the handler that will be called on completion
     # @return [self]
     def chown(path=nil,user=nil,group=nil)
@@ -202,7 +202,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling chown(path,user,group)"
     end
-    #  Blocking version of {::Vertx::FileSystem#chown}
+    #  Blocking version of 
     # 
     # @param [String] path 
     # @param [String] user 

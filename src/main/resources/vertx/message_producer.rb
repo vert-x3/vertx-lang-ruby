@@ -1,6 +1,6 @@
 require 'vertx/write_stream'
 require 'vertx/util/utils.rb'
-# Generated from io.vertx.core.eventbus.MessageProducer<T>
+# Generated from io.vertx.core.eventbus.MessageProducer
 module Vertx
   #  Represents a stream of message that can be written to.
   #  <p>

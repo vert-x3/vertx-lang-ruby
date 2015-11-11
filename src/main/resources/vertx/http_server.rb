@@ -34,7 +34,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
     #  Return the request stream for the server. As HTTP requests are received by the server,
-    #  instances of {::Vertx::HttpServerRequest} will be created and passed to the stream {::Vertx::ReadStream#handler}.
+    #  instances of {::Vertx::HttpServerRequest} will be created and passed to the stream .
     # @return [::Vertx::HttpServerRequestStream] the request stream
     def request_stream
       if !block_given?
@@ -53,7 +53,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling request_handler()"
     end
     #  Return the websocket stream for the server. If a websocket connect handshake is successful a
-    #  new {::Vertx::ServerWebSocket} instance will be created and passed to the stream {::Vertx::ReadStream#handler}.
+    #  new {::Vertx::ServerWebSocket} instance will be created and passed to the stream .
     # @return [::Vertx::ServerWebSocketStream] the websocket stream
     def websocket_stream
       if !block_given?
