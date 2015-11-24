@@ -1,4 +1,5 @@
 require 'vertx/write_stream'
+require 'vertx/message'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.eventbus.MessageProducer
 module Vertx
@@ -23,6 +24,17 @@ module Vertx
         return @j_del.java_method(:writeQueueFull, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling write_queue_full?()"
+    end
+    # @param [Object] message 
+    # @yield 
+    # @return [::Vertx::MessageProducer]
+    def send(message=nil)
+      if (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(message)),::Vertx::MessageProducer)
+      elsif (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) })),::Vertx::MessageProducer)
+      end
+      raise ArgumentError, "Invalid arguments when calling send(message)"
     end
     # @yield 
     # @return [self]
@@ -77,6 +89,13 @@ module Vertx
         return @j_del.java_method(:address, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling address()"
+    end
+    # @return [void]
+    def close
+      if !block_given?
+        return @j_del.java_method(:close, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling close()"
     end
   end
 end

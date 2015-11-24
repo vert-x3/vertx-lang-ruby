@@ -354,7 +354,7 @@
                 </goals>
                 <phase>prepare-package</phase>
                 <configuration>
-                  <execArgs>${project.build.directory}/rubygems/bin/yardoc --no-private -m html --main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/docs/vertx-core/ruby/yardoc ${project.basedir}/src/main/resources/vertx/*.rb</execArgs>
+                  <execArgs>${project.build.directory}/rubygems/bin/yardoc --no-private -m html --main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/docs/yardoc ${project.basedir}/src/main/resources/vertx/*.rb</execArgs>
                 </configuration>
               </execution>
             </executions>

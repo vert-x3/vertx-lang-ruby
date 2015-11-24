@@ -14,7 +14,7 @@ options = {
 vertx.deploy_verticle("MyOrderProcessorVerticle.rb", options)
 ----
 
-This configuration is then available via the `link:../../vertx-core/ruby/yardoc/Vertx/Context.html[Context]` object.
+This configuration is then available via the `link:../../yardoc/Vertx/Context.html[Context]` object.
 
 The configuration is returned as a
 _Hash_ object so you can retrieve data as follows:

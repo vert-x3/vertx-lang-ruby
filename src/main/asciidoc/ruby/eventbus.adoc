@@ -1,9 +1,9 @@
 == The Event Bus
 :toc: left
 
-The `link:yardoc/Vertx/EventBus.html[event bus]` is the *nervous system* of Vert.x.
+The `link:../../yardoc/Vertx/EventBus.html[event bus]` is the *nervous system* of Vert.x.
 
-There is a single event bus instance for every Vert.x instance and it is obtained using the method `link:yardoc/Vertx/Vertx.html#event_bus-instance_method[eventBus]`.
+There is a single event bus instance for every Vert.x instance and it is obtained using the method `link:../../yardoc/Vertx/Vertx.html#event_bus-instance_method[eventBus]`.
 
 The event bus allows different parts of your application to communicate with each other irrespective of what language they are written in,
 and whether they're in the same Vert.x instance, or in a different Vert.x instance.
@@ -77,7 +77,7 @@ to retry after recovery.
 
 ==== Types of messages
 
-Out of the box Vert.x allows any primitive/simple type, String, or `link:yardoc/Vertx/Buffer.html[buffers]` to
+Out of the box Vert.x allows any primitive/simple type, String, or `link:../../yardoc/Vertx/Buffer.html[buffers]` to
 be sent as messages.
 
 However it's a convention and common practice in Vert.x to send messages as http://json.org/[JSON]
@@ -108,7 +108,7 @@ There is a single instance of the event bus per Vert.x instance.
 
 ==== Registering Handlers
 
-This simplest way to register a handler is using `link:yardoc/Vertx/EventBus.html#consumer-instance_method[consumer]`.
+This simplest way to register a handler is using `link:../../yardoc/Vertx/EventBus.html#consumer-instance_method[consumer]`.
 Here's an example:
 
 [source,ruby]
@@ -121,13 +121,13 @@ eb.consumer("news.uk.sport") { |message|
 
 ----
 
-When a message arrives for your handler, your handler will be called, passing in the `link:yardoc/Vertx/Message.html[message]`.
+When a message arrives for your handler, your handler will be called, passing in the `link:../../yardoc/Vertx/Message.html[message]`.
 
-The object returned from call to +consumer()+ is an instance of `link:yardoc/Vertx/MessageConsumer.html[MessageConsumer]`
+The object returned from call to +consumer()+ is an instance of `link:../../yardoc/Vertx/MessageConsumer.html[MessageConsumer]`
 
 This object can subsequently be used to unregister the handler, or use the handler as a stream.
 
-Alternatively you can use `link:yardoc/Vertx/EventBus.html#consumer-instance_method[consumer]` to
+Alternatively you can use `link:../../yardoc/Vertx/EventBus.html#consumer-instance_method[consumer]` to
 to return a +MessageConsumer+ with no handler set, and then set the handler on that. For example:
 
 [source,ruby]
@@ -144,7 +144,7 @@ consumer.handler() { |message|
 When registering a handler on a clustered event bus, it can take some time for the registration to reach all
 nodes of the cluster.
 
-If you want to be notified when this has completed, you can register a `link:yardoc/Vertx/MessageConsumer.html#completion_handler-instance_method[completion handler]`
+If you want to be notified when this has completed, you can register a `link:../../yardoc/Vertx/MessageConsumer.html#completion_handler-instance_method[completion handler]`
 on the +MessageConsumer+ object.
 
 [source,ruby]
@@ -161,10 +161,10 @@ consumer.completion_handler() { |res_err,res|
 
 ==== Un-registering Handlers
 
-To unregister a handler, call `link:yardoc/Vertx/MessageConsumer.html#unregister-instance_method[unregister]`.
+To unregister a handler, call `link:../../yardoc/Vertx/MessageConsumer.html#unregister-instance_method[unregister]`.
 
 If you are on a clustered event bus, un-registering can take some time to propagate across the nodes, if you want to
-be notified when this is complete use `link:yardoc/Vertx/MessageConsumer.html#unregister-instance_method[unregister]`.
+be notified when this is complete use `link:../../yardoc/Vertx/MessageConsumer.html#unregister-instance_method[unregister]`.
 
 [source,ruby]
 ----
@@ -180,7 +180,7 @@ consumer.unregister() { |res_err,res|
 
 ==== Publishing messages
 
-Publishing a message is simple. Just use `link:yardoc/Vertx/EventBus.html#publish-instance_method[publish]` specifying the
+Publishing a message is simple. Just use `link:../../yardoc/Vertx/EventBus.html#publish-instance_method[publish]` specifying the
 address to publish it to.
 
 [source,ruby]
@@ -196,7 +196,7 @@ That message will then be delivered to all handlers registered against the addre
 Sending a message will result in only one handler registered at the address receiving the message.
 This is the point to point messaging pattern. The handler is chosen in a non-strict round-robin fashion.
 
-You can send a message with `link:yardoc/Vertx/EventBus.html#send-instance_method[send]`
+You can send a message with `link:../../yardoc/Vertx/EventBus.html#send-instance_method[send]`
 
 [source,ruby]
 ----
@@ -212,20 +212,20 @@ Vert.x will deliver messages to any particular handler in the same order they we
 
 ==== The Message object
 
-The object you receive in a message handler is a `link:yardoc/Vertx/Message.html[Message]`.
+The object you receive in a message handler is a `link:../../yardoc/Vertx/Message.html[Message]`.
 
-The `link:yardoc/Vertx/Message.html#body-instance_method[body]` of the message corresponds to the object that was sent or published.
+The `link:../../yardoc/Vertx/Message.html#body-instance_method[body]` of the message corresponds to the object that was sent or published.
 
-The headers of the message are available with `link:yardoc/Vertx/Message.html#headers-instance_method[headers]`.
+The headers of the message are available with `link:../../yardoc/Vertx/Message.html#headers-instance_method[headers]`.
 
-==== Replying to messages
+==== Acknowledging messages / sending replies
 
-Sometimes after you send a message you want to receive a reply from the recipient.
-This is known as the *request-response pattern*.
+When using `link:../../yardoc/Vertx/EventBus.html#send-instance_method[send]` the event bus attempts to deliver the message to a
+`link:../../yardoc/Vertx/MessageConsumer.html[MessageConsumer]` registered with the event bus.
 
-To do this you can specify a reply handler when sending the message.
+In some cases it's useful for the sender to know when the consumer has received the message and "processed" it.
 
-When the receiver receives the message they can reply to it by calling `link:yardoc/Vertx/Message.html#reply-instance_method[reply]`.
+To acknowledge that the message has been processed the consumer can reply to the message by calling `link:../../yardoc/Vertx/Message.html#reply-instance_method[reply]`.
 
 When this happens it causes a reply to be sent back to the sender and the reply handler is invoked with the reply.
 
@@ -255,8 +255,19 @@ eventBus.send("news.uk.sport", "Yay! Someone kicked a ball across a patch of gra
 
 ----
 
-The replies themselves can also be replied to so you can create a dialog between two different parties
-consisting of multiple rounds.
+The reply can contain a message body which can contain useful information.
+
+What the "processing" actually means is application defined and depends entirely on what the message consumer does
+and is not something that the Vert.x event bus itself knows or cares about.
+
+Some examples:
+
+* A simple message consumer which implements a service which returns the time of the day would acknowledge with a message
+containing the time of day in the reply body
+* A message consumer which implements a persistent queue, might acknowledge with `true` if the message was successfully
+persisted in storage, or `false` if not.
+* A message consumer which processes an order might acknowledge with `true` when the order has been successfully processed
+so it can be deleted from the database
 
 ==== Sending with timeouts
 
@@ -271,7 +282,7 @@ The default timeout is 30 seconds.
 Message sends can fail for other reasons, including:
 
 * There are no handlers available to send the message to
-* The recipient has explicitly failed the message using `link:yardoc/Vertx/Message.html#fail-instance_method[fail]`
+* The recipient has explicitly failed the message using `link:../../yardoc/Vertx/Message.html#fail-instance_method[fail]`
 
 In all cases the reply handler will be called with the specific failure.
 

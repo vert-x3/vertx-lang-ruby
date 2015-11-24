@@ -169,10 +169,10 @@ client.resolve_mx("vertx.io") { |ar_err,ar|
 
 ----
 
-Be aware that the List will contain the `link:yardoc/Vertx/MxRecord.html[MxRecord]` sorted by the priority of them, which
+Be aware that the List will contain the `link:../../yardoc/Vertx/MxRecord.html[MxRecord]` sorted by the priority of them, which
 means MX records with smaller priority coming first in the List.
 
-The `link:yardoc/Vertx/MxRecord.html[MxRecord]` allows you to access the priority and the name of the MX record by offer methods for it like:
+The `link:../../yardoc/Vertx/MxRecord.html[MxRecord]` allows you to access the priority and the name of the MX record by offer methods for it like:
 
 [source,ruby]
 ----
@@ -252,7 +252,7 @@ client.resolve_srv("vertx.io") { |ar_err,ar|
 Be aware that the List will contain the SrvRecords sorted by the priority of them, which means SrvRecords
 with smaller priority coming first in the List.
 
-The `link:yardoc/Vertx/SrvRecord.html[SrvRecord]` allows you to access all informations contained in the SRV record itself:
+The `link:../../yardoc/Vertx/SrvRecord.html[SrvRecord]` allows you to access all informations contained in the SRV record itself:
 
 [source,ruby]
 ----

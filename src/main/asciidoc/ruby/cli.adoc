@@ -47,12 +47,12 @@ cli = Vertx::CLI.create("copy").set_summary("A command line interface to copy fi
 
 ----
 
-As you can see, you can create a new `link:yardoc/Vertx/CLI.html[CLI]` using
-`link:yardoc/Vertx/CLI.html#create-class_method[CLI.create]`. The passed string is the name of the CLI. Once created you
+As you can see, you can create a new `link:../../yardoc/Vertx/CLI.html[CLI]` using
+`link:../../yardoc/Vertx/CLI.html#create-class_method[CLI.create]`. The passed string is the name of the CLI. Once created you
 can set the summary and description. The summary is intended to be short (one line), while the description can
 contain more details. Each option and argument are also added on the `CLI` object using the
-`link:yardoc/Vertx/CLI.html#add_argument-instance_method[addArgument]` and
-`link:yardoc/Vertx/CLI.html#add_option-instance_method[addOption]` methods.
+`link:../../yardoc/Vertx/CLI.html#add_argument-instance_method[addArgument]` and
+`link:../../yardoc/Vertx/CLI.html#add_option-instance_method[addOption]` methods.
 
 ==== Options
 
@@ -187,7 +187,7 @@ Arguments can also be instantiated from their JSON form.
 
 ==== Usage generation
 
-Once your `link:yardoc/Vertx/CLI.html[CLI]` instance is configured, you can generate the _usage_ message:
+Once your `link:../../yardoc/Vertx/CLI.html[CLI]` instance is configured, you can generate the _usage_ message:
 
 [source,ruby]
 ----
@@ -227,7 +227,7 @@ If you need to tune the usage message, check the `link:unavailable[UsageMessageF
 
 === Parsing Stage
 
-Once your `link:yardoc/Vertx/CLI.html[CLI]` instance is configured, you can parse the user command line to evaluate
+Once your `link:../../yardoc/Vertx/CLI.html[CLI]` instance is configured, you can parse the user command line to evaluate
 each option and argument:
 
 [source,ruby]
@@ -236,19 +236,19 @@ commandLine = cli.parse(userCommandLineArguments)
 
 ----
 
-The `link:yardoc/Vertx/CLI.html#parse-instance_method[parse]` method returns a `link:yardoc/Vertx/CommandLine.html[CommandLine]`
+The `link:../../yardoc/Vertx/CLI.html#parse-instance_method[parse]` method returns a `link:../../yardoc/Vertx/CommandLine.html[CommandLine]`
 object containing the values. By default, it validates the user command line and checks that each mandatory options
 and arguments have been set as well as the number of values received by each option. You can disable the
-validation by passing `false` as second parameter of `link:yardoc/Vertx/CLI.html#parse-instance_method[parse]`.
+validation by passing `false` as second parameter of `link:../../yardoc/Vertx/CLI.html#parse-instance_method[parse]`.
 This is useful if you want to check an argument or option is present even if the parsed command line is invalid.
 
 You can check whether or not the
-`link:yardoc/Vertx/CommandLine.html[CommandLine]` is valid using `link:yardoc/Vertx/CommandLine.html#is_valid-instance_method[isValid]`.
+`link:../../yardoc/Vertx/CommandLine.html[CommandLine]` is valid using `link:../../yardoc/Vertx/CommandLine.html#is_valid-instance_method[isValid]`.
 
 === Query / Interrogation Stage
 
 Once parsed, you can retrieve the values of the options and arguments from the
-`link:yardoc/Vertx/CommandLine.html[CommandLine]` object returned by the `link:yardoc/Vertx/CLI.html#parse-instance_method[parse]`
+`link:../../yardoc/Vertx/CommandLine.html[CommandLine]` object returned by the `link:../../yardoc/Vertx/CLI.html#parse-instance_method[parse]`
 method:
 
 [source,ruby]

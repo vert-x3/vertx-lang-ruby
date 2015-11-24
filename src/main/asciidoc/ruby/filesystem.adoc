@@ -1,8 +1,8 @@
 == Using the file system with Vert.x
 
-The Vert.x `link:yardoc/Vertx/FileSystem.html[FileSystem]` object provides many operations for manipulating the file system.
+The Vert.x `link:../../yardoc/Vertx/FileSystem.html[FileSystem]` object provides many operations for manipulating the file system.
 
-There is one file system object per Vert.x instance, and you obtain it with  `link:yardoc/Vertx/Vertx.html#file_system-instance_method[fileSystem]`.
+There is one file system object per Vert.x instance, and you obtain it with  `link:../../yardoc/Vertx/Vertx.html#file_system-instance_method[fileSystem]`.
 
 A blocking and a non blocking version of each operation is provided. The non blocking versions take a handler
 which is called when the operation completes or an error occurs.
@@ -40,7 +40,7 @@ fs.copy_blocking("foo.txt", "bar.txt")
 ----
 
 Many operations exist to copy, move, truncate, chmod and many other file operations. We won't list them all here,
-please consult the `link:yardoc/Vertx/FileSystem.html[API docs]` for the full list.
+please consult the `link:../../yardoc/Vertx/FileSystem.html[API docs]` for the full list.
 
 Let's see a couple of examples using asynchronous methods:
 
@@ -94,7 +94,7 @@ vertx.file_system().exists("target/classes/junk.txt") { |result_err,result|
 
 Vert.x provides an asynchronous file abstraction that allows you to manipulate a file on the file system.
 
-You open an `link:yardoc/Vertx/AsyncFile.html[AsyncFile]` as follows:
+You open an `link:../../yardoc/Vertx/AsyncFile.html[AsyncFile]` as follows:
 
 [source,ruby]
 ----
@@ -118,7 +118,7 @@ They also allow you to read and write directly to them.
 ==== Random access writes
 
 To use an `AsyncFile` for random access writing you use the
-`link:yardoc/Vertx/AsyncFile.html#write-instance_method[write]` method.
+`link:../../yardoc/Vertx/AsyncFile.html#write-instance_method[write]` method.
 
 The parameters to the method are:
 
@@ -161,7 +161,7 @@ vertx.file_system().open("target/classes/hello.txt", {
 ==== Random access reads
 
 To use an `AsyncFile` for random access reads you use the
-`link:yardoc/Vertx/AsyncFile.html#read-instance_method[read]`
+`link:../../yardoc/Vertx/AsyncFile.html#read-instance_method[read]`
 method.
 
 The parameters to the method are:
@@ -220,7 +220,7 @@ close or when the JVM is shutdown with `link:../dataobjects.html#OpenOptions#set
 
 In the `OpenOptions`, you can enable/disable the automatic synchronisation of the content on every write using
 `link:../dataobjects.html#OpenOptions#set_dsync-instance_method[dsync]`. In that case, you can manually flush any writes from the OS
-cache by calling the `link:yardoc/Vertx/AsyncFile.html#flush-instance_method[flush]` method.
+cache by calling the `link:../../yardoc/Vertx/AsyncFile.html#flush-instance_method[flush]` method.
 
 This method can also be called with an handler which will be called when the flush is complete.
 
@@ -258,5 +258,5 @@ You can also use the _pump_ to write file content into HTTP responses, or more g
 
 ==== Closing an AsyncFile
 
-To close an `AsyncFile` call the `link:yardoc/Vertx/AsyncFile.html#close-instance_method[close]` method. Closing is asynchronous and
+To close an `AsyncFile` call the `link:../../yardoc/Vertx/AsyncFile.html#close-instance_method[close]` method. Closing is asynchronous and
 if you want to be notified when the close has been completed you can specify a handler function as an argument.

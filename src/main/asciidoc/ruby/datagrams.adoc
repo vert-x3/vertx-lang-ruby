@@ -26,7 +26,7 @@ and NetClient (see above).
 
 === Creating a DatagramSocket
 
-To use UDP you first need t create a `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]`. It does not matter here if you only want to send data or send
+To use UDP you first need t create a `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]`. It does not matter here if you only want to send data or send
 and receive.
 
 [source,ruby]
@@ -36,7 +36,7 @@ socket = vertx.create_datagram_socket({
 
 ----
 
-The returned `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` will not be bound to a specific port. This is not a
+The returned `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` will not be bound to a specific port. This is not a
 problem if you only want to send data (like a client), but more on this in the next section.
 
 === Sending Datagram packets
@@ -67,18 +67,18 @@ socket.send("A string used as content", 1234, "10.0.0.1") { |asyncResult_err,asy
 
 === Receiving Datagram packets
 
-If you want to receive packets you need to bind the `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` by calling
+If you want to receive packets you need to bind the `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` by calling
 `listen(...)}` on it.
 
-This way you will be able to receive `link:yardoc/Vertx/DatagramPacket.html[DatagramPacket]`s that were sent to the address and port on
-which the `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` listens.
+This way you will be able to receive `link:../../yardoc/Vertx/DatagramPacket.html[DatagramPacket]`s that were sent to the address and port on
+which the `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` listens.
 
-Beside this you also want to set a `Handler` which will be called for each received `link:yardoc/Vertx/DatagramPacket.html[DatagramPacket]`.
+Beside this you also want to set a `Handler` which will be called for each received `link:../../yardoc/Vertx/DatagramPacket.html[DatagramPacket]`.
 
-The `link:yardoc/Vertx/DatagramPacket.html[DatagramPacket]` has the following methods:
+The `link:../../yardoc/Vertx/DatagramPacket.html[DatagramPacket]` has the following methods:
 
-- `link:yardoc/Vertx/DatagramPacket.html#sender-instance_method[sender]`: The InetSocketAddress which represent the sender of the packet
-- `link:yardoc/Vertx/DatagramPacket.html#data-instance_method[data]`: The Buffer which holds the data which was received.
+- `link:../../yardoc/Vertx/DatagramPacket.html#sender-instance_method[sender]`: The InetSocketAddress which represent the sender of the packet
+- `link:../../yardoc/Vertx/DatagramPacket.html#data-instance_method[data]`: The Buffer which holds the data which was received.
 
 So to listen on a specific address and port you would do something like shown here:
 
@@ -135,15 +135,15 @@ All sockets that have joined the multicast group 230.0.0.1 will receive the pack
 
 ===== Receiving Multicast packets
 
-If you want to receive packets for specific Multicast group you need to bind the `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` by
+If you want to receive packets for specific Multicast group you need to bind the `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` by
 calling `listen(...)` on it and join the Multicast group.
 
 This way you will be able to receive DatagramPackets that were sent to the address and port on which the
-`link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` listens and also to those sent to the Multicast group.
+`link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` listens and also to those sent to the Multicast group.
 
 Beside this you also want to set a Handler which will be called for each received DatagramPacket.
 
-The `link:yardoc/Vertx/DatagramPacket.html[DatagramPacket]` has the following methods:
+The `link:../../yardoc/Vertx/DatagramPacket.html[DatagramPacket]` has the following methods:
 
 - `sender()`: The InetSocketAddress which represent the sender of the packet
 - `data()`: The Buffer which holds the data which was received.
@@ -239,7 +239,7 @@ socket.block_multicast_group("230.0.0.1", "10.0.0.2") { |asyncResult_err,asyncRe
 
 ==== DatagramSocket properties
 
-When creating a `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` there are multiple properties you can set to
+When creating a `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` there are multiple properties you can set to
 change it's behaviour with the `link:../dataobjects.html#DatagramSocketOptions[DatagramSocketOptions]` object. Those are listed here:
 
 - `link:../dataobjects.html#DatagramSocketOptions#set_send_buffer_size-instance_method[sendBufferSize]` Sets the send buffer size in bytes.
@@ -261,10 +261,10 @@ the TTL. If the TTL is decremented to 0 by a router, it will not be forwarded.
 ==== DatagramSocket Local Address
 
 You can find out the local address of the socket (i.e. the address of this side of the UDP Socket) by calling
-`link:yardoc/Vertx/DatagramSocket.html#local_address-instance_method[localAddress]`. This will only return an `InetSocketAddress` if you
-bound the `link:yardoc/Vertx/DatagramSocket.html[DatagramSocket]` with `listen(...)` before, otherwise it will return null.
+`link:../../yardoc/Vertx/DatagramSocket.html#local_address-instance_method[localAddress]`. This will only return an `InetSocketAddress` if you
+bound the `link:../../yardoc/Vertx/DatagramSocket.html[DatagramSocket]` with `listen(...)` before, otherwise it will return null.
 
 ==== Closing a DatagramSocket
 
-You can close a socket by invoking the `link:yardoc/Vertx/DatagramSocket.html#close-instance_method[close]` method. This will close
+You can close a socket by invoking the `link:../../yardoc/Vertx/DatagramSocket.html#close-instance_method[close]` method. This will close
 the socket and release all resources

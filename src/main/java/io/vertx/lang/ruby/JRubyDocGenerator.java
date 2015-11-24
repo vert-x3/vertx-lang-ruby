@@ -77,15 +77,11 @@ public class JRubyDocGenerator implements DocGenerator {
       return baselink + "dataobjects.html#" + elt.getSimpleName().toString();
     }
     if (type.getKind() == ClassKind.API) {
-      String baselink = "";
-      if (coordinate != null) {
-        baselink = "../../" + coordinate.getArtifactId() + "/ruby/";
-      }
       ApiTypeInfo api = (ApiTypeInfo) type.getRaw();
       String module = api.getModuleName();
       String dir = Case.CAMEL.format(Case.KEBAB.parse(module));
 
-      return baselink + "yardoc/" + dir + "/" + api.getSimpleName() + ".html";
+      return "../../yardoc/" + dir + "/" + api.getSimpleName() + ".html";
     }
     return "unavailable";
   }

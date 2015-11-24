@@ -1,4 +1,5 @@
 require 'vertx/measured'
+require 'vertx/send_context'
 require 'vertx/message'
 require 'vertx/message_consumer'
 require 'vertx/message_producer'
@@ -120,6 +121,24 @@ module Vertx
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:publisher, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::MessageProducer)
       end
       raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
+    end
+    #  Add an interceptor that will be called whenever a message is sent from Vert.x
+    # @yield the interceptor
+    # @return [::Vertx::EventBus] a reference to this, so the API can be used fluently
+    def add_interceptor
+      if block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:addInterceptor, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::SendContext)) })),::Vertx::EventBus)
+      end
+      raise ArgumentError, "Invalid arguments when calling add_interceptor()"
+    end
+    #  Remove an interceptor
+    # @yield the interceptor
+    # @return [::Vertx::EventBus] a reference to this, so the API can be used fluently
+    def remove_interceptor
+      if block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:removeInterceptor, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::SendContext)) })),::Vertx::EventBus)
+      end
+      raise ArgumentError, "Invalid arguments when calling remove_interceptor()"
     end
   end
 end
