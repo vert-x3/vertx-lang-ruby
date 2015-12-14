@@ -320,6 +320,9 @@ module Vertx
     #  A <code>Future</code> instance is passed into <code>blockingCodeHandler</code>. When the blocking code successfully completes,
     #  the handler should call the {::Vertx::Future#complete} or {::Vertx::Future#complete} method, or the {::Vertx::Future#fail}
     #  method if it failed.
+    #  <p>
+    #  In the <code>blockingCodeHandler</code> the current context remains the original context and therefore any task
+    #  scheduled in the <code>blockingCodeHandler</code> will be executed on the this context and not on the worker thread.
     # @param [Proc] blockingCodeHandler handler representing the blocking code to run
     # @param [true,false] ordered if true then if executeBlocking is called several times on the same context, the executions for that context will be executed serially, not in parallel. if false then they will be no ordering guarantees
     # @yield handler that will be called when the blocking code is complete

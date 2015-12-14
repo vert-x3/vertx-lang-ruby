@@ -26,6 +26,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
     end
+    #  Same as {::Vertx::WriteStream#end} but writes some data to the stream before ending.
+    # @param [Object] t 
+    # @return [void]
+    def end(t=nil)
+      if !block_given? && t == nil
+        return @j_del.java_method(:end, []).call()
+      elsif (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && !block_given?
+        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(t))
+      end
+      raise ArgumentError, "Invalid arguments when calling end(t)"
+    end
     #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
     #  if there is more than <code>maxSize</code> bytes in the write queue. This is used as an indicator by classes such as
     #  <code>Pump</code> to provide flow control.

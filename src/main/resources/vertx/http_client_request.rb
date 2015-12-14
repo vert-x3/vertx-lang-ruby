@@ -241,11 +241,12 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end(param_1,param_2)"
     end
-    #  Set's the amount of time after which if a response is not received TimeoutException
-    #  will be sent to the exception handler of this request.
+    #  Set's the amount of time after which if the request does not return any data within the timeout period an
+    #  TimeoutException will be passed to the exception handler (if provided) and
+    #  the request will be closed.
     #  <p>
-    #   Calling this method more than once
-    #  has the effect of canceling any existing timeout and starting the timeout from scratch.
+    #  Calling this method more than once has the effect of canceling any existing timeout and starting
+    #  the timeout from scratch.
     # @param [Fixnum] timeoutMs The quantity of time in milliseconds.
     # @return [self]
     def set_timeout(timeoutMs=nil)

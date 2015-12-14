@@ -328,5 +328,13 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling body_end_handler()"
     end
+    #  @return the total number of bytes written for the body of the response.
+    # @return [Fixnum]
+    def bytes_written
+      if !block_given?
+        return @j_del.java_method(:bytesWritten, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling bytes_written()"
+    end
   end
 end

@@ -17,6 +17,17 @@ module Vertx
     def j_del
       @j_del
     end
+    #  Same as {::Vertx::MessageProducer#end} but writes some data to the stream before ending.
+    # @param [Object] t 
+    # @return [void]
+    def end(t=nil)
+      if !block_given? && t == nil
+        return @j_del.java_method(:end, []).call()
+      elsif (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && !block_given?
+        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(t))
+      end
+      raise ArgumentError, "Invalid arguments when calling end(t)"
+    end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::MessageProducer#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
     def write_queue_full?
@@ -90,6 +101,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling address()"
     end
+    #  Closes the producer, this method should be called when the message producer is not used anymore.
     # @return [void]
     def close
       if !block_given?

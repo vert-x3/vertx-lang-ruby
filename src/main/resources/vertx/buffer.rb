@@ -45,10 +45,28 @@ module Vertx
     # @param [String] enc 
     # @return [String]
     def to_string(enc=nil)
-      if enc.class == String && !block_given?
+      if !block_given? && enc == nil
+        return @j_del.java_method(:toString, []).call()
+      elsif enc.class == String && !block_given?
         return @j_del.java_method(:toString, [Java::java.lang.String.java_class]).call(enc)
       end
       raise ArgumentError, "Invalid arguments when calling to_string(enc)"
+    end
+    #  Returns a Json object representation of the Buffer
+    # @return [Hash{String => Object}]
+    def to_json_object
+      if !block_given?
+        return @j_del.java_method(:toJsonObject, []).call() != nil ? JSON.parse(@j_del.java_method(:toJsonObject, []).call().encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling to_json_object()"
+    end
+    #  Returns a Json array representation of the Buffer
+    # @return [Array<String,Object>]
+    def to_json_array
+      if !block_given?
+        return @j_del.java_method(:toJsonArray, []).call() != nil ? JSON.parse(@j_del.java_method(:toJsonArray, []).call().encode) : nil
+      end
+      raise ArgumentError, "Invalid arguments when calling to_json_array()"
     end
     #  Returns the <code>byte</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos 
