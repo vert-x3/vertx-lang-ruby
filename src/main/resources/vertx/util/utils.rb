@@ -124,6 +124,16 @@ module Vertx
         set.each { |elt| ret.add elt }
         ret
       end
+      def self.to_proc(handler, &converter)
+        Proc.new { |err,val|
+          if nil != err
+            handler.handle(Java::IoVertxLangRuby::Helper.failedResult(err));
+          else
+            val = yield val;
+            handler.handle(Java::IoVertxLangRuby::Helper.succeededResult(val));
+          end
+        }
+      end
     end
     class HashProxy < Hash
       def initialize

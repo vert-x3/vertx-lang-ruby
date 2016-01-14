@@ -89,6 +89,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling method()"
     end
+    #  @return true if this {::Vertx::NetSocket} is encrypted via SSL/TLS
+    # @return [true,false]
+    def ssl?
+      if !block_given?
+        return @j_del.java_method(:isSSL, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling ssl?()"
+    end
     #  @return the URI of the request. This is usually a relative URI
     # @return [String]
     def uri

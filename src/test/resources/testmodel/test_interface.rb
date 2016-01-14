@@ -176,6 +176,15 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_data_object(sendFailure)"
     end
+    # @param [String] expected 
+    # @param [true,false] fail 
+    # @return [Proc]
+    def method_with_handler_async_result_string_return(expected=nil,fail=nil)
+      if expected.class == String && (fail.class == TrueClass || fail.class == FalseClass) && !block_given?
+        return ::Vertx::Util::Utils.to_proc(@j_del.java_method(:methodWithHandlerAsyncResultStringReturn, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(expected,fail)) { |val| val }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_string_return(expected,fail)"
+    end
     # @param [::Testmodel::RefedInterface1] refed 
     # @return [void]
     def method_with_user_types(refed=nil)

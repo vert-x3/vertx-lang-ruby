@@ -130,6 +130,27 @@ def testMethodWithHandlerAsyncResultDataObjectFails
   Assert.equals(count, 1)
 end
 
+def testMethodWithHandlerAsyncResultStringReturn
+  succeedingHandler = @obj.method_with_handler_async_result_string_return("the-result", false)
+  succeedingHandler.call(nil, "the-result")
+  failed = false
+  begin
+    succeedingHandler.call(nil)
+  rescue Object => e
+    failed = true;
+  end
+  Assert.equals(failed, true)
+  failingHandler = @obj.method_with_handler_async_result_string_return("an-error", true)
+  failingHandler.call("an-error");
+  failed = false
+  begin
+    failingHandler.call(nil, "unexpected");
+  rescue Object => e
+    failed = true;
+  end
+  Assert.equals(failed, true)
+end
+
 def testMethodWithHandlerListAndSet
   count = 0
   @obj.method_with_handler_list_and_set(

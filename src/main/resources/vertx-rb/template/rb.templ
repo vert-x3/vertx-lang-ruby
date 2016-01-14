@@ -404,6 +404,13 @@
         return "::Vertx::Util::Utils.from_object(" + expr + ")";
       } else if (kind == CLASS_ENUM) {
         return expr + ".name.intern";
+      } else if (kind == CLASS_HANDLER) {
+        var resultType = type.args[0];
+        if (resultType.kind == CLASS_ASYNC_RESULT) {
+          return "::Vertx::Util::Utils.to_proc(" +  expr +  ") { |val| " + genConvParam(resultType.args[0], "val") + " }";
+        } else {
+          /* Todo */
+        }
       }
       return "nil";
     }
