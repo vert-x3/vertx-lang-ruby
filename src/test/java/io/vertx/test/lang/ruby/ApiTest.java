@@ -84,7 +84,22 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithHandlerStringReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerGenericReturn() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerAsyncResultStringReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultGenericReturn() {
     runTest();
   }
 

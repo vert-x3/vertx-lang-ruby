@@ -302,6 +302,76 @@ An alternative way to run blocking code is to use a <<worker_verticles, worker v
 
 A worker verticle is always executed with a thread from the worker pool.
 
+== Async coordination
+
+Coordination of multiple asynchronous results can be achieved with Vert.x `link:../../yardoc/Vertx/Future.html[futures]`.
+
+`link:../../yardoc/Vertx/CompositeFuture.html#all-class_method[CompositeFuture.all]` takes several futures arguments (up to 6) and returns a future that is
+_succeeded_ when all the futures are and _failed_ otherwise:
+
+[source,ruby]
+----
+require 'vertx/future'
+require 'vertx/composite_future'
+httpServerFuture = Vertx::Future.future()
+httpServer.listen(&httpServerFuture.handler())
+
+netServerFuture = Vertx::Future.future()
+netServer.listen(&netServerFuture.handler())
+
+Vertx::CompositeFuture.all(httpServerFuture, netServerFuture).set_handler() { |ar_err,ar|
+  if (ar_err == nil)
+    # All server started
+  else
+    # At least one server failed
+  end
+}
+
+----
+
+The handler returned by `link:../../yardoc/Vertx/Future.html#handler-instance_method[handler]` completes the future.
+
+`link:../../yardoc/Vertx/CompositeFuture.html#any-class_method[CompositeFuture.any]` takes several futures arguments (up to 6) and returns a future that is
+_failed_ when all the futures are and _succeeded_ otherwise:
+
+[source,ruby]
+----
+require 'vertx/future'
+require 'vertx/composite_future'
+future1 = Vertx::Future.future()
+future2 = Vertx::Future.future()
+Vertx::CompositeFuture.any(future1, future2).set_handler() { |ar_err,ar|
+  if (ar_err == nil)
+    # At least one is succeeded
+  else
+    # All failed
+  end
+}
+
+----
+
+`link:../../yardoc/Vertx/Future.html#compose-instance_method[compose]` can be used for chaining futures:
+
+[source,ruby]
+----
+require 'vertx/future'
+require 'vertx/buffer'
+
+fs = vertx.file_system()
+
+fut1 = Vertx::Future.future()
+fut2 = Vertx::Future.future()
+
+fs.create_file("/foo", &fut1.handler())
+fut1.compose(lambda { |string|
+  fs.write_file("/foo", Vertx::Buffer.buffer(), &fut2.handler())
+}, fut2)
+fut2.compose(lambda { |integer|
+  fs.move("/foo", "/bar", &startFuture.handler())
+}, startFuture)
+
+----
+
 == Verticles
 
 Vert.x comes with a simple, scalable, _actor-like_ deployment and concurrency model out of the box that

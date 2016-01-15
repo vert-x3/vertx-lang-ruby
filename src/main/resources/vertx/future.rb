@@ -57,10 +57,11 @@ module Vertx
     #  If the future has already been completed it will be called immediately. Otherwise it will be called when the
     #  future is completed.
     # @yield the Handler that will be called with the result
-    # @return [void]
+    # @return [self]
     def set_handler
       if block_given?
-        return @j_del.java_method(:setHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        @j_del.java_method(:setHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling set_handler()"
     end
@@ -76,13 +77,40 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling complete(result)"
     end
     #  Set the failure. Any handler will be called, if there is one, and the future will be marked as completed.
-    # @param [String] failureMessage the failure message
+    # @overload fail(throwable)
+    #   @param [Exception] throwable the failure cause
+    # @overload fail(failureMessage)
+    #   @param [String] failureMessage the failure message
     # @return [void]
-    def fail(failureMessage=nil)
-      if failureMessage.class == String && !block_given?
-        return @j_del.java_method(:fail, [Java::java.lang.String.java_class]).call(failureMessage)
+    def fail(param_1=nil)
+      if param_1.is_a?(Exception) && !block_given?
+        return @j_del.java_method(:fail, [Java::JavaLang::Throwable.java_class]).call(::Vertx::Util::Utils.to_throwable(param_1))
+      elsif param_1.class == String && !block_given?
+        return @j_del.java_method(:fail, [Java::java.lang.String.java_class]).call(param_1)
       end
-      raise ArgumentError, "Invalid arguments when calling fail(failureMessage)"
+      raise ArgumentError, "Invalid arguments when calling fail(param_1)"
+    end
+    #  Compose this future with another future.
+    # 
+    #  When this future succeeds, the handler will be called with the value.
+    # 
+    #  When this future fails, the failure will be propagated to the <code>next</code> future.
+    # @param [Proc] handler the handler
+    # @param [::Vertx::Future] _next the next future
+    # @return [void]
+    def compose(handler=nil,_next=nil)
+      if handler.class == Proc && _next.class.method_defined?(:j_del) && !block_given?
+        return @j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }),_next.j_del)
+      end
+      raise ArgumentError, "Invalid arguments when calling compose(handler,_next)"
+    end
+    #  @return an handler completing this future
+    # @return [Proc]
+    def handler
+      if !block_given?
+        return ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:handler, []).call()) { |val| ::Vertx::Util::Utils.to_object(val) }
+      end
+      raise ArgumentError, "Invalid arguments when calling handler()"
     end
   end
 end

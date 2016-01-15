@@ -124,7 +124,13 @@ module Vertx
         set.each { |elt| ret.add elt }
         ret
       end
-      def self.to_proc(handler, &converter)
+      def self.to_handler_proc(handler, &converter)
+        Proc.new { |val|
+          val = yield val;
+          handler.handle(val);
+        }
+      end
+      def self.to_async_result_handler_proc(handler, &converter)
         Proc.new { |err,val|
           if nil != err
             handler.handle(Java::IoVertxLangRuby::Helper.failedResult(err));

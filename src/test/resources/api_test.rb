@@ -130,6 +130,29 @@ def testMethodWithHandlerAsyncResultDataObjectFails
   Assert.equals(count, 1)
 end
 
+def testMethodWithHandlerStringReturn
+  handler = @obj.method_with_handler_string_return("the-result")
+  handler.call("the-result")
+  failed = false
+  begin
+    handler.call("unexpected")
+  rescue Object => e
+    failed = true;
+  end
+  Assert.equals(failed, true)
+end
+
+def testMethodWithHandlerGenericReturn
+  result = nil
+  handler = @obj.method_with_handler_generic_return() { |val|
+    result = val
+  }
+  handler.call("the-result");
+  Assert.equals(result, "the-result")
+  handler.call(@obj);
+  Assert.equals(result, @obj)
+end
+
 def testMethodWithHandlerAsyncResultStringReturn
   succeedingHandler = @obj.method_with_handler_async_result_string_return("the-result", false)
   succeedingHandler.call(nil, "the-result")
@@ -149,6 +172,21 @@ def testMethodWithHandlerAsyncResultStringReturn
     failed = true;
   end
   Assert.equals(failed, true)
+end
+
+def testMethodWithHandlerAsyncResultGenericReturn
+  result = nil
+  succeedingHandler = @obj.method_with_handler_async_result_generic_return() { |err,val|
+    if (err == nil)
+      result = val
+    else
+      result = err
+    end
+  }
+  succeedingHandler.call(nil, "the-result");
+  Assert.equals(result, "the-result")
+  succeedingHandler.call(nil, @obj);
+  Assert.equals(result, @obj)
 end
 
 def testMethodWithHandlerListAndSet

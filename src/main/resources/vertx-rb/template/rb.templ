@@ -407,9 +407,9 @@
       } else if (kind == CLASS_HANDLER) {
         var resultType = type.args[0];
         if (resultType.kind == CLASS_ASYNC_RESULT) {
-          return "::Vertx::Util::Utils.to_proc(" +  expr +  ") { |val| " + genConvParam(resultType.args[0], "val") + " }";
+          return "::Vertx::Util::Utils.to_async_result_handler_proc(" +  expr +  ") { |val| " + genConvParam(resultType.args[0], "val") + " }";
         } else {
-          /* Todo */
+          return "::Vertx::Util::Utils.to_handler_proc(" +  expr +  ") { |val| " + genConvParam(resultType, "val") + " }";
         }
       }
       return "nil";

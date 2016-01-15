@@ -86,6 +86,22 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_basic_types(byteHandler,shortHandler,intHandler,longHandler,floatHandler,doubleHandler,booleanHandler,charHandler)"
     end
+    # @param [String] expected 
+    # @return [Proc]
+    def method_with_handler_string_return(expected=nil)
+      if expected.class == String && !block_given?
+        return ::Vertx::Util::Utils.to_handler_proc(@j_del.java_method(:methodWithHandlerStringReturn, [Java::java.lang.String.java_class]).call(expected)) { |val| val }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_string_return(expected)"
+    end
+    # @yield 
+    # @return [Proc]
+    def method_with_handler_generic_return
+      if block_given?
+        return ::Vertx::Util::Utils.to_handler_proc(@j_del.java_method(:methodWithHandlerGenericReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))) { |val| ::Vertx::Util::Utils.to_object(val) }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_return()"
+    end
     # @param [true,false] sendFailure 
     # @yield 
     # @return [void]
@@ -181,9 +197,17 @@ module Testmodel
     # @return [Proc]
     def method_with_handler_async_result_string_return(expected=nil,fail=nil)
       if expected.class == String && (fail.class == TrueClass || fail.class == FalseClass) && !block_given?
-        return ::Vertx::Util::Utils.to_proc(@j_del.java_method(:methodWithHandlerAsyncResultStringReturn, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(expected,fail)) { |val| val }
+        return ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:methodWithHandlerAsyncResultStringReturn, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(expected,fail)) { |val| val }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_string_return(expected,fail)"
+    end
+    # @yield 
+    # @return [Proc]
+    def method_with_handler_async_result_generic_return
+      if block_given?
+        return ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:methodWithHandlerAsyncResultGenericReturn, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))) { |val| ::Vertx::Util::Utils.to_object(val) }
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_generic_return()"
     end
     # @param [::Testmodel::RefedInterface1] refed 
     # @return [void]
