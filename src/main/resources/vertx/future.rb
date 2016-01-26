@@ -106,11 +106,14 @@ module Vertx
     end
     #  @return an handler completing this future
     # @return [Proc]
-    def handler
+    def completer
       if !block_given?
-        return ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:handler, []).call()) { |val| ::Vertx::Util::Utils.to_object(val) }
+        if @cached_completer != nil
+          return @cached_completer
+        end
+        return @cached_completer = ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:completer, []).call()) { |val| ::Vertx::Util::Utils.to_object(val) }
       end
-      raise ArgumentError, "Invalid arguments when calling handler()"
+      raise ArgumentError, "Invalid arguments when calling completer()"
     end
   end
 end

@@ -153,6 +153,12 @@ def testMethodWithHandlerGenericReturn
   Assert.equals(result, @obj)
 end
 
+def testMethodWithHandlerVertxGenReturn
+  handler = @obj.method_with_handler_vertx_gen_return("the-result")
+  @refed_obj.set_string('the-result')
+  handler.call(@refed_obj);
+end
+
 def testMethodWithHandlerAsyncResultStringReturn
   succeedingHandler = @obj.method_with_handler_async_result_string_return("the-result", false)
   succeedingHandler.call(nil, "the-result")
@@ -187,6 +193,14 @@ def testMethodWithHandlerAsyncResultGenericReturn
   Assert.equals(result, "the-result")
   succeedingHandler.call(nil, @obj);
   Assert.equals(result, @obj)
+end
+
+def testMethodWithHandlerAsyncResultVertxGenReturn
+  handler = @obj.method_with_handler_async_result_vertx_gen_return("the-async-result", false)
+  @refed_obj.set_string('the-async-result')
+  handler.call(nil, @refed_obj);
+  handler = @obj.method_with_handler_async_result_vertx_gen_return("the-async-failure", true)
+  handler.call("the-async-failure", nil);
 end
 
 def testMethodWithHandlerListAndSet
