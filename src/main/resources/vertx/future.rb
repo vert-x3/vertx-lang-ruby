@@ -90,6 +90,34 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling fail(param_1)"
     end
+    # @return [Object]
+    def result
+      if !block_given?
+        return ::Vertx::Util::Utils.from_object(@j_del.java_method(:result, []).call())
+      end
+      raise ArgumentError, "Invalid arguments when calling result()"
+    end
+    # @return [Exception]
+    def cause
+      if !block_given?
+        return ::Vertx::Util::Utils.from_throwable(@j_del.java_method(:cause, []).call())
+      end
+      raise ArgumentError, "Invalid arguments when calling cause()"
+    end
+    # @return [true,false]
+    def succeeded?
+      if !block_given?
+        return @j_del.java_method(:succeeded, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling succeeded?()"
+    end
+    # @return [true,false]
+    def failed?
+      if !block_given?
+        return @j_del.java_method(:failed, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling failed?()"
+    end
     #  Compose this future with another future.
     # 
     #  When this future succeeds, the handler will be called with the value.
