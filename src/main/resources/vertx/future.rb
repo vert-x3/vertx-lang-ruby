@@ -90,28 +90,32 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling fail(param_1)"
     end
-    # @return [Object]
+    #  The result of the operation. This will be null if the operation failed.
+    # @return [Object] the result or null if the operation failed.
     def result
       if !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:result, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling result()"
     end
-    # @return [Exception]
+    #  A Throwable describing failure. This will be null if the operation succeeded.
+    # @return [Exception] the cause or null if the operation succeeded.
     def cause
       if !block_given?
         return ::Vertx::Util::Utils.from_throwable(@j_del.java_method(:cause, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling cause()"
     end
-    # @return [true,false]
+    #  Did it succeed?
+    # @return [true,false] true if it succeded or false otherwise
     def succeeded?
       if !block_given?
         return @j_del.java_method(:succeeded, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling succeeded?()"
     end
-    # @return [true,false]
+    #  Did it fail?
+    # @return [true,false] true if it failed or false otherwise
     def failed?
       if !block_given?
         return @j_del.java_method(:failed, []).call()
