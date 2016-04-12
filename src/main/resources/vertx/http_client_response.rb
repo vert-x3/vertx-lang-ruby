@@ -1,4 +1,5 @@
 require 'vertx/buffer'
+require 'vertx/http_frame'
 require 'vertx/read_stream'
 require 'vertx/multi_map'
 require 'vertx/net_socket'
@@ -66,6 +67,14 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
+    end
+    #  @return the version of the response
+    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2]
+    def version
+      if !block_given?
+        return @j_del.java_method(:version, []).call().name.intern
+      end
+      raise ArgumentError, "Invalid arguments when calling version()"
     end
     #  @return the status code of the response
     # @return [Fixnum]
@@ -146,6 +155,17 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling body_handler()"
+    end
+    #  Set an unknown frame handler. The handler will get notified when the http stream receives an unknown HTTP/2
+    #  frame. HTTP/2 permits extension of the protocol.
+    # @yield 
+    # @return [self]
+    def unknown_frame_handler
+      if block_given?
+        @j_del.java_method(:unknownFrameHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpFrame)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling unknown_frame_handler()"
     end
     #  Get a net socket for the underlying connection of this request.
     #  <p>

@@ -209,5 +209,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_instance_count()"
     end
+    #  Set an exception handler called when the context runs an action throwing an uncaught throwable.<p/>
+    # 
+    #  When this handler is called, {::Vertx::Vertx#current_context} will return this context.
+    # @yield the exception handler
+    # @return [self]
+    def exception_handler
+      if block_given?
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_throwable(event)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
+    end
   end
 end

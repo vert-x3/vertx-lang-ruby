@@ -1,4 +1,5 @@
 require 'vertx/buffer'
+require 'vertx/http_frame'
 require 'vertx/write_stream'
 require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
@@ -335,6 +336,89 @@ module Vertx
         return @j_del.java_method(:bytesWritten, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling bytes_written()"
+    end
+    #  @return the id of the stream of this response,  for HTTP/1.x
+    # @return [Fixnum]
+    def stream_id
+      if !block_given?
+        return @j_del.java_method(:streamId, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling stream_id()"
+    end
+    #  Push a response to the client.<p/>
+    # 
+    #  The <code>handler</code> will be notified with a <i>success</i> when the push can be sent and with
+    #  a <i>failure</i> when the client has disabled push or reset the push before it has been sent.<p/>
+    # 
+    #  The <code>handler</code> may be queued if the client has reduced the maximum number of streams the server can push
+    #  concurrently.<p/>
+    # 
+    #  Push can be sent only for peer initiated streams and if the response is not ended.
+    # @overload push(method,path,handler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [String] path 
+    #   @yield 
+    # @overload push(method,host,path,handler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [String] host 
+    #   @param [String] path 
+    #   @yield 
+    # @overload push(method,path,headers,handler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [String] path 
+    #   @param [::Vertx::MultiMap] headers 
+    #   @yield 
+    # @overload push(method,host,path,headers,handler)
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the method of the promised request
+    #   @param [String] host the host of the promised request
+    #   @param [String] path the path of the promised request
+    #   @param [::Vertx::MultiMap] headers the headers of the promised request
+    #   @yield the handler notified when the response can be written
+    # @return [self]
+    def push(param_1=nil,param_2=nil,param_3=nil,param_4=nil)
+      if param_1.class == Symbol && param_2.class == String && block_given? && param_3 == nil && param_4 == nil
+        @j_del.java_method(:push, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServerResponse) : nil) }))
+        return self
+      elsif param_1.class == Symbol && param_2.class == String && param_3.class == String && block_given? && param_4 == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:push, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServerResponse) : nil) })),::Vertx::HttpServerResponse)
+      elsif param_1.class == Symbol && param_2.class == String && param_3.class.method_defined?(:j_del) && block_given? && param_4 == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:push, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3.j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServerResponse) : nil) })),::Vertx::HttpServerResponse)
+      elsif param_1.class == Symbol && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && block_given?
+        @j_del.java_method(:push, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4.j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServerResponse) : nil) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling push(param_1,param_2,param_3,param_4)"
+    end
+    #  Reset this HTTP/2 stream with the error <code>code</code>.
+    # @param [Fixnum] code the error code
+    # @return [void]
+    def reset(code=nil)
+      if !block_given? && code == nil
+        return @j_del.java_method(:reset, []).call()
+      elsif code.class == Fixnum && !block_given?
+        return @j_del.java_method(:reset, [Java::long.java_class]).call(code)
+      end
+      raise ArgumentError, "Invalid arguments when calling reset(code)"
+    end
+    #  Write an HTTP/2 frame to the response, allowing to extend the HTTP/2 protocol.<p>
+    # 
+    #  The frame is sent immediatly and is not subject to flow control.
+    # @overload writeFrame(frame)
+    #   @param [::Vertx::HttpFrame] frame the frame to write
+    # @overload writeFrame(type,flags,payload)
+    #   @param [Fixnum] type the 8-bit frame type
+    #   @param [Fixnum] flags the 8-bit frame flags
+    #   @param [::Vertx::Buffer] payload the frame payload
+    # @return [self]
+    def write_frame(param_1=nil,param_2=nil,param_3=nil)
+      if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil && param_3 == nil
+        @j_del.java_method(:writeFrame, [Java::IoVertxCoreHttp::HttpFrame.java_class]).call(param_1.j_del)
+        return self
+      elsif param_1.class == Fixnum && param_2.class == Fixnum && param_3.class.method_defined?(:j_del) && !block_given?
+        @j_del.java_method(:writeFrame, [Java::int.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1,param_2,param_3.j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_frame(param_1,param_2,param_3)"
     end
   end
 end

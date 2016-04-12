@@ -1,9 +1,11 @@
 require 'vertx/server_web_socket'
 require 'vertx/http_server_file_upload'
 require 'vertx/buffer'
+require 'vertx/http_frame'
 require 'vertx/http_server_response'
 require 'vertx/multi_map'
 require 'vertx/read_stream'
+require 'vertx/http_connection'
 require 'vertx/socket_address'
 require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
@@ -74,7 +76,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
     #  @return the HTTP version of the request
-    # @return [:HTTP_1_0,:HTTP_1_1]
+    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2]
     def version
       if !block_given?
         return @j_del.java_method(:version, []).call().name.intern
@@ -82,7 +84,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling version()"
     end
     #  @return the HTTP method for the request.
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN]
     def method
       if !block_given?
         return @j_del.java_method(:method, []).call().name.intern
@@ -96,6 +98,14 @@ module Vertx
         return @j_del.java_method(:isSSL, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling ssl?()"
+    end
+    #  @return the scheme of the request
+    # @return [String]
+    def scheme
+      if !block_given?
+        return @j_del.java_method(:scheme, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling scheme()"
     end
     #  @return the URI of the request. This is usually a relative URI
     # @return [String]
@@ -120,6 +130,14 @@ module Vertx
         return @j_del.java_method(:query, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling query()"
+    end
+    #  @return the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
+    # @return [String]
+    def host
+      if !block_given?
+        return @j_del.java_method(:host, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling host()"
     end
     #  @return the response. Each instance of this class has an {::Vertx::HttpServerResponse} instance attached to it. This is used
     #  to send the response back to the client.
@@ -306,6 +324,28 @@ module Vertx
         return @j_del.java_method(:isEnded, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling ended?()"
+    end
+    #  Set an unknown frame handler. The handler will get notified when the http stream receives an unknown HTTP/2
+    #  frame. HTTP/2 permits extension of the protocol.
+    # @yield 
+    # @return [self]
+    def unknown_frame_handler
+      if block_given?
+        @j_del.java_method(:unknownFrameHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpFrame)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling unknown_frame_handler()"
+    end
+    #  @return the {::Vertx::HttpConnection} associated with this request when it is an HTTP/2 connection, null otherwise
+    # @return [::Vertx::HttpConnection]
+    def connection
+      if !block_given?
+        if @cached_connection != nil
+          return @cached_connection
+        end
+        return @cached_connection = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:connection, []).call(),::Vertx::HttpConnection)
+      end
+      raise ArgumentError, "Invalid arguments when calling connection()"
     end
   end
 end

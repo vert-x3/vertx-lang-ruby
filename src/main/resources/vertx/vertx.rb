@@ -335,5 +335,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
     end
+    #  Set a default exception handler for {::Vertx::Context}, set on  at creation.
+    # @yield the exception handler
+    # @return [self]
+    def exception_handler
+      if block_given?
+        @j_del.java_method(:exceptionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_throwable(event)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling exception_handler()"
+    end
   end
 end

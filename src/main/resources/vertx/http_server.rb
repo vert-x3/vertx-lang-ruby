@@ -2,6 +2,7 @@ require 'vertx/http_server_request'
 require 'vertx/server_web_socket'
 require 'vertx/measured'
 require 'vertx/http_server_request_stream'
+require 'vertx/http_connection'
 require 'vertx/server_web_socket_stream'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpServer
@@ -38,36 +39,55 @@ module Vertx
     # @return [::Vertx::HttpServerRequestStream] the request stream
     def request_stream
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestStream, []).call(),::Vertx::HttpServerRequestStream)
+        if @cached_request_stream != nil
+          return @cached_request_stream
+        end
+        return @cached_request_stream = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestStream, []).call(),::Vertx::HttpServerRequestStream)
       end
       raise ArgumentError, "Invalid arguments when calling request_stream()"
     end
     #  Set the request handler for the server to <code>requestHandler</code>. As HTTP requests are received by the server,
     #  instances of {::Vertx::HttpServerRequest} will be created and passed to this handler.
     # @yield 
-    # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
+    # @return [self]
     def request_handler
       if block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpServerRequest)) })),::Vertx::HttpServer)
+        @j_del.java_method(:requestHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpServerRequest)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling request_handler()"
+    end
+    #  Set a connection handler for the server. The connection handler is called after an HTTP2 connection has
+    #  been negociated.
+    # @yield 
+    # @return [self]
+    def connection_handler
+      if block_given?
+        @j_del.java_method(:connectionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpConnection)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling connection_handler()"
     end
     #  Return the websocket stream for the server. If a websocket connect handshake is successful a
     #  new {::Vertx::ServerWebSocket} instance will be created and passed to the stream .
     # @return [::Vertx::ServerWebSocketStream] the websocket stream
     def websocket_stream
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketStream, []).call(),::Vertx::ServerWebSocketStream)
+        if @cached_websocket_stream != nil
+          return @cached_websocket_stream
+        end
+        return @cached_websocket_stream = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketStream, []).call(),::Vertx::ServerWebSocketStream)
       end
       raise ArgumentError, "Invalid arguments when calling websocket_stream()"
     end
     #  Set the websocket handler for the server to <code>wsHandler</code>. If a websocket connect handshake is successful a
     #  new {::Vertx::ServerWebSocket} instance will be created and passed to the handler.
     # @yield 
-    # @return [::Vertx::HttpServer] a reference to this, so the API can be used fluently
+    # @return [self]
     def websocket_handler
       if block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::ServerWebSocket)) })),::Vertx::HttpServer)
+        @j_del.java_method(:websocketHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::ServerWebSocket)) }))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling websocket_handler()"
     end
@@ -109,6 +129,15 @@ module Vertx
         return @j_del.java_method(:close, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling close()"
+    end
+    #  The actual port the server is listening on. This is useful if you bound the server specifying 0 as port number
+    #  signifying an ephemeral port
+    # @return [Fixnum] the actual port the server is listening on.
+    def actual_port
+      if !block_given?
+        return @j_del.java_method(:actualPort, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling actual_port()"
     end
   end
 end

@@ -1,8 +1,10 @@
 require 'vertx/http_client_response'
 require 'vertx/buffer'
+require 'vertx/http_frame'
 require 'vertx/write_stream'
-require 'vertx/read_stream'
 require 'vertx/multi_map'
+require 'vertx/read_stream'
+require 'vertx/http_connection'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientRequest
 module Vertx
@@ -154,7 +156,7 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling chunked?()"
     end
     #  The HTTP method for the request.
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH]
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN]
     def method
       if !block_given?
         return @j_del.java_method(:method, []).call().name.intern
@@ -168,6 +170,42 @@ module Vertx
         return @j_del.java_method(:uri, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling uri()"
+    end
+    #  @return The path part of the uri. For example /somepath/somemorepath/someresource.foo
+    # @return [String]
+    def path
+      if !block_given?
+        return @j_del.java_method(:path, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling path()"
+    end
+    #  @return the query part of the uri. For example someparam=32&amp;someotherparam=x
+    # @return [String]
+    def query
+      if !block_given?
+        return @j_del.java_method(:query, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling query()"
+    end
+    #  Set the request host.<p/>
+    # 
+    #  For HTTP2 it sets the  pseudo header otherwise it sets the  header
+    # @param [String] host 
+    # @return [self]
+    def set_host(host=nil)
+      if host.class == String && !block_given?
+        @j_del.java_method(:setHost, [Java::java.lang.String.java_class]).call(host)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_host(host)"
+    end
+    #  @return the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
+    # @return [String]
+    def get_host
+      if !block_given?
+        return @j_del.java_method(:getHost, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling get_host()"
     end
     #  @return The HTTP headers
     # @return [::Vertx::MultiMap]
@@ -206,15 +244,16 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling continue_handler()"
     end
-    #  Forces the head of the request to be written before {::Vertx::HttpClientRequest#end} is called on the request or any data is
-    #  written to it.
-    #  <p>
-    #  This is normally used to implement HTTP 100-continue handling, see  for
-    #  more information.
+    #  Like {::Vertx::HttpClientRequest#send_head} but with an handler after headers have been sent. The handler will be called with
+    #  the HttpVersion if it can be determined or null otherwise.<p>
+    # @yield 
     # @return [self]
     def send_head
       if !block_given?
         @j_del.java_method(:sendHead, []).call()
+        return self
+      elsif block_given?
+        @j_del.java_method(:sendHead, [Java::IoVertxCore::Handler.java_class]).call(nil)
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send_head()"
@@ -255,6 +294,95 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_timeout(timeoutMs)"
+    end
+    #  Set a push handler for this request.<p/>
+    # 
+    #  The handler is called when the client receives a <i>push promise</i> from the server. The handler can be called
+    #  multiple times, for each push promise.<p/>
+    # 
+    #  The handler is called with a <i>read-only</i> {::Vertx::HttpClientRequest}, the following methods can be called:<p/>
+    # 
+    #  <ul>
+    #    <li>{::Vertx::HttpClientRequest#method}</li>
+    #    <li>{::Vertx::HttpClientRequest#uri}</li>
+    #    <li>{::Vertx::HttpClientRequest#headers}</li>
+    #    <li>{::Vertx::HttpClientRequest#get_host}</li>
+    #  </ul>
+    # 
+    #  In addition the handler should call the {::Vertx::HttpClientRequest#handler} method to set an handler to
+    #  process the response.<p/>
+    # @yield the handler
+    # @return [self]
+    def push_handler
+      if block_given?
+        @j_del.java_method(:pushHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientRequest)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling push_handler()"
+    end
+    #  Reset this stream with the error <code>code</code>.
+    # @param [Fixnum] code the error code
+    # @return [void]
+    def reset(code=nil)
+      if !block_given? && code == nil
+        return @j_del.java_method(:reset, []).call()
+      elsif code.class == Fixnum && !block_given?
+        return @j_del.java_method(:reset, [Java::long.java_class]).call(code)
+      end
+      raise ArgumentError, "Invalid arguments when calling reset(code)"
+    end
+    #  @return the {::Vertx::HttpConnection} associated with this request when it is an HTTP/2 connection, null otherwise
+    # @return [::Vertx::HttpConnection]
+    def connection
+      if !block_given?
+        if @cached_connection != nil
+          return @cached_connection
+        end
+        return @cached_connection = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:connection, []).call(),::Vertx::HttpConnection)
+      end
+      raise ArgumentError, "Invalid arguments when calling connection()"
+    end
+    #  Set a connection handler called when an HTTP/2 connection has been established.
+    # @yield the handler
+    # @return [self]
+    def connection_handler
+      if block_given?
+        @j_del.java_method(:connectionHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpConnection)) }))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling connection_handler()"
+    end
+    #  Write an HTTP/2 frame to the request, allowing to extend the HTTP/2 protocol.<p>
+    # 
+    #  The frame is sent immediatly and is not subject to flow control.<p>
+    # 
+    #  This method must be called after the request headers have been sent and only for the protocol HTTP/2.
+    #  The {::Vertx::HttpClientRequest#send_head} should be used for this purpose.
+    # @overload writeFrame(frame)
+    #   @param [::Vertx::HttpFrame] frame the frame to write
+    # @overload writeFrame(type,flags,payload)
+    #   @param [Fixnum] type the 8-bit frame type
+    #   @param [Fixnum] flags the 8-bit frame flags
+    #   @param [::Vertx::Buffer] payload the frame payload
+    # @return [self]
+    def write_frame(param_1=nil,param_2=nil,param_3=nil)
+      if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil && param_3 == nil
+        @j_del.java_method(:writeFrame, [Java::IoVertxCoreHttp::HttpFrame.java_class]).call(param_1.j_del)
+        return self
+      elsif param_1.class == Fixnum && param_2.class == Fixnum && param_3.class.method_defined?(:j_del) && !block_given?
+        @j_del.java_method(:writeFrame, [Java::int.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1,param_2,param_3.j_del)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling write_frame(param_1,param_2,param_3)"
+    end
+    #  @return the id of the stream of this response,  when it is not yet determined, i.e
+    #          the request has not been yet sent or it is not supported HTTP/1.x
+    # @return [Fixnum]
+    def stream_id
+      if !block_given?
+        return @j_del.java_method(:streamId, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling stream_id()"
     end
   end
 end
