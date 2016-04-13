@@ -24,7 +24,7 @@
       return "Array<String,Object>";
     } else if (kind == CLASS_ASYNC_RESULT) {
       return "AsyncResult"; /* Find something better than that... */
-    } else if (kind == CLASS_HANDLER) {
+    } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
       return "Proc";
     } else if (kind.collection) {
       if (kind == CLASS_LIST) {
@@ -120,6 +120,8 @@
       return "Java::java.lang.String";
     } else if (kind == CLASS_HANDLER) {
       return "Java::IoVertxCore::Handler";
+    } else if (kind == CLASS_FUNCTION) {
+      return "Java::JavaUtilFunction::Function";
     } else if (kind == CLASS_OBJECT) {
       return "Java::java.lang.Object";
     } else {
@@ -217,7 +219,7 @@
       + expr + ".class == Fixnum || " + expr + ".class == Float)";
     } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
-    } else if (kind == CLASS_HANDLER) {
+    } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
       return expr + ".class == Proc";
     } else if (kind == CLASS_DATA_OBJECT || kind == CLASS_JSON_OBJECT) {
       return expr + ".class == Hash";
@@ -284,20 +286,26 @@
       } else if (type.name == "double" || type.name == "java.lang.Double") {
         /* not tested */
         return "::Vertx::Util::Utils.to_double(" + expr + ")";
+      } else if (type.name == "char" || type.name == "java.lang.Character") {
+        return "::Vertx::Util::Utils.to_character(" + expr + ")";
       } else {
         return expr;
       }
     } else if (kind == CLASS_THROWABLE) {
         return "::Vertx::Util::Utils.to_throwable(" + expr + ")";
-    } else if (kind == CLASS_HANDLER) {
+    } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
       var eventType = type.args[0];
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_DATA_OBJECT || eventKind.collection || eventKind == CLASS_API ||
-          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json) {
+          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json || eventKind == CLASS_ENUM) {
         if (expr != "yield") {
           expr += ".call";
         }
-        return "(Proc.new { |event| " + expr + "(" + genConvReturn(eventType, "event") + ") })";
+        expr = expr + '(' + genConvReturn(eventType, 'event') + ')';
+        if (kind == CLASS_FUNCTION) {
+          expr =  genConvParam(type.args[1], expr);
+        }
+        return '(Proc.new { |event| ' + expr + ' })';
       } else if (eventKind == CLASS_VOID) {
         if (expr == "yield") {
           expr = "Proc.new { yield }";
@@ -562,7 +570,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{remainingParams=new java.util.LinkedList(params)}
 		@code{checks=new java.util.LinkedList()}
 		@foreach{param:method.params}
-			@if{paramNames.size() + 1 == method.params.size() && param.type.kind == CLASS_HANDLER}
+			@if{paramNames.size() + 1 == method.params.size() && (param.type.kind == CLASS_HANDLER || param.type.kind == CLASS_FUNCTION)}
 				@code{checks.add("block_given?")}
 				@code{paramNames.add("yield")}
 			@else{}
@@ -605,7 +613,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 @declare{'methodParamsTags'}
 	@foreach{param:methodParams}
 		@code{description = param.description != null ? renderTokensToHtml("", param.description.tokens, renderLinkToHtml, "") : ""}
-		@if{param == methodParams[methodParams.size() - 1] && param.type.kind == CLASS_HANDLER}
+		@if{param == methodParams[methodParams.size() - 1] && (param.type.kind == CLASS_HANDLER || param.type.kind == CLASS_FUNCTION)}
     # @{indent}@yield @{description}\n
 		@else{}
     # @{indent}@param [@{genRubyDocType(param.type)}] @{genRubyName(param.name)} @{description}\n
