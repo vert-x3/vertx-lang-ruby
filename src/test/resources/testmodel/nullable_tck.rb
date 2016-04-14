@@ -362,7 +362,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_char_param?(param=nil)
       if param.class == Fixnum && !block_given?
-        return @j_del.java_method(:methodWithNonNullableCharParam, [Java::JavaLang::Character.java_class]).call(param)
+        return @j_del.java_method(:methodWithNonNullableCharParam, [Java::JavaLang::Character.java_class]).call(::Vertx::Util::Utils.to_character(param))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_char_param?(param)"
     end
@@ -371,7 +371,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_char_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Fixnum && !block_given?
-        return @j_del.java_method(:methodWithNullableCharParam, [Java::boolean.java_class,Java::JavaLang::Character.java_class]).call(expectNull,param)
+        return @j_del.java_method(:methodWithNullableCharParam, [Java::boolean.java_class,Java::JavaLang::Character.java_class]).call(expectNull,::Vertx::Util::Utils.to_character(param))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_char_param(expectNull,param)"
     end
@@ -595,7 +595,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_enum_handler(notNull=nil)
       if (notNull.class == TrueClass || notNull.class == FalseClass) && block_given?
-        return @j_del.java_method(:methodWithNullableEnumHandler, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,nil)
+        return @j_del.java_method(:methodWithNullableEnumHandler, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,(Proc.new { |event| yield(event.name.intern) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_enum_handler(notNull)"
     end
@@ -638,7 +638,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_gen_enum_handler(notNull=nil)
       if (notNull.class == TrueClass || notNull.class == FalseClass) && block_given?
-        return @j_del.java_method(:methodWithNullableGenEnumHandler, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,nil)
+        return @j_del.java_method(:methodWithNullableGenEnumHandler, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,(Proc.new { |event| yield(event.name.intern) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_gen_enum_handler(notNull)"
     end
@@ -1054,7 +1054,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_list_char_param?(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNonNullableListCharParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| element })
+        return @j_del.java_method(:methodWithNonNullableListCharParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| ::Vertx::Util::Utils.to_character(element) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_list_char_param?(param)"
     end
@@ -1063,7 +1063,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_list_char_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNullableListCharParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| element })
+        return @j_del.java_method(:methodWithNullableListCharParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| ::Vertx::Util::Utils.to_character(element) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_char_param(expectNull,param)"
     end
@@ -1699,7 +1699,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_set_char_param?(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNonNullableSetCharParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| element }))
+        return @j_del.java_method(:methodWithNonNullableSetCharParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| ::Vertx::Util::Utils.to_character(element) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_set_char_param?(param)"
     end
@@ -1708,7 +1708,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_set_char_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNullableSetCharParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| element }))
+        return @j_del.java_method(:methodWithNullableSetCharParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| ::Vertx::Util::Utils.to_character(element) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_set_char_param(expectNull,param)"
     end
@@ -2344,7 +2344,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_map_char_param?(param=nil)
       if param.class == Hash && !block_given?
-        return @j_del.java_method(:methodWithNonNullableMapCharParam, [Java::JavaUtil::Map.java_class]).call(Hash[param.map { |k,v| [k,v] }])
+        return @j_del.java_method(:methodWithNonNullableMapCharParam, [Java::JavaUtil::Map.java_class]).call(Hash[param.map { |k,v| [k,::Vertx::Util::Utils.to_character(v)] }])
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_map_char_param?(param)"
     end
@@ -2353,7 +2353,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_map_char_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Hash && !block_given?
-        return @j_del.java_method(:methodWithNullableMapCharParam, [Java::boolean.java_class,Java::JavaUtil::Map.java_class]).call(expectNull,Hash[param.map { |k,v| [k,v] }])
+        return @j_del.java_method(:methodWithNullableMapCharParam, [Java::boolean.java_class,Java::JavaUtil::Map.java_class]).call(expectNull,Hash[param.map { |k,v| [k,::Vertx::Util::Utils.to_character(v)] }])
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_map_char_param(expectNull,param)"
     end
@@ -2738,7 +2738,7 @@ module Testmodel
     # @return [void]
     def method_with_list_nullable_char_param(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithListNullableCharParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| element })
+        return @j_del.java_method(:methodWithListNullableCharParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| ::Vertx::Util::Utils.to_character(element) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_nullable_char_param(param)"
     end
@@ -3203,7 +3203,7 @@ module Testmodel
     # @return [void]
     def method_with_set_nullable_char_param(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithSetNullableCharParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| element }))
+        return @j_del.java_method(:methodWithSetNullableCharParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| ::Vertx::Util::Utils.to_character(element) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_nullable_char_param(param)"
     end
@@ -3668,7 +3668,7 @@ module Testmodel
     # @return [void]
     def method_with_map_nullable_char_param(param=nil)
       if param.class == Hash && !block_given?
-        return @j_del.java_method(:methodWithMapNullableCharParam, [Java::JavaUtil::Map.java_class]).call(Hash[param.map { |k,v| [k,v] }])
+        return @j_del.java_method(:methodWithMapNullableCharParam, [Java::JavaUtil::Map.java_class]).call(Hash[param.map { |k,v| [k,::Vertx::Util::Utils.to_character(v)] }])
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_nullable_char_param(param)"
     end

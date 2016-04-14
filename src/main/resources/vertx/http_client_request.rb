@@ -253,7 +253,7 @@ module Vertx
         @j_del.java_method(:sendHead, []).call()
         return self
       elsif block_given?
-        @j_del.java_method(:sendHead, [Java::IoVertxCore::Handler.java_class]).call(nil)
+        @j_del.java_method(:sendHead, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.name.intern) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling send_head()"
