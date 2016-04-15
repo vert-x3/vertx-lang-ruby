@@ -737,6 +737,10 @@ public class ApiTest extends RubyTestBase {
   public void testMethodWithMapParams() {
     runTest();
   }
+  @Test
+  public void testMethodWithOnlyJsonObjectConstructorDataObject() {
+    runTest();
+  }
 
   private void runTest() {
     runTest("api_test", testName.getMethodName());

@@ -59,5 +59,13 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling set_data_object_with_maps(dataObject)"
     end
+    # @param [Hash] dataObject 
+    # @return [void]
+    def method_with_only_json_object_constructor_data_object(dataObject=nil)
+      if dataObject.class == Hash && !block_given?
+        return @j_del.java_method(:methodWithOnlyJsonObjectConstructorDataObject, [Java::IoVertxCodegenTestmodel::DataObjectWithOnlyJsonObjectConstructor.java_class]).call(Java::IoVertxCodegenTestmodel::DataObjectWithOnlyJsonObjectConstructor.new(::Vertx::Util::Utils.to_json_object(dataObject)))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_only_json_object_constructor_data_object(dataObject)"
+    end
   end
 end
