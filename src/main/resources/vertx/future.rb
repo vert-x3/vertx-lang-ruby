@@ -122,19 +122,46 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling failed?()"
     end
-    #  Compose this future with another future.
+    #  Compose this future with a provided <code>next</code> future.<p>
     # 
-    #  When this future succeeds, the handler will be called with the value.
+    #  When this future succeeds, the <code>handler</code> will be called with the completed value, this handler
+    #  should complete the next future.<p>
     # 
-    #  When this future fails, the failure will be propagated to the <code>next</code> future.
-    # @param [Proc] handler the handler
-    # @param [::Vertx::Future] _next the next future
-    # @return [void]
-    def compose(handler=nil,_next=nil)
-      if handler.class == Proc && _next.class.method_defined?(:j_del) && !block_given?
-        return @j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| handler.call(::Vertx::Util::Utils.from_object(event)) }),_next.j_del)
+    #  If the <code>handler</code> throws an exception, the returned future will be failed with this exception.<p>
+    # 
+    #  When this future fails, the failure will be propagated to the <code>next</code> future and the <code>handler</code>
+    #  will not be called.
+    # @overload compose(mapper)
+    #   @yield the mapper function
+    # @overload compose(handler,composed)
+    #   @param [Proc] handler the handler
+    #   @param [::Vertx::Future] composed the composed future
+    # @return [::Vertx::Future] the composed future, used for chaining
+    def compose(param_1=nil,param_2=nil)
+      if block_given? && param_1 == nil && param_2 == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)).j_del })),::Vertx::Future)
+      elsif param_1.class == Proc && param_2.class.method_defined?(:j_del) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(::Vertx::Util::Utils.from_object(event)) }),param_2.j_del),::Vertx::Future)
       end
-      raise ArgumentError, "Invalid arguments when calling compose(handler,_next)"
+      raise ArgumentError, "Invalid arguments when calling compose(param_1,param_2)"
+    end
+    #  Map the result of a future to a specific <code>value</code>.<p>
+    # 
+    #  When this future succeeds, this <code>value</code> will complete the future returned by this method call.<p>
+    # 
+    #  When this future fails, the failure will be propagated to the returned future.
+    # @overload map(mapper)
+    #   @yield the mapper function
+    # @overload map(value)
+    #   @param [Object] value the value that eventually completes the mapped future
+    # @return [::Vertx::Future] the mapped future
+    def map(param_1=nil)
+      if block_given? && param_1 == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(::Vertx::Util::Utils.from_object(event))) })),::Vertx::Future)
+      elsif (param_1.class == String  || param_1.class == Hash || param_1.class == Array || param_1.class == NilClass || param_1.class == TrueClass || param_1.class == FalseClass || param_1.class == Fixnum || param_1.class == Float) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future)
+      end
+      raise ArgumentError, "Invalid arguments when calling map(param_1)"
     end
     #  @return an handler completing this future
     # @return [Proc]

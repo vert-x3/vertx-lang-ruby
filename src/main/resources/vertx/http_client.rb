@@ -54,28 +54,28 @@ module Vertx
     #  Create an HTTP request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
     # @overload request(method,requestURI)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [String] requestURI the relative URI
     # @overload request(method,host,requestURI)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     # @overload request(method,requestURI,responseHandler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [String] requestURI the relative URI
     #   @yield the response handler
     # @overload request(method,port,host,requestURI)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [Fixnum] port the port
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     # @overload request(method,host,requestURI,responseHandler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @yield the response handler
     # @overload request(method,port,host,requestURI,responseHandler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     #   @param [Fixnum] port the port
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
@@ -99,7 +99,7 @@ module Vertx
     end
     #  Create an HTTP request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
-    # @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the HTTP method
+    # @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the HTTP method
     # @param [String] absoluteURI the absolute URI
     # @yield the response handler
     # @return [::Vertx::HttpClientRequest] an HTTP client request object

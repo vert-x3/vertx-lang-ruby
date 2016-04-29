@@ -84,12 +84,20 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling version()"
     end
     #  @return the HTTP method for the request.
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN]
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER]
     def method
       if !block_given?
         return @j_del.java_method(:method, []).call().name.intern
       end
       raise ArgumentError, "Invalid arguments when calling method()"
+    end
+    #  @return the HTTP method as sent by the client
+    # @return [String]
+    def raw_method
+      if !block_given?
+        return @j_del.java_method(:rawMethod, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling raw_method()"
     end
     #  @return true if this {::Vertx::NetSocket} is encrypted via SSL/TLS
     # @return [true,false]

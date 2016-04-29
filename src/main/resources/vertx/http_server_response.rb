@@ -355,21 +355,21 @@ module Vertx
     # 
     #  Push can be sent only for peer initiated streams and if the response is not ended.
     # @overload push(method,path,handler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method 
     #   @param [String] path 
     #   @yield 
     # @overload push(method,host,path,handler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method 
     #   @param [String] host 
     #   @param [String] path 
     #   @yield 
     # @overload push(method,path,headers,handler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method 
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method 
     #   @param [String] path 
     #   @param [::Vertx::MultiMap] headers 
     #   @yield 
     # @overload push(method,host,path,headers,handler)
-    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN] method the method of the promised request
+    #   @param [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] method the method of the promised request
     #   @param [String] host the host of the promised request
     #   @param [String] path the path of the promised request
     #   @param [::Vertx::MultiMap] headers the headers of the promised request

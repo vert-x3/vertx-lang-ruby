@@ -156,12 +156,30 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling chunked?()"
     end
     #  The HTTP method for the request.
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:UNKNOWN]
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER]
     def method
       if !block_given?
         return @j_del.java_method(:method, []).call().name.intern
       end
       raise ArgumentError, "Invalid arguments when calling method()"
+    end
+    #  @return the raw value of the method this request sends
+    # @return [String]
+    def get_raw_method
+      if !block_given?
+        return @j_del.java_method(:getRawMethod, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling get_raw_method()"
+    end
+    #  Set the value the method to send when the method  is used.
+    # @param [String] method the raw method
+    # @return [self]
+    def set_raw_method(method=nil)
+      if method.class == String && !block_given?
+        @j_del.java_method(:setRawMethod, [Java::java.lang.String.java_class]).call(method)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_raw_method(method)"
     end
     #  @return The URI of the request.
     # @return [String]
