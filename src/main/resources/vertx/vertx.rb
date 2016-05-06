@@ -3,6 +3,7 @@ require 'vertx/http_server'
 require 'vertx/context'
 require 'vertx/future'
 require 'vertx/shared_data'
+require 'vertx/worker_executor'
 require 'vertx/timeout_stream'
 require 'vertx/dns_client'
 require 'vertx/event_bus'
@@ -334,6 +335,28 @@ module Vertx
         return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
+    end
+    #  Create a named worker executor, the executor should be closed when it's not needed anymore to release
+    #  resources.<p/>
+    # 
+    #  This method can be called mutiple times with the same <code>name</code>. Executors with the same name will share
+    #  the same worker pool. The worker pool size and max execute time are set when the worker pool is created and
+    #  won't change after.<p>
+    # 
+    #  The worker pool is released when all the {::Vertx::WorkerExecutor} sharing the same name are closed.
+    # @param [String] name the name of the worker executor
+    # @param [Fixnum] poolSize the size of the pool
+    # @param [Fixnum] maxExecuteTime the value of max worker execute time, in ms
+    # @return [::Vertx::WorkerExecutor] the named worker executor
+    def create_worker_executor(name=nil,poolSize=nil,maxExecuteTime=nil)
+      if name.class == String && !block_given? && poolSize == nil && maxExecuteTime == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class]).call(name),::Vertx::WorkerExecutor)
+      elsif name.class == String && poolSize.class == Fixnum && !block_given? && maxExecuteTime == nil
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class]).call(name,poolSize),::Vertx::WorkerExecutor)
+      elsif name.class == String && poolSize.class == Fixnum && maxExecuteTime.class == Fixnum && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class,Java::long.java_class]).call(name,poolSize,maxExecuteTime),::Vertx::WorkerExecutor)
+      end
+      raise ArgumentError, "Invalid arguments when calling create_worker_executor(name,poolSize,maxExecuteTime)"
     end
     #  Set a default exception handler for {::Vertx::Context}, set on  at creation.
     # @yield the exception handler

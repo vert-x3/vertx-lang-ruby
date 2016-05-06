@@ -731,7 +731,7 @@ HTTP/2 is a framed protocol with various frames for the HTTP request/response mo
 of frames to be sent and received.
 
 To send such frames, you can use the `link:../../yardoc/Vertx/HttpServerResponse.html#write_frame-instance_method[writeFrame]` on the response.
-Here’s an example:
+Here's an example:
 
 [source,ruby]
 ----
@@ -1281,7 +1281,7 @@ pump.start()
 HTTP/2 is a framed protocol with various frames for the HTTP request/response model. The protocol allows other kind
 of frames to be sent and received.
 
-To send such frames, you can use the `link:../../yardoc/Vertx/HttpClientRequest.html#write-instance_method[write]` on the request. Here’s an example:
+To send such frames, you can use the `link:../../yardoc/Vertx/HttpClientRequest.html#write-instance_method[write]` on the request. Here's an example:
 
 [source,ruby]
 ----
@@ -1606,7 +1606,7 @@ HTTP/2 is a framed protocol with various frames for the HTTP request/response mo
 frames to be sent and received.
 
 To receive unknown frames, you can use the unknownFrameHandler on the request, this will get called every time an unknown
-frame arrives. Here’s an example:
+frame arrives. Here's an example:
 
 [source,ruby]
 ----
@@ -2152,6 +2152,31 @@ The `link:../../yardoc/Vertx/WebSocket.html[WebSocket]` instance is also a `link
 
 When using a WebSocket as a write stream or a read stream it can only be used with WebSockets connections that are
 used with binary frames that are no split over multiple frames.
+
+=== Using a HTTP proxy for HTTPS connections
+
+The http client supports accessing https server via a HTTPS proxy (HTTP/1.x CONNECT method), e.g. Squid. The proxy protocol uses
+HTTP/1.x but can connect to HTTP/1.x and HTTP/2 servers.
+
+The proxy can be configured in the `link:../dataobjects.html#HttpClientOptions[HttpClientOptions]` by setting hostname, port and optionally
+username and password. 
+
+For this feature, the jar io.netty:netty-handler-proxy has to be present on the classpath.
+
+Here's an example:
+
+[source,ruby]
+----
+
+options = {
+  'proxyHost' => "localhost",
+  'proxyPort' => 3128
+}
+options['proxyUsername'] = "username"['proxyPassword'] = "secret"
+client = vertx.create_http_client(options)
+
+
+----
 
 === Automatic clean-up in verticles
 
