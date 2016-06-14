@@ -333,18 +333,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling ended?()"
     end
-    #  Set an unknown frame handler. The handler will get notified when the http stream receives an unknown HTTP/2
+    #  Set a custom frame handler. The handler will get notified when the http stream receives an custom HTTP/2
     #  frame. HTTP/2 permits extension of the protocol.
     # @yield 
     # @return [self]
-    def unknown_frame_handler
+    def custom_frame_handler
       if block_given?
-        @j_del.java_method(:unknownFrameHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpFrame)) }))
+        @j_del.java_method(:customFrameHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpFrame)) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling unknown_frame_handler()"
+      raise ArgumentError, "Invalid arguments when calling custom_frame_handler()"
     end
-    #  @return the {::Vertx::HttpConnection} associated with this request when it is an HTTP/2 connection, null otherwise
+    #  @return the {::Vertx::HttpConnection} associated with this request
     # @return [::Vertx::HttpConnection]
     def connection
       if !block_given?

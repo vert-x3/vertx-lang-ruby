@@ -311,7 +311,7 @@ Additional pools can be created for different purposes:
 [source,ruby]
 ----
 @someAPI = Java::ExamplesCoreExamples::BlockingAPI.new()
-executor = vertx.create_worker_executor("my-worker-pool")
+executor = vertx.create_shared_worker_executor("my-worker-pool")
 executor.execute_blocking(lambda { |future|
   # Call some blocking API that takes a significant amount of time to return
   result = @someAPI.blocking_method("hello")
@@ -347,7 +347,7 @@ poolSize = 10
 # 2 minutes
 maxExecuteTime = 120000
 
-executor = vertx.create_worker_executor("my-worker-pool", poolSize, maxExecuteTime)
+executor = vertx.create_shared_worker_executor("my-worker-pool", poolSize, maxExecuteTime)
 
 ----
 
@@ -927,6 +927,9 @@ to the classpath. The metrics SPI is an advanced feature which allows implemente
 order to gather metrics. For more information on this, please consult the
 `link:unavailable[API Documentation]`.
 
+You can also specify a metrics factory programmatically if embedding Vert.x using
+`link:../dataobjects.html#MetricsOptions#set_factory-instance_method[factory]`.
+
 == OSGi
 
 Vert.x Core is packaged as an OSGi bundle, so can be used in any OSGi R4.2+ environment such as Apache Felix
@@ -1243,7 +1246,7 @@ the Program arguments write: `run your-verticle-fully-qualified-name --redeploy=
 the module explicitly (_Build_ menu -> _Make project_).
 
 To debug your application, create your run configuration as a remote application and configure the debugger
-using `--java-opts`. However, don’t forget to re-plug the debugger after every redeployment as a new process is
+using `--java-opts`. However, don't forget to re-plug the debugger after every redeployment as a new process is
 created every time.
 
 You can also hook your build process in the redeploy cycle:
@@ -1349,12 +1352,12 @@ logger.error("oops!", exception)
 
 ----
 
-== Hostname resolution
+== Host name resolution
 
-Vert.x uses an an hostname resolver for resolving hostname into IP addresses instead of
+Vert.x uses an an address resolver for resolving host name into IP addresses instead of
 the JVM built-in blocking resolver.
 
-An hostname are resolve to an IP address using:
+An host name resolves to an IP address using:
 
 - the _hosts_ file of the operating system
 - otherwise DNS queries against a list of servers
@@ -1368,7 +1371,7 @@ DNS servers can be also configured when creating a `link:../../yardoc/Vertx/Vert
 ----
 require 'vertx/vertx'
 vertx = Vertx::Vertx.vertx({
-  'hostnameResolverOptions' => {
+  'addressResolverOptions' => {
     'servers' => [
       "192.168.0.1",
       "192.168.0.2:40000"
@@ -1380,6 +1383,19 @@ vertx = Vertx::Vertx.vertx({
 
 The default port of a DNS server is `53`, when a server uses a different port, this port can be set
 using a colon delimiter: `192.168.0.2:40000`.
+
+The resolver can be configured to use an alternative _hosts_ file:
+
+[source,ruby]
+----
+require 'vertx/vertx'
+vertx = Vertx::Vertx.vertx({
+  'addressResolverOptions' => {
+    'hostsPath' => "/path/to/hosts"
+  }
+})
+
+----
 
 == High Availability and Fail-Over
 
@@ -1642,3 +1658,15 @@ overriding `link:unavailable#after_starting_vertx-instance_method[afterStartingV
 `link:unavailable#get_default_command-instance_method[getDefaultCommand]`
 * add / remove commands using `link:unavailable#register-instance_method[register]`
 and `link:unavailable#unregister-instance_method[unregister]`
+
+=== Launcher and exit code
+
+When you use the `link:unavailable[Launcher]` class as main class, it uses the following exit code:
+
+* `0` if the process ends smoothly, or if an uncaught error is thrown
+* `1` for general purpose error
+* `11` if Vert.x cannot be initialized
+* `12` if a spawn process cannot be started, found or stopped. This error code is used by the `start` and
+`stop` command
+* `14` if the system configuration is not meeting the system requirement (shc as java not found)
+* `15` if the main verticle cannot be deployed

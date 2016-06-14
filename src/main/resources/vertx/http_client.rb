@@ -23,7 +23,7 @@ module Vertx
   #  unnecessarily when there would be no benefits anyway.
   #  <p>
   #  The client also supports pipe-lining of requests. Pipe-lining means another request is sent on the same connection
-  #  before the response from the preceeding one has returned. Pipe-lining is not appropriate for all requests.
+  #  before the response from the preceding one has returned. Pipe-lining is not appropriate for all requests.
   #  <p>
   #  To enable pipe-lining, it must be enabled on the {Hash} (default is false).
   #  <p>
@@ -525,7 +525,7 @@ module Vertx
     # @overload websocket(requestURI,wsConnect,failureHandler)
     #   @param [String] requestURI the relative URI
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(requestURI,headers,wsConnect)
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
@@ -539,7 +539,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(host,requestURI,headers,wsConnect)
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
@@ -549,7 +549,7 @@ module Vertx
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(requestURI,headers,version,wsConnect)
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
@@ -560,7 +560,7 @@ module Vertx
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(port,host,requestURI,headers,wsConnect)
     #   @param [Fixnum] port the port
     #   @param [String] host the host
@@ -572,7 +572,7 @@ module Vertx
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(host,requestURI,headers,version,wsConnect)
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
@@ -584,7 +584,7 @@ module Vertx
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(requestURI,headers,version,subProtocols,wsConnect)
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
@@ -597,7 +597,7 @@ module Vertx
     #   @param [String] requestURI the relative URI
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(port,host,requestURI,headers,version,wsConnect)
     #   @param [Fixnum] port the port
     #   @param [String] host the host
@@ -611,7 +611,7 @@ module Vertx
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(host,requestURI,headers,version,subProtocols,wsConnect)
     #   @param [String] host the host
     #   @param [String] requestURI the relative URI
@@ -625,7 +625,7 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(port,host,requestURI,headers,version,wsConnect,failureHandler)
     #   @param [Fixnum] port the port
     #   @param [String] host the host
@@ -633,7 +633,7 @@ module Vertx
     #   @param [::Vertx::MultiMap] headers the headers
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(port,host,requestURI,headers,version,subProtocols,wsConnect)
     #   @param [Fixnum] port the port
     #   @param [String] host the host
@@ -649,7 +649,7 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols to use
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @overload websocket(port,host,requestURI,headers,version,subProtocols,wsConnect,failureHandler)
     #   @param [Fixnum] port the port
     #   @param [String] host the host
@@ -658,7 +658,7 @@ module Vertx
     #   @param [:V00,:V07,:V08,:V13] version the websocket version
     #   @param [String] subProtocols the subprotocols to use
     #   @param [Proc] wsConnect handler that will be called with the websocket when connected
-    #   @yield handler that will be called if websocekt connection fails
+    #   @yield handler that will be called if websocket connection fails
     # @return [self]
     def websocket(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil,param_7=nil)
       if param_1.class == String && block_given? && param_2 == nil && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil && param_7 == nil

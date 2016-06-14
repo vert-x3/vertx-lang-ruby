@@ -1,3 +1,4 @@
+require 'vertx/measured'
 require 'vertx/future'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.WorkerExecutor
@@ -7,6 +8,7 @@ module Vertx
   #  It provides the same <code>executeBlocking</code> operation than {::Vertx::Context} and
   #  {::Vertx::Vertx} but on a separate worker pool.<p>
   class WorkerExecutor
+    include ::Vertx::Measured
     # @private
     # @param j_del [::Vertx::WorkerExecutor] the java delegate
     def initialize(j_del)
@@ -16,6 +18,14 @@ module Vertx
     # @return [::Vertx::WorkerExecutor] the underlying java delegate
     def j_del
       @j_del
+    end
+    #  Whether the metrics are enabled for this measured object
+    # @return [true,false] true if the metrics are enabled
+    def metrics_enabled?
+      if !block_given?
+        return @j_del.java_method(:isMetricsEnabled, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling metrics_enabled?()"
     end
     #  Safely execute some blocking code.
     #  <p>

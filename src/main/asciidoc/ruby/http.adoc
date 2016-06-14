@@ -70,6 +70,29 @@ upgrade to HTTP/2. It will also accept a direct `h2c` connection beginning with 
 
 WARNING: most browsers won't support `h2c`, so for serving web sites you should use `h2` and not `h2c`.
 
+When a server accepts an HTTP/2 connection, it sends to the client its `link:../dataobjects.html#HttpServerOptions#get_initial_settings-instance_method[initial settings]`.
+The settings define how the client can use the connection, the default initial settings for a server are:
+
+- `link:../dataobjects.html#Http2Settings#get_max_concurrent_streams-instance_method[getMaxConcurrentStreams]`: `100` as recommended by the HTTP/2 RFC
+- the default HTTP/2 settings values for the others
+
+=== Logging network server activity
+
+For debugging purposes, network activity can be logged.
+
+[source,ruby]
+----
+
+options = {
+  'logActivity' => true
+}
+
+server = vertx.create_http_server(options)
+
+----
+
+See the chapter on <<logging_network_activity, logging network activity>> for a detailed explanation.
+
 === Start the Server Listening
 
 To tell the server to listen for incoming requests you use one of the `link:../../yardoc/Vertx/HttpServer.html#listen-instance_method[listen]`
@@ -413,26 +436,26 @@ request.upload_handler() { |upload|
 WARNING: Make sure you check the filename in a production system to avoid malicious clients uploading files
 to arbitrary places on your filesystem. See <<Security notes, security notes>> for more information.
 
-==== Receiving unknown HTTP/2 frames
+==== Receiving custom HTTP/2 frames
 
 HTTP/2 is a framed protocol with various frames for the HTTP request/response model. The protocol allows other kind
 of frames to be sent and received.
 
-To receive unknown frames, you can use the `link:../../yardoc/Vertx/HttpServerRequest.html#unknown_frame_handler-instance_method[unknownFrameHandler]` on the request,
-this will get called every time an unknown frame arrives. Here's an example:
+To receive custom frames, you can use the `link:../../yardoc/Vertx/HttpServerRequest.html#custom_frame_handler-instance_method[customFrameHandler]` on the request,
+this will get called every time a custom frame arrives. Here's an example:
 
 [source,ruby]
 ----
 
-request.unknown_frame_handler() { |frame|
+request.custom_frame_handler() { |frame|
 
   puts "Received a frame type=#{frame.type()} payload#{frame.payload().to_string()}"
 }
 
 ----
 
-HTTP/2 frames are not subject to flow control - the frame handler will be called immediatly when an
-unkown frame is received whether the request is paused or is not
+HTTP/2 frames are not subject to flow control - the frame handler will be called immediatly when a
+custom frame is received whether the request is paused or is not
 
 ==== Non standard HTTP methods
 
@@ -730,7 +753,7 @@ vertx.create_http_server().request_handler() { |request|
 HTTP/2 is a framed protocol with various frames for the HTTP request/response model. The protocol allows other kind
 of frames to be sent and received.
 
-To send such frames, you can use the `link:../../yardoc/Vertx/HttpServerResponse.html#write_frame-instance_method[writeFrame]` on the response.
+To send such frames, you can use the `link:../../yardoc/Vertx/HttpServerResponse.html#write_custom_frame-instance_method[writeCustomFrame]` on the response.
 Here's an example:
 
 [source,ruby]
@@ -742,7 +765,7 @@ frameStatus = 10
 payload = Vertx::Buffer.buffer("some data")
 
 # Sending a frame to the client
-response.write_frame(frameType, frameStatus, payload)
+response.write_custom_frame(frameType, frameStatus, payload)
 
 ----
 
@@ -877,7 +900,7 @@ For `h2` requests, TLS must be enabled with _Application-Layer Protocol Negotiat
 ----
 
 options = {
-  'protocolVersion' => :HTTP_2,
+  'protocolVersion' => "HTTP_2",
   'ssl' => true,
   'useAlpn' => true,
   'trustAll' => true
@@ -893,7 +916,7 @@ For `h2c` requests, TLS must be disabled, the client will do an HTTP/1.1 request
 ----
 
 options = {
-  'protocolVersion' => :HTTP_2
+  'protocolVersion' => "HTTP_2"
 }
 
 client = vertx.create_http_client(options)
@@ -901,12 +924,31 @@ client = vertx.create_http_client(options)
 ----
 
 `h2c` connections can also be established directly, i.e connection started with a prior knowledge, when
-`link:../dataobjects.html#HttpClientOptions#set_h2c_upgrade-instance_method[h2cUpgrade]` options is set to false: after the
+`link:../dataobjects.html#HttpClientOptions#set_http2_clear_text_upgrade-instance_method[http2ClearTextUpgrade]` options is set to false: after the
 connection is established, the client will send the HTTP/2 connection preface and expect to receive
 the same preface from the server.
 
 The http server may not support HTTP/2, the actual version can be checked
 with `link:../../yardoc/Vertx/HttpClientResponse.html#version-instance_method[version]` when the response arrives.
+
+When a clients connects to an HTTP/2 server, it sends to the server its `link:../dataobjects.html#HttpClientOptions#get_initial_settings-instance_method[initial settings]`.
+The settings define how the server can use the connection, the default initial settings for a client are the default
+values defined by the HTTP/2 RFC.
+
+=== Logging network client activity
+
+For debugging purposes, network activity can be logged.
+
+[source,ruby]
+----
+options = {
+  'logActivity' => true
+}
+client = vertx.create_http_client(options)
+
+----
+
+See the chapter on <<logging_network_activity, logging network activity>> for a detailed explanation.
 
 === Making requests
 
@@ -1292,7 +1334,7 @@ frameStatus = 10
 payload = Vertx::Buffer.buffer("some data")
 
 # Sending a frame to the server
-request.write_frame(frameType, frameStatus, payload)
+request.write_custom_frame(frameType, frameStatus, payload)
 
 ----
 
@@ -1600,17 +1642,17 @@ request.push_handler() { |pushedRequest|
 When no handler is set, any stream pushed will be automatically cancelled by the client with
 a stream reset (`8` error code).
 
-==== Receiving unknown HTTP/2 frames
+==== Receiving custom HTTP/2 frames
 
 HTTP/2 is a framed protocol with various frames for the HTTP request/response model. The protocol allows other kind of
 frames to be sent and received.
 
-To receive unknown frames, you can use the unknownFrameHandler on the request, this will get called every time an unknown
+To receive custom frames, you can use the customFrameHandler on the request, this will get called every time a custom
 frame arrives. Here's an example:
 
 [source,ruby]
 ----
-response.unknown_frame_handler() { |frame|
+response.custom_frame_handler() { |frame|
 
   puts "Received a frame type=#{frame.type()} payload#{frame.payload().to_string()}"
 }
@@ -1681,10 +1723,38 @@ By default pipe-lining is disabled.
 
 When pipe-lining is enabled requests will be written to connections without waiting for previous responses to return.
 
+The number of pipe-lined requests over a single connection is limited by `link:../dataobjects.html#HttpClientOptions#set_pipelining_limit-instance_method[pipeliningLimit]`.
+This option defines the maximum number of http requests sent to the server awaiting for a response. This limit ensures the
+fairness of the distribution of the client requests over the connections to the same server.
+
 === HTTP/2 multiplexing
 
-For HTTP/2, the http client uses a single connection for each server, all the requests to the same server are
-multiplexed on the same connection.
+HTTP/2 advocates to use a single connection to a server, by default the http client uses a single
+connection for each server, all the streams to the same server are multiplexed over the same connection.
+
+When the clients needs to use more than a single connection and use pooling, the `link:../dataobjects.html#HttpClientOptions#set_http2_max_pool_size-instance_method[http2MaxPoolSize]`
+shall be used.
+
+When it is desirable to limit the number of multiplexed streams per connection and use a connection
+pool instead of a single connection, `link:../dataobjects.html#HttpClientOptions#set_http2_multiplexing_limit-instance_method[http2MultiplexingLimit]`
+can be used.
+
+[source,ruby]
+----
+
+clientOptions = {
+  'http2MultiplexingLimit' => 10,
+  'http2MaxPoolSize' => 3
+}
+
+# Uses up to 3 connections and up to 10 streams per connection
+client = vertx.create_http_client(clientOptions)
+
+----
+
+The multiplexing limit for a connection is a setting set on the client that limits the number of streams
+of a single connection. The effective value can be even lower if the server sets a lower limit
+with the `link:../dataobjects.html#Http2Settings#set_max_concurrent_streams-instance_method[SETTINGS_MAX_CONCURRENT_STREAMS]` setting.
 
 HTTP/2 connections will not be closed by the client automatically. To close them you can call `link:../../yardoc/Vertx/HttpConnection.html#close-instance_method[close]`
 or close the client instance.
@@ -1692,13 +1762,16 @@ or close the client instance.
 Alternatively you can set idle timeout using `link:../dataobjects.html#HttpClientOptions#set_idle_timeout-instance_method[idleTimeout]` - any
 connections not used within this timeout will be closed. Please note the idle timeout value is in seconds not milliseconds.
 
-=== HTTP/2 connections
+=== HTTP connections
 
-HTTP/2 does not change HTTP programming and the design of HTTP server and clients remains the same. However HTTP/2
-defines a mapping of HTTP's semantics to a connection.
-
-The `link:../../yardoc/Vertx/HttpConnection.html[HttpConnection]` offers the API for dealing with HTTP/2 connection events, lifecycle
+The `link:../../yardoc/Vertx/HttpConnection.html[HttpConnection]` offers the API for dealing with HTTP connection events, lifecycle
 and settings.
+
+HTTP/2 implements fully the `link:../../yardoc/Vertx/HttpConnection.html[HttpConnection]` API.
+
+HTTP/1.x implements partially the `link:../../yardoc/Vertx/HttpConnection.html[HttpConnection]` API: only the close operation,
+the close handler and exception handler are implemented. This protocol does not provide semantics for
+the other operations.
 
 ==== Server connections
 
@@ -1722,8 +1795,6 @@ server.connection_handler() { |connection|
 
 ----
 
-NOTE: this only applies to the HTTP/2 protocol
-
 ==== Client connections
 
 The `link:../../yardoc/Vertx/HttpClientRequest.html#connection-instance_method[connection]` method returns the request connection on the client:
@@ -1743,8 +1814,6 @@ request.connection_handler() { |connection|
 }
 
 ----
-
-NOTE: this only applies to the HTTP/2 protocol
 
 ==== Connection settings
 
@@ -1792,6 +1861,8 @@ connection.remote_settings_handler() { |settings|
 
 ----
 
+NOTE: this only applies to the HTTP/2 protocol
+
 ==== Connection ping
 
 HTTP/2 connection ping is useful for determining the connection round-trip time or check the connection
@@ -1827,7 +1898,9 @@ connection.ping_handler() { |ping|
 The handler is just notified, the acknowledgement is sent whatsoever. Such feature is aimed for
 implementing  protocols on top of HTTP/2.
 
-==== Connection shutdown
+NOTE: this only applies to the HTTP/2 protocol
+
+==== Connection shutdown and go away
 
 Calling `link:../../yardoc/Vertx/HttpConnection.html#shutdown-instance_method[shutdown]` will send a `GOAWAY` frame to the
 remote side of the connection, asking it to stop creating streams: a client will stop doing new requests
@@ -1840,14 +1913,10 @@ connection.shutdown()
 
 ----
 
-Connection `link:../../yardoc/Vertx/HttpConnection.html#close-instance_method[close]` close is a shutdown with no delay, the `GOAWAY`
-frame will still be sent before the connection is closed.
-
-The `link:../../yardoc/Vertx/HttpConnection.html#close_handler-instance_method[closeHandler]` notifies when connection is closed,
-`link:../../yardoc/Vertx/HttpConnection.html#shutdown_handler-instance_method[shutdownHandler]` notifies when all streams have been closed but the
+The `link:../../yardoc/Vertx/HttpConnection.html#shutdown_handler-instance_method[shutdownHandler]` notifies when all streams have been closed, the
 connection is not yet closed.
 
-Finally it's possible to just send a `GOAWAY` frame, the main difference with a shutdown is that
+It's possible to just send a `GOAWAY` frame, the main difference with a shutdown is that
 it will just tell the remote side of the connection to stop creating new streams without scheduling a connection
 close:
 
@@ -1882,6 +1951,17 @@ connection.shutdown_handler() { |v|
 ----
 
 This applies also when a `GOAWAY` is received.
+
+NOTE: this only applies to the HTTP/2 protocol
+
+==== Connection close
+
+Connection `link:../../yardoc/Vertx/HttpConnection.html#close-instance_method[close]` closes the connection:
+
+- it closes the socket for HTTP/1.x
+- a shutdown with no delay for HTTP/2, the `GOAWAY` frame will still be sent before the connection is closed. *
+
+The `link:../../yardoc/Vertx/HttpConnection.html#close_handler-instance_method[closeHandler]` notifies when a connection is closed.
 
 === HttpClient usage
 
@@ -2153,15 +2233,13 @@ The `link:../../yardoc/Vertx/WebSocket.html[WebSocket]` instance is also a `link
 When using a WebSocket as a write stream or a read stream it can only be used with WebSockets connections that are
 used with binary frames that are no split over multiple frames.
 
-=== Using a HTTP proxy for HTTPS connections
+=== Using a proxy for HTTPS connections
 
-The http client supports accessing https server via a HTTPS proxy (HTTP/1.x CONNECT method), e.g. Squid. The proxy protocol uses
-HTTP/1.x but can connect to HTTP/1.x and HTTP/2 servers.
+The http client supports accessing https servers via a HTTPS proxy (HTTP/1.x _CONNECT_ method, e.g. Squid) or
+_SOCKS4a_ or _SOCKS5_ proxy. The http proxy protocol uses HTTP/1.x but can connect to HTTP/1.x and HTTP/2 servers.
 
-The proxy can be configured in the `link:../dataobjects.html#HttpClientOptions[HttpClientOptions]` by setting hostname, port and optionally
-username and password. 
-
-For this feature, the jar io.netty:netty-handler-proxy has to be present on the classpath.
+The proxy can be configured in the `link:../dataobjects.html#HttpClientOptions[HttpClientOptions]` by setting a
+`link:../dataobjects.html#ProxyOptions[ProxyOptions]` object containing proxy type, hostname, port and optionally username and password.
 
 Here's an example:
 
@@ -2169,14 +2247,39 @@ Here's an example:
 ----
 
 options = {
-  'proxyHost' => "localhost",
-  'proxyPort' => 3128
+  'proxyOptions' => {
+    'type' => "HTTP",
+    'host' => "localhost",
+    'port' => 3128,
+    'username' => "username",
+    'password' => "secret"
+  }
 }
-options['proxyUsername'] = "username"['proxyPassword'] = "secret"
 client = vertx.create_http_client(options)
 
 
 ----
+or using SOCKS5 proxy
+
+[source,ruby]
+----
+
+options = {
+  'proxyOptions' => {
+    'type' => "SOCKS5",
+    'host' => "localhost",
+    'port' => 1080,
+    'username' => "username",
+    'password' => "secret"
+  }
+}
+client = vertx.create_http_client(options)
+
+
+----
+
+The DNS resolution is always done on the proxy server, to achieve the functionality of a SOCKS4 client, it is necessary
+to resolve the DNS address locally.
 
 === Automatic clean-up in verticles
 

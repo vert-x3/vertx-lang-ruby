@@ -2,7 +2,14 @@ require 'vertx/buffer'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpConnection
 module Vertx
-  #  Represents an HTTP/2 connection.<p/>
+  #  Represents an HTTP connection.
+  #  <p/>
+  #  HTTP/1.x connection provides an limited implementation, the following methods are implemented:
+  #  <ul>
+  #    <li>{::Vertx::HttpConnection#close}</li>
+  #    <li>{::Vertx::HttpConnection#close_handler}</li>
+  #    <li>{::Vertx::HttpConnection#exception_handler}</li>
+  #  </ul>
   class HttpConnection
     # @private
     # @param j_del [::Vertx::HttpConnection] the java delegate
@@ -14,13 +21,37 @@ module Vertx
     def j_del
       @j_del
     end
-    #  Send a go away frame to the remote endpoint of the connection.<p/>
-    # 
+    #  @return the current connection window size or <code>-1</code> for HTTP/1.x
+    # @return [Fixnum]
+    def get_window_size
+      if !block_given?
+        return @j_del.java_method(:getWindowSize, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling get_window_size()"
+    end
+    #  Update the current connection wide window size to a new size.
+    #  <p/>
+    #  Increasing this value, gives better performance when several data streams are multiplexed
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
+    # @param [Fixnum] windowSize the new window size
+    # @return [self]
+    def set_window_size(windowSize=nil)
+      if windowSize.class == Fixnum && !block_given?
+        @j_del.java_method(:setWindowSize, [Java::int.java_class]).call(windowSize)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_window_size(windowSize)"
+    end
+    #  Send a go away frame to the remote endpoint of the connection.
+    #  <p/>
     #  <ul>
-    #    <li>a  frame is sent to the to the remote endpoint with the <code>errorCode</code> and {@@code debugData}</li>
+    #    <li>a  frame is sent to the to the remote endpoint with the <code>errorCode</code> and <code>debugData</code></li>
     #    <li>any stream created after the stream identified by <code>lastStreamId</code> will be closed</li>
-    #    <li>for an  is different than  when all the remaining streams are closed this connection will be closed automatically</li>
+    #    <li>for an  is different than <code>0</code> when all the remaining streams are closed this connection will be closed automatically</li>
     #  </ul>
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @param [Fixnum] errorCode the  error code
     # @param [Fixnum] lastStreamId the last stream id
     # @param [::Vertx::Buffer] debugData additional debug data sent to the remote endpoint
@@ -39,6 +70,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling go_away(errorCode,lastStreamId,debugData)"
     end
     #  Set an handler called when a  frame is received.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @yield the handler
     # @return [self]
     def go_away_handler
@@ -49,6 +82,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling go_away_handler()"
     end
     #  Set an handler called when a  frame has been sent or received and all connections are closed.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @yield the handler
     # @return [self]
     def shutdown_handler
@@ -60,6 +95,8 @@ module Vertx
     end
     #  Initiate a connection shutdown, a go away frame is sent and the connection is closed when all current streams
     #  will be closed or the <code>timeout</code> is fired.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @param [Fixnum] timeoutMs the timeout in milliseconds
     # @return [self]
     def shutdown(timeoutMs=nil)
@@ -82,7 +119,9 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close_handler()"
     end
-    #  Close the connection and all the currently active streams. A  frame will be sent before.<p/>
+    #  Close the connection and all the currently active streams.
+    #  <p/>
+    #  An HTTP/2 connection will send a  frame before.
     # @return [void]
     def close
       if !block_given?
@@ -90,7 +129,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  @return the latest server settings acknowledged by the remote endpoint
+    #  @return the latest server settings acknowledged by the remote endpoint - this is not implemented for HTTP/1.x
     # @return [Hash]
     def settings
       if !block_given?
@@ -98,9 +137,11 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling settings()"
     end
-    #  Send to the remote endpoint an update of this endpoint settings.<p/>
-    # 
+    #  Send to the remote endpoint an update of this endpoint settings
+    #  <p/>
     #  The <code>completionHandler</code> will be notified when the remote endpoint has acknowledged the settings.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @param [Hash] settings the new settings
     # @yield the handler notified when the settings have been acknowledged by the remote endpoint
     # @return [self]
@@ -114,7 +155,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling update_settings(settings)"
     end
-    #  @return the current remote endpoint settings for this connection
+    #  @return the current remote endpoint settings for this connection - this is not implemented for HTTP/1.x
     # @return [Hash]
     def remote_settings
       if !block_given?
@@ -123,6 +164,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling remote_settings()"
     end
     #  Set an handler that is called when remote endpoint {Hash} are updated.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @yield the handler for remote endpoint settings
     # @return [self]
     def remote_settings_handler
@@ -133,6 +176,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling remote_settings_handler()"
     end
     #  Send a  frame to the remote endpoint.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @param [::Vertx::Buffer] data the 8 bytes data of the frame
     # @yield an async result handler notified with pong reply or the failure
     # @return [self]
@@ -144,6 +189,8 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling ping(data)"
     end
     #  Set an handler notified when a  frame is received from the remote endpoint.
+    #  <p/>
+    #  This is not implemented for HTTP/1.x.
     # @yield the handler to be called when a  is received
     # @return [self]
     def ping_handler

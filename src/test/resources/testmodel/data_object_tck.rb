@@ -67,5 +67,13 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_only_json_object_constructor_data_object(dataObject)"
     end
+    # @param [Hash] dataObject 
+    # @return [void]
+    def set_data_object_with_buffer(dataObject=nil)
+      if dataObject.class == Hash && !block_given?
+        return @j_del.java_method(:setDataObjectWithBuffer, [Java::IoVertxCodegenTestmodel::DataObjectWithNestedBuffer.java_class]).call(Java::IoVertxCodegenTestmodel::DataObjectWithNestedBuffer.new(::Vertx::Util::Utils.to_json_object(dataObject)))
+      end
+      raise ArgumentError, "Invalid arguments when calling set_data_object_with_buffer(dataObject)"
+    end
   end
 end

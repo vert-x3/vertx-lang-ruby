@@ -95,6 +95,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_int(pos)"
     end
+    #  Gets a 32-bit integer at the specified absolute <code>index</code> in this buffer with Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_int_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getIntLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_int_le(pos)"
+    end
     #  Returns the unsigned <code>int</code> at position <code>pos</code> in the Buffer, as a <code>long</code>.
     # @param [Fixnum] pos 
     # @return [Fixnum]
@@ -104,6 +113,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_unsigned_int(pos)"
     end
+    #  Returns the unsigned <code>int</code> at position <code>pos</code> in the Buffer, as a <code>long</code> in Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_int_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedIntLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_int_le(pos)"
+    end
     #  Returns the <code>long</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos 
     # @return [Fixnum]
@@ -112,6 +130,15 @@ module Vertx
         return @j_del.java_method(:getLong, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_long(pos)"
+    end
+    #  Gets a 64-bit long integer at the specified absolute <code>index</code> in this buffer in Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_long_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getLongLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_long_le(pos)"
     end
     #  Returns the <code>double</code> at position <code>pos</code> in the Buffer.
     # @param [Fixnum] pos 
@@ -140,6 +167,15 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_short(pos)"
     end
+    #  Gets a 16-bit short integer at the specified absolute <code>index</code> in this buffer in Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_short_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getShortLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_short_le(pos)"
+    end
     #  Returns the unsigned <code>short</code> at position <code>pos</code> in the Buffer, as an <code>int</code>.
     # @param [Fixnum] pos 
     # @return [Fixnum]
@@ -148,6 +184,51 @@ module Vertx
         return @j_del.java_method(:getUnsignedShort, [Java::int.java_class]).call(pos)
       end
       raise ArgumentError, "Invalid arguments when calling get_unsigned_short(pos)"
+    end
+    #  Gets an unsigned 16-bit short integer at the specified absolute <code>index</code> in this buffer in Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_short_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedShortLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_short_le(pos)"
+    end
+    #  Gets a 24-bit medium integer at the specified absolute <code>index</code> in this buffer.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_medium(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getMedium, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_medium(pos)"
+    end
+    #  Gets a 24-bit medium integer at the specified absolute <code>index</code> in this buffer in the Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_medium_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getMediumLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_medium_le(pos)"
+    end
+    #  Gets an unsigned 24-bit medium integer at the specified absolute <code>index</code> in this buffer.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_medium(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedMedium, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_medium(pos)"
+    end
+    #  Gets an unsigned 24-bit medium integer at the specified absolute <code>index</code> in this buffer in Little Endian Byte Order.
+    # @param [Fixnum] pos 
+    # @return [Fixnum]
+    def get_unsigned_medium_le(pos=nil)
+      if pos.class == Fixnum && !block_given?
+        return @j_del.java_method(:getUnsignedMediumLE, [Java::int.java_class]).call(pos)
+      end
+      raise ArgumentError, "Invalid arguments when calling get_unsigned_medium_le(pos)"
     end
     #  Returns a copy of a sub-sequence the Buffer as a {::Vertx::Buffer} starting at position <code>start</code>
     #  and ending at position <code>end - 1</code>
@@ -224,6 +305,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling append_int(i)"
     end
+    #  Appends the specified <code>int</code> to the end of the Buffer in the Little Endian Byte Order. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] i 
+    # @return [self]
+    def append_int_le(i=nil)
+      if i.class == Fixnum && !block_given?
+        @j_del.java_method(:appendIntLE, [Java::int.java_class]).call(i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_int_le(i)"
+    end
     #  Appends the specified unsigned <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] i 
@@ -234,6 +326,39 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_unsigned_int(i)"
+    end
+    #  Appends the specified unsigned <code>int</code> to the end of the Buffer in the Little Endian Byte Order. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] i 
+    # @return [self]
+    def append_unsigned_int_le(i=nil)
+      if i.class == Fixnum && !block_given?
+        @j_del.java_method(:appendUnsignedIntLE, [Java::long.java_class]).call(i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_unsigned_int_le(i)"
+    end
+    #  Appends the specified 24bit <code>int</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] i 
+    # @return [self]
+    def append_medium(i=nil)
+      if i.class == Fixnum && !block_given?
+        @j_del.java_method(:appendMedium, [Java::int.java_class]).call(i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_medium(i)"
+    end
+    #  Appends the specified 24bit <code>int</code> to the end of the Buffer in the Little Endian Byte Order. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] i 
+    # @return [self]
+    def append_medium_le(i=nil)
+      if i.class == Fixnum && !block_given?
+        @j_del.java_method(:appendMediumLE, [Java::int.java_class]).call(i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_medium_le(i)"
     end
     #  Appends the specified <code>long</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
@@ -246,6 +371,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling append_long(l)"
     end
+    #  Appends the specified <code>long</code> to the end of the Buffer in the Little Endian Byte Order. The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] l 
+    # @return [self]
+    def append_long_le(l=nil)
+      if l.class == Fixnum && !block_given?
+        @j_del.java_method(:appendLongLE, [Java::long.java_class]).call(l)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_long_le(l)"
+    end
     #  Appends the specified <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] s 
@@ -257,6 +393,17 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling append_short(s)"
     end
+    #  Appends the specified <code>short</code> to the end of the Buffer in the Little Endian Byte Order.The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] s 
+    # @return [self]
+    def append_short_le(s=nil)
+      if s.class == Fixnum && !block_given?
+        @j_del.java_method(:appendShortLE, [Java::short.java_class]).call(::Vertx::Util::Utils.to_short(s))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_short_le(s)"
+    end
     #  Appends the specified unsigned <code>short</code> to the end of the Buffer.The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
     # @param [Fixnum] s 
@@ -267,6 +414,17 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling append_unsigned_short(s)"
+    end
+    #  Appends the specified unsigned <code>short</code> to the end of the Buffer in the Little Endian Byte Order.The buffer will expand as necessary to accommodate any bytes written.<p>
+    #  Returns a reference to <code>this</code> so multiple operations can be appended together.
+    # @param [Fixnum] s 
+    # @return [self]
+    def append_unsigned_short_le(s=nil)
+      if s.class == Fixnum && !block_given?
+        @j_del.java_method(:appendUnsignedShortLE, [Java::int.java_class]).call(s)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling append_unsigned_short_le(s)"
     end
     #  Appends the specified <code>float</code> to the end of the Buffer. The buffer will expand as necessary to accommodate any bytes written.<p>
     #  Returns a reference to <code>this</code> so multiple operations can be appended together.
@@ -322,10 +480,11 @@ module Vertx
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos 
     # @param [Fixnum] b 
-    # @return [::Vertx::Buffer]
+    # @return [self]
     def set_unsigned_byte(pos=nil,b=nil)
       if pos.class == Fixnum && b.class == Fixnum && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setUnsignedByte, [Java::int.java_class,Java::short.java_class]).call(pos,::Vertx::Util::Utils.to_short(b)),::Vertx::Buffer)
+        @j_del.java_method(:setUnsignedByte, [Java::int.java_class,Java::short.java_class]).call(pos,::Vertx::Util::Utils.to_short(b))
+        return self
       end
       raise ArgumentError, "Invalid arguments when calling set_unsigned_byte(pos,b)"
     end
@@ -341,6 +500,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_int(pos,i)"
     end
+    #  Sets the <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code> in the Little Endian Byte Order.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
+    # @return [self]
+    def set_int_le(pos=nil,i=nil)
+      if pos.class == Fixnum && i.class == Fixnum && !block_given?
+        @j_del.java_method(:setIntLE, [Java::int.java_class,Java::int.java_class]).call(pos,i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_int_le(pos,i)"
+    end
     #  Sets the unsigned <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos 
@@ -353,6 +524,42 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_unsigned_int(pos,i)"
     end
+    #  Sets the unsigned <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code> in the Little Endian Byte Order.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
+    # @return [self]
+    def set_unsigned_int_le(pos=nil,i=nil)
+      if pos.class == Fixnum && i.class == Fixnum && !block_given?
+        @j_del.java_method(:setUnsignedIntLE, [Java::int.java_class,Java::long.java_class]).call(pos,i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_unsigned_int_le(pos,i)"
+    end
+    #  Sets the 24bit <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
+    # @return [self]
+    def set_medium(pos=nil,i=nil)
+      if pos.class == Fixnum && i.class == Fixnum && !block_given?
+        @j_del.java_method(:setMedium, [Java::int.java_class,Java::int.java_class]).call(pos,i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_medium(pos,i)"
+    end
+    #  Sets the 24bit <code>int</code> at position <code>pos</code> in the Buffer to the value <code>i</code>. in the Little Endian Byte Order<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] i 
+    # @return [self]
+    def set_medium_le(pos=nil,i=nil)
+      if pos.class == Fixnum && i.class == Fixnum && !block_given?
+        @j_del.java_method(:setMediumLE, [Java::int.java_class,Java::int.java_class]).call(pos,i)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_medium_le(pos,i)"
+    end
     #  Sets the <code>long</code> at position <code>pos</code> in the Buffer to the value <code>l</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos 
@@ -364,6 +571,18 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_long(pos,l)"
+    end
+    #  Sets the <code>long</code> at position <code>pos</code> in the Buffer to the value <code>l</code> in the Little Endian Byte Order.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] l 
+    # @return [self]
+    def set_long_le(pos=nil,l=nil)
+      if pos.class == Fixnum && l.class == Fixnum && !block_given?
+        @j_del.java_method(:setLongLE, [Java::int.java_class,Java::long.java_class]).call(pos,l)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_long_le(pos,l)"
     end
     #  Sets the <code>double</code> at position <code>pos</code> in the Buffer to the value <code>d</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
@@ -401,6 +620,18 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_short(pos,s)"
     end
+    #  Sets the <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code> in the Little Endian Byte Order.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] s 
+    # @return [self]
+    def set_short_le(pos=nil,s=nil)
+      if pos.class == Fixnum && s.class == Fixnum && !block_given?
+        @j_del.java_method(:setShortLE, [Java::int.java_class,Java::short.java_class]).call(pos,::Vertx::Util::Utils.to_short(s))
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_short_le(pos,s)"
+    end
     #  Sets the unsigned <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.
     # @param [Fixnum] pos 
@@ -412,6 +643,18 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_unsigned_short(pos,s)"
+    end
+    #  Sets the unsigned <code>short</code> at position <code>pos</code> in the Buffer to the value <code>s</code> in the Little Endian Byte Order.<p>
+    #  The buffer will expand as necessary to accommodate any value written.
+    # @param [Fixnum] pos 
+    # @param [Fixnum] s 
+    # @return [self]
+    def set_unsigned_short_le(pos=nil,s=nil)
+      if pos.class == Fixnum && s.class == Fixnum && !block_given?
+        @j_del.java_method(:setUnsignedShortLE, [Java::int.java_class,Java::int.java_class]).call(pos,s)
+        return self
+      end
+      raise ArgumentError, "Invalid arguments when calling set_unsigned_short_le(pos,s)"
     end
     #  Sets the bytes at position <code>pos</code> in the Buffer to the bytes represented by the <code>Buffer b</code> on the given <code>offset</code> and <code>len</code>.<p>
     #  The buffer will expand as necessary to accommodate any value written.

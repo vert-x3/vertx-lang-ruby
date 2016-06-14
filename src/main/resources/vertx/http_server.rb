@@ -57,8 +57,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling request_handler()"
     end
-    #  Set a connection handler for the server. The connection handler is called after an HTTP2 connection has
-    #  been negociated.
+    #  Set a connection handler for the server.
     # @yield 
     # @return [self]
     def connection_handler

@@ -349,7 +349,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling reset(code)"
     end
-    #  @return the {::Vertx::HttpConnection} associated with this request when it is an HTTP/2 connection, null otherwise
+    #  @return the {::Vertx::HttpConnection} associated with this request
     # @return [::Vertx::HttpConnection]
     def connection
       if !block_given?
@@ -360,7 +360,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling connection()"
     end
-    #  Set a connection handler called when an HTTP/2 connection has been established.
+    #  Set a connection handler called when an HTTP connection has been established.
     # @yield the handler
     # @return [self]
     def connection_handler
@@ -376,22 +376,22 @@ module Vertx
     # 
     #  This method must be called after the request headers have been sent and only for the protocol HTTP/2.
     #  The {::Vertx::HttpClientRequest#send_head} should be used for this purpose.
-    # @overload writeFrame(frame)
+    # @overload writeCustomFrame(frame)
     #   @param [::Vertx::HttpFrame] frame the frame to write
-    # @overload writeFrame(type,flags,payload)
+    # @overload writeCustomFrame(type,flags,payload)
     #   @param [Fixnum] type the 8-bit frame type
     #   @param [Fixnum] flags the 8-bit frame flags
     #   @param [::Vertx::Buffer] payload the frame payload
     # @return [self]
-    def write_frame(param_1=nil,param_2=nil,param_3=nil)
+    def write_custom_frame(param_1=nil,param_2=nil,param_3=nil)
       if param_1.class.method_defined?(:j_del) && !block_given? && param_2 == nil && param_3 == nil
-        @j_del.java_method(:writeFrame, [Java::IoVertxCoreHttp::HttpFrame.java_class]).call(param_1.j_del)
+        @j_del.java_method(:writeCustomFrame, [Java::IoVertxCoreHttp::HttpFrame.java_class]).call(param_1.j_del)
         return self
       elsif param_1.class == Fixnum && param_2.class == Fixnum && param_3.class.method_defined?(:j_del) && !block_given?
-        @j_del.java_method(:writeFrame, [Java::int.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1,param_2,param_3.j_del)
+        @j_del.java_method(:writeCustomFrame, [Java::int.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1,param_2,param_3.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_frame(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling write_custom_frame(param_1,param_2,param_3)"
     end
     #  @return the id of the stream of this response,  when it is not yet determined, i.e
     #          the request has not been yet sent or it is not supported HTTP/1.x

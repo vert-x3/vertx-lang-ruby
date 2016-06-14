@@ -348,15 +348,15 @@ module Vertx
     # @param [Fixnum] poolSize the size of the pool
     # @param [Fixnum] maxExecuteTime the value of max worker execute time, in ms
     # @return [::Vertx::WorkerExecutor] the named worker executor
-    def create_worker_executor(name=nil,poolSize=nil,maxExecuteTime=nil)
+    def create_shared_worker_executor(name=nil,poolSize=nil,maxExecuteTime=nil)
       if name.class == String && !block_given? && poolSize == nil && maxExecuteTime == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class]).call(name),::Vertx::WorkerExecutor)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createSharedWorkerExecutor, [Java::java.lang.String.java_class]).call(name),::Vertx::WorkerExecutor)
       elsif name.class == String && poolSize.class == Fixnum && !block_given? && maxExecuteTime == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class]).call(name,poolSize),::Vertx::WorkerExecutor)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createSharedWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class]).call(name,poolSize),::Vertx::WorkerExecutor)
       elsif name.class == String && poolSize.class == Fixnum && maxExecuteTime.class == Fixnum && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class,Java::long.java_class]).call(name,poolSize,maxExecuteTime),::Vertx::WorkerExecutor)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createSharedWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class,Java::long.java_class]).call(name,poolSize,maxExecuteTime),::Vertx::WorkerExecutor)
       end
-      raise ArgumentError, "Invalid arguments when calling create_worker_executor(name,poolSize,maxExecuteTime)"
+      raise ArgumentError, "Invalid arguments when calling create_shared_worker_executor(name,poolSize,maxExecuteTime)"
     end
     #  Set a default exception handler for {::Vertx::Context}, set on  at creation.
     # @yield the exception handler
