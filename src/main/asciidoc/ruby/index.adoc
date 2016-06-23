@@ -380,6 +380,15 @@ Vertx::CompositeFuture.all(httpServerFuture, netServerFuture).set_handler() { |a
 
 ----
 
+A list of futures can be used also:
+
+[source,ruby]
+----
+require 'vertx/composite_future'
+Vertx::CompositeFuture.all([f1, f2, f3])
+
+----
+
 The handler returned by `link:../../yardoc/Vertx/Future.html#completer-instance_method[completer]` completes the future.
 
 `link:../../yardoc/Vertx/CompositeFuture.html#any-class_method[CompositeFuture.any]` takes several futures arguments (up to 6) and returns a future that is
@@ -398,6 +407,15 @@ Vertx::CompositeFuture.any(future1, future2).set_handler() { |ar_err,ar|
     # All failed
   end
 }
+
+----
+
+A list of futures can be used also:
+
+[source,ruby]
+----
+require 'vertx/composite_future'
+Vertx::CompositeFuture.any([f1, f2, f3])
 
 ----
 
@@ -1396,6 +1414,29 @@ vertx = Vertx::Vertx.vertx({
 })
 
 ----
+
+By default the resolver will use the system DNS search domains from the environment. Alternatively an explicit search domain
+list can be provided:
+
+[source,ruby]
+----
+require 'vertx/vertx'
+vertx = Vertx::Vertx.vertx({
+  'addressResolverOptions' => {
+    'searchDomains' => [
+      "foo.com",
+      "bar.com"
+    ]
+  }
+})
+
+----
+
+When a search domain list is used, the threshold for the number of dots is `1`, it can be configured with
+`link:../dataobjects.html#AddressResolverOptions#set_ndots-instance_method[ndots]`.
+
+NOTE: sometimes it can be desirable to use the JVM built-in resolver, the JVM system property
+_-Dvertx.disableDnsResolver=true_ activates this behavior
 
 == High Availability and Fail-Over
 
