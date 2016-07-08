@@ -124,8 +124,8 @@ module Vertx
     end
     #  Compose this future with a provided <code>next</code> future.<p>
     # 
-    #  When this future succeeds, the <code>handler</code> will be called with the completed value, this handler
-    #  should complete the next future.<p>
+    #  When this (the one on which <code>compose</code> is called) future succeeds, the <code>handler</code> will be called with
+    #  the completed value, this handler should complete the next future.<p>
     # 
     #  If the <code>handler</code> throws an exception, the returned future will be failed with this exception.<p>
     # 
@@ -133,10 +133,10 @@ module Vertx
     #  will not be called.
     # @overload compose(mapper)
     #   @yield the mapper function
-    # @overload compose(handler,composed)
+    # @overload compose(handler,next)
     #   @param [Proc] handler the handler
-    #   @param [::Vertx::Future] composed the composed future
-    # @return [::Vertx::Future] the composed future, used for chaining
+    #   @param [::Vertx::Future] _next the next future
+    # @return [::Vertx::Future] the next future, used for chaining
     def compose(param_1=nil,param_2=nil)
       if block_given? && param_1 == nil && param_2 == nil
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)).j_del })),::Vertx::Future)

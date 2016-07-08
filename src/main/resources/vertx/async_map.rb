@@ -24,8 +24,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get(k)"
     end
-    #  Like {::Vertx::AsyncMap#put} but specifying a timeout. If the value cannot be put within the timeout a
-    #  failure will be passed to the handler
+    #  Like {::Vertx::AsyncMap#put} but specifying a time to live for the entry. Entry will expire and get evicted after the
+    #  ttl.
     # @param [Object] k the key
     # @param [Object] v the value
     # @param [Fixnum] ttl The time to live (in ms) for the entry
@@ -39,8 +39,8 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling put(k,v,ttl)"
     end
-    #  Link {::Vertx::AsyncMap#put_if_absent} but specifying a timeout. If the value cannot be put within the timeout a
-    #  failure will be passed to the handler
+    #  Link {::Vertx::AsyncMap#put_if_absent} but specifying a time to live for the entry. Entry will expire and get evicted
+    #  after the ttl.
     # @param [Object] k the key
     # @param [Object] v the value
     # @param [Fixnum] ttl The time to live (in ms) for the entry
