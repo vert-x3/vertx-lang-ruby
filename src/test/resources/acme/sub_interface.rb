@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from com.acme.pkg.sub.SubInterface
 module Acme
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class SubInterface
     # @private
     # @param j_del [::Acme::SubInterface] the java delegate

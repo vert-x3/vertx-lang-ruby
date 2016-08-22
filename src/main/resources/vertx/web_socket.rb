@@ -71,8 +71,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  @return the remote address for this socket
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the remote address for this socket
     def remote_address
       if !block_given?
         if @cached_remote_address != nil
@@ -82,8 +81,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
-    #  @return the local address for this socket
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the local address for this socket
     def local_address
       if !block_given?
         if @cached_local_address != nil

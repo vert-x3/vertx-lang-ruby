@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.OverloadWithOptions
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class OverloadWithOptions
     # @private
     # @param j_del [::RubyCodegen::OverloadWithOptions] the java delegate

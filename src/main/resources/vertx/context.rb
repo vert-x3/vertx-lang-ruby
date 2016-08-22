@@ -192,17 +192,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling remove?(key)"
     end
-    #  @return The Vertx instance that created the context
-    # @return [::Vertx::Vertx]
+    # @return [::Vertx::Vertx] The Vertx instance that created the context
     def owner
       if !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:owner, []).call(),::Vertx::Vertx)
       end
       raise ArgumentError, "Invalid arguments when calling owner()"
     end
-    #  @return  the number of instances of the verticle that were deployed in the deployment (if any) related
-    #  to this context
-    # @return [Fixnum]
+    # @return [Fixnum] the number of instances of the verticle that were deployed in the deployment (if any) related to this context
     def get_instance_count
       if !block_given?
         return @j_del.java_method(:getInstanceCount, []).call()

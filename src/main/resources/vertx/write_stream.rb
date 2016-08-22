@@ -38,8 +38,12 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling end(t)"
     end
     #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
-    #  if there is more than <code>maxSize</code> bytes in the write queue. This is used as an indicator by classes such as
+    #  if there is more than <code>maxSize</code> items in the write queue. This is used as an indicator by classes such as
     #  <code>Pump</code> to provide flow control.
+    #  <p/>
+    #  The value is defined by the implementation of the stream, e.g in bytes for a
+    #  {::Vertx::NetSocket}, the number of {::Vertx::Message} for a
+    #  {::Vertx::MessageProducer}, etc...
     # @param [Fixnum] maxSize the max size of the write stream
     # @return [self]
     def set_write_queue_max_size(maxSize=nil)
@@ -58,7 +62,10 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling write_queue_full?()"
     end
     #  Set a drain handler on the stream. If the write queue is full, then the handler will be called when the write
-    #  queue has been reduced to maxSize / 2. See {::Vertx::Pump} for an example of this being used.
+    #  queue is ready to accept buffers again. See {::Vertx::Pump} for an example of this being used.
+    #  <p/>
+    #  The stream implementation defines when the drain handler, for example it could be when the queue size has been
+    #  reduced to <code>maxSize / 2</code>.
     # @yield the handler
     # @return [self]
     def drain_handler

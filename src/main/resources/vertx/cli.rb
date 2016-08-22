@@ -47,8 +47,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling parse(arguments,validate)"
     end
-    #  @return the CLI name.
-    # @return [String]
+    # @return [String] the CLI name.
     def get_name
       if !block_given?
         return @j_del.java_method(:getName, []).call()
@@ -65,8 +64,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_name(name)"
     end
-    #  @return the CLI description.
-    # @return [String]
+    # @return [String] the CLI description.
     def get_description
       if !block_given?
         return @j_del.java_method(:getDescription, []).call()
@@ -82,8 +80,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_description(desc)"
     end
-    #  @return the CLI summary.
-    # @return [String]
+    # @return [String] the CLI summary.
     def get_summary
       if !block_given?
         return @j_del.java_method(:getSummary, []).call()

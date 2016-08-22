@@ -13,24 +13,21 @@ module Vertx
     def j_del
       @j_del
     end
-    #  @return The total space on the file system, in bytes
-    # @return [Fixnum]
+    # @return [Fixnum] The total space on the file system, in bytes
     def total_space
       if !block_given?
         return @j_del.java_method(:totalSpace, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling total_space()"
     end
-    #  @return The total un-allocated space on the file system, in bytes
-    # @return [Fixnum]
+    # @return [Fixnum] The total un-allocated space on the file system, in bytes
     def unallocated_space
       if !block_given?
         return @j_del.java_method(:unallocatedSpace, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling unallocated_space()"
     end
-    #  @return The total usable space on the file system, in bytes
-    # @return [Fixnum]
+    # @return [Fixnum] The total usable space on the file system, in bytes
     def usable_space
       if !block_given?
         return @j_del.java_method(:usableSpace, []).call()

@@ -3,7 +3,6 @@ require 'testmodel/test_interface'
 require 'vertx/util/utils.rb'
 # Generated from com.acme.pkg.MyInterface
 module Acme
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class MyInterface
     # @private
     # @param j_del [::Acme::MyInterface] the java delegate

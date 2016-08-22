@@ -67,24 +67,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
-    #  @return a read stream for the body of the message stream.
-    # @return [::Vertx::ReadStream]
+    # @return [::Vertx::ReadStream] a read stream for the body of the message stream.
     def body_stream
       if !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:bodyStream, []).call(),::Vertx::ReadStreamImpl)
       end
       raise ArgumentError, "Invalid arguments when calling body_stream()"
     end
-    #  @return true if the current consumer is registered
-    # @return [true,false]
+    # @return [true,false] true if the current consumer is registered
     def registered?
       if !block_given?
         return @j_del.java_method(:isRegistered, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling registered?()"
     end
-    #  @return The address the handler was registered with.
-    # @return [String]
+    # @return [String] The address the handler was registered with.
     def address
       if !block_given?
         return @j_del.java_method(:address, []).call()
@@ -102,8 +99,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(maxBufferedMessages)"
     end
-    #  @return the maximum number of messages that can be buffered when this stream is paused
-    # @return [Fixnum]
+    # @return [Fixnum] the maximum number of messages that can be buffered when this stream is paused
     def get_max_buffered_messages
       if !block_given?
         return @j_del.java_method(:getMaxBufferedMessages, []).call()

@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.RefedInterface1
 module Testmodel
-  #  @author <a href="http://tfox.org">Tim Fox</a>
   class RefedInterface1
     # @private
     # @param j_del [::Testmodel::RefedInterface1] the java delegate

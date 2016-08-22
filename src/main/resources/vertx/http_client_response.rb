@@ -68,32 +68,28 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
-    #  @return the version of the response
-    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2]
+    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2] the version of the response
     def version
       if !block_given?
         return @j_del.java_method(:version, []).call().name.intern
       end
       raise ArgumentError, "Invalid arguments when calling version()"
     end
-    #  @return the status code of the response
-    # @return [Fixnum]
+    # @return [Fixnum] the status code of the response
     def status_code
       if !block_given?
         return @j_del.java_method(:statusCode, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling status_code()"
     end
-    #  @return the status message of the response
-    # @return [String]
+    # @return [String] the status message of the response
     def status_message
       if !block_given?
         return @j_del.java_method(:statusMessage, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling status_message()"
     end
-    #  @return the headers
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the headers
     def headers
       if !block_given?
         if @cached_headers != nil
@@ -121,8 +117,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_trailer(trailerName)"
     end
-    #  @return the trailers
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the trailers
     def trailers
       if !block_given?
         if @cached_trailers != nil
@@ -132,8 +127,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling trailers()"
     end
-    #  @return the Set-Cookie headers (including trailers)
-    # @return [Array<String>]
+    # @return [Array<String>] the Set-Cookie headers (including trailers)
     def cookies
       if !block_given?
         if @cached_cookies != nil

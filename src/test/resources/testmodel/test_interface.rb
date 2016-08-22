@@ -9,7 +9,6 @@ require 'testmodel/super_interface2'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.TestInterface
 module Testmodel
-  #  @author <a href="http://tfox.org">Tim Fox</a>
   class TestInterface < ::Testmodel::SuperInterface1
     include ::Testmodel::SuperInterface2
     # @private

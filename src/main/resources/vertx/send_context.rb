@@ -15,8 +15,7 @@ module Vertx
     def j_del
       @j_del
     end
-    #  @return  The message being sent
-    # @return [::Vertx::Message]
+    # @return [::Vertx::Message] The message being sent
     def message
       if !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:message, []).call(),::Vertx::Message)

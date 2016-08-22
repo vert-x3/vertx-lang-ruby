@@ -3,7 +3,6 @@ require 'testmodel/concrete_handler_user_type'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.ConcreteHandlerUserTypeExtension
 module Testmodel
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class ConcreteHandlerUserTypeExtension < ::Testmodel::ConcreteHandlerUserType
     # @private
     # @param j_del [::Testmodel::ConcreteHandlerUserTypeExtension] the java delegate

@@ -93,8 +93,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling delivery_options(options)"
     end
-    #  @return The address to which the producer produces messages.
-    # @return [String]
+    # @return [String] The address to which the producer produces messages.
     def address
       if !block_given?
         return @j_del.java_method(:address, []).call()

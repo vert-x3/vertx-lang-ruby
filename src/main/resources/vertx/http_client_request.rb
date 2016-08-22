@@ -147,8 +147,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_chunked(chunked)"
     end
-    #  @return Is the request chunked?
-    # @return [true,false]
+    # @return [true,false] Is the request chunked?
     def chunked?
       if !block_given?
         return @j_del.java_method(:isChunked, []).call()
@@ -163,8 +162,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling method()"
     end
-    #  @return the raw value of the method this request sends
-    # @return [String]
+    # @return [String] the raw value of the method this request sends
     def get_raw_method
       if !block_given?
         return @j_del.java_method(:getRawMethod, []).call()
@@ -181,24 +179,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_raw_method(method)"
     end
-    #  @return The URI of the request.
-    # @return [String]
+    # @return [String] The URI of the request.
     def uri
       if !block_given?
         return @j_del.java_method(:uri, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling uri()"
     end
-    #  @return The path part of the uri. For example /somepath/somemorepath/someresource.foo
-    # @return [String]
+    # @return [String] The path part of the uri. For example /somepath/somemorepath/someresource.foo
     def path
       if !block_given?
         return @j_del.java_method(:path, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling path()"
     end
-    #  @return the query part of the uri. For example someparam=32&amp;someotherparam=x
-    # @return [String]
+    # @return [String] the query part of the uri. For example someparam=32&amp;someotherparam=x
     def query
       if !block_given?
         return @j_del.java_method(:query, []).call()
@@ -217,16 +212,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_host(host)"
     end
-    #  @return the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
-    # @return [String]
+    # @return [String] the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
     def get_host
       if !block_given?
         return @j_del.java_method(:getHost, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling get_host()"
     end
-    #  @return The HTTP headers
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] The HTTP headers
     def headers
       if !block_given?
         if @cached_headers != nil
@@ -349,8 +342,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling reset(code)"
     end
-    #  @return the {::Vertx::HttpConnection} associated with this request
-    # @return [::Vertx::HttpConnection]
+    # @return [::Vertx::HttpConnection] the {::Vertx::HttpConnection} associated with this request
     def connection
       if !block_given?
         if @cached_connection != nil
@@ -393,9 +385,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling write_custom_frame(param_1,param_2,param_3)"
     end
-    #  @return the id of the stream of this response,  when it is not yet determined, i.e
-    #          the request has not been yet sent or it is not supported HTTP/1.x
-    # @return [Fixnum]
+    # @return [Fixnum] the id of the stream of this response,  when it is not yet determined, i.e the request has not been yet sent or it is not supported HTTP/1.x
     def stream_id
       if !block_given?
         return @j_del.java_method(:streamId, []).call()

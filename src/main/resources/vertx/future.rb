@@ -163,8 +163,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling map(param_1)"
     end
-    #  @return an handler completing this future
-    # @return [Proc]
+    # @return [Proc] an handler completing this future
     def completer
       if !block_given?
         if @cached_completer != nil

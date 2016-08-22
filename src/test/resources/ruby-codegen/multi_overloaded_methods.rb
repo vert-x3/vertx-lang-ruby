@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.MultiOverloadedMethods
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class MultiOverloadedMethods
     # @private
     # @param j_del [::RubyCodegen::MultiOverloadedMethods] the java delegate

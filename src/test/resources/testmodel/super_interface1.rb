@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.SuperInterface1
 module Testmodel
-  #  @author <a href="http://tfox.org">Tim Fox</a>
   class SuperInterface1
     # @private
     # @param j_del [::Testmodel::SuperInterface1] the java delegate

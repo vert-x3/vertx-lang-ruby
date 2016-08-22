@@ -26,16 +26,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling create(cli)"
     end
-    #  @return the model of this command line object.
-    # @return [::Vertx::CLI]
+    # @return [::Vertx::CLI] the model of this command line object.
     def cli
       if !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:cli, []).call(),::Vertx::CLI)
       end
       raise ArgumentError, "Invalid arguments when calling cli()"
     end
-    #  @return the ordered list of arguments. Arguments are command line arguments not matching an option.
-    # @return [Array<String>]
+    # @return [Array<String>] the ordered list of arguments. Arguments are command line arguments not matching an option.
     def all_arguments
       if !block_given?
         return @j_del.java_method(:allArguments, []).call().to_a.map { |elt| elt }

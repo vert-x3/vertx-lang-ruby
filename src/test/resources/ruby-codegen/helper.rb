@@ -2,7 +2,6 @@ require 'vertx/multi_map'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.Helper
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class Helper
     # @private
     # @param j_del [::RubyCodegen::Helper] the java delegate

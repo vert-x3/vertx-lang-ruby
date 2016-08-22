@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.ReservedWordParams
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class ReservedWordParams
     # @private
     # @param j_del [::RubyCodegen::ReservedWordParams] the java delegate

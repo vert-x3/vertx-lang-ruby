@@ -75,81 +75,70 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling end_handler()"
     end
-    #  @return the HTTP version of the request
-    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2]
+    # @return [:HTTP_1_0,:HTTP_1_1,:HTTP_2] the HTTP version of the request
     def version
       if !block_given?
         return @j_del.java_method(:version, []).call().name.intern
       end
       raise ArgumentError, "Invalid arguments when calling version()"
     end
-    #  @return the HTTP method for the request.
-    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER]
+    # @return [:OPTIONS,:GET,:HEAD,:POST,:PUT,:DELETE,:TRACE,:CONNECT,:PATCH,:OTHER] the HTTP method for the request.
     def method
       if !block_given?
         return @j_del.java_method(:method, []).call().name.intern
       end
       raise ArgumentError, "Invalid arguments when calling method()"
     end
-    #  @return the HTTP method as sent by the client
-    # @return [String]
+    # @return [String] the HTTP method as sent by the client
     def raw_method
       if !block_given?
         return @j_del.java_method(:rawMethod, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling raw_method()"
     end
-    #  @return true if this {::Vertx::NetSocket} is encrypted via SSL/TLS
-    # @return [true,false]
+    # @return [true,false] true if this {::Vertx::NetSocket} is encrypted via SSL/TLS
     def ssl?
       if !block_given?
         return @j_del.java_method(:isSSL, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling ssl?()"
     end
-    #  @return the scheme of the request
-    # @return [String]
+    # @return [String] the scheme of the request
     def scheme
       if !block_given?
         return @j_del.java_method(:scheme, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling scheme()"
     end
-    #  @return the URI of the request. This is usually a relative URI
-    # @return [String]
+    # @return [String] the URI of the request. This is usually a relative URI
     def uri
       if !block_given?
         return @j_del.java_method(:uri, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling uri()"
     end
-    #  @return The path part of the uri. For example /somepath/somemorepath/someresource.foo
-    # @return [String]
+    # @return [String] The path part of the uri. For example /somepath/somemorepath/someresource.foo
     def path
       if !block_given?
         return @j_del.java_method(:path, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling path()"
     end
-    #  @return the query part of the uri. For example someparam=32&amp;someotherparam=x
-    # @return [String]
+    # @return [String] the query part of the uri. For example someparam=32&amp;someotherparam=x
     def query
       if !block_given?
         return @j_del.java_method(:query, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling query()"
     end
-    #  @return the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
-    # @return [String]
+    # @return [String] the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
     def host
       if !block_given?
         return @j_del.java_method(:host, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling host()"
     end
-    #  @return the response. Each instance of this class has an {::Vertx::HttpServerResponse} instance attached to it. This is used
-    #  to send the response back to the client.
-    # @return [::Vertx::HttpServerResponse]
+    # @return [::Vertx::HttpServerResponse] the response. Each instance of this class has an {::Vertx::HttpServerResponse} instance attached to it. This is used to send the response back to the client.
     def response
       if !block_given?
         if @cached_response != nil
@@ -159,8 +148,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling response()"
     end
-    #  @return the headers in the request.
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the headers in the request.
     def headers
       if !block_given?
         if @cached_headers != nil
@@ -179,8 +167,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_header(headerName)"
     end
-    #  @return the query parameters in the request
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the query parameters in the request
     def params
       if !block_given?
         if @cached_params != nil
@@ -199,8 +186,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling get_param(paramName)"
     end
-    #  @return the remote (client side) address of the request
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the remote (client side) address of the request
     def remote_address
       if !block_given?
         if @cached_remote_address != nil
@@ -210,8 +196,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
-    #  @return the local (server side) address of the server that handles the request
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the local (server side) address of the server that handles the request
     def local_address
       if !block_given?
         if @cached_local_address != nil
@@ -221,8 +206,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling local_address()"
     end
-    #  @return the absolute URI corresponding to the the HTTP request
-    # @return [String]
+    # @return [String] the absolute URI corresponding to the the HTTP request
     def absolute_uri
       if !block_given?
         return @j_del.java_method(:absoluteURI, []).call()
@@ -270,8 +254,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_expect_multipart(expect)"
     end
-    #  @return  true if we are expecting a multi-part body for this request. See {::Vertx::HttpServerRequest#set_expect_multipart}.
-    # @return [true,false]
+    # @return [true,false] true if we are expecting a multi-part body for this request. See {::Vertx::HttpServerRequest#set_expect_multipart}.
     def expect_multipart?
       if !block_given?
         return @j_del.java_method(:isExpectMultipart, []).call()
@@ -344,8 +327,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling custom_frame_handler()"
     end
-    #  @return the {::Vertx::HttpConnection} associated with this request
-    # @return [::Vertx::HttpConnection]
+    # @return [::Vertx::HttpConnection] the {::Vertx::HttpConnection} associated with this request
     def connection
       if !block_given?
         if @cached_connection != nil

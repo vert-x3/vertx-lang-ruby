@@ -69,40 +69,35 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling stream_to_file_system(filename)"
     end
-    #  @return the filename which was used when upload the file.
-    # @return [String]
+    # @return [String] the filename which was used when upload the file.
     def filename
       if !block_given?
         return @j_del.java_method(:filename, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling filename()"
     end
-    #  @return the name of the attribute
-    # @return [String]
+    # @return [String] the name of the attribute
     def name
       if !block_given?
         return @j_del.java_method(:name, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling name()"
     end
-    #  @return  the content type for the upload
-    # @return [String]
+    # @return [String] the content type for the upload
     def content_type
       if !block_given?
         return @j_del.java_method(:contentType, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling content_type()"
     end
-    #  @return the contentTransferEncoding for the upload
-    # @return [String]
+    # @return [String] the contentTransferEncoding for the upload
     def content_transfer_encoding
       if !block_given?
         return @j_del.java_method(:contentTransferEncoding, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling content_transfer_encoding()"
     end
-    #  @return the charset for the upload
-    # @return [String]
+    # @return [String] the charset for the upload
     def charset
       if !block_given?
         return @j_del.java_method(:charset, []).call()
@@ -118,8 +113,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling size()"
     end
-    #  @return true if the size of the upload can be retrieved via {::Vertx::HttpServerFileUpload#size}.
-    # @return [true,false]
+    # @return [true,false] true if the size of the upload can be retrieved via {::Vertx::HttpServerFileUpload#size}.
     def size_available?
       if !block_given?
         return @j_del.java_method(:isSizeAvailable, []).call()

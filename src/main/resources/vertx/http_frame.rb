@@ -14,8 +14,7 @@ module Vertx
     def j_del
       @j_del
     end
-    #  @return the 8-bit type of the frame
-    # @return [Fixnum]
+    # @return [Fixnum] the 8-bit type of the frame
     def type
       if !block_given?
         if @cached_type != nil
@@ -25,8 +24,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling type()"
     end
-    #  @return the 8-bit flags specific to the frame
-    # @return [Fixnum]
+    # @return [Fixnum] the 8-bit flags specific to the frame
     def flags
       if !block_given?
         if @cached_flags != nil
@@ -36,8 +34,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling flags()"
     end
-    #  @return the frame payload
-    # @return [::Vertx::Buffer]
+    # @return [::Vertx::Buffer] the frame payload
     def payload
       if !block_given?
         if @cached_payload != nil

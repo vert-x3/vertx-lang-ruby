@@ -92,8 +92,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling drain_handler()"
     end
-    #  @return the HTTP status code of the response. The default is <code>200</code> representing <code>OK</code>.
-    # @return [Fixnum]
+    # @return [Fixnum] the HTTP status code of the response. The default is <code>200</code> representing <code>OK</code>.
     def get_status_code
       if !block_given?
         return @j_del.java_method(:getStatusCode, []).call()
@@ -111,9 +110,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_status_code(statusCode)"
     end
-    #  @return the HTTP status message of the response. If this is not specified a default value will be used depending on what
-    #  {::Vertx::HttpServerResponse#set_status_code} has been set to.
-    # @return [String]
+    # @return [String] the HTTP status message of the response. If this is not specified a default value will be used depending on what {::Vertx::HttpServerResponse#set_status_code} has been set to.
     def get_status_message
       if !block_given?
         return @j_del.java_method(:getStatusMessage, []).call()
@@ -150,16 +147,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_chunked(chunked)"
     end
-    #  @return is the response chunked?
-    # @return [true,false]
+    # @return [true,false] is the response chunked?
     def chunked?
       if !block_given?
         return @j_del.java_method(:isChunked, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling chunked?()"
     end
-    #  @return The HTTP headers
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] The HTTP headers
     def headers
       if !block_given?
         if @cached_headers != nil
@@ -180,8 +175,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling put_header(name,value)"
     end
-    #  @return The HTTP trailers
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] The HTTP trailers
     def trailers
       if !block_given?
         if @cached_trailers != nil
@@ -282,24 +276,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  @return has the response already ended?
-    # @return [true,false]
+    # @return [true,false] has the response already ended?
     def ended?
       if !block_given?
         return @j_del.java_method(:ended, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling ended?()"
     end
-    #  @return has the underlying TCP connection corresponding to the request already been closed?
-    # @return [true,false]
+    # @return [true,false] has the underlying TCP connection corresponding to the request already been closed?
     def closed?
       if !block_given?
         return @j_del.java_method(:closed, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling closed?()"
     end
-    #  @return have the headers for the response already been written?
-    # @return [true,false]
+    # @return [true,false] have the headers for the response already been written?
     def head_written?
       if !block_given?
         return @j_del.java_method(:headWritten, []).call()
@@ -317,9 +308,10 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling headers_end_handler()"
     end
-    #  Provide a handler that will be called just before the last part of the body is written to the wire
-    #  and the response is ended.<p>
-    #  This provides a hook allowing you to do any more operations before this occurs.
+    #  Provides a handler that will be called after the last part of the body is written to the wire.
+    #  The handler is called asynchronously of when the response has been received by the client.
+    #  This provides a hook allowing you to do more operations once the request has been sent over the wire
+    #  such as resource cleanup.
     # @yield the handler
     # @return [self]
     def body_end_handler
@@ -329,16 +321,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling body_end_handler()"
     end
-    #  @return the total number of bytes written for the body of the response.
-    # @return [Fixnum]
+    # @return [Fixnum] the total number of bytes written for the body of the response.
     def bytes_written
       if !block_given?
         return @j_del.java_method(:bytesWritten, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling bytes_written()"
     end
-    #  @return the id of the stream of this response,  for HTTP/1.x
-    # @return [Fixnum]
+    # @return [Fixnum] the id of the stream of this response,  for HTTP/1.x
     def stream_id
       if !block_given?
         return @j_del.java_method(:streamId, []).call()

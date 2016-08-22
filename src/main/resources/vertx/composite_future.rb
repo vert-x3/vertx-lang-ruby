@@ -106,6 +106,51 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling any(param_1,param_2,param_3,param_4,param_5,param_6)"
     end
+    #  Like {::Vertx::CompositeFuture#join} but with 6 futures.
+    # @overload join(futures)
+    #   @param [Array<::Vertx::Future>] futures 
+    # @overload join(f1,f2)
+    #   @param [::Vertx::Future] f1 future
+    #   @param [::Vertx::Future] f2 future
+    # @overload join(f1,f2,f3)
+    #   @param [::Vertx::Future] f1 
+    #   @param [::Vertx::Future] f2 
+    #   @param [::Vertx::Future] f3 
+    # @overload join(f1,f2,f3,f4)
+    #   @param [::Vertx::Future] f1 
+    #   @param [::Vertx::Future] f2 
+    #   @param [::Vertx::Future] f3 
+    #   @param [::Vertx::Future] f4 
+    # @overload join(f1,f2,f3,f4,f5)
+    #   @param [::Vertx::Future] f1 
+    #   @param [::Vertx::Future] f2 
+    #   @param [::Vertx::Future] f3 
+    #   @param [::Vertx::Future] f4 
+    #   @param [::Vertx::Future] f5 
+    # @overload join(f1,f2,f3,f4,f5,f6)
+    #   @param [::Vertx::Future] f1 
+    #   @param [::Vertx::Future] f2 
+    #   @param [::Vertx::Future] f3 
+    #   @param [::Vertx::Future] f4 
+    #   @param [::Vertx::Future] f5 
+    #   @param [::Vertx::Future] f6 
+    # @return [::Vertx::CompositeFuture]
+    def self.join(param_1=nil,param_2=nil,param_3=nil,param_4=nil,param_5=nil,param_6=nil)
+      if param_1.class == Array && !block_given? && param_2 == nil && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::JavaUtil::List.java_class]).call(param_1.map { |element| element.j_del }),::Vertx::CompositeFuture)
+      elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && !block_given? && param_3 == nil && param_4 == nil && param_5 == nil && param_6 == nil
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del),::Vertx::CompositeFuture)
+      elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && !block_given? && param_4 == nil && param_5 == nil && param_6 == nil
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del),::Vertx::CompositeFuture)
+      elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && !block_given? && param_5 == nil && param_6 == nil
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del),::Vertx::CompositeFuture)
+      elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && param_5.class.method_defined?(:j_del) && !block_given? && param_6 == nil
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del,param_5.j_del),::Vertx::CompositeFuture)
+      elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && param_5.class.method_defined?(:j_del) && param_6.class.method_defined?(:j_del) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del,param_5.j_del,param_6.j_del),::Vertx::CompositeFuture)
+      end
+      raise ArgumentError, "Invalid arguments when calling join(param_1,param_2,param_3,param_4,param_5,param_6)"
+    end
     # @yield 
     # @return [self]
     def set_handler
@@ -160,8 +205,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling result(index)"
     end
-    #  @return the number of wrapped future
-    # @return [Fixnum]
+    # @return [Fixnum] the number of wrapped future
     def size
       if !block_given?
         return @j_del.java_method(:size, []).call()

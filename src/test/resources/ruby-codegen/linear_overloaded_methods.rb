@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.LinearOverloadedMethods
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class LinearOverloadedMethods
     # @private
     # @param j_del [::RubyCodegen::LinearOverloadedMethods] the java delegate

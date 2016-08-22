@@ -356,11 +356,13 @@ NOTE: the configuration is set when the worker pool is created
 == Async coordination
 
 Coordination of multiple asynchronous results can be achieved with Vert.x `link:../../yardoc/Vertx/Future.html[futures]`. It
-supports concurrent composition (run several async operations in parallel and join) and sequential composition
+supports concurrent composition (run several async operations in parallel) and sequential composition
 (chain async operations).
 
+=== Concurrent composition
+
 `link:../../yardoc/Vertx/CompositeFuture.html#all-class_method[CompositeFuture.all]` takes several futures arguments (up to 6) and returns a future that is
-_succeeded_ when all the futures are and _failed_ otherwise:
+_succeeded_ when all the futures are and _failed_ when at least one of the futures is failed:
 
 [source,ruby]
 ----
@@ -382,30 +384,28 @@ Vertx::CompositeFuture.all(httpServerFuture, netServerFuture).set_handler() { |a
 
 ----
 
-The operations run concurrently, and are joined. The `link:unavailable[Handler]` attached to the returned future is
-invoked upon completion of the composition. If one of the operation fails (one of the passed future is marked
-as a failure), the resulting future is marked as failed too. If all the operations succeed, the resulting future
-is completed with a success.
+The operations run concurrently, the `link:unavailable[Handler]` attached to the returned future is invoked upon
+completion of the composition. When one of the operation fails (one of the passed future is marked as a failure),
+the resulting future is marked as failed too. When all the operations succeed, the resulting future is completed
+with a success.
 
 Alternatively, you can pass a list (potentially empty) of futures:
 
 [source,ruby]
 ----
 require 'vertx/composite_future'
-Vertx::CompositeFuture.all([f1, f2, f3])
+Vertx::CompositeFuture.all([future1, future2, future3])
 
 ----
 
-While the `all` composition _waits_ until all futures are completed (or one fails), the `any` composition
-_waits_ for the first completed future. `link:../../yardoc/Vertx/CompositeFuture.html#any-class_method[CompositeFuture.any]` takes several futures arguments
-(up to 6) and returns a future that is _succeeded_ if one of the futures is, and _failed_ otherwise:
+While the `all` composition _waits_ until all futures are successful (or one fails), the `any` composition
+_waits_ for the first succeeded future. `link:../../yardoc/Vertx/CompositeFuture.html#any-class_method[CompositeFuture.any]` takes several futures
+arguments (up to 6) and returns a future that is succeeded when one of the futures is, and failed when
+all the futures are failed:
 
 [source,ruby]
 ----
-require 'vertx/future'
 require 'vertx/composite_future'
-future1 = Vertx::Future.future()
-future2 = Vertx::Future.future()
 Vertx::CompositeFuture.any(future1, future2).set_handler() { |ar_err,ar|
   if (ar_err == nil)
     # At least one is succeeded
@@ -425,6 +425,35 @@ Vertx::CompositeFuture.any([f1, f2, f3])
 
 ----
 
+The `join` composition _waits_ until all futures are completed, either with a success or a failure.
+`link:../../yardoc/Vertx/CompositeFuture.html#join-class_method[CompositeFuture.join]` takes several futures arguments (up to 6) and returns a future that is
+succeeded when all the futures are succeeded, and failed when all the futures are completed and at least one of
+them is failed:
+
+[source,ruby]
+----
+require 'vertx/composite_future'
+Vertx::CompositeFuture.join(future1, future2, future3).set_handler() { |ar_err,ar|
+  if (ar_err == nil)
+    # All succeeded
+  else
+    # All completed and at least one failed
+  end
+}
+
+----
+
+A list of futures can be used also:
+
+[source,ruby]
+----
+require 'vertx/composite_future'
+Vertx::CompositeFuture.join([future1, future2, future3])
+
+----
+
+=== Sequential composition
+
 While `all` and `any` are implementing concurrent composition, `link:../../yardoc/Vertx/Future.html#compose-instance_method[compose]` can be used
 for chaining futures (so sequential composition).
 
@@ -434,9 +463,9 @@ require 'vertx/future'
 require 'vertx/buffer'
 
 fs = vertx.file_system()
+startFuture = Vertx::Future.future()
 
 fut1 = Vertx::Future.future()
-
 fs.create_file("/foo", &fut1.completer())
 
 fut1.compose(lambda { |v|
@@ -446,7 +475,8 @@ fut1.compose(lambda { |v|
   return fut2
 }).compose(lambda { |v|
   # When the file is written (fut2), execute this:
-  fs.move("/foo", "/bar", &startFuture.completer())
+  fut3 = Vertx::Future.future()
+  fs.move("/foo", "/bar", &fut3.completer())
 }, startFuture)
 
 ----
@@ -1459,8 +1489,8 @@ vertx = Vertx::Vertx.vertx({
 
 ----
 
-When a search domain list is used, the threshold for the number of dots is `1`, it can be configured with
-`link:../dataobjects.html#AddressResolverOptions#set_ndots-instance_method[ndots]`.
+When a search domain list is used, the threshold for the number of dots is `1` or loaded from `/etc/resolv.conf`
+on Linux, it can be configured to a specific value with `link:../dataobjects.html#AddressResolverOptions#set_ndots-instance_method[ndots]`.
 
 NOTE: sometimes it can be desirable to use the JVM built-in resolver, the JVM system property
 _-Dvertx.disableDnsResolver=true_ activates this behavior

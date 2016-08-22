@@ -51,33 +51,28 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling continuation_frame(data,isFinal)"
     end
-    #  @return true if it's a text frame
-    # @return [true,false]
+    # @return [true,false] true if it's a text frame
     def text?
       if !block_given?
         return @j_del.java_method(:isText, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling text?()"
     end
-    #  @return true if it's a binary frame
-    # @return [true,false]
+    # @return [true,false] true if it's a binary frame
     def binary?
       if !block_given?
         return @j_del.java_method(:isBinary, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling binary?()"
     end
-    #  @return true if it's a continuation frame
-    # @return [true,false]
+    # @return [true,false] true if it's a continuation frame
     def continuation?
       if !block_given?
         return @j_del.java_method(:isContinuation, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling continuation?()"
     end
-    #  @return the content of this frame as a UTF-8 string and returns the
-    #  converted string. Only use this for text frames.
-    # @return [String]
+    # @return [String] the content of this frame as a UTF-8 string and returns the converted string. Only use this for text frames.
     def text_data
       if !block_given?
         if @cached_text_data != nil
@@ -87,8 +82,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling text_data()"
     end
-    #  @return the data of the frame
-    # @return [::Vertx::Buffer]
+    # @return [::Vertx::Buffer] the data of the frame
     def binary_data
       if !block_given?
         if @cached_binary_data != nil
@@ -98,8 +92,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling binary_data()"
     end
-    #  @return true if this is the final frame.
-    # @return [true,false]
+    # @return [true,false] true if this is the final frame.
     def final?
       if !block_given?
         return @j_del.java_method(:isFinal, []).call()

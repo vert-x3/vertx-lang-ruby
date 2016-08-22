@@ -3,7 +3,6 @@ require 'testmodel/refed_interface1'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.FunctionParamTCK
 module Testmodel
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class FunctionParamTCK
     # @private
     # @param j_del [::Testmodel::FunctionParamTCK] the java delegate

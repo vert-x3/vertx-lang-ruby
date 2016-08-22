@@ -2,7 +2,6 @@ require 'ruby-codegen/mixin'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.ClassWithMixin
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class ClassWithMixin
     include ::RubyCodegen::Mixin
     # @private

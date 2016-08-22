@@ -21,8 +21,7 @@ module Vertx
     def j_del
       @j_del
     end
-    #  @return the current connection window size or <code>-1</code> for HTTP/1.x
-    # @return [Fixnum]
+    # @return [Fixnum] the current connection window size or <code>-1</code> for HTTP/1.x
     def get_window_size
       if !block_given?
         return @j_del.java_method(:getWindowSize, []).call()
@@ -129,8 +128,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  @return the latest server settings acknowledged by the remote endpoint - this is not implemented for HTTP/1.x
-    # @return [Hash]
+    # @return [Hash] the latest server settings acknowledged by the remote endpoint - this is not implemented for HTTP/1.x
     def settings
       if !block_given?
         return @j_del.java_method(:settings, []).call() != nil ? JSON.parse(@j_del.java_method(:settings, []).call().toJson.encode) : nil
@@ -155,8 +153,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling update_settings(settings)"
     end
-    #  @return the current remote endpoint settings for this connection - this is not implemented for HTTP/1.x
-    # @return [Hash]
+    # @return [Hash] the current remote endpoint settings for this connection - this is not implemented for HTTP/1.x
     def remote_settings
       if !block_given?
         return @j_del.java_method(:remoteSettings, []).call() != nil ? JSON.parse(@j_del.java_method(:remoteSettings, []).call().toJson.encode) : nil

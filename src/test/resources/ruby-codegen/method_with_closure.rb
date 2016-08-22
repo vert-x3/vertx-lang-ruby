@@ -1,7 +1,6 @@
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.test.support.MethodWithClosure
 module RubyCodegen
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class MethodWithClosure
     # @private
     # @param j_del [::RubyCodegen::MethodWithClosure] the java delegate

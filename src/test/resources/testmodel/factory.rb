@@ -5,7 +5,6 @@ require 'testmodel/concrete_handler_user_type_extension'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.Factory
 module Testmodel
-  #  @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
   class Factory
     # @private
     # @param j_del [::Testmodel::Factory] the java delegate

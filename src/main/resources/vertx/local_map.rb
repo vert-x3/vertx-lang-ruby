@@ -63,8 +63,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling size()"
     end
-    #  @return true if there are zero entries in the map
-    # @return [true,false]
+    # @return [true,false] true if there are zero entries in the map
     def empty?
       if !block_given?
         return @j_del.java_method(:isEmpty, []).call()

@@ -75,8 +75,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling close()"
     end
-    #  @return the remote address for this socket
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the remote address for this socket
     def remote_address
       if !block_given?
         if @cached_remote_address != nil
@@ -86,8 +85,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling remote_address()"
     end
-    #  @return the local address for this socket
-    # @return [::Vertx::SocketAddress]
+    # @return [::Vertx::SocketAddress] the local address for this socket
     def local_address
       if !block_given?
         if @cached_local_address != nil
@@ -228,24 +226,21 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling uri()"
     end
-    #  @return the WebSocket handshake path.
-    # @return [String]
+    # @return [String] the WebSocket handshake path.
     def path
       if !block_given?
         return @j_del.java_method(:path, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling path()"
     end
-    #  @return the WebSocket handshake query string.
-    # @return [String]
+    # @return [String] the WebSocket handshake query string.
     def query
       if !block_given?
         return @j_del.java_method(:query, []).call()
       end
       raise ArgumentError, "Invalid arguments when calling query()"
     end
-    #  @return the headers in the WebSocket handshake
-    # @return [::Vertx::MultiMap]
+    # @return [::Vertx::MultiMap] the headers in the WebSocket handshake
     def headers
       if !block_given?
         if @cached_headers != nil
