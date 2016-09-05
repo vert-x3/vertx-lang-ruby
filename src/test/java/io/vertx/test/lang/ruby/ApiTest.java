@@ -539,6 +539,11 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
+  public void testSuperMethodOverloadedBySubclass() {
+    runTest();
+  }
+
+  @Test
   public void testEnumParam() {
     runTest();
   }
@@ -737,6 +742,7 @@ public class ApiTest extends RubyTestBase {
   public void testMethodWithMapParams() {
     runTest();
   }
+
   @Test
   public void testMethodWithOnlyJsonObjectConstructorDataObject() {
     runTest();

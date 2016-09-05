@@ -28,5 +28,12 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling super_method_with_basic_params(b,s,i,l,f,d,bool,ch,str)"
     end
+    # @return [Fixnum]
+    def super_method_overloaded_by_subclass
+      if !block_given?
+        return @j_del.java_method(:superMethodOverloadedBySubclass, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling super_method_overloaded_by_subclass()"
+    end
   end
 end

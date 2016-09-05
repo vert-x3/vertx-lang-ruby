@@ -1130,6 +1130,11 @@ def testThrowableParam
   end
 end
 
+def testSuperMethodOverloadedBySubclass
+  Assert.equals(0, @obj.super_method_overloaded_by_subclass)
+  Assert.equals(1, @obj.super_method_overloaded_by_subclass('one_arg'))
+end
+
 def testEnumReturn
   ret = @obj.method_with_enum_return('JULIEN')
   Assert.equals(:JULIEN, ret)
