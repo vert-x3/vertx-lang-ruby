@@ -276,14 +276,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_data_object_param(dataObject)"
     end
-    # @param [Hash] dataObject 
-    # @return [void]
-    def method_with_null_data_object_param(dataObject=nil)
-      if dataObject.class == Hash && !block_given?
-        return @j_del.java_method(:methodWithNullDataObjectParam, [Java::IoVertxCodegenTestmodel::TestDataObject.java_class]).call(Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(dataObject)))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_null_data_object_param(dataObject)"
-    end
     # @yield 
     # @return [void]
     def method_with_handler_user_types
@@ -642,15 +634,6 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerJson, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| jsonObjectHandler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| yield(event != nil ? JSON.parse(event.encode) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_json(jsonObjectHandler)"
-    end
-    # @param [Proc] jsonObjectHandler 
-    # @yield 
-    # @return [void]
-    def method_with_handler_null_json(jsonObjectHandler=nil)
-      if jsonObjectHandler.class == Proc && block_given?
-        return @j_del.java_method(:methodWithHandlerNullJson, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| jsonObjectHandler.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| yield(event != nil ? JSON.parse(event.encode) : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_null_json(jsonObjectHandler)"
     end
     # @param [Proc] jsonObjectHandler 
     # @yield 

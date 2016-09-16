@@ -51,11 +51,6 @@ public class ApiTest extends RubyTestBase {
   }
 
   @Test
-  public void testNullDataObjectParam() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerDataObject() {
     runTest();
   }
@@ -262,11 +257,6 @@ public class ApiTest extends RubyTestBase {
 
   @Test
   public void testJsonHandlerParams() {
-    runTest();
-  }
-
-  @Test
-  public void testNullJsonHandlerParams() {
     runTest();
   }
 

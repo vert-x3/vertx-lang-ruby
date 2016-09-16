@@ -95,10 +95,6 @@ def testDataObjectParam
   @obj.method_with_data_object_param(data_object)
 end
 
-def testNullDataObjectParam
-  Assert.argument_error { @obj.method_with_null_data_object_param(nil) }
-end
-
 def testMethodWithHandlerDataObject
   count = 0
   @obj.method_with_handler_data_object { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
@@ -522,15 +518,6 @@ def testJsonHandlerParams
   @obj.method_with_handler_json(
       Proc.new { |val| Assert.equals(val, {'cheese'=>'stilton'}); count += 1 }) do  |val|
     Assert.equals(val, %w(socks shoes)); count += 1
-  end
-  Assert.equals(2, count)
-end
-
-def testNullJsonHandlerParams
-  count = 0
-  @obj.method_with_handler_null_json(
-      Proc.new { |val| Assert.is_nil(val); count += 1 }) do |val|
-    Assert.is_nil(val); count += 1
   end
   Assert.equals(2, count)
 end

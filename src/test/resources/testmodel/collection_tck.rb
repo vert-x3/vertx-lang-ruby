@@ -63,22 +63,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
     end
-    # @param [Array<Hash>] dataObjects 
-    # @return [void]
-    def method_with_list_of_data_objects_param(dataObjects=nil)
-      if dataObjects.class == Array && !block_given?
-        return @j_del.java_method(:methodWithListOfDataObjectsParam, [Java::JavaUtil::List.java_class]).call(dataObjects.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) })
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_list_of_data_objects_param(dataObjects)"
-    end
-    # @param [Set<Hash>] dataObjects 
-    # @return [void]
-    def method_with_set_of_data_objects_param(dataObjects=nil)
-      if dataObjects.class == Set && !block_given?
-        return @j_del.java_method(:methodWithSetOfDataObjectsParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(dataObjects.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_set_of_data_objects_param(dataObjects)"
-    end
     # @param [Proc] listStringHandler 
     # @param [Proc] listIntHandler 
     # @param [Proc] setStringHandler 
@@ -252,54 +236,6 @@ module Testmodel
     end
     # @yield 
     # @return [void]
-    def method_with_handler_list_null_json_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerListNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_null_json_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_set_null_json_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerSetNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_json_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_list_null_json_array
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerListNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_null_json_array()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_set_null_json_array
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerSetNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_json_array()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_list_null_data_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerListNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_null_data_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_set_null_data_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerSetNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil }) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_set_null_data_object()"
-    end
-    # @yield 
-    # @return [void]
     def method_with_handler_async_result_list_vertx_gen
       if block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultListVertxGen, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Testmodel::RefedInterface1) } : nil) }))
@@ -427,54 +363,6 @@ module Testmodel
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_enum()"
     end
     # @yield 
-    # @return [void]
-    def method_with_handler_async_result_list_null_json_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultListNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_null_json_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_async_result_set_null_json_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultSetNullJsonObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_json_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_async_result_list_null_json_array
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultListNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_null_json_array()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_async_result_set_null_json_array
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultSetNullJsonArray, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_json_array()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_async_result_list_null_data_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultListNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_list_null_data_object()"
-    end
-    # @yield 
-    # @return [void]
-    def method_with_handler_async_result_set_null_data_object
-      if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultSetNullDataObject, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.to_set(ar.result).map! { |elt| elt != nil ? JSON.parse(elt.toJson.encode) : nil } : nil) }))
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_set_null_data_object()"
-    end
-    # @yield 
     # @return [Hash{String => String}]
     def method_with_map_return
       if block_given?
@@ -586,13 +474,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_map_complex_json_array_return()"
     end
-    # @return [Hash{String => String}]
-    def method_with_null_map_return
-      if !block_given?
-        return Java::IoVertxLangRuby::Helper.adaptingMap(@j_del.java_method(:methodWithNullMapReturn, []).call(), Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_null_map_return()"
-    end
     # @return [Array<String>]
     def method_with_list_string_return
       if !block_given?
@@ -656,13 +537,6 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_enum_return()"
     end
-    # @return [Array<String>]
-    def method_with_null_list_return
-      if !block_given?
-        return @j_del.java_method(:methodWithNullListReturn, []).call().to_a.map { |elt| elt }
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_null_list_return()"
-    end
     # @return [Set<String>]
     def method_with_set_string_return
       if !block_given?
@@ -725,13 +599,6 @@ module Testmodel
         return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithSetEnumReturn, []).call()).map! { |elt| elt.name.intern }
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_enum_return()"
-    end
-    # @return [Set<String>]
-    def method_with_null_set_return
-      if !block_given?
-        return ::Vertx::Util::Utils.to_set(@j_del.java_method(:methodWithNullSetReturn, []).call()).map! { |elt| elt }
-      end
-      raise ArgumentError, "Invalid arguments when calling method_with_null_set_return()"
     end
   end
 end

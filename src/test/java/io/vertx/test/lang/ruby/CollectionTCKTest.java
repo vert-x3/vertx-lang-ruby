@@ -8,16 +8,6 @@ import org.junit.Test;
 public class CollectionTCKTest extends RubyTestBase {
 
   @Test
-  public void testListOfDataObjectsParam() {
-    runTest();
-  }
-
-  @Test
-  public void testSetOfDataObjectsParam() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerListAndSet() {
     runTest();
   }
@@ -73,22 +63,12 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerListNullJsonObject() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerListComplexJsonObject() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultListJsonObject() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerAsyncResultListNullJsonObject() {
     runTest();
   }
 
@@ -103,22 +83,12 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerSetNullJsonObject() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerSetComplexJsonObject() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultSetJsonObject() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerAsyncResultSetNullJsonObject() {
     runTest();
   }
 
@@ -133,17 +103,7 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerListNullJsonArray() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerAsyncResultListJsonArray() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerAsyncResultListNullJsonArray() {
     runTest();
   }
 
@@ -158,22 +118,12 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerSetNullJsonArray() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerSetComplexJsonArray() {
     runTest();
   }
 
   @Test
   public void testMethodWithHandlerAsyncResultSetJsonArray() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerAsyncResultSetNullJsonArray() {
     runTest();
   }
 
@@ -188,17 +138,7 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerListNullDataObject() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerSetDataObject() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerNullSetDataObject() {
     runTest();
   }
 
@@ -213,17 +153,7 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
-  public void testMethodWithHandlerAsyncResultListNullDataObject() {
-    runTest();
-  }
-
-  @Test
   public void testMethodWithHandlerAsyncResultSetDataObject() {
-    runTest();
-  }
-
-  @Test
-  public void testMethodWithHandlerAsyncResultNullSetDataObject() {
     runTest();
   }
 
@@ -314,11 +244,6 @@ public class CollectionTCKTest extends RubyTestBase {
 
   @Test
   public void testMapLongReturn() {
-    runTest();
-  }
-
-  @Test
-  public void testMapNullReturn() {
     runTest();
   }
 

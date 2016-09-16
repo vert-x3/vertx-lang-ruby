@@ -18,22 +18,6 @@ java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
 
 @obj = Testmodel::CollectionTCK.new(CollectionTCKImpl.new)
 
-def testListOfDataObjectsParam
-  list = [
-      {:foo => 'hello', :bar => 123, :wibble => 1.23},
-      {:foo => 'world', :bar => 123, :wibble => 1.23}
-  ]
-  @obj.method_with_list_of_data_objects_param(list)
-end
-
-def testSetOfDataObjectsParam
-  set = Set.new [
-                    {:foo => 'hello', :bar => 123, :wibble => 1.23},
-                    {:foo => 'world', :bar => 123, :wibble => 1.23}
-                ]
-  @obj.method_with_set_of_data_objects_param(set)
-end
-
 def testMethodWithHandlerListAndSet
   count = 0
   @obj.method_with_handler_list_and_set(
@@ -176,17 +160,6 @@ def testMethodWithHandlerListJsonObject
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerListNullJsonObject
-  count = 0
-  @obj.method_with_handler_list_null_json_object do |val|
-    Assert.equals(val.class, Array)
-    Assert.equals(val.size, 1)
-    Assert.equals(val[0], nil)
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerListComplexJsonObject
   count = 0
   @obj.method_with_handler_list_complex_json_object do |val|
@@ -208,18 +181,6 @@ def testMethodWithHandlerAsyncResultListJsonObject
     Assert.equals(val[0], {'cheese' => 'stilton'})
     Assert.equals(val[1].class, Hash)
     Assert.equals(val[1], {'socks' => 'tartan'})
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerAsyncResultListNullJsonObject
-  count = 0
-  @obj.method_with_handler_async_result_list_null_json_object do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val.class, Array)
-    Assert.equals(val.size, 1)
-    Assert.equals(val[0], nil)
     count += 1
   end
   Assert.equals(1, count)
@@ -248,17 +209,6 @@ def testMethodWithHandlerSetJsonObject
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerSetNullJsonObject
-  count = 0
-  @obj.method_with_handler_set_null_json_object do |val|
-    Assert.equals(val.class, Set)
-    Assert.equals(val.size, 1)
-    val.each { |elt| Assert.is_nil(elt) }
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerSetComplexJsonObject
   count = 0
   @obj.method_with_handler_set_complex_json_object do |val|
@@ -277,18 +227,6 @@ def testMethodWithHandlerAsyncResultSetJsonObject
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Hash), true) }
     Assert.equals(val, Set.new([{'cheese' => 'stilton'},{'socks' => 'tartan'}]))
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerAsyncResultSetNullJsonObject
-  count = 0
-  @obj.method_with_handler_async_result_set_null_json_object do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val.class, Set)
-    Assert.equals(val.size, 1)
-    val.each { |elt| Assert.is_nil(elt) }
     count += 1
   end
   Assert.equals(1, count)
@@ -320,17 +258,6 @@ def testMethodWithHandlerListJsonArray
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerListNullJsonArray
-  count = 0
-  @obj.method_with_handler_list_null_json_array do |val|
-    Assert.equals(val.class, Array)
-    Assert.equals(val.size, 1)
-    Assert.equals(val[0], nil)
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerAsyncResultListJsonArray
   count = 0
   @obj.method_with_handler_async_result_list_json_array do |err,val|
@@ -341,18 +268,6 @@ def testMethodWithHandlerAsyncResultListJsonArray
     Assert.equals(val[0], %w(green blue))
     Assert.equals(val[1].class, Array)
     Assert.equals(val[1], %w(yellow purple))
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerAsyncResultListNullJsonArray
-  count = 0
-  @obj.method_with_handler_async_result_list_null_json_array do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val.class, Array)
-    Assert.equals(val.size, 1)
-    Assert.equals(val[0], nil)
     count += 1
   end
   Assert.equals(1, count)
@@ -380,17 +295,6 @@ def testMethodWithHandlerSetJsonArray
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerSetNullJsonArray
-  count = 0
-  @obj.method_with_handler_set_null_json_array do |val|
-    Assert.equals(val.class, Set)
-    Assert.equals(val.size, 1)
-    val.each { |elt| Assert.is_nil(elt) }
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerSetComplexJsonArray
   count = 0
   @obj.method_with_handler_set_complex_json_array do |val|
@@ -408,18 +312,6 @@ def testMethodWithHandlerAsyncResultSetJsonArray
     Assert.equals(val.class, Set)
     val.each { |elt| Assert.equals(elt.is_a?(Array), true) }
     Assert.equals(val, Set.new([%w(green blue), %w(yellow purple)]))
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerAsyncResultSetNullJsonArray
-  count = 0
-  @obj.method_with_handler_async_result_set_null_json_array do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val.class, Set)
-    Assert.equals(val.size, 1)
-    val.each { |elt| Assert.is_nil(elt) }
     count += 1
   end
   Assert.equals(1, count)
@@ -447,29 +339,10 @@ def testMethodWithHandlerListDataObject
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerListNullDataObject
-  count = 0
-  @obj.method_with_handler_list_null_data_object do |val|
-    Assert.equals(val.class, Array)
-    Assert.equals(val[0], nil)
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerSetDataObject
   count = 0
   @obj.method_with_handler_set_data_object do |val|
     Assert.equals(val, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerNullSetDataObject
-  count = 0
-  @obj.method_with_handler_set_null_data_object do |val|
-    Assert.equals(val, Set.new([nil]))
     count += 1
   end
   Assert.equals(1, count)
@@ -499,32 +372,11 @@ def testMethodWithHandlerAsyncResultListDataObject
   Assert.equals(1, count)
 end
 
-def testMethodWithHandlerAsyncResultListNullDataObject
-  count = 0
-  @obj.method_with_handler_async_result_list_null_data_object do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val.class, Array)
-    Assert.equals(val[0], nil)
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
 def testMethodWithHandlerAsyncResultSetDataObject
   count = 0
   @obj.method_with_handler_async_result_set_data_object do |err,val|
     Assert.is_nil(err)
     Assert.equals(val, Set.new([{'foo'=>'String 1','bar'=>1,'wibble'=>1.1},{'foo'=>'String 2','bar'=>2,'wibble'=>2.2}]))
-    count += 1
-  end
-  Assert.equals(1, count)
-end
-
-def testMethodWithHandlerAsyncResultNullSetDataObject
-  count = 0
-  @obj.method_with_handler_async_result_set_null_data_object do |err,val|
-    Assert.is_nil(err)
-    Assert.equals(val, Set.new([nil]))
     count += 1
   end
   Assert.equals(1, count)
@@ -713,11 +565,6 @@ def testMapDoubleReturn
   Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
   Assert.argument_error { map['juu'] = 'something' }
   Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
-end
-
-def testMapNullReturn
-  map = @obj.method_with_null_map_return
-  Assert.is_nil map
 end
 
 def testListStringReturn
