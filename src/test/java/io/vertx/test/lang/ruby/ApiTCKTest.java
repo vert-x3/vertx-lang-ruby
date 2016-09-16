@@ -8,7 +8,7 @@ import org.junit.rules.TestName;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class ApiTest extends RubyTestBase {
+public class ApiTCKTest extends RubyTestBase {
 
   @Test
   public void testMethodWithBasicParams() {
@@ -310,12 +310,7 @@ public class ApiTest extends RubyTestBase {
     runTest();
   }
 
-  @Test
-  public void testMethodWithOnlyJsonObjectConstructorDataObject() {
-    runTest();
-  }
-
   private void runTest() {
-    runTest("api_test", testName.getMethodName());
+    runTest("api_tck_test", testName.getMethodName());
   }
 }

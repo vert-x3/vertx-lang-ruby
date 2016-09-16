@@ -7,7 +7,7 @@ import org.junit.rules.TestName;
 /**
  * @author <a href="mailto:julien@julienviet.com">Julien Viet</a>
  */
-public class FunctionParamTest extends RubyTestBase {
+public class FunctionParamTCKTest extends RubyTestBase {
 
   @Rule
   public final TestName testName = new TestName();
@@ -128,6 +128,6 @@ public class FunctionParamTest extends RubyTestBase {
   }
 
   private void runTest() {
-    runTest("function_param_test", testName.getMethodName());
+    runTest("function_param_tck_test", testName.getMethodName());
   }
 }

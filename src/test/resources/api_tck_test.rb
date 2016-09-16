@@ -13,12 +13,10 @@ require 'acme/my_interface'
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
 java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
-java_import 'io.vertx.codegen.testmodel.DataObjectTCKImpl'
 
 # Instantiate obj
 @obj = Testmodel::TestInterface.new(TestInterfaceImpl.new)
 @refed_obj = Testmodel::RefedInterface1.new(RefedInterface1Impl.new)
-@dobj_tck = Testmodel::DataObjectTCK.new(DataObjectTCKImpl.new)
 
 def testMethodWithBasicParams
   @obj.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar');
@@ -599,9 +597,4 @@ def testCustomModule
   sub = my.sub
   ret = sub.reverse "hello"
   Assert.equals ret, "olleh"
-end
-
-def testMethodWithOnlyJsonObjectConstructorDataObject
-  data_object = {:foo => 'bar'}
-  @dobj_tck.method_with_only_json_object_constructor_data_object(data_object)
 end
