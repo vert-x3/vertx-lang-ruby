@@ -20,8 +20,8 @@ module Vertx
     # @param [Object] data the data to write
     # @return [self]
     def write(data=nil)
-      if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
-        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(data))
+      if @j_arg_T.accept?(data) && !block_given?
+        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(data))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"
@@ -32,8 +32,8 @@ module Vertx
     def end(t=nil)
       if !block_given? && t == nil
         return @j_del.java_method(:end, []).call()
-      elsif (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && !block_given?
-        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(t))
+      elsif @j_arg_T.accept?(t) && !block_given?
+        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(t))
       end
       raise ArgumentError, "Invalid arguments when calling end(t)"
     end
@@ -80,8 +80,9 @@ module Vertx
     include WriteStream
     # @private
     # @param j_del [::Vertx::WriteStream] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::WriteStream] the underlying java delegate

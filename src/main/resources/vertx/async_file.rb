@@ -23,6 +23,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      AsyncFile.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreFile::AsyncFile.java_class
+    end
     #  Same as {::Vertx::AsyncFile#end} but writes some data to the stream before ending.
     # @param [::Vertx::Buffer] t 
     # @return [void]

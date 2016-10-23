@@ -139,8 +139,7 @@ vertx.file_system().open("target/classes/hello.txt", {
   if (result_err == nil)
     file = result
     buff = Vertx::Buffer.buffer("foo")
-    i = 0
-    while (i < 5)
+    (0...5).each do |i|
       file.write(buff, buff.length() * i) { |ar_err,ar|
         if (ar_err == nil)
           puts "Written ok!"
@@ -149,7 +148,6 @@ vertx.file_system().open("target/classes/hello.txt", {
           STDERR.puts "Failed to write: #{ar_err}"
         end
       }
-      i+=1
     end
   else
     STDERR.puts "Cannot open file #{result_err}"
@@ -184,8 +182,7 @@ vertx.file_system().open("target/classes/les_miserables.txt", {
   if (result_err == nil)
     file = result
     buff = Vertx::Buffer.buffer(1000)
-    i = 0
-    while (i < 10)
+    (0...10).each do |i|
       file.read(buff, i * 100, i * 100, 100) { |ar_err,ar|
         if (ar_err == nil)
           puts "Read ok!"
@@ -193,7 +190,6 @@ vertx.file_system().open("target/classes/les_miserables.txt", {
           STDERR.puts "Failed to write: #{ar_err}"
         end
       }
-      i+=1
     end
   else
     STDERR.puts "Cannot open file #{result_err}"

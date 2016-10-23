@@ -22,6 +22,22 @@ module Testmodel
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      TestInterface.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::TestInterface.java_class
+    end
     # @param [Fixnum] b 
     # @param [Fixnum] s 
     # @param [Fixnum] i 
@@ -263,7 +279,7 @@ module Testmodel
     # @param [Object] obj 
     # @return [void]
     def method_with_object_param(str=nil,obj=nil)
-      if str.class == String && (obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float) && !block_given?
+      if str.class == String && ::Vertx::Util::unknown_type.accept?(obj) && !block_given?
         return @j_del.java_method(:methodWithObjectParam, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(str,::Vertx::Util::Utils.to_object(obj))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_object_param(str,obj)"
@@ -353,8 +369,8 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_handler_generic_user_type(value=nil)
-      if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
-        return @j_del.java_method(:methodWithHandlerGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface)) }))
+      if ::Vertx::Util::unknown_type.accept?(value) && block_given?
+        return @j_del.java_method(:methodWithHandlerGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_user_type(value)"
     end
@@ -362,8 +378,8 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_handler_async_result_generic_user_type(value=nil)
-      if (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface) : nil) }))
+      if ::Vertx::Util::unknown_type.accept?(value) && block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultGenericUserType, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, nil) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_generic_user_type(value)"
     end
@@ -465,6 +481,14 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_data_object_null_return()"
     end
+    # @param [Object] value 
+    # @return [::Testmodel::GenericRefedInterface]
+    def method_with_generic_user_type_return(value=nil)
+      if ::Vertx::Util::unknown_type.accept?(value) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithGenericUserTypeReturn, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(value)),::Testmodel::GenericRefedInterface, nil)
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_return(value)"
+    end
     # @param [String] str 
     # @param [::Testmodel::RefedInterface1] refed 
     # @param [Fixnum] period 
@@ -494,7 +518,7 @@ module Testmodel
     # @param [Object] u 
     # @return [void]
     def method_with_generic_param(type=nil,u=nil)
-      if type.class == String && (u.class == String  || u.class == Hash || u.class == Array || u.class == NilClass || u.class == TrueClass || u.class == FalseClass || u.class == Fixnum || u.class == Float) && !block_given?
+      if type.class == String && ::Vertx::Util::unknown_type.accept?(u) && !block_given?
         return @j_del.java_method(:methodWithGenericParam, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(type,::Vertx::Util::Utils.to_object(u))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_param(type,u)"

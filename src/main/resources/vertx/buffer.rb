@@ -18,6 +18,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      Buffer.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreBuffer::Buffer.java_class
+    end
     #  Create a new buffer from a string and using the specified encoding.
     #  The string will be encoded into the buffer using the specified encoding.
     # @overload buffer()

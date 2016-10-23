@@ -19,7 +19,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(@j_arg_T.wrap(event)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -57,8 +57,9 @@ module Vertx
     include ReadStream
     # @private
     # @param j_del [::Vertx::ReadStream] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::ReadStream] the underlying java delegate

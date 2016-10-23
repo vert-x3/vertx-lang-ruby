@@ -26,6 +26,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      CLI.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreCli::CLI.java_class
+    end
     #  Creates an instance of {::Vertx::CLI} using the default implementation.
     # @param [String] name the name of the CLI (must not be <code>null</code>)
     # @return [::Vertx::CLI] the created instance of {::Vertx::CLI}

@@ -1232,10 +1232,8 @@ no need to set the `Content-Length` of the request up-front.
 request.set_chunked(true)
 
 # Write some chunks
-i = 0
-while (i < 10)
+(0...10).each do |i|
   request.write("this-is-chunk-#{i}")
-  i+=1
 end
 
 request.end()
@@ -1355,7 +1353,7 @@ HTTP/2 supports stream reset at any time during the request/response:
 [source,ruby]
 ----
 
-request.reset()
+request.reset?()
 
 
 ----
@@ -1365,7 +1363,7 @@ By default the NO_ERROR (0) error code is sent, another code can sent instead:
 [source,ruby]
 ----
 
-request.reset(8)
+request.reset?(8)
 
 
 ----
@@ -1645,7 +1643,7 @@ If the client does not want to receive a pushed request, it can reset the stream
 ----
 request.push_handler() { |pushedRequest|
   if (pushedRequest.path().==("/main.js"))
-    pushedRequest.reset()
+    pushedRequest.reset?()
   else
     # Handle it
   end
@@ -1887,10 +1885,8 @@ endpoint:
 ----
 require 'vertx/buffer'
 data = Vertx::Buffer.buffer()
-i = 0
-while (i < 8)
+(0...8).each do |i|
   data.append_byte(i)
-  i+=1
 end
 connection.ping(data) { |pong_err,pong|
   puts "Remote side replied"

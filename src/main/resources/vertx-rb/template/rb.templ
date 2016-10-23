@@ -214,9 +214,11 @@
         return "(" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
-      return "(" + expr + ".class == String  || " + expr + ".class == Hash || " + expr + ".class == Array || "
-      + expr + ".class == NilClass || " + expr + ".class == TrueClass || " + expr + ".class == FalseClass || "
-      + expr + ".class == Fixnum || " + expr + ".class == Float)";
+      if (type.variable && type.classParam) {
+        return "@j_arg_" + type.name + ".accept?(" + expr + ")";
+      } else {
+        return "::Vertx::Util::unknown_type.accept?(" + expr + ")";
+      }
     } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
@@ -231,6 +233,8 @@
       return expr + ".class == Set";
     } else if (kind == CLASS_MAP) {
       return expr + ".class == Hash";
+    } else if (kind == CLASS_TYPE_LITERAL) {
+      return expr + ".class == Class";
     }
     return "false";
   }
@@ -330,7 +334,11 @@
     } else if (kind == CLASS_API) {
       return expr + ".j_del";
     } else if (kind == CLASS_OBJECT) {
-      return "::Vertx::Util::Utils.to_object(" + expr + ")";
+      if (type.variable && type.classParam) {
+        return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
+      } else {
+        return "::Vertx::Util::Utils.to_object(" + expr + ")";
+      }
     } else if (kind == CLASS_DATA_OBJECT) {
       return genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + "))";
     } else if (kind == CLASS_JSON_OBJECT) {
@@ -348,6 +356,8 @@
     } else if (kind == CLASS_MAP) {
       var valueType = type.args[1];
       return "Hash[" + expr + ".map { |k,v| [k," + genConvParam(valueType, "v") + "] }]";
+    } else if (kind == CLASS_TYPE_LITERAL) {
+      return "::Vertx::Util::Utils.j_class_of(" + expr + ")";
     }
     return "nil";
   }
@@ -405,11 +415,32 @@
         }
         return "Java::IoVertxLangRuby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
-        return "::Vertx::Util::Utils.safe_create(" + expr + "," + genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ")";
+        var foo = new StringBuilder();
+        if (type.parameterized) {
+          for (arg : type.args) {
+            if (arg.kind == CLASS_API) {
+              foo.append(',').append(genRubyClassFqn(arg)).append('.j_api_type');
+            } else if (arg.kind == CLASS_OBJECT) {
+              var typeLiteralParam = method.resolveTypeLiteralParam(arg);
+              if (typeLiteralParam != null) {
+                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(typeLiteralParam.name).append(')');
+              } else {
+                foo.append(', nil');
+              }
+            } else {
+              foo.append(', nil');
+            }
+          }
+        }
+        return "::Vertx::Util::Utils.safe_create(" + expr + "," + genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + foo +  ")";
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {
-        return "::Vertx::Util::Utils.from_object(" + expr + ")";
+        if (type.variable && type.classParam) {
+          return "@j_arg_" + type.name + ".wrap(" + expr + ")";
+        } else {
+          return "::Vertx::Util::Utils.from_object(" + expr + ")";
+        }
       } else if (kind == CLASS_ENUM) {
         return expr + ".name.intern";
       } else if (kind == CLASS_HANDLER) {
@@ -530,17 +561,38 @@ require 'vertx/util/utils.rb'\n
 @declare{'initializer'}
     # @private\n
     # @param j_del [@{genRubyClassFqn(type.raw)}] the java delegate\n
-    def initialize(j_del)\n
+    def initialize(j_del@foreach{param: type.params}, j_arg_@{param.name}=nil@end{})\n
 	@if{callSuper}
       super(j_del)\n
 	@end{}
       @j_del = j_del\n
+	@foreach{param: type.params}
+      @{'@j_arg_' + param.name} = j_arg_@{param.name} != nil ? j_arg_@{param.name} : ::Vertx::Util::unknown_type\n
+	@end{}
     end\n
     # @private\n
     # @return [@{genRubyClassFqn(type.raw)}] the underlying java delegate\n
     def j_del\n
       @j_del\n
     end\n
+	@if{type.params.empty}
+    @{'@@'}j_api_type = Object.new\n
+    def @{'@@'}j_api_type.accept?(obj)\n
+      true\n
+    end\n
+    def @{'@@'}j_api_type.wrap(obj)\n
+      @{type.raw.simpleName}.new(obj)\n
+    end\n
+    def @{'@@'}j_api_type.unwrap(obj)\n
+      obj.j_del\n
+    end\n
+    def self.j_api_type\n
+      @{'@@'}j_api_type\n
+    end\n
+    def self.j_class\n
+      @{genJavaClassFqn(type)}.java_class\n
+    end\n
+	@end{}
 @end{}
 
 # Generated from @{type.name}\n

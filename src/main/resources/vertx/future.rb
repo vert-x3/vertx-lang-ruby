@@ -6,8 +6,9 @@ module Vertx
   class Future
     # @private
     # @param j_del [::Vertx::Future] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::Future] the underlying java delegate
@@ -18,7 +19,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.future
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:future, []).call(),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:future, []).call(),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling future()"
     end
@@ -27,9 +28,9 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.succeeded_future(result=nil)
       if !block_given? && result == nil
-        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, []).call(),::Vertx::Future)
-      elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, []).call(),::Vertx::Future, nil)
+      elsif ::Vertx::Util::unknown_type.accept?(result) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling succeeded_future(result)"
     end
@@ -38,7 +39,7 @@ module Vertx
     # @return [::Vertx::Future] the future
     def self.failed_future(failureMessage=nil)
       if failureMessage.class == String && !block_given?
-        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling failed_future(failureMessage)"
     end
@@ -60,7 +61,7 @@ module Vertx
     # @return [self]
     def set_handler
       if block_given?
-        @j_del.java_method(:setHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        @j_del.java_method(:setHandler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_T.wrap(ar.result) : nil) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling set_handler()"
@@ -71,8 +72,8 @@ module Vertx
     def complete(result=nil)
       if !block_given? && result == nil
         return @j_del.java_method(:complete, []).call()
-      elsif (result.class == String  || result.class == Hash || result.class == Array || result.class == NilClass || result.class == TrueClass || result.class == FalseClass || result.class == Fixnum || result.class == Float) && !block_given?
-        return @j_del.java_method(:complete, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result))
+      elsif @j_arg_T.accept?(result) && !block_given?
+        return @j_del.java_method(:complete, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(result))
       end
       raise ArgumentError, "Invalid arguments when calling complete(result)"
     end
@@ -94,7 +95,7 @@ module Vertx
     # @return [Object] the result or null if the operation failed.
     def result
       if !block_given?
-        return ::Vertx::Util::Utils.from_object(@j_del.java_method(:result, []).call())
+        return @j_arg_T.wrap(@j_del.java_method(:result, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling result()"
     end
@@ -139,9 +140,9 @@ module Vertx
     # @return [::Vertx::Future] the next future, used for chaining
     def compose(param_1=nil,param_2=nil)
       if block_given? && param_1 == nil && param_2 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)).j_del })),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(@j_arg_T.wrap(event)).j_del })),::Vertx::Future, nil)
       elsif param_1.class == Proc && param_2.class.method_defined?(:j_del) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(::Vertx::Util::Utils.from_object(event)) }),param_2.j_del),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(@j_arg_T.wrap(event)) }),param_2.j_del),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling compose(param_1,param_2)"
     end
@@ -157,9 +158,9 @@ module Vertx
     # @return [::Vertx::Future] the mapped future
     def map(param_1=nil)
       if block_given? && param_1 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(::Vertx::Util::Utils.from_object(event))) })),::Vertx::Future)
-      elsif (param_1.class == String  || param_1.class == Hash || param_1.class == Array || param_1.class == NilClass || param_1.class == TrueClass || param_1.class == FalseClass || param_1.class == Fixnum || param_1.class == Float) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(@j_arg_T.wrap(event))) })),::Vertx::Future, nil)
+      elsif ::Vertx::Util::unknown_type.accept?(param_1) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling map(param_1)"
     end
@@ -169,7 +170,7 @@ module Vertx
         if @cached_completer != nil
           return @cached_completer
         end
-        return @cached_completer = ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:completer, []).call()) { |val| ::Vertx::Util::Utils.to_object(val) }
+        return @cached_completer = ::Vertx::Util::Utils.to_async_result_handler_proc(@j_del.java_method(:completer, []).call()) { |val| @j_arg_T.unwrap(val) }
       end
       raise ArgumentError, "Invalid arguments when calling completer()"
     end

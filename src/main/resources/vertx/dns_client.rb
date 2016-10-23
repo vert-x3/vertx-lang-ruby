@@ -17,6 +17,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      DnsClient.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreDns::DnsClient.java_class
+    end
     #  Try to lookup the A (ipv4) or AAAA (ipv6) record for the given name. The first found will be used.
     # @param [String] name the name to resolve
     # @yield the {Proc} to notify with the {AsyncResult}. The handler will get notified with the resolved address if a record was found. If non was found it will get notifed with <code>null</code>. If an error accours it will get failed.

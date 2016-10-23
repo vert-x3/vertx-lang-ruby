@@ -14,6 +14,22 @@ module Testmodel
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      NullableTCK.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::NullableTCK.java_class
+    end
     # @param [Fixnum] param 
     # @return [true,false]
     def method_with_non_nullable_byte_param?(param=nil)
@@ -663,7 +679,7 @@ module Testmodel
     # @param [Object] param 
     # @return [void]
     def method_with_nullable_type_variable_param(expectNull=nil,param=nil)
-      if (expectNull.class == TrueClass || expectNull.class == FalseClass) && (param.class == String  || param.class == Hash || param.class == Array || param.class == NilClass || param.class == TrueClass || param.class == FalseClass || param.class == Fixnum || param.class == Float) && !block_given?
+      if (expectNull.class == TrueClass || expectNull.class == FalseClass) && ::Vertx::Util::unknown_type.accept?(param) && !block_given?
         return @j_del.java_method(:methodWithNullableTypeVariableParam, [Java::boolean.java_class,Java::java.lang.Object.java_class]).call(expectNull,::Vertx::Util::Utils.to_object(param))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_type_variable_param(expectNull,param)"
@@ -673,7 +689,7 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_nullable_type_variable_handler(notNull=nil,value=nil)
-      if (notNull.class == TrueClass || notNull.class == FalseClass) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && ::Vertx::Util::unknown_type.accept?(value) && block_given?
         return @j_del.java_method(:methodWithNullableTypeVariableHandler, [Java::boolean.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,::Vertx::Util::Utils.to_object(value),(Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_type_variable_handler(notNull,value)"
@@ -683,7 +699,7 @@ module Testmodel
     # @yield 
     # @return [void]
     def method_with_nullable_type_variable_handler_async_result(notNull=nil,value=nil)
-      if (notNull.class == TrueClass || notNull.class == FalseClass) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && block_given?
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && ::Vertx::Util::unknown_type.accept?(value) && block_given?
         return @j_del.java_method(:methodWithNullableTypeVariableHandlerAsyncResult, [Java::boolean.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,::Vertx::Util::Utils.to_object(value),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_type_variable_handler_async_result(notNull,value)"
@@ -692,7 +708,7 @@ module Testmodel
     # @param [Object] value 
     # @return [Object]
     def method_with_nullable_type_variable_return(notNull=nil,value=nil)
-      if (notNull.class == TrueClass || notNull.class == FalseClass) && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && ::Vertx::Util::unknown_type.accept?(value) && !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:methodWithNullableTypeVariableReturn, [Java::boolean.java_class,Java::java.lang.Object.java_class]).call(notNull,::Vertx::Util::Utils.to_object(value)))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_type_variable_return(notNull,value)"
@@ -701,7 +717,7 @@ module Testmodel
     # @param [Object] param 
     # @return [void]
     def method_with_nullable_object_param(expectNull=nil,param=nil)
-      if (expectNull.class == TrueClass || expectNull.class == FalseClass) && (param.class == String  || param.class == Hash || param.class == Array || param.class == NilClass || param.class == TrueClass || param.class == FalseClass || param.class == Fixnum || param.class == Float) && !block_given?
+      if (expectNull.class == TrueClass || expectNull.class == FalseClass) && ::Vertx::Util::unknown_type.accept?(param) && !block_given?
         return @j_del.java_method(:methodWithNullableObjectParam, [Java::boolean.java_class,Java::java.lang.Object.java_class]).call(expectNull,::Vertx::Util::Utils.to_object(param))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_object_param(expectNull,param)"

@@ -18,9 +18,9 @@ module Vertx
       def self.to_throwable(err)
         Java::IoVertxLangRuby::Helper.catchAndReturnThrowable(Proc.new { raise err });
       end
-      def self.safe_create(object, clazz)
+      def self.safe_create(object, clazz, *args)
         if nil != object
-          return clazz.new(object)
+          return clazz.new(object, *args)
         end
         return nil
       end
@@ -140,7 +140,40 @@ module Vertx
           end
         }
       end
+      def self.v_type_of ruby_type
+        if ruby_type.respond_to? :j_api_type
+          ruby_type.j_api_type
+        else
+          ::Vertx::Util.unknown_type
+        end
+      end
+      def self.j_class_of ruby_type
+        if ruby_type.respond_to? :j_class
+          ruby_type.j_class
+        else
+          if ruby_type == Hash
+            Java::IoVertxCoreJson::JsonObject.java_class
+          else
+            nil
+          end
+        end
+      end
     end
+
+    @@unknown_type = Object.new
+    def @@unknown_type.accept?(obj)
+      obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float
+    end
+    def @@unknown_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@unknown_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.unknown_type
+      @@unknown_type
+    end
+
     class HashProxy < Hash
       def initialize
         super

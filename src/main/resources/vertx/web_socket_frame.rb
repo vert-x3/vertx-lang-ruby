@@ -21,6 +21,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      WebSocketFrame.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::WebSocketFrame.java_class
+    end
     #  Create a binary WebSocket frame.
     # @param [::Vertx::Buffer] data the data for the frame
     # @param [true,false] isFinal true if it's the final frame in the WebSocket message

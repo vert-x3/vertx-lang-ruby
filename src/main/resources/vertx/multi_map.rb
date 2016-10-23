@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      MultiMap.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCore::MultiMap.java_class
+    end
     #  Create a multi-map implementation with case insensitive keys, for instance it can be used to hold some HTTP headers.
     # @return [::Vertx::MultiMap] the multi-map
     def self.case_insensitive_multi_map

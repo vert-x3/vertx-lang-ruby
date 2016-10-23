@@ -14,6 +14,22 @@ module Testmodel
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      FunctionParamTCK.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::FunctionParamTCK.java_class
+    end
     # @param [Proc] byteFunc 
     # @param [Proc] shortFunc 
     # @param [Proc] integerFunc 
@@ -60,7 +76,7 @@ module Testmodel
     # @yield 
     # @return [String]
     def method_with_object_param(arg=nil,func=nil)
-      if (arg.class == String  || arg.class == Hash || arg.class == Array || arg.class == NilClass || arg.class == TrueClass || arg.class == FalseClass || arg.class == Fixnum || arg.class == Float) && block_given? && func == nil
+      if ::Vertx::Util::unknown_type.accept?(arg) && block_given? && func == nil
         return @j_del.java_method(:methodWithObjectParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(arg),(Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_object_param(arg,func)"
@@ -109,7 +125,7 @@ module Testmodel
     # @yield 
     # @return [String]
     def method_with_generic_param(t=nil,func=nil)
-      if (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && block_given? && func == nil
+      if ::Vertx::Util::unknown_type.accept?(t) && block_given? && func == nil
         return @j_del.java_method(:methodWithGenericParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(t),(Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_param(t,func)"
@@ -118,8 +134,8 @@ module Testmodel
     # @yield 
     # @return [String]
     def method_with_generic_user_type_param(t=nil,func=nil)
-      if (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && block_given? && func == nil
-        return @j_del.java_method(:methodWithGenericUserTypeParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(t),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface)) }))
+      if ::Vertx::Util::unknown_type.accept?(t) && block_given? && func == nil
+        return @j_del.java_method(:methodWithGenericUserTypeParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(t),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_param(t,func)"
     end
@@ -208,7 +224,7 @@ module Testmodel
     # @return [String]
     def method_with_generic_user_type_return(func=nil)
       if block_given? && func == nil
-        return @j_del.java_method(:methodWithGenericUserTypeReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface)).j_del }))
+        return @j_del.java_method(:methodWithGenericUserTypeReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)).j_del }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_return(func)"
     end

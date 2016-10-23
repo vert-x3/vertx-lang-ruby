@@ -6,8 +6,10 @@ module Vertx
   class AsyncMap
     # @private
     # @param j_del [::Vertx::AsyncMap] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_K=nil, j_arg_V=nil)
       @j_del = j_del
+      @j_arg_K = j_arg_K != nil ? j_arg_K : ::Vertx::Util::unknown_type
+      @j_arg_V = j_arg_V != nil ? j_arg_V : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::AsyncMap] the underlying java delegate
@@ -19,8 +21,8 @@ module Vertx
     # @yield - this will be called some time later with the async result.
     # @return [void]
     def get(k=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && block_given?
-        return @j_del.java_method(:get, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      if @j_arg_K.accept?(k) && block_given?
+        return @j_del.java_method(:get, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get(k)"
     end
@@ -32,10 +34,10 @@ module Vertx
     # @yield the handler
     # @return [void]
     def put(k=nil,v=nil,ttl=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && ttl == nil
-        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
-      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && ttl.class == Fixnum && block_given?
-        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+      if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given? && ttl == nil
+        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
+      elsif @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && ttl.class == Fixnum && block_given?
+        return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling put(k,v,ttl)"
     end
@@ -47,10 +49,10 @@ module Vertx
     # @yield the handler
     # @return [void]
     def put_if_absent(k=nil,v=nil,ttl=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given? && ttl == nil
-        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
-      elsif (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && ttl.class == Fixnum && block_given?
-        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given? && ttl == nil
+        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
+      elsif @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && ttl.class == Fixnum && block_given?
+        return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling put_if_absent(k,v,ttl)"
     end
@@ -59,8 +61,8 @@ module Vertx
     # @yield - this will be called some time later to signify the value has been removed
     # @return [void]
     def remove(k=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && block_given?
-        return @j_del.java_method(:remove, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      if @j_arg_K.accept?(k) && block_given?
+        return @j_del.java_method(:remove, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling remove(k)"
     end
@@ -70,8 +72,8 @@ module Vertx
     # @yield - this will be called some time later to signify the value has been removed
     # @return [void]
     def remove_if_present(k=nil,v=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given?
-        return @j_del.java_method(:removeIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+      if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given?
+        return @j_del.java_method(:removeIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling remove_if_present(k,v)"
     end
@@ -81,8 +83,8 @@ module Vertx
     # @yield the result handler will be passed the previous value
     # @return [void]
     def replace(k=nil,v=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (v.class == String  || v.class == Hash || v.class == Array || v.class == NilClass || v.class == TrueClass || v.class == FalseClass || v.class == Fixnum || v.class == Float) && block_given?
-        return @j_del.java_method(:replace, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+      if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given?
+        return @j_del.java_method(:replace, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling replace(k,v)"
     end
@@ -93,8 +95,8 @@ module Vertx
     # @yield the result handler
     # @return [void]
     def replace_if_present(k=nil,oldValue=nil,newValue=nil)
-      if (k.class == String  || k.class == Hash || k.class == Array || k.class == NilClass || k.class == TrueClass || k.class == FalseClass || k.class == Fixnum || k.class == Float) && (oldValue.class == String  || oldValue.class == Hash || oldValue.class == Array || oldValue.class == NilClass || oldValue.class == TrueClass || oldValue.class == FalseClass || oldValue.class == Fixnum || oldValue.class == Float) && (newValue.class == String  || newValue.class == Hash || newValue.class == Array || newValue.class == NilClass || newValue.class == TrueClass || newValue.class == FalseClass || newValue.class == Fixnum || newValue.class == Float) && block_given?
-        return @j_del.java_method(:replaceIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(k),::Vertx::Util::Utils.to_object(oldValue),::Vertx::Util::Utils.to_object(newValue),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
+      if @j_arg_K.accept?(k) && @j_arg_V.accept?(oldValue) && @j_arg_V.accept?(newValue) && block_given?
+        return @j_del.java_method(:replaceIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(oldValue),@j_arg_V.unwrap(newValue),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling replace_if_present(k,oldValue,newValue)"
     end

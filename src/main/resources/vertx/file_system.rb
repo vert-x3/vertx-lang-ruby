@@ -28,6 +28,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      FileSystem.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreFile::FileSystem.java_class
+    end
     #  Copy a file from the path <code>from</code> to path <code>to</code>, asynchronously.
     #  <p>
     #  The copy will fail if the destination already exists.

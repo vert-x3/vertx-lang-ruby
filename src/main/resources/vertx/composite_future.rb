@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      CompositeFuture.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCore::CompositeFuture.java_class
+    end
     #  Returns true if a wrapped future is completed
     # @param [Fixnum] index the wrapped future index
     # @return [true,false]
@@ -110,9 +126,9 @@ module Vertx
     # @return [::Vertx::Future] the next future, used for chaining
     def compose(param_1=nil,param_2=nil)
       if block_given? && param_1 == nil && param_2 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture)).j_del })),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture)).j_del })),::Vertx::Future, nil)
       elsif param_1.class == Proc && param_2.class.method_defined?(:j_del) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture)) }),param_2.j_del),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture)) }),param_2.j_del),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling compose(param_1,param_2)"
     end
@@ -128,9 +144,9 @@ module Vertx
     # @return [::Vertx::Future] the mapped future
     def map(param_1=nil)
       if block_given? && param_1 == nil
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture))) })),::Vertx::Future)
-      elsif (param_1.class == String  || param_1.class == Hash || param_1.class == Array || param_1.class == NilClass || param_1.class == TrueClass || param_1.class == FalseClass || param_1.class == Fixnum || param_1.class == Float) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture))) })),::Vertx::Future, nil)
+      elsif ::Vertx::Util::unknown_type.accept?(param_1) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future, nil)
       end
       raise ArgumentError, "Invalid arguments when calling map(param_1)"
     end

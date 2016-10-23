@@ -9,8 +9,9 @@ module Vertx
     include ::Vertx::WriteStream
     # @private
     # @param j_del [::Vertx::MessageProducer] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::MessageProducer] the underlying java delegate
@@ -23,8 +24,8 @@ module Vertx
     def end(t=nil)
       if !block_given? && t == nil
         return @j_del.java_method(:end, []).call()
-      elsif (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && !block_given?
-        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(t))
+      elsif @j_arg_T.accept?(t) && !block_given?
+        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(t))
       end
       raise ArgumentError, "Invalid arguments when calling end(t)"
     end
@@ -40,10 +41,10 @@ module Vertx
     # @yield 
     # @return [::Vertx::MessageProducer]
     def send(message=nil)
-      if (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(message)),::Vertx::MessageProducer)
-      elsif (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) })),::Vertx::MessageProducer)
+      if @j_arg_T.accept?(message) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(message)),::Vertx::MessageProducer, nil)
+      elsif @j_arg_T.accept?(message) && block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_T.unwrap(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) })),::Vertx::MessageProducer, nil)
       end
       raise ArgumentError, "Invalid arguments when calling send(message)"
     end
@@ -59,8 +60,8 @@ module Vertx
     # @param [Object] data 
     # @return [self]
     def write(data=nil)
-      if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
-        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(data))
+      if @j_arg_T.accept?(data) && !block_given?
+        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(data))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling write(data)"

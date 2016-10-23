@@ -46,6 +46,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      HttpClientRequest.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpClientRequest.java_class
+    end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpClientRequest#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
     def write_queue_full?
@@ -202,7 +218,7 @@ module Vertx
     end
     #  Set the request host.<p/>
     # 
-    #  For HTTP2 it sets the  pseudo header otherwise it sets the  header
+    #  For HTTP/2 it sets the  pseudo header otherwise it sets the  header
     # @param [String] host 
     # @return [self]
     def set_host(host=nil)
@@ -212,7 +228,7 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling set_host(host)"
     end
-    # @return [String] the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
+    # @return [String] the request host. For HTTP/2 it returns the  pseudo header otherwise it returns the  header
     def get_host
       if !block_given?
         return @j_del.java_method(:getHost, []).call()
@@ -331,16 +347,24 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling push_handler()"
     end
-    #  Reset this stream with the error <code>code</code>.
+    #  Reset this request:
+    #  <p/>
+    #  <ul>
+    #    <li>for HTTP/2, this performs send an HTTP/2 reset frame with the specified error <code>code</code></li>
+    #    <li>for HTTP/1.x, this closes the connection after the current in-flight requests are ended</li>
+    #  </ul>
+    #  <p/>
+    #  When the request has not yet been sent, the request will be aborted and false is returned as indicator.
+    #  <p/>
     # @param [Fixnum] code the error code
-    # @return [void]
-    def reset(code=nil)
+    # @return [true,false] true when reset has been performed
+    def reset?(code=nil)
       if !block_given? && code == nil
         return @j_del.java_method(:reset, []).call()
       elsif code.class == Fixnum && !block_given?
         return @j_del.java_method(:reset, [Java::long.java_class]).call(code)
       end
-      raise ArgumentError, "Invalid arguments when calling reset(code)"
+      raise ArgumentError, "Invalid arguments when calling reset?(code)"
     end
     # @return [::Vertx::HttpConnection] the {::Vertx::HttpConnection} associated with this request
     def connection

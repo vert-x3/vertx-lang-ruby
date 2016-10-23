@@ -12,6 +12,22 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      ReferencedType.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxTestSupport::ReferencedType.java_class
+    end
     # @return [String]
     def some_method
       if !block_given?

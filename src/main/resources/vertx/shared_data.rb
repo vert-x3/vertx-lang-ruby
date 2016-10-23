@@ -27,6 +27,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      true
+    end
+    def @@j_api_type.wrap(obj)
+      SharedData.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreShareddata::SharedData.java_class
+    end
     #  Get the cluster wide map with the specified name. The map is accessible to all nodes in the cluster and data
     #  put into the map from any node is visible to to any other node.
     # @param [String] name the name of the map
@@ -34,7 +50,7 @@ module Vertx
     # @return [void]
     def get_cluster_wide_map(name=nil)
       if name.class == String && block_given?
-        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap) : nil) }))
+        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap, nil, nil) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(name)"
     end
@@ -75,7 +91,7 @@ module Vertx
     # @return [::Vertx::LocalMap] the msp
     def get_local_map(name=nil)
       if name.class == String && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap, nil, nil)
       end
       raise ArgumentError, "Invalid arguments when calling get_local_map(name)"
     end
