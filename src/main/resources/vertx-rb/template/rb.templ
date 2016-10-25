@@ -214,11 +214,17 @@
         return "(" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
-      if (type.variable && type.classParam) {
-        return "@j_arg_" + type.name + ".accept?(" + expr + ")";
-      } else {
-        return "::Vertx::Util::unknown_type.accept?(" + expr + ")";
+      if (type.variable) {
+        if (type.classParam) {
+          return "@j_arg_" + type.name + ".accept?(" + expr + ")";
+        } else {
+          var typeLiteralParam = method.resolveTypeLiteralParam(type);
+          if (typeLiteralParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + typeLiteralParam.name + ').accept?(' + expr + ')';
+          }
+        }
       }
+      return "::Vertx::Util::unknown_type.accept?(" + expr + ")";
     } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
@@ -334,11 +340,17 @@
     } else if (kind == CLASS_API) {
       return expr + ".j_del";
     } else if (kind == CLASS_OBJECT) {
-      if (type.variable && type.classParam) {
-        return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
-      } else {
-        return "::Vertx::Util::Utils.to_object(" + expr + ")";
+      if (type.variable) {
+        if (type.classParam) {
+          return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
+        } else {
+          var typeLiteralParam = method.resolveTypeLiteralParam(type);
+          if (typeLiteralParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + typeLiteralParam.name + ').unwrap(' + expr + ')';
+          }
+        }
       }
+      return "::Vertx::Util::Utils.to_object(" + expr + ")";
     } else if (kind == CLASS_DATA_OBJECT) {
       return genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + "))";
     } else if (kind == CLASS_JSON_OBJECT) {
@@ -563,7 +575,17 @@ require 'vertx/util/utils.rb'\n
     # @param j_del [@{genRubyClassFqn(type.raw)}] the java delegate\n
     def initialize(j_del@foreach{param: type.params}, j_arg_@{param.name}=nil@end{})\n
 	@if{callSuper}
-      super(j_del)\n
+      super(j_del
+			@if{concreteSuperType.parameterized}@foreach{arg:concreteSuperType.args}
+				@if{arg.kind == CLASS_API}
+				, @{genRubyClassFqn(arg)}.j_api_type
+				@else{arg.variable}
+				, j_arg_@{arg.name}
+				@else{}
+				, nil
+				@end{}
+			@end{}@end{}
+			)\n
 	@end{}
       @j_del = j_del\n
 	@foreach{param: type.params}

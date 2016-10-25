@@ -8,7 +8,7 @@ module Vertx
     # @private
     # @param j_del [::Vertx::CompositeFuture] the java delegate
     def initialize(j_del)
-      super(j_del)
+      super(j_del, ::Vertx::CompositeFuture.j_api_type)
       @j_del = j_del
     end
     # @private

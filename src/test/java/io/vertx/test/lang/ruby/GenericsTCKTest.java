@@ -22,6 +22,21 @@ public class GenericsTCKTest extends RubyTestBase {
     runTest();
   }
 
+  @Test
+  public void testInterfaceWithStringArg() throws Exception {
+    runTest();
+  }
+
+  @Test
+  public void testInterfaceWithVariableArg() throws Exception {
+    runTest();
+  }
+
+  @Test
+  public void testInterfaceWithApiArg() throws Exception {
+    runTest();
+  }
+
   private void runTest() {
     runTest("generics_tck_test", testName.getMethodName());
   }

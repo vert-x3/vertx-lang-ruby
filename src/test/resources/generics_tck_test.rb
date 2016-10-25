@@ -49,3 +49,31 @@ def testMethodWithHandlerClassTypeParameterized
   end
   Assert.equals(count, 1)
 end
+
+def testInterfaceWithStringArg
+  ret = @obj.interface_with_string_arg('the_string_value');
+  Assert.is_not_nil ret.j_del
+  val = ret.get_value
+  Assert.equals('the_string_value', val)
+end
+
+def testInterfaceWithVariableArg
+  @refed_obj.set_string 'the_string_value'
+  ret = @obj.interface_with_variable_arg('whatever', Testmodel::RefedInterface1, @refed_obj)
+  Assert.is_not_nil ret.j_del
+  val = ret.get_value
+  Assert.equals('the_string_value', val.get_string)
+
+  ret = @obj.interface_with_variable_arg('whatever', String, 'the_string_arg')
+  Assert.is_not_nil ret.j_del
+  val = ret.get_value
+  Assert.equals('the_string_arg', val)
+end
+
+def testInterfaceWithApiArg
+  @refed_obj.set_string 'the_string_value'
+  ret = @obj.interface_with_api_arg(@refed_obj)
+  Assert.is_not_nil ret.j_del
+  val = ret.get_value
+  Assert.equals('the_string_value', val.get_string)
+end

@@ -1,4 +1,7 @@
 require 'testmodel/generic_refed_interface'
+require 'testmodel/interface_with_api_arg'
+require 'testmodel/interface_with_variable_arg'
+require 'testmodel/interface_with_string_arg'
 require 'testmodel/refed_interface1'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.GenericsTCK
@@ -400,6 +403,32 @@ module Testmodel
         return @j_del.java_method(:methodWithHandlerAsyncResultClassTypeParameterized, [Java::JavaLang::Class.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, ::Vertx::Util::Utils.v_type_of(type)) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_class_type_parameterized(type)"
+    end
+    # @param [::Testmodel::RefedInterface1] value 
+    # @return [::Testmodel::InterfaceWithApiArg]
+    def interface_with_api_arg(value=nil)
+      if value.class.method_defined?(:j_del) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithApiArg, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class]).call(value.j_del),::Testmodel::InterfaceWithApiArg)
+      end
+      raise ArgumentError, "Invalid arguments when calling interface_with_api_arg(value)"
+    end
+    # @param [String] value 
+    # @return [::Testmodel::InterfaceWithStringArg]
+    def interface_with_string_arg(value=nil)
+      if value.class == String && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithStringArg, [Java::java.lang.String.java_class]).call(value),::Testmodel::InterfaceWithStringArg)
+      end
+      raise ArgumentError, "Invalid arguments when calling interface_with_string_arg(value)"
+    end
+    # @param [Object] value1 
+    # @param [Nil] type 
+    # @param [Object] value2 
+    # @return [::Testmodel::InterfaceWithVariableArg]
+    def interface_with_variable_arg(value1=nil,type=nil,value2=nil)
+      if ::Vertx::Util::unknown_type.accept?(value1) && type.class == Class && ::Vertx::Util::Utils.v_type_of(type).accept?(value2) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithVariableArg, [Java::java.lang.Object.java_class,Java::JavaLang::Class.java_class,Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(value1),::Vertx::Util::Utils.j_class_of(type),::Vertx::Util::Utils.v_type_of(type).unwrap(value2)),::Testmodel::InterfaceWithVariableArg, nil, ::Vertx::Util::Utils.v_type_of(type))
+      end
+      raise ArgumentError, "Invalid arguments when calling interface_with_variable_arg(value1,type,value2)"
     end
   end
 end
