@@ -16,7 +16,7 @@ module RubyCodegen
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == ClassWithMixin
     end
     def @@j_api_type.wrap(obj)
       ClassWithMixin.new(obj)

@@ -18,7 +18,7 @@ module Vertx
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == MultiMap
     end
     def @@j_api_type.wrap(obj)
       MultiMap.new(obj)

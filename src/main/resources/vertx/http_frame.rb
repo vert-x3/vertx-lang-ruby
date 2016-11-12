@@ -16,7 +16,7 @@ module Vertx
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == HttpFrame
     end
     def @@j_api_type.wrap(obj)
       HttpFrame.new(obj)

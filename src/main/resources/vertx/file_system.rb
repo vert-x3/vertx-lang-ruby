@@ -30,7 +30,7 @@ module Vertx
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == FileSystem
     end
     def @@j_api_type.wrap(obj)
       FileSystem.new(obj)

@@ -37,7 +37,7 @@ module Vertx
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == HttpServerResponse
     end
     def @@j_api_type.wrap(obj)
       HttpServerResponse.new(obj)

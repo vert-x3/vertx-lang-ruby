@@ -19,7 +19,7 @@ module Testmodel
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == GenericsTCK
     end
     def @@j_api_type.wrap(obj)
       GenericsTCK.new(obj)
@@ -113,21 +113,21 @@ module Testmodel
     # @return [::Testmodel::GenericRefedInterface]
     def method_with_data_object_parameterized_return
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithDataObjectParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface, nil)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithDataObjectParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface,::Vertx::Util::data_object_type(Java::IoVertxCodegenTestmodel::TestDataObject))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_data_object_parameterized_return()"
     end
     # @return [::Testmodel::GenericRefedInterface]
     def method_with_enum_parameterized_return
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithEnumParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface, nil)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithEnumParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestEnum))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_enum_parameterized_return()"
     end
     # @return [::Testmodel::GenericRefedInterface]
     def method_with_gen_enum_parameterized_return
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithGenEnumParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface, nil)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithGenEnumParameterizedReturn, []).call(),::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestGenEnum))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_gen_enum_parameterized_return()"
     end
@@ -230,7 +230,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_data_object_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerDataObjectParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+        return @j_del.java_method(:methodWithHandlerDataObjectParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::data_object_type(Java::IoVertxCodegenTestmodel::TestDataObject))) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_data_object_parameterized()"
     end
@@ -238,7 +238,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_enum_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+        return @j_del.java_method(:methodWithHandlerEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestEnum))) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_enum_parameterized()"
     end
@@ -246,7 +246,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_gen_enum_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerGenEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+        return @j_del.java_method(:methodWithHandlerGenEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestGenEnum))) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_gen_enum_parameterized()"
     end
@@ -350,7 +350,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_data_object_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultDataObjectParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, nil) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultDataObjectParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface,::Vertx::Util::data_object_type(Java::IoVertxCodegenTestmodel::TestDataObject)) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_data_object_parameterized()"
     end
@@ -358,7 +358,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_enum_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, nil) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestEnum)) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_enum_parameterized()"
     end
@@ -366,7 +366,7 @@ module Testmodel
     # @return [void]
     def method_with_handler_async_result_gen_enum_parameterized
       if block_given?
-        return @j_del.java_method(:methodWithHandlerAsyncResultGenEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, nil) : nil) }))
+        return @j_del.java_method(:methodWithHandlerAsyncResultGenEnumParameterized, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestGenEnum)) : nil) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_gen_enum_parameterized()"
     end

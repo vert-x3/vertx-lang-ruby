@@ -24,7 +24,7 @@ module RubyCodegen
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == SuperMixin
     end
     def @@j_api_type.wrap(obj)
       SuperMixin.new(obj)

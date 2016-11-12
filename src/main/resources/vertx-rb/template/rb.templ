@@ -432,6 +432,10 @@
           for (arg : type.args) {
             if (arg.kind == CLASS_API) {
               foo.append(',').append(genRubyClassFqn(arg)).append('.j_api_type');
+            } else if (arg.kind == CLASS_DATA_OBJECT) {
+              foo.append(',::Vertx::Util::data_object_type(').append(genJavaClassFqn(arg)).append(')');
+            } else if (arg.kind == CLASS_ENUM) {
+              foo.append(',::Vertx::Util::java_enum_type(').append(genJavaClassFqn(arg)).append(')');
             } else if (arg.kind == CLASS_OBJECT) {
               var typeLiteralParam = method.resolveTypeLiteralParam(arg);
               if (typeLiteralParam != null) {
@@ -600,7 +604,7 @@ require 'vertx/util/utils.rb'\n
 	@if{type.params.empty}
     @{'@@'}j_api_type = Object.new\n
     def @{'@@'}j_api_type.accept?(obj)\n
-      true\n
+      obj.class == @{type.raw.simpleName}\n
     end\n
     def @{'@@'}j_api_type.wrap(obj)\n
       @{type.raw.simpleName}.new(obj)\n

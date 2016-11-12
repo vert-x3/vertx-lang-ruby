@@ -16,7 +16,7 @@ module Acme
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == MyInterface
     end
     def @@j_api_type.wrap(obj)
       MyInterface.new(obj)

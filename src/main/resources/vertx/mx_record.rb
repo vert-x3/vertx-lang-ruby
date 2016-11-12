@@ -15,7 +15,7 @@ module Vertx
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == MxRecord
     end
     def @@j_api_type.wrap(obj)
       MxRecord.new(obj)

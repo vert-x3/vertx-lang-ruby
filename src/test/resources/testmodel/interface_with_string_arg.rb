@@ -16,7 +16,7 @@ module Testmodel
     end
     @@j_api_type = Object.new
     def @@j_api_type.accept?(obj)
-      true
+      obj.class == InterfaceWithStringArg
     end
     def @@j_api_type.wrap(obj)
       InterfaceWithStringArg.new(obj)
