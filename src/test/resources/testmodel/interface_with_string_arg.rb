@@ -31,12 +31,13 @@ module Testmodel
       Java::IoVertxCodegenTestmodel::InterfaceWithStringArg.java_class
     end
     # @param [String] value 
-    # @return [void]
+    # @return [self]
     def set_value(value=nil)
       if value.class == String && !block_given?
-        return @j_del.java_method(:setValue, [Java::java.lang.String.java_class]).call(value)
+        @j_del.java_method(:setValue, [Java::java.lang.String.java_class]).call(value)
+        return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_value(value)"
+      raise ArgumentError, "Invalid arguments when calling set_value(#{value})"
     end
     # @return [String]
     def get_value

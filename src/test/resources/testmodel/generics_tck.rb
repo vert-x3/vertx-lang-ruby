@@ -378,13 +378,133 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_user_type_parameterized()"
     end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_byte_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamByteParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_byte_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_short_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamShortParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_short_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_integer_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamIntegerParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_integer_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_long_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamLongParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_long_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_float_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamFloatParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_float_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_double_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamDoubleParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_double_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_boolean_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamBooleanParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_boolean_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_character_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamCharacterParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_character_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_string_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamStringParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_string_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_json_object_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamJsonObjectParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_json_object_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_json_array_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamJsonArrayParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_json_array_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_data_object_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamDataObjectParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::data_object_type(Java::IoVertxCodegenTestmodel::TestDataObject))) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_data_object_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_enum_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamEnumParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestEnum))) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_enum_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_gen_enum_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamGenEnumParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Vertx::Util::java_enum_type(Java::IoVertxCodegenTestmodel::TestGenEnum))) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_gen_enum_parameterized(#{handler})"
+    end
+    # @yield 
+    # @return [void]
+    def method_with_function_param_user_type_parameterized(handler=nil)
+      if block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamUserTypeParameterized, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface,::Testmodel::RefedInterface1.j_api_type)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_user_type_parameterized(#{handler})"
+    end
     # @param [Nil] type 
     # @return [::Testmodel::GenericRefedInterface]
     def method_with_class_type_parameterized_return(type=nil)
       if type.class == Class && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithClassTypeParameterizedReturn, [Java::JavaLang::Class.java_class]).call(::Vertx::Util::Utils.j_class_of(type)),::Testmodel::GenericRefedInterface, ::Vertx::Util::Utils.v_type_of(type))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_class_type_parameterized_return(type)"
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_parameterized_return(#{type})"
     end
     # @param [Nil] type 
     # @yield 
@@ -393,7 +513,7 @@ module Testmodel
       if type.class == Class && block_given?
         return @j_del.java_method(:methodWithHandlerClassTypeParameterized, [Java::JavaLang::Class.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, ::Vertx::Util::Utils.v_type_of(type))) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_class_type_parameterized(type)"
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_class_type_parameterized(#{type})"
     end
     # @param [Nil] type 
     # @yield 
@@ -402,7 +522,69 @@ module Testmodel
       if type.class == Class && block_given?
         return @j_del.java_method(:methodWithHandlerAsyncResultClassTypeParameterized, [Java::JavaLang::Class.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, ::Vertx::Util::Utils.v_type_of(type)) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_class_type_parameterized(type)"
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_class_type_parameterized(#{type})"
+    end
+    # @param [Nil] type 
+    # @yield 
+    # @return [void]
+    def method_with_function_param_class_type_parameterized(type=nil,handler=nil)
+      if type.class == Class && block_given? && handler == nil
+        return @j_del.java_method(:methodWithFunctionParamClassTypeParameterized, [Java::JavaLang::Class.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, ::Vertx::Util::Utils.v_type_of(type))) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_function_param_class_type_parameterized(#{type},#{handler})"
+    end
+    # @param [Nil] type 
+    # @param [Object] u 
+    # @return [void]
+    def method_with_class_type_param(type=nil,u=nil)
+      if type.class == Class && ::Vertx::Util::Utils.v_type_of(type).accept?(u) && !block_given?
+        return @j_del.java_method(:methodWithClassTypeParam, [Java::JavaLang::Class.java_class,Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.j_class_of(type),::Vertx::Util::Utils.v_type_of(type).unwrap(u))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_param(#{type},#{u})"
+    end
+    # @param [Nil] type 
+    # @return [Object]
+    def method_with_class_type_return(type=nil)
+      if type.class == Class && !block_given?
+        return ::Vertx::Util::Utils.v_type_of(type).wrap(@j_del.java_method(:methodWithClassTypeReturn, [Java::JavaLang::Class.java_class]).call(::Vertx::Util::Utils.j_class_of(type)))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_return(#{type})"
+    end
+    # @param [Nil] type 
+    # @yield 
+    # @return [void]
+    def method_with_class_type_handler(type=nil)
+      if type.class == Class && block_given?
+        return @j_del.java_method(:methodWithClassTypeHandler, [Java::JavaLang::Class.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |event| yield(::Vertx::Util::Utils.v_type_of(type).wrap(event)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_handler(#{type})"
+    end
+    # @param [Nil] type 
+    # @yield 
+    # @return [void]
+    def method_with_class_type_handler_async_result(type=nil)
+      if type.class == Class && block_given?
+        return @j_del.java_method(:methodWithClassTypeHandlerAsyncResult, [Java::JavaLang::Class.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.v_type_of(type).wrap(ar.result) : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_handler_async_result(#{type})"
+    end
+    # @param [Nil] type 
+    # @yield 
+    # @return [void]
+    def method_with_class_type_function_param(type=nil,f=nil)
+      if type.class == Class && block_given? && f == nil
+        return @j_del.java_method(:methodWithClassTypeFunctionParam, [Java::JavaLang::Class.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |event| yield(::Vertx::Util::Utils.v_type_of(type).wrap(event)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_function_param(#{type},#{f})"
+    end
+    # @param [Nil] type 
+    # @yield 
+    # @return [void]
+    def method_with_class_type_function_return(type=nil,f=nil)
+      if type.class == Class && block_given? && f == nil
+        return @j_del.java_method(:methodWithClassTypeFunctionReturn, [Java::JavaLang::Class.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.j_class_of(type),(Proc.new { |event| ::Vertx::Util::Utils.v_type_of(type).unwrap(yield(event)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_class_type_function_return(#{type},#{f})"
     end
     # @param [::Testmodel::RefedInterface1] value 
     # @return [::Testmodel::InterfaceWithApiArg]
@@ -410,7 +592,7 @@ module Testmodel
       if value.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithApiArg, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class]).call(value.j_del),::Testmodel::InterfaceWithApiArg)
       end
-      raise ArgumentError, "Invalid arguments when calling interface_with_api_arg(value)"
+      raise ArgumentError, "Invalid arguments when calling interface_with_api_arg(#{value})"
     end
     # @param [String] value 
     # @return [::Testmodel::InterfaceWithStringArg]
@@ -418,7 +600,7 @@ module Testmodel
       if value.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithStringArg, [Java::java.lang.String.java_class]).call(value),::Testmodel::InterfaceWithStringArg)
       end
-      raise ArgumentError, "Invalid arguments when calling interface_with_string_arg(value)"
+      raise ArgumentError, "Invalid arguments when calling interface_with_string_arg(#{value})"
     end
     # @param [Object] value1 
     # @param [Nil] type 
@@ -428,7 +610,7 @@ module Testmodel
       if ::Vertx::Util::unknown_type.accept?(value1) && type.class == Class && ::Vertx::Util::Utils.v_type_of(type).accept?(value2) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithVariableArg, [Java::java.lang.Object.java_class,Java::JavaLang::Class.java_class,Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(value1),::Vertx::Util::Utils.j_class_of(type),::Vertx::Util::Utils.v_type_of(type).unwrap(value2)),::Testmodel::InterfaceWithVariableArg, nil, ::Vertx::Util::Utils.v_type_of(type))
       end
-      raise ArgumentError, "Invalid arguments when calling interface_with_variable_arg(value1,type,value2)"
+      raise ArgumentError, "Invalid arguments when calling interface_with_variable_arg(#{value1},#{type},#{value2})"
     end
   end
 end

@@ -36,7 +36,7 @@ module RubyCodegen
       elsif options.class == Hash && !block_given?
         return @j_del.java_method(:method, [Java::IoVertxCore::DeploymentOptions.java_class]).call(Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)))
       end
-      raise ArgumentError, "Invalid arguments when calling method(options)"
+      raise ArgumentError, "Invalid arguments when calling method(#{options})"
     end
   end
 end

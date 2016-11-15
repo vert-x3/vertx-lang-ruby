@@ -17,12 +17,13 @@ module Testmodel
       @j_del
     end
     # @param [Object] value 
-    # @return [void]
+    # @return [self]
     def set_value(value=nil)
       if @j_arg_U.accept?(value) && !block_given?
-        return @j_del.java_method(:setValue, [Java::java.lang.Object.java_class]).call(@j_arg_U.unwrap(value))
+        @j_del.java_method(:setValue, [Java::java.lang.Object.java_class]).call(@j_arg_U.unwrap(value))
+        return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_value(value)"
+      raise ArgumentError, "Invalid arguments when calling set_value(#{value})"
     end
     # @return [Object]
     def get_value
@@ -37,7 +38,7 @@ module Testmodel
       if @j_arg_T.accept?(value) && !block_given?
         return @j_del.java_method(:setOtherValue, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(value))
       end
-      raise ArgumentError, "Invalid arguments when calling set_other_value(value)"
+      raise ArgumentError, "Invalid arguments when calling set_other_value(#{value})"
     end
     # @return [Object]
     def get_other_value

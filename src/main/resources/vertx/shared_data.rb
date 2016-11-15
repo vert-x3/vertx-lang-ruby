@@ -52,7 +52,7 @@ module Vertx
       if name.class == String && block_given?
         return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap, nil, nil) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(name)"
+      raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(#{name})"
     end
     #  Get a cluster wide lock with the specified name. The lock will be passed to the handler when it is available.
     # @param [String] name the name of the lock
@@ -62,7 +62,7 @@ module Vertx
       if name.class == String && block_given?
         return @j_del.java_method(:getLock, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_lock(name)"
+      raise ArgumentError, "Invalid arguments when calling get_lock(#{name})"
     end
     #  Like {::Vertx::SharedData#get_lock} but specifying a timeout. If the lock is not obtained within the timeout
     #  a failure will be sent to the handler
@@ -74,7 +74,7 @@ module Vertx
       if name.class == String && timeout.class == Fixnum && block_given?
         return @j_del.java_method(:getLockWithTimeout, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(name,timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_lock_with_timeout(name,timeout)"
+      raise ArgumentError, "Invalid arguments when calling get_lock_with_timeout(#{name},#{timeout})"
     end
     #  Get a cluster wide counter. The counter will be passed to the handler.
     # @param [String] name the name of the counter.
@@ -84,7 +84,7 @@ module Vertx
       if name.class == String && block_given?
         return @j_del.java_method(:getCounter, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Counter) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_counter(name)"
+      raise ArgumentError, "Invalid arguments when calling get_counter(#{name})"
     end
     #  Return a <code>LocalMap</code> with the specific <code>name</code>.
     # @param [String] name the name of the map
@@ -93,7 +93,7 @@ module Vertx
       if name.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap, nil, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling get_local_map(name)"
+      raise ArgumentError, "Invalid arguments when calling get_local_map(#{name})"
     end
   end
 end

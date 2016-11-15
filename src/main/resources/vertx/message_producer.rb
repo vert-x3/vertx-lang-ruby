@@ -27,7 +27,7 @@ module Vertx
       elsif @j_arg_T.accept?(t) && !block_given?
         return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(t))
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::MessageProducer#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
@@ -46,7 +46,7 @@ module Vertx
       elsif @j_arg_T.accept?(message) && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:send, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_T.unwrap(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) })),::Vertx::MessageProducer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling send(message)"
+      raise ArgumentError, "Invalid arguments when calling send(#{message})"
     end
     # @yield 
     # @return [self]
@@ -64,7 +64,7 @@ module Vertx
         @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(data))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(data)"
+      raise ArgumentError, "Invalid arguments when calling write(#{data})"
     end
     # @param [Fixnum] maxSize 
     # @return [self]
@@ -73,7 +73,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     # @yield 
     # @return [self]
@@ -92,7 +92,7 @@ module Vertx
         @j_del.java_method(:deliveryOptions, [Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling delivery_options(options)"
+      raise ArgumentError, "Invalid arguments when calling delivery_options(#{options})"
     end
     # @return [String] The address to which the producer produces messages.
     def address

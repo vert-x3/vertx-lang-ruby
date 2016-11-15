@@ -43,7 +43,7 @@ module Vertx
       elsif t.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:end, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(t.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WebSocket#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
@@ -157,7 +157,7 @@ module Vertx
         @j_del.java_method(:write, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(data)"
+      raise ArgumentError, "Invalid arguments when calling write(#{data})"
     end
     # @param [Fixnum] maxSize 
     # @return [self]
@@ -166,7 +166,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     # @yield 
     # @return [self]
@@ -184,7 +184,7 @@ module Vertx
         @j_del.java_method(:writeFrame, [Java::IoVertxCoreHttp::WebSocketFrame.java_class]).call(frame.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_frame(frame)"
+      raise ArgumentError, "Invalid arguments when calling write_frame(#{frame})"
     end
     # @param [String] text 
     # @return [self]
@@ -193,7 +193,7 @@ module Vertx
         @j_del.java_method(:writeFinalTextFrame, [Java::java.lang.String.java_class]).call(text)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_final_text_frame(text)"
+      raise ArgumentError, "Invalid arguments when calling write_final_text_frame(#{text})"
     end
     # @param [::Vertx::Buffer] data 
     # @return [self]
@@ -202,7 +202,7 @@ module Vertx
         @j_del.java_method(:writeFinalBinaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_final_binary_frame(data)"
+      raise ArgumentError, "Invalid arguments when calling write_final_binary_frame(#{data})"
     end
     # @param [::Vertx::Buffer] data 
     # @return [self]
@@ -211,7 +211,7 @@ module Vertx
         @j_del.java_method(:writeBinaryMessage, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(data.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_binary_message(data)"
+      raise ArgumentError, "Invalid arguments when calling write_binary_message(#{data})"
     end
     # @yield 
     # @return [self]

@@ -66,7 +66,7 @@ module Vertx
       elsif blockingCodeHandler.class == Proc && (ordered.class == TrueClass || ordered.class == FalseClass) && block_given?
         return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future, nil)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
+      raise ArgumentError, "Invalid arguments when calling execute_blocking(#{blockingCodeHandler},#{ordered})"
     end
     #  Close the executor.
     # @return [void]

@@ -39,7 +39,7 @@ module RubyCodegen
       elsif s.class == String && block_given?
         return @j_del.java_method(:doSomething, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(s,(Proc.new { |event| yield(event) }))
       end
-      raise ArgumentError, "Invalid arguments when calling do_something(s)"
+      raise ArgumentError, "Invalid arguments when calling do_something(#{s})"
     end
   end
 end

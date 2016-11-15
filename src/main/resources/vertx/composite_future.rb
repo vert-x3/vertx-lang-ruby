@@ -41,7 +41,7 @@ module Vertx
       elsif index.class == Fixnum && !block_given?
         return @j_del.java_method(:isComplete, [Java::int.java_class]).call(index)
       end
-      raise ArgumentError, "Invalid arguments when calling complete?(index)"
+      raise ArgumentError, "Invalid arguments when calling complete?(#{index})"
     end
     #  Set the result. Any handler will be called, if there is one, and the future will be marked as completed.
     # @param [::Vertx::CompositeFuture] result the result
@@ -52,7 +52,7 @@ module Vertx
       elsif result.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:complete, [Java::IoVertxCore::CompositeFuture.java_class]).call(result.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling complete(result)"
+      raise ArgumentError, "Invalid arguments when calling complete(#{result})"
     end
     #  Set the failure. Any handler will be called, if there is one, and the future will be marked as completed.
     # @overload fail(throwable)
@@ -66,7 +66,7 @@ module Vertx
       elsif param_1.class == String && !block_given?
         return @j_del.java_method(:fail, [Java::java.lang.String.java_class]).call(param_1)
       end
-      raise ArgumentError, "Invalid arguments when calling fail(param_1)"
+      raise ArgumentError, "Invalid arguments when calling fail(#{param_1})"
     end
     #  The result of the operation. This will be null if the operation failed.
     # @return [::Vertx::CompositeFuture] the result or null if the operation failed.
@@ -85,7 +85,7 @@ module Vertx
       elsif index.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.from_throwable(@j_del.java_method(:cause, [Java::int.java_class]).call(index))
       end
-      raise ArgumentError, "Invalid arguments when calling cause(index)"
+      raise ArgumentError, "Invalid arguments when calling cause(#{index})"
     end
     #  Returns true if a wrapped future is succeeded
     # @param [Fixnum] index the wrapped future index
@@ -96,7 +96,7 @@ module Vertx
       elsif index.class == Fixnum && !block_given?
         return @j_del.java_method(:succeeded, [Java::int.java_class]).call(index)
       end
-      raise ArgumentError, "Invalid arguments when calling succeeded?(index)"
+      raise ArgumentError, "Invalid arguments when calling succeeded?(#{index})"
     end
     #  Returns true if a wrapped future is failed
     # @param [Fixnum] index the wrapped future index
@@ -107,7 +107,7 @@ module Vertx
       elsif index.class == Fixnum && !block_given?
         return @j_del.java_method(:failed, [Java::int.java_class]).call(index)
       end
-      raise ArgumentError, "Invalid arguments when calling failed?(index)"
+      raise ArgumentError, "Invalid arguments when calling failed?(#{index})"
     end
     #  Compose this future with a provided <code>next</code> future.<p>
     # 
@@ -130,7 +130,7 @@ module Vertx
       elsif param_1.class == Proc && param_2.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(::Vertx::Util::Utils.safe_create(event,::Vertx::CompositeFuture)) }),param_2.j_del),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling compose(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling compose(#{param_1},#{param_2})"
     end
     #  Map the result of a future to a specific <code>value</code>.<p>
     # 
@@ -148,7 +148,7 @@ module Vertx
       elsif ::Vertx::Util::unknown_type.accept?(param_1) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling map(param_1)"
+      raise ArgumentError, "Invalid arguments when calling map(#{param_1})"
     end
     # @return [Proc] an handler completing this future
     def completer
@@ -203,7 +203,7 @@ module Vertx
       elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && param_5.class.method_defined?(:j_del) && param_6.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:all, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del,param_5.j_del,param_6.j_del),::Vertx::CompositeFuture)
       end
-      raise ArgumentError, "Invalid arguments when calling all(param_1,param_2,param_3,param_4,param_5,param_6)"
+      raise ArgumentError, "Invalid arguments when calling all(#{param_1},#{param_2},#{param_3},#{param_4},#{param_5},#{param_6})"
     end
     #  Like {::Vertx::CompositeFuture#any} but with 6 futures.
     # @overload any(futures)
@@ -248,7 +248,7 @@ module Vertx
       elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && param_5.class.method_defined?(:j_del) && param_6.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:any, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del,param_5.j_del,param_6.j_del),::Vertx::CompositeFuture)
       end
-      raise ArgumentError, "Invalid arguments when calling any(param_1,param_2,param_3,param_4,param_5,param_6)"
+      raise ArgumentError, "Invalid arguments when calling any(#{param_1},#{param_2},#{param_3},#{param_4},#{param_5},#{param_6})"
     end
     #  Like {::Vertx::CompositeFuture#join} but with 6 futures.
     # @overload join(futures)
@@ -293,7 +293,7 @@ module Vertx
       elsif param_1.class.method_defined?(:j_del) && param_2.class.method_defined?(:j_del) && param_3.class.method_defined?(:j_del) && param_4.class.method_defined?(:j_del) && param_5.class.method_defined?(:j_del) && param_6.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::CompositeFuture.java_method(:join, [Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class,Java::IoVertxCore::Future.java_class]).call(param_1.j_del,param_2.j_del,param_3.j_del,param_4.j_del,param_5.j_del,param_6.j_del),::Vertx::CompositeFuture)
       end
-      raise ArgumentError, "Invalid arguments when calling join(param_1,param_2,param_3,param_4,param_5,param_6)"
+      raise ArgumentError, "Invalid arguments when calling join(#{param_1},#{param_2},#{param_3},#{param_4},#{param_5},#{param_6})"
     end
     # @yield 
     # @return [self]
@@ -311,7 +311,7 @@ module Vertx
       if index.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:resultAt, [Java::int.java_class]).call(index))
       end
-      raise ArgumentError, "Invalid arguments when calling result_at(index)"
+      raise ArgumentError, "Invalid arguments when calling result_at(#{index})"
     end
     # @return [Fixnum] the number of wrapped future
     def size

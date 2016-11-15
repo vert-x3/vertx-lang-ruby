@@ -34,7 +34,7 @@ module Acme
       if s.class == String && !block_given?
         return @j_del.java_method(:reverse, [Java::java.lang.String.java_class]).call(s)
       end
-      raise ArgumentError, "Invalid arguments when calling reverse(s)"
+      raise ArgumentError, "Invalid arguments when calling reverse(#{s})"
     end
   end
 end

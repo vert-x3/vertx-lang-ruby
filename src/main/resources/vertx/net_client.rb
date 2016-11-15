@@ -58,7 +58,7 @@ module Vertx
         @j_del.java_method(:connect, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::NetSocket) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling connect(port,host)"
+      raise ArgumentError, "Invalid arguments when calling connect(#{port},#{host})"
     end
     #  Close the client.
     #  <p>

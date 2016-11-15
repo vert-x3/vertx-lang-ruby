@@ -43,7 +43,7 @@ module RubyCodegen
       elsif foo.class == String && bar.class == String && juu.class == String && daa.class == String && !block_given?
         return @j_del.java_method(:method, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(foo,bar,juu,daa)
       end
-      raise ArgumentError, "Invalid arguments when calling method(foo,bar,juu,daa)"
+      raise ArgumentError, "Invalid arguments when calling method(#{foo},#{bar},#{juu},#{daa})"
     end
   end
 end

@@ -74,7 +74,7 @@ module Vertx
       if value.class == Fixnum && block_given?
         return @j_del.java_method(:addAndGet, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling add_and_get(value)"
+      raise ArgumentError, "Invalid arguments when calling add_and_get(#{value})"
     end
     #  Add the value to the counter atomically and return the value before the add
     # @param [Fixnum] value the value to add
@@ -84,7 +84,7 @@ module Vertx
       if value.class == Fixnum && block_given?
         return @j_del.java_method(:getAndAdd, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_and_add(value)"
+      raise ArgumentError, "Invalid arguments when calling get_and_add(#{value})"
     end
     #  Set the counter to the specified value only if the current value is the expectec value. This happens
     #  atomically.
@@ -96,7 +96,7 @@ module Vertx
       if expected.class == Fixnum && value.class == Fixnum && block_given?
         return @j_del.java_method(:compareAndSet, [Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(expected,value,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling compare_and_set(expected,value)"
+      raise ArgumentError, "Invalid arguments when calling compare_and_set(#{expected},#{value})"
     end
   end
 end

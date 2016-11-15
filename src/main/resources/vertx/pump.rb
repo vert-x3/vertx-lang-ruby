@@ -60,7 +60,7 @@ module Vertx
       elsif rs.class.method_defined?(:j_del) && ws.class.method_defined?(:j_del) && writeQueueMaxSize.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreStreams::Pump.java_method(:pump, [Java::IoVertxCoreStreams::ReadStream.java_class,Java::IoVertxCoreStreams::WriteStream.java_class,Java::int.java_class]).call(rs.j_del,ws.j_del,writeQueueMaxSize),::Vertx::Pump)
       end
-      raise ArgumentError, "Invalid arguments when calling pump(rs,ws,writeQueueMaxSize)"
+      raise ArgumentError, "Invalid arguments when calling pump(#{rs},#{ws},#{writeQueueMaxSize})"
     end
     #  Set the write queue max size to <code>maxSize</code>
     # @param [Fixnum] maxSize the max size
@@ -70,7 +70,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     #  Start the Pump. The Pump can be started and stopped multiple times.
     # @return [self]

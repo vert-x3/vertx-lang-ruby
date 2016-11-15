@@ -83,7 +83,7 @@ module Vertx
         @j_del.java_method(:streamToFileSystem, [Java::java.lang.String.java_class]).call(filename)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling stream_to_file_system(filename)"
+      raise ArgumentError, "Invalid arguments when calling stream_to_file_system(#{filename})"
     end
     # @return [String] the filename which was used when upload the file.
     def filename

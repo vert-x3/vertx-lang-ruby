@@ -98,7 +98,7 @@ module Vertx
       if maxBufferedMessages.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages),::Vertx::MessageConsumer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(maxBufferedMessages)"
+      raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(#{maxBufferedMessages})"
     end
     # @return [Fixnum] the maximum number of messages that can be buffered when this stream is paused
     def get_max_buffered_messages

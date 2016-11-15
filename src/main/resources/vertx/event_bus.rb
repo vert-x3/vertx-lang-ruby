@@ -71,7 +71,7 @@ module Vertx
         @j_del.java_method(:send, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling send(address,message,options)"
+      raise ArgumentError, "Invalid arguments when calling send(#{address},#{message},#{options})"
     end
     #  Like {::Vertx::EventBus#publish} but specifying <code>options</code> that can be used to configure the delivery.
     # @param [String] address the address to publish it to
@@ -86,7 +86,7 @@ module Vertx
         @j_del.java_method(:publish, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling publish(address,message,options)"
+      raise ArgumentError, "Invalid arguments when calling publish(#{address},#{message},#{options})"
     end
     #  Create a consumer and register it against the specified address.
     # @param [String] address the address that will register it at
@@ -98,7 +98,7 @@ module Vertx
       elsif address.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:consumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message, nil)) })),::Vertx::MessageConsumer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling consumer(address)"
+      raise ArgumentError, "Invalid arguments when calling consumer(#{address})"
     end
     #  Like {::Vertx::EventBus#consumer} but the address won't be propagated across the cluster.
     # @param [String] address the address that will register it at
@@ -110,7 +110,7 @@ module Vertx
       elsif address.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localConsumer, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(address,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message, nil)) })),::Vertx::MessageConsumer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling local_consumer(address)"
+      raise ArgumentError, "Invalid arguments when calling local_consumer(#{address})"
     end
     #  Like {::Vertx::EventBus#sender} but specifying delivery options that will be used for configuring the delivery of
     #  the message.
@@ -123,7 +123,7 @@ module Vertx
       elsif address.class == String && options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:sender, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::MessageProducer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling sender(address,options)"
+      raise ArgumentError, "Invalid arguments when calling sender(#{address},#{options})"
     end
     #  Like {::Vertx::EventBus#publisher} but specifying delivery options that will be used for configuring the delivery of
     #  the message.
@@ -136,7 +136,7 @@ module Vertx
       elsif address.class == String && options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:publisher, [Java::java.lang.String.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(address,Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::MessageProducer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling publisher(address,options)"
+      raise ArgumentError, "Invalid arguments when calling publisher(#{address},#{options})"
     end
     #  Add an interceptor that will be called whenever a message is sent from Vert.x
     # @yield the interceptor

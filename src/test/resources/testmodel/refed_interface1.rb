@@ -42,7 +42,7 @@ module Testmodel
         @j_del.java_method(:setString, [Java::java.lang.String.java_class]).call(str)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_string(str)"
+      raise ArgumentError, "Invalid arguments when calling set_string(#{str})"
     end
   end
 end

@@ -56,7 +56,7 @@ module Vertx
         @j_del.java_method(:copy, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(from,to,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling copy(from,to)"
+      raise ArgumentError, "Invalid arguments when calling copy(#{from},#{to})"
     end
     #  Blocking version of {::Vertx::FileSystem#copy}
     # @param [String] from 
@@ -67,7 +67,7 @@ module Vertx
         @j_del.java_method(:copyBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(from,to)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling copy_blocking(from,to)"
+      raise ArgumentError, "Invalid arguments when calling copy_blocking(#{from},#{to})"
     end
     #  Copy a file from the path <code>from</code> to path <code>to</code>, asynchronously.
     #  <p>
@@ -85,7 +85,7 @@ module Vertx
         @j_del.java_method(:copyRecursive, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(from,to,recursive,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling copy_recursive(from,to,recursive)"
+      raise ArgumentError, "Invalid arguments when calling copy_recursive(#{from},#{to},#{recursive})"
     end
     #  Blocking version of {::Vertx::FileSystem#copy_recursive}
     # @param [String] from 
@@ -97,7 +97,7 @@ module Vertx
         @j_del.java_method(:copyRecursiveBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::boolean.java_class]).call(from,to,recursive)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling copy_recursive_blocking(from,to,recursive)"
+      raise ArgumentError, "Invalid arguments when calling copy_recursive_blocking(#{from},#{to},#{recursive})"
     end
     #  Move a file from the path <code>from</code> to path <code>to</code>, asynchronously.
     #  <p>
@@ -111,7 +111,7 @@ module Vertx
         @j_del.java_method(:move, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(from,to,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling move(from,to)"
+      raise ArgumentError, "Invalid arguments when calling move(#{from},#{to})"
     end
     #  Blocking version of {::Vertx::FileSystem#move}
     # @param [String] from 
@@ -122,7 +122,7 @@ module Vertx
         @j_del.java_method(:moveBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(from,to)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling move_blocking(from,to)"
+      raise ArgumentError, "Invalid arguments when calling move_blocking(#{from},#{to})"
     end
     #  Truncate the file represented by <code>path</code> to length <code>len</code> in bytes, asynchronously.
     #  <p>
@@ -136,7 +136,7 @@ module Vertx
         @j_del.java_method(:truncate, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(path,len,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling truncate(path,len)"
+      raise ArgumentError, "Invalid arguments when calling truncate(#{path},#{len})"
     end
     #  Blocking version of {::Vertx::FileSystem#truncate}
     # @param [String] path 
@@ -147,7 +147,7 @@ module Vertx
         @j_del.java_method(:truncateBlocking, [Java::java.lang.String.java_class,Java::long.java_class]).call(path,len)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling truncate_blocking(path,len)"
+      raise ArgumentError, "Invalid arguments when calling truncate_blocking(#{path},#{len})"
     end
     #  Change the permissions on the file represented by <code>path</code> to <code>perms</code>, asynchronously.
     #  <p>
@@ -162,7 +162,7 @@ module Vertx
         @j_del.java_method(:chmod, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,perms,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chmod(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling chmod(#{path},#{perms})"
     end
     #  Blocking version of {::Vertx::FileSystem#chmod(String, String, Handler)}
     # @param [String] path 
@@ -173,7 +173,7 @@ module Vertx
         @j_del.java_method(:chmodBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,perms)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chmod_blocking(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling chmod_blocking(#{path},#{perms})"
     end
     #  Change the permissions on the file represented by <code>path</code> to <code>perms</code>, asynchronously.<p>
     #  The permission String takes the form rwxr-x--- as
@@ -191,7 +191,7 @@ module Vertx
         @j_del.java_method(:chmodRecursive, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,perms,dirPerms,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chmod_recursive(path,perms,dirPerms)"
+      raise ArgumentError, "Invalid arguments when calling chmod_recursive(#{path},#{perms},#{dirPerms})"
     end
     #  Blocking version of {::Vertx::FileSystem#chmod_recursive}
     # @param [String] path 
@@ -203,7 +203,7 @@ module Vertx
         @j_del.java_method(:chmodRecursiveBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,perms,dirPerms)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chmod_recursive_blocking(path,perms,dirPerms)"
+      raise ArgumentError, "Invalid arguments when calling chmod_recursive_blocking(#{path},#{perms},#{dirPerms})"
     end
     #  Change the ownership on the file represented by <code>path</code> to <code>user</code> and {code group}, asynchronously.
     # @param [String] path the path to the file
@@ -216,7 +216,7 @@ module Vertx
         @j_del.java_method(:chown, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,user,group,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chown(path,user,group)"
+      raise ArgumentError, "Invalid arguments when calling chown(#{path},#{user},#{group})"
     end
     #  Blocking version of 
     # 
@@ -229,7 +229,7 @@ module Vertx
         @j_del.java_method(:chownBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,user,group)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling chown_blocking(path,user,group)"
+      raise ArgumentError, "Invalid arguments when calling chown_blocking(#{path},#{user},#{group})"
     end
     #  Obtain properties for the file represented by <code>path</code>, asynchronously.
     #  <p>
@@ -242,7 +242,7 @@ module Vertx
         @j_del.java_method(:props, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileProps) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling props(path)"
+      raise ArgumentError, "Invalid arguments when calling props(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#props}
     # @param [String] path 
@@ -251,7 +251,7 @@ module Vertx
       if path.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:propsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileProps)
       end
-      raise ArgumentError, "Invalid arguments when calling props_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling props_blocking(#{path})"
     end
     #  Obtain properties for the link represented by <code>path</code>, asynchronously.
     #  <p>
@@ -264,7 +264,7 @@ module Vertx
         @j_del.java_method(:lprops, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileProps) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling lprops(path)"
+      raise ArgumentError, "Invalid arguments when calling lprops(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#lprops}
     # @param [String] path 
@@ -273,7 +273,7 @@ module Vertx
       if path.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:lpropsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileProps)
       end
-      raise ArgumentError, "Invalid arguments when calling lprops_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling lprops_blocking(#{path})"
     end
     #  Create a hard link on the file system from <code>link</code> to <code>existing</code>, asynchronously.
     # @param [String] link the link
@@ -285,7 +285,7 @@ module Vertx
         @j_del.java_method(:link, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(link,existing,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling link(link,existing)"
+      raise ArgumentError, "Invalid arguments when calling link(#{link},#{existing})"
     end
     #  Blocking version of {::Vertx::FileSystem#link}
     # @param [String] link 
@@ -296,7 +296,7 @@ module Vertx
         @j_del.java_method(:linkBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(link,existing)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling link_blocking(link,existing)"
+      raise ArgumentError, "Invalid arguments when calling link_blocking(#{link},#{existing})"
     end
     #  Create a symbolic link on the file system from <code>link</code> to <code>existing</code>, asynchronously.
     # @param [String] link the link
@@ -308,7 +308,7 @@ module Vertx
         @j_del.java_method(:symlink, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(link,existing,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling symlink(link,existing)"
+      raise ArgumentError, "Invalid arguments when calling symlink(#{link},#{existing})"
     end
     #  Blocking version of {::Vertx::FileSystem#link}
     # @param [String] link 
@@ -319,7 +319,7 @@ module Vertx
         @j_del.java_method(:symlinkBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(link,existing)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling symlink_blocking(link,existing)"
+      raise ArgumentError, "Invalid arguments when calling symlink_blocking(#{link},#{existing})"
     end
     #  Unlinks the link on the file system represented by the path <code>link</code>, asynchronously.
     # @param [String] link the link
@@ -330,7 +330,7 @@ module Vertx
         @j_del.java_method(:unlink, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(link,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling unlink(link)"
+      raise ArgumentError, "Invalid arguments when calling unlink(#{link})"
     end
     #  Blocking version of {::Vertx::FileSystem#unlink}
     # @param [String] link 
@@ -340,7 +340,7 @@ module Vertx
         @j_del.java_method(:unlinkBlocking, [Java::java.lang.String.java_class]).call(link)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling unlink_blocking(link)"
+      raise ArgumentError, "Invalid arguments when calling unlink_blocking(#{link})"
     end
     #  Returns the path representing the file that the symbolic link specified by <code>link</code> points to, asynchronously.
     # @param [String] link the link
@@ -351,7 +351,7 @@ module Vertx
         @j_del.java_method(:readSymlink, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(link,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling read_symlink(link)"
+      raise ArgumentError, "Invalid arguments when calling read_symlink(#{link})"
     end
     #  Blocking version of {::Vertx::FileSystem#read_symlink}
     # @param [String] link 
@@ -360,7 +360,7 @@ module Vertx
       if link.class == String && !block_given?
         return @j_del.java_method(:readSymlinkBlocking, [Java::java.lang.String.java_class]).call(link)
       end
-      raise ArgumentError, "Invalid arguments when calling read_symlink_blocking(link)"
+      raise ArgumentError, "Invalid arguments when calling read_symlink_blocking(#{link})"
     end
     #  Deletes the file represented by the specified <code>path</code>, asynchronously.
     # @param [String] path path to the file
@@ -371,7 +371,7 @@ module Vertx
         @j_del.java_method(:delete, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling delete(path)"
+      raise ArgumentError, "Invalid arguments when calling delete(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#delete}
     # @param [String] path 
@@ -381,7 +381,7 @@ module Vertx
         @j_del.java_method(:deleteBlocking, [Java::java.lang.String.java_class]).call(path)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling delete_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling delete_blocking(#{path})"
     end
     #  Deletes the file represented by the specified <code>path</code>, asynchronously.
     #  <p>
@@ -396,7 +396,7 @@ module Vertx
         @j_del.java_method(:deleteRecursive, [Java::java.lang.String.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(path,recursive,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling delete_recursive(path,recursive)"
+      raise ArgumentError, "Invalid arguments when calling delete_recursive(#{path},#{recursive})"
     end
     #  Blocking version of {::Vertx::FileSystem#delete_recursive}
     # @param [String] path 
@@ -407,7 +407,7 @@ module Vertx
         @j_del.java_method(:deleteRecursiveBlocking, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(path,recursive)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling delete_recursive_blocking(path,recursive)"
+      raise ArgumentError, "Invalid arguments when calling delete_recursive_blocking(#{path},#{recursive})"
     end
     #  Create the directory represented by <code>path</code>, asynchronously.
     #  <p>
@@ -429,7 +429,7 @@ module Vertx
         @j_del.java_method(:mkdir, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,perms,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling mkdir(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling mkdir(#{path},#{perms})"
     end
     #  Blocking version of {::Vertx::FileSystem#mkdir}
     # @param [String] path 
@@ -443,7 +443,7 @@ module Vertx
         @j_del.java_method(:mkdirBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,perms)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling mkdir_blocking(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling mkdir_blocking(#{path},#{perms})"
     end
     #  Create the directory represented by <code>path</code> and any non existent parents, asynchronously.
     #  <p>
@@ -465,7 +465,7 @@ module Vertx
         @j_del.java_method(:mkdirs, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,perms,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling mkdirs(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling mkdirs(#{path},#{perms})"
     end
     #  Blocking version of {::Vertx::FileSystem#mkdirs}
     # @param [String] path 
@@ -479,7 +479,7 @@ module Vertx
         @j_del.java_method(:mkdirsBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,perms)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling mkdirs_blocking(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling mkdirs_blocking(#{path},#{perms})"
     end
     #  Read the contents of the directory specified by <code>path</code>, asynchronously.
     #  <p>
@@ -499,7 +499,7 @@ module Vertx
         @j_del.java_method(:readDir, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,filter,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling read_dir(path,filter)"
+      raise ArgumentError, "Invalid arguments when calling read_dir(#{path},#{filter})"
     end
     #  Blocking version of {::Vertx::FileSystem#read_dir}
     # @param [String] path 
@@ -511,7 +511,7 @@ module Vertx
       elsif path.class == String && filter.class == String && !block_given?
         return @j_del.java_method(:readDirBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,filter).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling read_dir_blocking(path,filter)"
+      raise ArgumentError, "Invalid arguments when calling read_dir_blocking(#{path},#{filter})"
     end
     #  Reads the entire file as represented by the path <code>path</code> as a , asynchronously.
     #  <p>
@@ -524,7 +524,7 @@ module Vertx
         @j_del.java_method(:readFile, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Buffer) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling read_file(path)"
+      raise ArgumentError, "Invalid arguments when calling read_file(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#read_file}
     # @param [String] path 
@@ -533,7 +533,7 @@ module Vertx
       if path.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:readFileBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::Buffer)
       end
-      raise ArgumentError, "Invalid arguments when calling read_file_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling read_file_blocking(#{path})"
     end
     #  Creates the file, and writes the specified <code>Buffer data</code> to the file represented by the path <code>path</code>,
     #  asynchronously.
@@ -546,7 +546,7 @@ module Vertx
         @j_del.java_method(:writeFile, [Java::java.lang.String.java_class,Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class]).call(path,data.j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_file(path,data)"
+      raise ArgumentError, "Invalid arguments when calling write_file(#{path},#{data})"
     end
     #  Blocking version of {::Vertx::FileSystem#write_file}
     # @param [String] path 
@@ -557,7 +557,7 @@ module Vertx
         @j_del.java_method(:writeFileBlocking, [Java::java.lang.String.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(path,data.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_file_blocking(path,data)"
+      raise ArgumentError, "Invalid arguments when calling write_file_blocking(#{path},#{data})"
     end
     #  Open the file represented by <code>path</code>, asynchronously.
     #  <p>
@@ -571,7 +571,7 @@ module Vertx
         @j_del.java_method(:open, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncFile) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling open(path,options)"
+      raise ArgumentError, "Invalid arguments when calling open(#{path},#{options})"
     end
     #  Blocking version of {::Vertx::FileSystem#open}
     # @param [String] path 
@@ -581,7 +581,7 @@ module Vertx
       if path.class == String && options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:openBlocking, [Java::java.lang.String.java_class,Java::IoVertxCoreFile::OpenOptions.java_class]).call(path,Java::IoVertxCoreFile::OpenOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::AsyncFile)
       end
-      raise ArgumentError, "Invalid arguments when calling open_blocking(path,options)"
+      raise ArgumentError, "Invalid arguments when calling open_blocking(#{path},#{options})"
     end
     #  Creates an empty file with the specified <code>path</code> and permissions <code>perms</code>, asynchronously.
     # @param [String] path path to the file
@@ -596,7 +596,7 @@ module Vertx
         @j_del.java_method(:createFile, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,perms,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling create_file(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling create_file(#{path},#{perms})"
     end
     #  Blocking version of {::Vertx::FileSystem#create_file}
     # @param [String] path 
@@ -610,7 +610,7 @@ module Vertx
         @j_del.java_method(:createFileBlocking, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(path,perms)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling create_file_blocking(path,perms)"
+      raise ArgumentError, "Invalid arguments when calling create_file_blocking(#{path},#{perms})"
     end
     #  Determines whether the file as specified by the path <code>path</code> exists, asynchronously.
     # @param [String] path path to the file
@@ -621,7 +621,7 @@ module Vertx
         @j_del.java_method(:exists, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling exists(path)"
+      raise ArgumentError, "Invalid arguments when calling exists(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#exists}
     # @param [String] path 
@@ -630,7 +630,7 @@ module Vertx
       if path.class == String && !block_given?
         return @j_del.java_method(:existsBlocking, [Java::java.lang.String.java_class]).call(path)
       end
-      raise ArgumentError, "Invalid arguments when calling exists_blocking?(path)"
+      raise ArgumentError, "Invalid arguments when calling exists_blocking?(#{path})"
     end
     #  Returns properties of the file-system being used by the specified <code>path</code>, asynchronously.
     # @param [String] path path to anywhere on the filesystem
@@ -641,7 +641,7 @@ module Vertx
         @j_del.java_method(:fsProps, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(path,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::FileSystemProps) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling fs_props(path)"
+      raise ArgumentError, "Invalid arguments when calling fs_props(#{path})"
     end
     #  Blocking version of {::Vertx::FileSystem#fs_props}
     # @param [String] path 
@@ -650,7 +650,7 @@ module Vertx
       if path.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:fsPropsBlocking, [Java::java.lang.String.java_class]).call(path),::Vertx::FileSystemProps)
       end
-      raise ArgumentError, "Invalid arguments when calling fs_props_blocking(path)"
+      raise ArgumentError, "Invalid arguments when calling fs_props_blocking(#{path})"
     end
   end
 end

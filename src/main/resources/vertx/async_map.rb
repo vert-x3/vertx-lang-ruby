@@ -24,7 +24,7 @@ module Vertx
       if @j_arg_K.accept?(k) && block_given?
         return @j_del.java_method(:get, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get(k)"
+      raise ArgumentError, "Invalid arguments when calling get(#{k})"
     end
     #  Like {::Vertx::AsyncMap#put} but specifying a time to live for the entry. Entry will expire and get evicted after the
     #  ttl.
@@ -39,7 +39,7 @@ module Vertx
       elsif @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && ttl.class == Fixnum && block_given?
         return @j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling put(k,v,ttl)"
+      raise ArgumentError, "Invalid arguments when calling put(#{k},#{v},#{ttl})"
     end
     #  Link {::Vertx::AsyncMap#put_if_absent} but specifying a time to live for the entry. Entry will expire and get evicted
     #  after the ttl.
@@ -54,7 +54,7 @@ module Vertx
       elsif @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && ttl.class == Fixnum && block_given?
         return @j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),ttl,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling put_if_absent(k,v,ttl)"
+      raise ArgumentError, "Invalid arguments when calling put_if_absent(#{k},#{v},#{ttl})"
     end
     #  Remove a value from the map, asynchronously.
     # @param [Object] k the key
@@ -64,7 +64,7 @@ module Vertx
       if @j_arg_K.accept?(k) && block_given?
         return @j_del.java_method(:remove, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling remove(k)"
+      raise ArgumentError, "Invalid arguments when calling remove(#{k})"
     end
     #  Remove a value from the map, only if entry already exists with same value.
     # @param [Object] k the key
@@ -75,7 +75,7 @@ module Vertx
       if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given?
         return @j_del.java_method(:removeIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling remove_if_present(k,v)"
+      raise ArgumentError, "Invalid arguments when calling remove_if_present(#{k},#{v})"
     end
     #  Replace the entry only if it is currently mapped to some value
     # @param [Object] k the key
@@ -86,7 +86,7 @@ module Vertx
       if @j_arg_K.accept?(k) && @j_arg_V.accept?(v) && block_given?
         return @j_del.java_method(:replace, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(v),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? @j_arg_V.wrap(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling replace(k,v)"
+      raise ArgumentError, "Invalid arguments when calling replace(#{k},#{v})"
     end
     #  Replace the entry only if it is currently mapped to a specific value
     # @param [Object] k the key
@@ -98,7 +98,7 @@ module Vertx
       if @j_arg_K.accept?(k) && @j_arg_V.accept?(oldValue) && @j_arg_V.accept?(newValue) && block_given?
         return @j_del.java_method(:replaceIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(@j_arg_K.unwrap(k),@j_arg_V.unwrap(oldValue),@j_arg_V.unwrap(newValue),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling replace_if_present(k,oldValue,newValue)"
+      raise ArgumentError, "Invalid arguments when calling replace_if_present(#{k},#{oldValue},#{newValue})"
     end
     #  Clear all entries in the map
     # @yield called on completion

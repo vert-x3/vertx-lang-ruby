@@ -132,7 +132,7 @@ module Vertx
         @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServer) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling listen(port,host)"
+      raise ArgumentError, "Invalid arguments when calling listen(#{port},#{host})"
     end
     #  Like {::Vertx::HttpServer#close} but supplying a handler that will be called when the server is actually closed (or has failed).
     # @yield the handler

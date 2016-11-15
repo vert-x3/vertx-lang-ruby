@@ -72,6 +72,25 @@ def testMethodWithHandlerAsyncResultBasicParameterized
   checkMethodWithBasicParameterized(values)
 end
 
+def testMethodWithFunctionParamBasicParameterized
+  values = []
+  ['method_with_function_param_byte_parameterized',
+   'method_with_function_param_short_parameterized',
+   'method_with_function_param_integer_parameterized',
+   'method_with_function_param_long_parameterized',
+   'method_with_function_param_float_parameterized',
+   'method_with_function_param_double_parameterized',
+   'method_with_function_param_boolean_parameterized',
+   'method_with_function_param_character_parameterized',
+   'method_with_function_param_string_parameterized',
+  ].each { |meth|
+    @obj.method(meth).call do |val|
+      values.push val
+    end
+  }
+  checkMethodWithBasicParameterized(values)
+end
+
 def checkMethodWithBasicParameterized(values)
   checkMethodWithParameterized([
     [123,124],
@@ -116,6 +135,16 @@ def testMethodWithHandlerAsyncResultJsonParameterized
   checkMethodWithJsonParameterized(values)
 end
 
+def testMethodWithFunctionParamJsonParameterized
+  values = []
+  ['method_with_function_param_json_object_parameterized',
+   'method_with_function_param_json_array_parameterized'
+  ].each { |meth|
+    @obj.method(meth).call do |val| values.push val end
+  }
+  checkMethodWithJsonParameterized(values)
+end
+
 def checkMethodWithJsonParameterized(values)
   checkMethodWithParameterized([
     [{'cheese'=>'stilton'},{'cheese'=>'roquefort'}],
@@ -142,6 +171,14 @@ def testMethodWithHandlerAsyncResultDataObjectParameterized
       Assert.is_nil err
       values.push val
     end
+  }
+  checkMethodWithDataObjectParameterized(values)
+end
+
+def testMethodWithFunctionParamDataObjectParameterized
+  values = []
+  ['method_with_function_param_data_object_parameterized'].each { |meth|
+    @obj.method(meth).call do |val| values.push val end
   }
   checkMethodWithDataObjectParameterized(values)
 end
@@ -177,6 +214,15 @@ def testMethodWithHandlerAsyncResultEnumParameterized
   checkMethodWithEnumParameterized(values)
 end
 
+def testMethodWithFunctionParamEnumParameterized
+  values = []
+  ['method_with_function_param_enum_parameterized',
+   'method_with_function_param_gen_enum_parameterized'].each { |meth|
+    @obj.method(meth).call do |val| values.push val end
+  }
+  checkMethodWithEnumParameterized(values)
+end
+
 def checkMethodWithEnumParameterized(values)
   checkMethodWithParameterized([['WESTON','JULIEN'],['LELAND','LAURA']], values)
 end
@@ -198,6 +244,15 @@ def testMethodWithHandlerAsyncResultUserTypeParameterized
   count = 0
   @obj.method_with_handler_async_result_user_type_parameterized do |err,val|
     Assert.is_nil err
+    checkMethodWithUserTypeParameterized(val)
+    count = count + 1
+  end
+  Assert.equals count, 1
+end
+
+def testMethodWithFunctionParamUserTypeParameterized
+  count = 0
+  @obj.method_with_function_param_user_type_parameterized do |val|
     checkMethodWithUserTypeParameterized(val)
     count = count + 1
   end
@@ -258,6 +313,21 @@ def testMethodWithHandlerAsyncResultClassTypeParameterized
       Assert.is_nil err
       values.push val
     end
+  }
+  checkMethodWithClassTypeParameterized(values)
+end
+
+def testMethodWithFunctionParamClassTypeParameterized
+  values = []
+  [Fixnum,
+   Float,
+   String,
+   Hash,
+   Array,
+   TrueClass,
+   FalseClass,
+   Testmodel::RefedInterface1].each { |class_type|
+    @obj.method_with_function_param_class_type_parameterized class_type do |val| values.push val end
   }
   checkMethodWithClassTypeParameterized(values)
 end
@@ -335,6 +405,95 @@ def checkMethodWithClassTypeParameterized(values)
   Assert.argument_error do
     ret.set_value 'abc'
   end
+end
+
+def testMethodWithClassTypeParam
+  @obj.method_with_class_type_param(Fixnum, 123456789)
+  # @obj.method_with_class_type_param(Float, 0.314)
+  @obj.method_with_class_type_param(TrueClass, true)
+  @obj.method_with_class_type_param(String, 'zoumbawe')
+  @obj.method_with_class_type_param(Hash, {'cheese'=>'stilton'})
+  @obj.method_with_class_type_param(Array, ['cheese','stilton'])
+  @obj.method_with_class_type_param(Testmodel::RefedInterface1, @refed_obj.set_string('foo'))
+end
+
+def testMethodWithClassTypeReturn
+  checkMethodWithClassType([
+    @obj.method_with_class_type_return(Fixnum),
+    @obj.method_with_class_type_return(Float),
+    @obj.method_with_class_type_return(TrueClass),
+    @obj.method_with_class_type_return(String),
+    @obj.method_with_class_type_return(Hash),
+    @obj.method_with_class_type_return(Array),
+    @obj.method_with_class_type_return(Testmodel::RefedInterface1)
+  ])
+end
+
+def testMethodWithClassTypeHandler
+  values = []
+  [Fixnum,
+   Float,
+   TrueClass,
+   String,
+   Hash,
+   Array,
+   Testmodel::RefedInterface1].each { |class_type|
+    @obj.method_with_class_type_handler class_type do |val| values.push val end
+  }
+  checkMethodWithClassType(values)
+end
+
+def testMethodWithClassTypeHandlerAsyncResult
+  values = []
+  [Fixnum,
+   Float,
+   TrueClass,
+   String,
+   Hash,
+   Array,
+   Testmodel::RefedInterface1].each { |class_type|
+    @obj.method_with_class_type_handler_async_result class_type do |err,val|
+      Assert.is_nil err
+      values.push val
+    end
+  }
+  checkMethodWithClassType(values)
+end
+
+def testMethodWithClassTypeFunctionParam
+  values = []
+  [Fixnum,
+   Float,
+   TrueClass,
+   String,
+   Hash,
+   Array,
+   Testmodel::RefedInterface1].each { |class_type|
+    @obj.method_with_class_type_function_param class_type do |val| values.push val end
+  }
+  checkMethodWithClassType(values)
+end
+
+def testMethodWithClassTypeFunctionReturn
+  @obj.method_with_class_type_function_return(Fixnum) do 123456789 end
+  # @obj.method_with_class_type_function_return(Float) do 0.314 end
+  @obj.method_with_class_type_function_return(TrueClass) do true end
+  @obj.method_with_class_type_function_return(String) do 'zoumbawe' end
+  @obj.method_with_class_type_function_return(Hash) do {'cheese'=>'stilton'} end
+  @obj.method_with_class_type_function_return(Array) do ['cheese','stilton'] end
+  @obj.method_with_class_type_function_return(Testmodel::RefedInterface1) do @refed_obj.set_string('foo') end
+end
+
+def checkMethodWithClassType values
+  Assert.equals(values[0], 123456789)
+  Assert.equals(values[1], 0.34)
+  Assert.equals(values[2], true)
+  Assert.equals(values[3], 'zoumbawe')
+  Assert.equals(values[4], {'cheese'=>'stilton'})
+  Assert.equals(values[5], ['cheese','stilton'])
+  ret = values[6]
+  Assert.is_not_nil ret.j_del
+  Assert.equals('foo', ret.get_string)
 end
 
 def testInterfaceWithStringArg

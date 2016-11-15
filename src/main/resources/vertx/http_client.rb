@@ -111,7 +111,7 @@ module Vertx
       elsif param_1.class == Symbol && param_2.class == Fixnum && param_3.class == String && param_4.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:request, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(param_1),param_2,param_3,param_4,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling request(param_1,param_2,param_3,param_4)"
+      raise ArgumentError, "Invalid arguments when calling request(#{param_1},#{param_2},#{param_3},#{param_4})"
     end
     #  Create an HTTP request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -125,7 +125,7 @@ module Vertx
       elsif method.class == Symbol && absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:requestAbs, [Java::IoVertxCoreHttp::HttpMethod.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::HttpMethod.valueOf(method),absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling request_abs(method,absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling request_abs(#{method},#{absoluteURI})"
     end
     #  Create an HTTP GET request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -165,7 +165,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:get, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling get(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling get(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP GET request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -178,7 +178,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling get_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling get_abs(#{absoluteURI})"
     end
     #  Sends an HTTP GET request to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -206,7 +206,7 @@ module Vertx
         @j_del.java_method(:getNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling get_now(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling get_now(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP POST request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -246,7 +246,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:post, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling post(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling post(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP POST request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -259,7 +259,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:postAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling post_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling post_abs(#{absoluteURI})"
     end
     #  Create an HTTP HEAD request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -299,7 +299,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:head, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling head(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling head(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP HEAD request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -312,7 +312,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:headAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling head_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling head_abs(#{absoluteURI})"
     end
     #  Sends an HTTP HEAD request to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -340,7 +340,7 @@ module Vertx
         @j_del.java_method(:headNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling head_now(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling head_now(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP OPTIONS request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -380,7 +380,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:options, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling options(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling options(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP OPTIONS request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -393,7 +393,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:optionsAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling options_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling options_abs(#{absoluteURI})"
     end
     #  Sends an HTTP OPTIONS request to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -421,7 +421,7 @@ module Vertx
         @j_del.java_method(:optionsNow, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling options_now(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling options_now(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP PUT request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -461,7 +461,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:put, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling put(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling put(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP PUT request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -474,7 +474,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:putAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling put_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling put_abs(#{absoluteURI})"
     end
     #  Create an HTTP DELETE request to send to the server at the specified host and port, specifying a response handler to receive
     #  the response
@@ -514,7 +514,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:delete, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling delete(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling delete(#{param_1},#{param_2},#{param_3})"
     end
     #  Create an HTTP DELETE request to send to the server using an absolute URI, specifying a response handler to receive
     #  the response
@@ -527,7 +527,7 @@ module Vertx
       elsif absoluteURI.class == String && block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:deleteAbs, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(absoluteURI,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::HttpClientResponse)) })),::Vertx::HttpClientRequest)
       end
-      raise ArgumentError, "Invalid arguments when calling delete_abs(absoluteURI)"
+      raise ArgumentError, "Invalid arguments when calling delete_abs(#{absoluteURI})"
     end
     #  Connect a WebSocket to the specified port, host and relative request URI, with the specified headers, using
     #  the specified version of WebSockets, and the specified websocket sub protocols
@@ -750,7 +750,7 @@ module Vertx
         @j_del.java_method(:websocket, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6,(Proc.new { |event| param_7.call(::Vertx::Util::Utils.safe_create(event,::Vertx::WebSocket)) }),(Proc.new { |event| yield(::Vertx::Util::Utils.from_throwable(event)) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling websocket(param_1,param_2,param_3,param_4,param_5,param_6,param_7)"
+      raise ArgumentError, "Invalid arguments when calling websocket(#{param_1},#{param_2},#{param_3},#{param_4},#{param_5},#{param_6},#{param_7})"
     end
     #  Create a WebSocket stream to the specified port, host and relative request URI, with the specified headers, using
     #  the specified version of WebSockets, and the specified websocket sub protocols
@@ -835,7 +835,7 @@ module Vertx
       elsif param_1.class == Fixnum && param_2.class == String && param_3.class == String && param_4.class.method_defined?(:j_del) && param_5.class == Symbol && param_6.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:websocketStream, [Java::int.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::MultiMap.java_class,Java::IoVertxCoreHttp::WebsocketVersion.java_class,Java::java.lang.String.java_class]).call(param_1,param_2,param_3,param_4.j_del,Java::IoVertxCoreHttp::WebsocketVersion.valueOf(param_5),param_6),::Vertx::WebSocketStream)
       end
-      raise ArgumentError, "Invalid arguments when calling websocket_stream(param_1,param_2,param_3,param_4,param_5,param_6)"
+      raise ArgumentError, "Invalid arguments when calling websocket_stream(#{param_1},#{param_2},#{param_3},#{param_4},#{param_5},#{param_6})"
     end
     #  Close the client. Closing will close down any pooled connections.
     #  Clients should always be closed after use.

@@ -452,11 +452,20 @@
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {
-        if (type.variable && type.classParam) {
-          return "@j_arg_" + type.name + ".wrap(" + expr + ")";
-        } else {
-          return "::Vertx::Util::Utils.from_object(" + expr + ")";
+        if (type.variable) {
+          if (type.classParam) {
+            return "@j_arg_" + type.name + ".wrap(" + expr + ")";
+          }
+          if (method != null) {
+            /* work around for failure */
+            var reflect = method.getClass().getMethod("resolveClassTypeParam", type.getClass());
+            var abc = reflect.invoke(method, type);
+            if (abc != null) {
+              return '::Vertx::Util::Utils.v_type_of(' + abc.name +  ').wrap(' + expr + ')';
+            }
+          }
         }
+        return "::Vertx::Util::Utils.from_object(" + expr + ")";
       } else if (kind == CLASS_ENUM) {
         return expr + ".name.intern";
       } else if (kind == CLASS_HANDLER) {
@@ -684,7 +693,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@if{previous}
       end\n
 	@end{}
-      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}@{param}@end{","})"\n
+      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}#{@{param}}@end{","})"\n
 @end{}
 
 @comment{""}

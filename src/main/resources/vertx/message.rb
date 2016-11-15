@@ -73,7 +73,7 @@ module Vertx
       elsif ::Vertx::Util::unknown_type.accept?(message) && options.class == Hash && block_given?
         return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling reply(message,options)"
+      raise ArgumentError, "Invalid arguments when calling reply(#{message},#{options})"
     end
     #  Signal to the sender that processing of this message failed.
     #  <p>
@@ -86,7 +86,7 @@ module Vertx
       if failureCode.class == Fixnum && message.class == String && !block_given?
         return @j_del.java_method(:fail, [Java::int.java_class,Java::java.lang.String.java_class]).call(failureCode,message)
       end
-      raise ArgumentError, "Invalid arguments when calling fail(failureCode,message)"
+      raise ArgumentError, "Invalid arguments when calling fail(#{failureCode},#{message})"
     end
   end
 end

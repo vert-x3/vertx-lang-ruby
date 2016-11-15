@@ -32,12 +32,13 @@ module Testmodel
       Java::IoVertxCodegenTestmodel::InterfaceWithApiArg.java_class
     end
     # @param [::Testmodel::RefedInterface1] value 
-    # @return [void]
+    # @return [self]
     def set_value(value=nil)
       if value.class.method_defined?(:j_del) && !block_given?
-        return @j_del.java_method(:setValue, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class]).call(value.j_del)
+        @j_del.java_method(:setValue, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class]).call(value.j_del)
+        return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_value(value)"
+      raise ArgumentError, "Invalid arguments when calling set_value(#{value})"
     end
     # @return [::Testmodel::RefedInterface1]
     def get_value

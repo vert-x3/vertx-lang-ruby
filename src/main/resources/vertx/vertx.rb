@@ -81,7 +81,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Vertx.java_method(:vertx, [Java::IoVertxCore::VertxOptions.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::Vertx)
       end
-      raise ArgumentError, "Invalid arguments when calling vertx(options)"
+      raise ArgumentError, "Invalid arguments when calling vertx(#{options})"
     end
     #  Creates a clustered instance using the specified options.
     #  <p>
@@ -93,7 +93,7 @@ module Vertx
       if options.class == Hash && block_given?
         return Java::IoVertxCore::Vertx.java_method(:clusteredVertx, [Java::IoVertxCore::VertxOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCore::VertxOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Vertx) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling clustered_vertx(options)"
+      raise ArgumentError, "Invalid arguments when calling clustered_vertx(#{options})"
     end
     #  Gets the current context
     # @return [::Vertx::Context] The current context or null if no current context
@@ -120,7 +120,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetServer, [Java::IoVertxCoreNet::NetServerOptions.java_class]).call(Java::IoVertxCoreNet::NetServerOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::NetServer)
       end
-      raise ArgumentError, "Invalid arguments when calling create_net_server(options)"
+      raise ArgumentError, "Invalid arguments when calling create_net_server(#{options})"
     end
     #  Create a TCP/SSL client using the specified options
     # @param [Hash] options the options to use
@@ -131,7 +131,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createNetClient, [Java::IoVertxCoreNet::NetClientOptions.java_class]).call(Java::IoVertxCoreNet::NetClientOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::NetClient)
       end
-      raise ArgumentError, "Invalid arguments when calling create_net_client(options)"
+      raise ArgumentError, "Invalid arguments when calling create_net_client(#{options})"
     end
     #  Create an HTTP/HTTPS server using the specified options
     # @param [Hash] options the options to use
@@ -142,7 +142,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpServer, [Java::IoVertxCoreHttp::HttpServerOptions.java_class]).call(Java::IoVertxCoreHttp::HttpServerOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::HttpServer)
       end
-      raise ArgumentError, "Invalid arguments when calling create_http_server(options)"
+      raise ArgumentError, "Invalid arguments when calling create_http_server(#{options})"
     end
     #  Create a HTTP/HTTPS client using the specified options
     # @param [Hash] options the options to use
@@ -153,7 +153,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createHttpClient, [Java::IoVertxCoreHttp::HttpClientOptions.java_class]).call(Java::IoVertxCoreHttp::HttpClientOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::HttpClient)
       end
-      raise ArgumentError, "Invalid arguments when calling create_http_client(options)"
+      raise ArgumentError, "Invalid arguments when calling create_http_client(#{options})"
     end
     #  Create a datagram socket using the specified options
     # @param [Hash] options the options to use
@@ -164,7 +164,7 @@ module Vertx
       elsif options.class == Hash && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createDatagramSocket, [Java::IoVertxCoreDatagram::DatagramSocketOptions.java_class]).call(Java::IoVertxCoreDatagram::DatagramSocketOptions.new(::Vertx::Util::Utils.to_json_object(options))),::Vertx::DatagramSocket)
       end
-      raise ArgumentError, "Invalid arguments when calling create_datagram_socket(options)"
+      raise ArgumentError, "Invalid arguments when calling create_datagram_socket(#{options})"
     end
     #  Get the filesystem object. There is a single instance of FileSystem per Vertx instance.
     # @return [::Vertx::FileSystem] the filesystem object
@@ -196,7 +196,7 @@ module Vertx
       if port.class == Fixnum && host.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createDnsClient, [Java::int.java_class,Java::java.lang.String.java_class]).call(port,host),::Vertx::DnsClient)
       end
-      raise ArgumentError, "Invalid arguments when calling create_dns_client(port,host)"
+      raise ArgumentError, "Invalid arguments when calling create_dns_client(#{port},#{host})"
     end
     #  Get the shared data object. There is a single instance of SharedData per Vertx instance.
     # @return [::Vertx::SharedData] the shared data object
@@ -218,7 +218,7 @@ module Vertx
       if delay.class == Fixnum && block_given?
         return @j_del.java_method(:setTimer, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(delay,(Proc.new { |event| yield(event) }))
       end
-      raise ArgumentError, "Invalid arguments when calling set_timer(delay)"
+      raise ArgumentError, "Invalid arguments when calling set_timer(#{delay})"
     end
     #  Returns a one-shot timer as a read stream. The timer will be fired after <code>delay</code> milliseconds after
     #  the  has been called.
@@ -228,7 +228,7 @@ module Vertx
       if delay.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:timerStream, [Java::long.java_class]).call(delay),::Vertx::TimeoutStream)
       end
-      raise ArgumentError, "Invalid arguments when calling timer_stream(delay)"
+      raise ArgumentError, "Invalid arguments when calling timer_stream(#{delay})"
     end
     #  Set a periodic timer to fire every <code>delay</code> milliseconds, at which point <code>handler</code> will be called with
     #  the id of the timer.
@@ -239,7 +239,7 @@ module Vertx
       if delay.class == Fixnum && block_given?
         return @j_del.java_method(:setPeriodic, [Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(delay,(Proc.new { |event| yield(event) }))
       end
-      raise ArgumentError, "Invalid arguments when calling set_periodic(delay)"
+      raise ArgumentError, "Invalid arguments when calling set_periodic(#{delay})"
     end
     #  Returns a periodic timer as a read stream. The timer will be fired every <code>delay</code> milliseconds after
     #  the  has been called.
@@ -249,7 +249,7 @@ module Vertx
       if delay.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:periodicStream, [Java::long.java_class]).call(delay),::Vertx::TimeoutStream)
       end
-      raise ArgumentError, "Invalid arguments when calling periodic_stream(delay)"
+      raise ArgumentError, "Invalid arguments when calling periodic_stream(#{delay})"
     end
     #  Cancels the timer with the specified <code>id</code>.
     # @param [Fixnum] id The id of the timer to cancel
@@ -258,7 +258,7 @@ module Vertx
       if id.class == Fixnum && !block_given?
         return @j_del.java_method(:cancelTimer, [Java::long.java_class]).call(id)
       end
-      raise ArgumentError, "Invalid arguments when calling cancel_timer?(id)"
+      raise ArgumentError, "Invalid arguments when calling cancel_timer?(#{id})"
     end
     #  Puts the handler on the event queue for the current context so it will be run asynchronously ASAP after all
     #  preceeding events have been handled.
@@ -297,7 +297,7 @@ module Vertx
       elsif name.class == String && options.class == Hash && block_given?
         return @j_del.java_method(:deployVerticle, [Java::java.lang.String.java_class,Java::IoVertxCore::DeploymentOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(name,Java::IoVertxCore::DeploymentOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling deploy_verticle(name,options)"
+      raise ArgumentError, "Invalid arguments when calling deploy_verticle(#{name},#{options})"
     end
     #  Like {::Vertx::Vertx#undeploy(String)} but the completionHandler will be notified when the undeployment is complete.
     # @param [String] deploymentID the deployment ID
@@ -309,7 +309,7 @@ module Vertx
       elsif deploymentID.class == String && block_given?
         return @j_del.java_method(:undeploy, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(deploymentID,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling undeploy(deploymentID)"
+      raise ArgumentError, "Invalid arguments when calling undeploy(#{deploymentID})"
     end
     #  Return a Set of deployment IDs for the currently deployed deploymentIDs.
     # @return [Set<String>] Set of deployment IDs
@@ -350,7 +350,7 @@ module Vertx
       elsif blockingCodeHandler.class == Proc && (ordered.class == TrueClass || ordered.class == FalseClass) && block_given?
         return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future, nil)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
+      raise ArgumentError, "Invalid arguments when calling execute_blocking(#{blockingCodeHandler},#{ordered})"
     end
     #  Create a named worker executor, the executor should be closed when it's not needed anymore to release
     #  resources.<p/>
@@ -372,7 +372,7 @@ module Vertx
       elsif name.class == String && poolSize.class == Fixnum && maxExecuteTime.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:createSharedWorkerExecutor, [Java::java.lang.String.java_class,Java::int.java_class,Java::long.java_class]).call(name,poolSize,maxExecuteTime),::Vertx::WorkerExecutor)
       end
-      raise ArgumentError, "Invalid arguments when calling create_shared_worker_executor(name,poolSize,maxExecuteTime)"
+      raise ArgumentError, "Invalid arguments when calling create_shared_worker_executor(#{name},#{poolSize},#{maxExecuteTime})"
     end
     #  Set a default exception handler for {::Vertx::Context}, set on  at creation.
     # @yield the exception handler

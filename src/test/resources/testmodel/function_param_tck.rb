@@ -44,7 +44,7 @@ module Testmodel
       if byteFunc.class == Proc && shortFunc.class == Proc && integerFunc.class == Proc && longFunc.class == Proc && floatFunc.class == Proc && doubleFunc.class == Proc && booleanFunc.class == Proc && charFunc.class == Proc && block_given? && stringFunc == nil
         return @j_del.java_method(:methodWithBasicParam, [Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| byteFunc.call(event) }),(Proc.new { |event| shortFunc.call(event) }),(Proc.new { |event| integerFunc.call(event) }),(Proc.new { |event| longFunc.call(event) }),(Proc.new { |event| floatFunc.call(event) }),(Proc.new { |event| doubleFunc.call(event) }),(Proc.new { |event| booleanFunc.call(event) }),(Proc.new { |event| charFunc.call(event) }),(Proc.new { |event| yield(event) })).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_basic_param(byteFunc,shortFunc,integerFunc,longFunc,floatFunc,doubleFunc,booleanFunc,charFunc,stringFunc)"
+      raise ArgumentError, "Invalid arguments when calling method_with_basic_param(#{byteFunc},#{shortFunc},#{integerFunc},#{longFunc},#{floatFunc},#{doubleFunc},#{booleanFunc},#{charFunc},#{stringFunc})"
     end
     # @param [Proc] objectFunc 
     # @yield 
@@ -53,7 +53,7 @@ module Testmodel
       if objectFunc.class == Proc && block_given? && arrayFunc == nil
         return @j_del.java_method(:methodWithJsonParam, [Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| objectFunc.call(event != nil ? JSON.parse(event.encode) : nil) }),(Proc.new { |event| yield(event != nil ? JSON.parse(event.encode) : nil) })).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_json_param(objectFunc,arrayFunc)"
+      raise ArgumentError, "Invalid arguments when calling method_with_json_param(#{objectFunc},#{arrayFunc})"
     end
     # @yield 
     # @return [String]
@@ -61,7 +61,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithVoidParam, [Java::JavaUtilFunction::Function.java_class]).call(Proc.new { yield })
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_void_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_void_param(#{func})"
     end
     # @param [::Testmodel::RefedInterface1] arg 
     # @yield 
@@ -70,7 +70,7 @@ module Testmodel
       if arg.class.method_defined?(:j_del) && block_given? && func == nil
         return @j_del.java_method(:methodWithUserTypeParam, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class,Java::JavaUtilFunction::Function.java_class]).call(arg.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::RefedInterface1)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_user_type_param(arg,func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_user_type_param(#{arg},#{func})"
     end
     # @param [Object] arg 
     # @yield 
@@ -79,7 +79,7 @@ module Testmodel
       if ::Vertx::Util::unknown_type.accept?(arg) && block_given? && func == nil
         return @j_del.java_method(:methodWithObjectParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(arg),(Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_object_param(arg,func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_object_param(#{arg},#{func})"
     end
     # @yield 
     # @return [String]
@@ -87,7 +87,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithDataObjectParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event != nil ? JSON.parse(event.toJson.encode) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_data_object_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_data_object_param(#{func})"
     end
     # @yield 
     # @return [String]
@@ -95,7 +95,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithEnumParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event.name.intern) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_enum_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_enum_param(#{func})"
     end
     # @yield 
     # @return [String]
@@ -103,7 +103,7 @@ module Testmodel
       if block_given? && stringFunc == nil
         return @j_del.java_method(:methodWithListParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt }) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_list_param(stringFunc)"
+      raise ArgumentError, "Invalid arguments when calling method_with_list_param(#{stringFunc})"
     end
     # @yield 
     # @return [String]
@@ -111,7 +111,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithSetParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt }) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_set_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_set_param(#{func})"
     end
     # @yield 
     # @return [String]
@@ -119,7 +119,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithMapParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(Java::IoVertxLangRuby::Helper.adaptingMap(event, Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils.to_string(val) })) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_map_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_map_param(#{func})"
     end
     # @param [Object] t 
     # @yield 
@@ -128,7 +128,7 @@ module Testmodel
       if ::Vertx::Util::unknown_type.accept?(t) && block_given? && func == nil
         return @j_del.java_method(:methodWithGenericParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(t),(Proc.new { |event| yield(::Vertx::Util::Utils.from_object(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_generic_param(t,func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_param(#{t},#{func})"
     end
     # @param [Object] t 
     # @yield 
@@ -137,7 +137,7 @@ module Testmodel
       if ::Vertx::Util::unknown_type.accept?(t) && block_given? && func == nil
         return @j_del.java_method(:methodWithGenericUserTypeParam, [Java::java.lang.Object.java_class,Java::JavaUtilFunction::Function.java_class]).call(::Vertx::Util::Utils.to_object(t),(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_param(t,func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_param(#{t},#{func})"
     end
     # @param [Proc] byteFunc 
     # @param [Proc] shortFunc 
@@ -153,7 +153,7 @@ module Testmodel
       if byteFunc.class == Proc && shortFunc.class == Proc && integerFunc.class == Proc && longFunc.class == Proc && floatFunc.class == Proc && doubleFunc.class == Proc && booleanFunc.class == Proc && charFunc.class == Proc && block_given? && stringFunc == nil
         return @j_del.java_method(:methodWithBasicReturn, [Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_byte(byteFunc.call(event)) }),(Proc.new { |event| ::Vertx::Util::Utils.to_short(shortFunc.call(event)) }),(Proc.new { |event| ::Vertx::Util::Utils.to_integer(integerFunc.call(event)) }),(Proc.new { |event| longFunc.call(event) }),(Proc.new { |event| ::Vertx::Util::Utils.to_float(floatFunc.call(event)) }),(Proc.new { |event| ::Vertx::Util::Utils.to_double(doubleFunc.call(event)) }),(Proc.new { |event| booleanFunc.call(event) }),(Proc.new { |event| ::Vertx::Util::Utils.to_character(charFunc.call(event)) }),(Proc.new { |event| yield(event) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_basic_return(byteFunc,shortFunc,integerFunc,longFunc,floatFunc,doubleFunc,booleanFunc,charFunc,stringFunc)"
+      raise ArgumentError, "Invalid arguments when calling method_with_basic_return(#{byteFunc},#{shortFunc},#{integerFunc},#{longFunc},#{floatFunc},#{doubleFunc},#{booleanFunc},#{charFunc},#{stringFunc})"
     end
     # @param [Proc] objectFunc 
     # @yield 
@@ -162,7 +162,7 @@ module Testmodel
       if objectFunc.class == Proc && block_given? && arrayFunc == nil
         return @j_del.java_method(:methodWithJsonReturn, [Java::JavaUtilFunction::Function.java_class,Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_json_object(objectFunc.call(event)) }),(Proc.new { |event| ::Vertx::Util::Utils.to_json_array(yield(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_json_return(objectFunc,arrayFunc)"
+      raise ArgumentError, "Invalid arguments when calling method_with_json_return(#{objectFunc},#{arrayFunc})"
     end
     # @yield 
     # @return [String]
@@ -170,7 +170,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithObjectReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_object_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_object_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -178,7 +178,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithDataObjectReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(yield(event))) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_data_object_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_data_object_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -186,7 +186,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithEnumReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(yield(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_enum_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_enum_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -194,7 +194,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithListReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event).map { |element| element } }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_list_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_list_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -202,7 +202,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithSetReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Java::JavaUtil::LinkedHashSet.new(yield(event).map { |element| element }) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_set_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_set_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -210,7 +210,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithMapReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Hash[yield(event).map { |k,v| [k,v] }] }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_map_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_map_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -218,7 +218,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithGenericReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| ::Vertx::Util::Utils.to_object(yield(event)) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_generic_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -226,7 +226,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithGenericUserTypeReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)).j_del }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_user_type_return(#{func})"
     end
     # @yield 
     # @return [String]
@@ -234,7 +234,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithNullableListParam, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event.to_a.map { |elt| elt }) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_param(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_param(#{func})"
     end
     # @yield 
     # @return [String]
@@ -242,7 +242,7 @@ module Testmodel
       if block_given? && func == nil
         return @j_del.java_method(:methodWithNullableListReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| yield(event).map { |element| element } }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_return(func)"
+      raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_return(#{func})"
     end
   end
 end

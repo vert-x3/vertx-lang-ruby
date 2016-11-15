@@ -83,7 +83,7 @@ module Vertx
       elsif param_1.class.method_defined?(:j_del) && block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreParsetools::RecordParser.java_method(:newDelimited, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class]).call(param_1.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) })),::Vertx::RecordParser)
       end
-      raise ArgumentError, "Invalid arguments when calling new_delimited(param_1)"
+      raise ArgumentError, "Invalid arguments when calling new_delimited(#{param_1})"
     end
     #  Create a new <code>RecordParser</code> instance, initially in fixed size mode, and where the record size is specified
     #  by the <code>size</code> parameter.
@@ -96,7 +96,7 @@ module Vertx
       if size.class == Fixnum && block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreParsetools::RecordParser.java_method(:newFixed, [Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(size,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Buffer)) })),::Vertx::RecordParser)
       end
-      raise ArgumentError, "Invalid arguments when calling new_fixed(size)"
+      raise ArgumentError, "Invalid arguments when calling new_fixed(#{size})"
     end
     #  Flip the parser into delimited mode, and where the delimiter can be represented
     #  by the delimiter <code>delim</code>.
@@ -113,7 +113,7 @@ module Vertx
       elsif param_1.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:delimitedMode, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling delimited_mode(param_1)"
+      raise ArgumentError, "Invalid arguments when calling delimited_mode(#{param_1})"
     end
     #  Flip the parser into fixed size mode, where the record size is specified by <code>size</code> in bytes.
     #  <p>
@@ -124,7 +124,7 @@ module Vertx
       if size.class == Fixnum && !block_given?
         return @j_del.java_method(:fixedSizeMode, [Java::int.java_class]).call(size)
       end
-      raise ArgumentError, "Invalid arguments when calling fixed_size_mode(size)"
+      raise ArgumentError, "Invalid arguments when calling fixed_size_mode(#{size})"
     end
     #  This method is called to provide the parser with data.
     # @param [::Vertx::Buffer] buffer a chunk of data
@@ -133,7 +133,7 @@ module Vertx
       if buffer.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:handle, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(buffer.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling handle(buffer)"
+      raise ArgumentError, "Invalid arguments when calling handle(#{buffer})"
     end
   end
 end

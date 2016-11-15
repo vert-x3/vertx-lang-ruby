@@ -32,7 +32,7 @@ module Vertx
       elsif ::Vertx::Util::unknown_type.accept?(result) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:succeededFuture, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(result)),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling succeeded_future(result)"
+      raise ArgumentError, "Invalid arguments when calling succeeded_future(#{result})"
     end
     #  Create a failed future with the specified failure message.
     # @param [String] failureMessage the failure message
@@ -41,7 +41,7 @@ module Vertx
       if failureMessage.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling failed_future(failureMessage)"
+      raise ArgumentError, "Invalid arguments when calling failed_future(#{failureMessage})"
     end
     #  Has the future completed?
     #  <p>
@@ -75,7 +75,7 @@ module Vertx
       elsif @j_arg_T.accept?(result) && !block_given?
         return @j_del.java_method(:complete, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(result))
       end
-      raise ArgumentError, "Invalid arguments when calling complete(result)"
+      raise ArgumentError, "Invalid arguments when calling complete(#{result})"
     end
     #  Set the failure. Any handler will be called, if there is one, and the future will be marked as completed.
     # @overload fail(throwable)
@@ -89,7 +89,7 @@ module Vertx
       elsif param_1.class == String && !block_given?
         return @j_del.java_method(:fail, [Java::java.lang.String.java_class]).call(param_1)
       end
-      raise ArgumentError, "Invalid arguments when calling fail(param_1)"
+      raise ArgumentError, "Invalid arguments when calling fail(#{param_1})"
     end
     #  The result of the operation. This will be null if the operation failed.
     # @return [Object] the result or null if the operation failed.
@@ -144,7 +144,7 @@ module Vertx
       elsif param_1.class == Proc && param_2.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:compose, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Future.java_class]).call((Proc.new { |event| param_1.call(@j_arg_T.wrap(event)) }),param_2.j_del),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling compose(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling compose(#{param_1},#{param_2})"
     end
     #  Map the result of a future to a specific <code>value</code>.<p>
     # 
@@ -162,7 +162,7 @@ module Vertx
       elsif ::Vertx::Util::unknown_type.accept?(param_1) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:map, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(param_1)),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling map(param_1)"
+      raise ArgumentError, "Invalid arguments when calling map(#{param_1})"
     end
     # @return [Proc] an handler completing this future
     def completer

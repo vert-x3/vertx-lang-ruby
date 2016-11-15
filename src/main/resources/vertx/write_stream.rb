@@ -24,7 +24,7 @@ module Vertx
         @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(data))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(data)"
+      raise ArgumentError, "Invalid arguments when calling write(#{data})"
     end
     #  Same as {::Vertx::WriteStream#end} but writes some data to the stream before ending.
     # @param [Object] t 
@@ -35,7 +35,7 @@ module Vertx
       elsif @j_arg_T.accept?(t) && !block_given?
         return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(t))
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
     #  if there is more than <code>maxSize</code> items in the write queue. This is used as an indicator by classes such as
@@ -51,7 +51,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WriteStream#set_write_queue_max_size}
     # @return [true,false] true if write queue is full

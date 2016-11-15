@@ -28,7 +28,7 @@ module Vertx
       if @j_arg_K.accept?(key) && !block_given?
         return @j_arg_V.wrap(@j_del.java_method(:get, [Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key)))
       end
-      raise ArgumentError, "Invalid arguments when calling get(key)"
+      raise ArgumentError, "Invalid arguments when calling get(#{key})"
     end
     #  Put an entry in the map
     # @param [Object] key the key
@@ -38,7 +38,7 @@ module Vertx
       if @j_arg_K.accept?(key) && @j_arg_V.accept?(value) && !block_given?
         return @j_arg_V.wrap(@j_del.java_method(:put, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key),@j_arg_V.unwrap(value)))
       end
-      raise ArgumentError, "Invalid arguments when calling put(key,value)"
+      raise ArgumentError, "Invalid arguments when calling put(#{key},#{value})"
     end
     #  Remove an entry from the map
     # @param [Object] key the key
@@ -47,7 +47,7 @@ module Vertx
       if @j_arg_K.accept?(key) && !block_given?
         return @j_arg_V.wrap(@j_del.java_method(:remove, [Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key)))
       end
-      raise ArgumentError, "Invalid arguments when calling remove(key)"
+      raise ArgumentError, "Invalid arguments when calling remove(#{key})"
     end
     #  Clear all entries in the map
     # @return [void]
@@ -80,7 +80,7 @@ module Vertx
       if @j_arg_K.accept?(key) && @j_arg_V.accept?(value) && !block_given?
         return @j_arg_V.wrap(@j_del.java_method(:putIfAbsent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key),@j_arg_V.unwrap(value)))
       end
-      raise ArgumentError, "Invalid arguments when calling put_if_absent(key,value)"
+      raise ArgumentError, "Invalid arguments when calling put_if_absent(#{key},#{value})"
     end
     #  Remove the entry only if there is an entry with the specified key and value
     # @param [Object] key the key
@@ -90,7 +90,7 @@ module Vertx
       if @j_arg_K.accept?(key) && @j_arg_V.accept?(value) && !block_given?
         return @j_del.java_method(:removeIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key),@j_arg_V.unwrap(value))
       end
-      raise ArgumentError, "Invalid arguments when calling remove_if_present?(key,value)"
+      raise ArgumentError, "Invalid arguments when calling remove_if_present?(#{key},#{value})"
     end
     #  Replace the entry only if there is an existing entry with the specified key and value
     # @param [Object] key the key
@@ -101,7 +101,7 @@ module Vertx
       if @j_arg_K.accept?(key) && @j_arg_V.accept?(oldValue) && @j_arg_V.accept?(newValue) && !block_given?
         return @j_del.java_method(:replaceIfPresent, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class,Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key),@j_arg_V.unwrap(oldValue),@j_arg_V.unwrap(newValue))
       end
-      raise ArgumentError, "Invalid arguments when calling replace_if_present?(key,oldValue,newValue)"
+      raise ArgumentError, "Invalid arguments when calling replace_if_present?(#{key},#{oldValue},#{newValue})"
     end
     #  Replace the entry only if there is an existing entry with the key
     # @param [Object] key the key
@@ -111,7 +111,7 @@ module Vertx
       if @j_arg_K.accept?(key) && @j_arg_V.accept?(value) && !block_given?
         return @j_arg_V.wrap(@j_del.java_method(:replace, [Java::java.lang.Object.java_class,Java::java.lang.Object.java_class]).call(@j_arg_K.unwrap(key),@j_arg_V.unwrap(value)))
       end
-      raise ArgumentError, "Invalid arguments when calling replace(key,value)"
+      raise ArgumentError, "Invalid arguments when calling replace(#{key},#{value})"
     end
     #  Close and release the map
     # @return [void]
