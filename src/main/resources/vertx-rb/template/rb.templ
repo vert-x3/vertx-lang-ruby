@@ -218,9 +218,9 @@
         if (type.classParam) {
           return "@j_arg_" + type.name + ".accept?(" + expr + ")";
         } else {
-          var typeLiteralParam = method.resolveTypeLiteralParam(type);
-          if (typeLiteralParam != null) {
-            return '::Vertx::Util::Utils.v_type_of(' + typeLiteralParam.name + ').accept?(' + expr + ')';
+          var classTypeParam = method.resolveClassTypeParam(type);
+          if (classTypeParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').accept?(' + expr + ')';
           }
         }
       }
@@ -239,7 +239,7 @@
       return expr + ".class == Set";
     } else if (kind == CLASS_MAP) {
       return expr + ".class == Hash";
-    } else if (kind == CLASS_TYPE_LITERAL) {
+    } else if (kind == CLASS_CLASS_TYPE) {
       return expr + ".class == Class";
     }
     return "false";
@@ -344,9 +344,9 @@
         if (type.classParam) {
           return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
         } else {
-          var typeLiteralParam = method.resolveTypeLiteralParam(type);
-          if (typeLiteralParam != null) {
-            return '::Vertx::Util::Utils.v_type_of(' + typeLiteralParam.name + ').unwrap(' + expr + ')';
+          var classTypeParam = method.resolveClassTypeParam(type);
+          if (classTypeParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').unwrap(' + expr + ')';
           }
         }
       }
@@ -368,7 +368,7 @@
     } else if (kind == CLASS_MAP) {
       var valueType = type.args[1];
       return "Hash[" + expr + ".map { |k,v| [k," + genConvParam(valueType, "v") + "] }]";
-    } else if (kind == CLASS_TYPE_LITERAL) {
+    } else if (kind == CLASS_CLASS_TYPE) {
       return "::Vertx::Util::Utils.j_class_of(" + expr + ")";
     }
     return "nil";
@@ -437,9 +437,9 @@
             } else if (arg.kind == CLASS_ENUM) {
               foo.append(',::Vertx::Util::java_enum_type(').append(genJavaClassFqn(arg)).append(')');
             } else if (arg.kind == CLASS_OBJECT) {
-              var typeLiteralParam = method.resolveTypeLiteralParam(arg);
-              if (typeLiteralParam != null) {
-                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(typeLiteralParam.name).append(')');
+              var classTypeParam = method.resolveClassTypeParam(arg);
+              if (classTypeParam != null) {
+                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(classTypeParam.name).append(')');
               } else {
                 foo.append(', nil');
               }
