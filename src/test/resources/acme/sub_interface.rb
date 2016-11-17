@@ -12,13 +12,29 @@ module Acme
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == SubInterface
+    end
+    def @@j_api_type.wrap(obj)
+      SubInterface.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::ComAcmePkgSub::SubInterface.java_class
+    end
     # @param [String] s 
     # @return [String]
     def reverse(s=nil)
       if s.class == String && !block_given?
         return @j_del.java_method(:reverse, [Java::java.lang.String.java_class]).call(s)
       end
-      raise ArgumentError, "Invalid arguments when calling reverse(s)"
+      raise ArgumentError, "Invalid arguments when calling reverse(#{s})"
     end
   end
 end

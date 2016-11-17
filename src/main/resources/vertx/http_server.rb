@@ -26,6 +26,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpServer
+    end
+    def @@j_api_type.wrap(obj)
+      HttpServer.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpServer.java_class
+    end
     #  Whether the metrics are enabled for this measured object
     # @return [true,false] true if the metrics are enabled
     def metrics_enabled?
@@ -116,7 +132,7 @@ module Vertx
         @j_del.java_method(:listen, [Java::int.java_class,Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(port,host,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::HttpServer) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling listen(port,host)"
+      raise ArgumentError, "Invalid arguments when calling listen(#{port},#{host})"
     end
     #  Like {::Vertx::HttpServer#close} but supplying a handler that will be called when the server is actually closed (or has failed).
     # @yield the handler

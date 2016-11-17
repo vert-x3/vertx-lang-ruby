@@ -20,11 +20,11 @@ module Vertx
     # @param [Object] data the data to write
     # @return [self]
     def write(data=nil)
-      if (data.class == String  || data.class == Hash || data.class == Array || data.class == NilClass || data.class == TrueClass || data.class == FalseClass || data.class == Fixnum || data.class == Float) && !block_given?
-        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(data))
+      if @j_arg_T.accept?(data) && !block_given?
+        @j_del.java_method(:write, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(data))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(data)"
+      raise ArgumentError, "Invalid arguments when calling write(#{data})"
     end
     #  Same as {::Vertx::WriteStream#end} but writes some data to the stream before ending.
     # @param [Object] t 
@@ -32,10 +32,10 @@ module Vertx
     def end(t=nil)
       if !block_given? && t == nil
         return @j_del.java_method(:end, []).call()
-      elsif (t.class == String  || t.class == Hash || t.class == Array || t.class == NilClass || t.class == TrueClass || t.class == FalseClass || t.class == Fixnum || t.class == Float) && !block_given?
-        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(t))
+      elsif @j_arg_T.accept?(t) && !block_given?
+        return @j_del.java_method(:end, [Java::java.lang.Object.java_class]).call(@j_arg_T.unwrap(t))
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  Set the maximum size of the write queue to <code>maxSize</code>. You will still be able to write to the stream even
     #  if there is more than <code>maxSize</code> items in the write queue. This is used as an indicator by classes such as
@@ -51,7 +51,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::WriteStream#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
@@ -80,8 +80,9 @@ module Vertx
     include WriteStream
     # @private
     # @param j_del [::Vertx::WriteStream] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::WriteStream] the underlying java delegate

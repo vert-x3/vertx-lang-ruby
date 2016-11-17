@@ -9,7 +9,7 @@ module Testmodel
       if arg0.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:handle, [Java::IoVertxCodegenTestmodel::RefedInterface1.java_class]).call(arg0.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling handle(arg0)"
+      raise ArgumentError, "Invalid arguments when calling handle(#{arg0})"
     end
   end
   class AbstractHandlerUserTypeImpl
@@ -23,6 +23,22 @@ module Testmodel
     # @return [::Testmodel::AbstractHandlerUserType] the underlying java delegate
     def j_del
       @j_del
+    end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == AbstractHandlerUserType
+    end
+    def @@j_api_type.wrap(obj)
+      AbstractHandlerUserType.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::AbstractHandlerUserType.java_class
     end
   end
 end

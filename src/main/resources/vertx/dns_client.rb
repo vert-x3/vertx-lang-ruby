@@ -17,6 +17,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == DnsClient
+    end
+    def @@j_api_type.wrap(obj)
+      DnsClient.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreDns::DnsClient.java_class
+    end
     #  Try to lookup the A (ipv4) or AAAA (ipv6) record for the given name. The first found will be used.
     # @param [String] name the name to resolve
     # @yield the {Proc} to notify with the {AsyncResult}. The handler will get notified with the resolved address if a record was found. If non was found it will get notifed with <code>null</code>. If an error accours it will get failed.
@@ -26,7 +42,7 @@ module Vertx
         @j_del.java_method(:lookup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling lookup(name)"
+      raise ArgumentError, "Invalid arguments when calling lookup(#{name})"
     end
     #  Try to lookup the A (ipv4) record for the given name. The first found will be used.
     # @param [String] name the name to resolve
@@ -37,7 +53,7 @@ module Vertx
         @j_del.java_method(:lookup4, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling lookup4(name)"
+      raise ArgumentError, "Invalid arguments when calling lookup4(#{name})"
     end
     #  Try to lookup the AAAA (ipv6) record for the given name. The first found will be used.
     # @param [String] name the name to resolve
@@ -48,7 +64,7 @@ module Vertx
         @j_del.java_method(:lookup6, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling lookup6(name)"
+      raise ArgumentError, "Invalid arguments when calling lookup6(#{name})"
     end
     #  Try to resolve all A (ipv4) records for the given name.
     # @param [String] name the name to resolve
@@ -59,7 +75,7 @@ module Vertx
         @j_del.java_method(:resolveA, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_a(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_a(#{name})"
     end
     #  Try to resolve all AAAA (ipv6) records for the given name.
     # @param [String] name the name to resolve
@@ -70,7 +86,7 @@ module Vertx
         @j_del.java_method(:resolveAAAA, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_aaaa(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_aaaa(#{name})"
     end
     #  Try to resolve the CNAME record for the given name.
     # @param [String] name the name to resolve the CNAME for
@@ -81,7 +97,7 @@ module Vertx
         @j_del.java_method(:resolveCNAME, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_cname(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_cname(#{name})"
     end
     #  Try to resolve the MX records for the given name.
     # @param [String] name the name for which the MX records should be resolved
@@ -92,7 +108,7 @@ module Vertx
         @j_del.java_method(:resolveMX, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Vertx::MxRecord) } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_mx(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_mx(#{name})"
     end
     #  Try to resolve the TXT records for the given name.
     # @param [String] name the name for which the TXT records should be resolved
@@ -103,7 +119,7 @@ module Vertx
         @j_del.java_method(:resolveTXT, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_txt(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_txt(#{name})"
     end
     #  Try to resolve the PTR record for the given name.
     # @param [String] name the name to resolve the PTR for
@@ -114,7 +130,7 @@ module Vertx
         @j_del.java_method(:resolvePTR, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_ptr(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_ptr(#{name})"
     end
     #  Try to resolve the NS records for the given name.
     # @param [String] name the name for which the NS records should be resolved
@@ -125,7 +141,7 @@ module Vertx
         @j_del.java_method(:resolveNS, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| elt } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_ns(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_ns(#{name})"
     end
     #  Try to resolve the SRV records for the given name.
     # @param [String] name the name for which the SRV records should be resolved
@@ -136,7 +152,7 @@ module Vertx
         @j_del.java_method(:resolveSRV, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result.to_a.map { |elt| ::Vertx::Util::Utils.safe_create(elt,::Vertx::SrvRecord) } : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling resolve_srv(name)"
+      raise ArgumentError, "Invalid arguments when calling resolve_srv(#{name})"
     end
     #  Try to do a reverse lookup of an IP address. This is basically the same as doing trying to resolve a PTR record
     #  but allows you to just pass in the IP address and not a valid ptr query string.
@@ -148,7 +164,7 @@ module Vertx
         @j_del.java_method(:reverseLookup, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(ipaddress,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ar.result : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling reverse_lookup(ipaddress)"
+      raise ArgumentError, "Invalid arguments when calling reverse_lookup(#{ipaddress})"
     end
   end
 end

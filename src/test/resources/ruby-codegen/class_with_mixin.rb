@@ -14,6 +14,22 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == ClassWithMixin
+    end
+    def @@j_api_type.wrap(obj)
+      ClassWithMixin.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxTestSupport::ClassWithMixin.java_class
+    end
     # @return [void]
     def super_mixin_method
       if !block_given?

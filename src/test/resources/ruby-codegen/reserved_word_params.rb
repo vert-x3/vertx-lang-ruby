@@ -12,6 +12,22 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == ReservedWordParams
+    end
+    def @@j_api_type.wrap(obj)
+      ReservedWordParams.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxTestSupport::ReservedWordParams.java_class
+    end
     # @param [String] _alias 
     # @param [String] _and 
     # @param [String] _BEGIN 
@@ -42,7 +58,7 @@ module RubyCodegen
       if _alias.class == String && _and.class == String && _BEGIN.class == String && _begin.class == String && _def.class == String && _elsif.class == String && _END.class == String && _end.class == String && _ensure.class == String && _in.class == String && _module.class == String && _next.class == String && _nil.class == String && _not.class == String && _or.class == String && _redo.class == String && _rescue.class == String && _retry.class == String && _self.class == String && _then.class == String && _undef.class == String && _unless.class == String && _until.class == String && _when.class == String && _yield.class == String && !block_given?
         return @j_del.java_method(:method, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)
       end
-      raise ArgumentError, "Invalid arguments when calling method(_alias,_and,_BEGIN,_begin,_def,_elsif,_END,_end,_ensure,_in,_module,_next,_nil,_not,_or,_redo,_rescue,_retry,_self,_then,_undef,_unless,_until,_when,_yield)"
+      raise ArgumentError, "Invalid arguments when calling method(#{_alias},#{_and},#{_BEGIN},#{_begin},#{_def},#{_elsif},#{_END},#{_end},#{_ensure},#{_in},#{_module},#{_next},#{_nil},#{_not},#{_or},#{_redo},#{_rescue},#{_retry},#{_self},#{_then},#{_undef},#{_unless},#{_until},#{_when},#{_yield})"
     end
   end
 end

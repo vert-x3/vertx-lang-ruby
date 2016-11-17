@@ -436,6 +436,16 @@ request.upload_handler() { |upload|
 WARNING: Make sure you check the filename in a production system to avoid malicious clients uploading files
 to arbitrary places on your filesystem. See <<Security notes, security notes>> for more information.
 
+==== Handling compressed body
+
+Vert.x can handle compressed body payloads which are encoded by the client with the _deflate_ or _gzip_
+algorithms.
+
+To enable decompression set `link:../dataobjects.html#HttpServerOptions#set_decompression_supported-instance_method[decompressionSupported]` on the
+options when creating the server.
+
+By default decompression is disabled.
+
 ==== Receiving custom HTTP/2 frames
 
 HTTP/2 is a framed protocol with various frames for the HTTP request/response model. The protocol allows other kind
@@ -875,6 +885,21 @@ compressions and send it back to the client.
 
 Be aware that compression may be able to reduce network traffic but is more CPU-intensive.
 
+To address this latter issue Vert.x allows you to tune the 'compression level' parameter that is native of the gzip/deflate compression algorithms. 
+
+Compression level allows to configure gizp/deflate algorithms in terms of the compression ratio of the resulting data and the computational cost of the compress/decompress operation. 
+
+The compression level is an integer value ranged from '1' to '9', where '1' means lower compression ratio but fastest algorithm and '9' means maximum compression ratio available but a slower algorithm. 
+
+Using compression levels higher that 1-2 usually allows to save just some bytes in size - the gain is not linear, and depends on the specific data to be compressed 
+- but it comports a non-trascurable cost in term of CPU cycles required to the server while generating the compressed response data 
+( Note that at moment Vert.x doesn't support any form caching of compressed response data, even for static files, so the compression is done on-the-fly 
+at every request body generation ) and in the same way it affects client(s) while decoding (inflating) received responses, operation that becomes more CPU-intensive 
+the more the level increases.
+
+By default - if compression is enabled via `link:../dataobjects.html#HttpServerOptions#set_compression_supported-instance_method[compressionSupported]` - Vert.x will use '6' as compression level,
+but the parameter can be configured to address any case with `link:../dataobjects.html#HttpServerOptions#set_compression_level-instance_method[compressionLevel]`.
+
 === Creating an HTTP client
 
 You create an `link:../../yardoc/Vertx/HttpClient.html[HttpClient]` instance with default options as follows:
@@ -1232,10 +1257,8 @@ no need to set the `Content-Length` of the request up-front.
 request.set_chunked(true)
 
 # Write some chunks
-i = 0
-while (i < 10)
+(0...10).each do |i|
   request.write("this-is-chunk-#{i}")
-  i+=1
 end
 
 request.end()
@@ -1355,7 +1378,7 @@ HTTP/2 supports stream reset at any time during the request/response:
 [source,ruby]
 ----
 
-request.reset()
+request.reset?()
 
 
 ----
@@ -1365,7 +1388,7 @@ By default the NO_ERROR (0) error code is sent, another code can sent instead:
 [source,ruby]
 ----
 
-request.reset(8)
+request.reset?(8)
 
 
 ----
@@ -1645,7 +1668,7 @@ If the client does not want to receive a pushed request, it can reset the stream
 ----
 request.push_handler() { |pushedRequest|
   if (pushedRequest.path().==("/main.js"))
-    pushedRequest.reset()
+    pushedRequest.reset?()
   else
     # Handle it
   end
@@ -1887,10 +1910,8 @@ endpoint:
 ----
 require 'vertx/buffer'
 data = Vertx::Buffer.buffer()
-i = 0
-while (i < 8)
+(0...8).each do |i|
   data.append_byte(i)
-  i+=1
 end
 connection.ping(data) { |pong_err,pong|
   puts "Remote side replied"

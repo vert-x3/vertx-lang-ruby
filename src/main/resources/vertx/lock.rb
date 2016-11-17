@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == Lock
+    end
+    def @@j_api_type.wrap(obj)
+      Lock.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreShareddata::Lock.java_class
+    end
     #  Release the lock. Once the lock is released another will be able to obtain the lock.
     # @return [void]
     def release

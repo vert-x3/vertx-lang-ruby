@@ -16,7 +16,7 @@ module Testmodel
         @j_del.java_method(:setString, [Java::java.lang.String.java_class]).call(str)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_string(str)"
+      raise ArgumentError, "Invalid arguments when calling set_string(#{str})"
     end
   end
   class RefedInterface2Impl
@@ -30,6 +30,22 @@ module Testmodel
     # @return [::Testmodel::RefedInterface2] the underlying java delegate
     def j_del
       @j_del
+    end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == RefedInterface2
+    end
+    def @@j_api_type.wrap(obj)
+      RefedInterface2.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::RefedInterface2.java_class
     end
   end
 end

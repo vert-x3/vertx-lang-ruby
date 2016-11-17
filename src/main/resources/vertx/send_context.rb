@@ -7,8 +7,9 @@ module Vertx
   class SendContext
     # @private
     # @param j_del [::Vertx::SendContext] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::SendContext] the underlying java delegate
@@ -18,7 +19,7 @@ module Vertx
     # @return [::Vertx::Message] The message being sent
     def message
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:message, []).call(),::Vertx::Message)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:message, []).call(),::Vertx::Message, nil)
       end
       raise ArgumentError, "Invalid arguments when calling message()"
     end

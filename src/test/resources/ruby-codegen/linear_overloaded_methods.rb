@@ -12,6 +12,22 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == LinearOverloadedMethods
+    end
+    def @@j_api_type.wrap(obj)
+      LinearOverloadedMethods.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxTestSupport::LinearOverloadedMethods.java_class
+    end
     # @param [String] foo 
     # @param [String] bar 
     # @param [String] juu 
@@ -27,7 +43,7 @@ module RubyCodegen
       elsif foo.class == String && bar.class == String && juu.class == String && daa.class == String && !block_given?
         return @j_del.java_method(:method, [Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(foo,bar,juu,daa)
       end
-      raise ArgumentError, "Invalid arguments when calling method(foo,bar,juu,daa)"
+      raise ArgumentError, "Invalid arguments when calling method(#{foo},#{bar},#{juu},#{daa})"
     end
   end
 end

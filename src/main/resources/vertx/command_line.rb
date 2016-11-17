@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == CommandLine
+    end
+    def @@j_api_type.wrap(obj)
+      CommandLine.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreCli::CommandLine.java_class
+    end
     #  Creates a command line object from the {::Vertx::CLI}. This object is intended to be used by
     #  the parser to set the argument and option values.
     # @param [::Vertx::CLI] cli the CLI definition
@@ -24,7 +40,7 @@ module Vertx
       if cli.class.method_defined?(:j_del) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreCli::CommandLine.java_method(:create, [Java::IoVertxCoreCli::CLI.java_class]).call(cli.j_del),::Vertx::CommandLine)
       end
-      raise ArgumentError, "Invalid arguments when calling create(cli)"
+      raise ArgumentError, "Invalid arguments when calling create(#{cli})"
     end
     # @return [::Vertx::CLI] the model of this command line object.
     def cli
@@ -47,7 +63,7 @@ module Vertx
       if name.class == String && !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:getOptionValue, [Java::java.lang.String.java_class]).call(name))
       end
-      raise ArgumentError, "Invalid arguments when calling get_option_value(name)"
+      raise ArgumentError, "Invalid arguments when calling get_option_value(#{name})"
     end
     #  Gets the value of an argument with the given index.
     # @overload getArgumentValue(name)
@@ -61,7 +77,7 @@ module Vertx
       elsif param_1.class == Fixnum && !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:getArgumentValue, [Java::int.java_class]).call(param_1))
       end
-      raise ArgumentError, "Invalid arguments when calling get_argument_value(param_1)"
+      raise ArgumentError, "Invalid arguments when calling get_argument_value(#{param_1})"
     end
     #  Gets the value of an option marked as a flag.
     #  <p/>
@@ -72,7 +88,7 @@ module Vertx
       if name.class == String && !block_given?
         return @j_del.java_method(:isFlagEnabled, [Java::java.lang.String.java_class]).call(name)
       end
-      raise ArgumentError, "Invalid arguments when calling flag_enabled?(name)"
+      raise ArgumentError, "Invalid arguments when calling flag_enabled?(#{name})"
     end
     #  Checks whether or not the given option has been assigned in the command line.
     # @param [Hash] option the option
@@ -81,7 +97,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:isOptionAssigned, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
       end
-      raise ArgumentError, "Invalid arguments when calling option_assigned?(option)"
+      raise ArgumentError, "Invalid arguments when calling option_assigned?(#{option})"
     end
     #  Gets the raw values of the given option. Raw values are simple "String", not converted to the option type.
     # @param [Hash] option the option
@@ -90,7 +106,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:getRawValues, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option))).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling get_raw_values(option)"
+      raise ArgumentError, "Invalid arguments when calling get_raw_values(#{option})"
     end
     #  Gets the raw values of the given option. Raw values are simple "String", not converted to the option type.
     # @param [Hash] option the option
@@ -99,7 +115,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:getRawValuesForOption, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option))).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_option(option)"
+      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_option(#{option})"
     end
     #  Gets the raw values of the given argument. Raw values are simple "String", not converted to the argument type.
     # @param [Hash] argument the argument
@@ -108,7 +124,7 @@ module Vertx
       if argument.class == Hash && !block_given?
         return @j_del.java_method(:getRawValuesForArgument, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(argument))).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_argument(argument)"
+      raise ArgumentError, "Invalid arguments when calling get_raw_values_for_argument(#{argument})"
     end
     #  Gets the raw value of the given option. Raw values are the values as given in the user command line.
     # @param [Hash] option the option
@@ -117,7 +133,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:getRawValueForOption, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
       end
-      raise ArgumentError, "Invalid arguments when calling get_raw_value_for_option(option)"
+      raise ArgumentError, "Invalid arguments when calling get_raw_value_for_option(#{option})"
     end
     #  Checks whether or not the given option accept more values.
     # @param [Hash] option the option
@@ -126,7 +142,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:acceptMoreValues, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
       end
-      raise ArgumentError, "Invalid arguments when calling accept_more_values?(option)"
+      raise ArgumentError, "Invalid arguments when calling accept_more_values?(#{option})"
     end
     #  Gets the raw value of the given argument. Raw values are the values as given in the user command line.
     # @param [Hash] arg the argument
@@ -135,7 +151,7 @@ module Vertx
       if arg.class == Hash && !block_given?
         return @j_del.java_method(:getRawValueForArgument, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(arg)))
       end
-      raise ArgumentError, "Invalid arguments when calling get_raw_value_for_argument(arg)"
+      raise ArgumentError, "Invalid arguments when calling get_raw_value_for_argument(#{arg})"
     end
     #  Checks whether or not the given argument has been assigned in the command line.
     # @param [Hash] arg the argument
@@ -144,7 +160,7 @@ module Vertx
       if arg.class == Hash && !block_given?
         return @j_del.java_method(:isArgumentAssigned, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(arg)))
       end
-      raise ArgumentError, "Invalid arguments when calling argument_assigned?(arg)"
+      raise ArgumentError, "Invalid arguments when calling argument_assigned?(#{arg})"
     end
     #  Checks whether or not the given option has been seen in the user command line.
     # @param [Hash] option the option
@@ -153,7 +169,7 @@ module Vertx
       if option.class == Hash && !block_given?
         return @j_del.java_method(:isSeenInCommandLine, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
       end
-      raise ArgumentError, "Invalid arguments when calling seen_in_command_line?(option)"
+      raise ArgumentError, "Invalid arguments when calling seen_in_command_line?(#{option})"
     end
     #  Checks whether or not the command line is valid, i.e. all constraints from arguments and options have been
     #  satisfied. This method is used when the parser validation is disabled.

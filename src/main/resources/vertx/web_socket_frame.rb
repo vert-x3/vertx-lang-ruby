@@ -21,6 +21,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == WebSocketFrame
+    end
+    def @@j_api_type.wrap(obj)
+      WebSocketFrame.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::WebSocketFrame.java_class
+    end
     #  Create a binary WebSocket frame.
     # @param [::Vertx::Buffer] data the data for the frame
     # @param [true,false] isFinal true if it's the final frame in the WebSocket message
@@ -29,7 +45,7 @@ module Vertx
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:binaryFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal),::Vertx::WebSocketFrame)
       end
-      raise ArgumentError, "Invalid arguments when calling binary_frame(data,isFinal)"
+      raise ArgumentError, "Invalid arguments when calling binary_frame(#{data},#{isFinal})"
     end
     #  Create a text WebSocket frame.
     # @param [String] str the string for the frame
@@ -39,7 +55,7 @@ module Vertx
       if str.class == String && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:textFrame, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(str,isFinal),::Vertx::WebSocketFrame)
       end
-      raise ArgumentError, "Invalid arguments when calling text_frame(str,isFinal)"
+      raise ArgumentError, "Invalid arguments when calling text_frame(#{str},#{isFinal})"
     end
     #  Create a continuation frame
     # @param [::Vertx::Buffer] data the data for the frame
@@ -49,7 +65,7 @@ module Vertx
       if data.class.method_defined?(:j_del) && (isFinal.class == TrueClass || isFinal.class == FalseClass) && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreHttp::WebSocketFrame.java_method(:continuationFrame, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::boolean.java_class]).call(data.j_del,isFinal),::Vertx::WebSocketFrame)
       end
-      raise ArgumentError, "Invalid arguments when calling continuation_frame(data,isFinal)"
+      raise ArgumentError, "Invalid arguments when calling continuation_frame(#{data},#{isFinal})"
     end
     # @return [true,false] true if it's a text frame
     def text?

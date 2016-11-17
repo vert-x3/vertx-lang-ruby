@@ -214,9 +214,17 @@
         return "(" + expr + ".class == TrueClass || " + expr + ".class == FalseClass)";
       }
     } else if (kind == CLASS_OBJECT) {
-      return "(" + expr + ".class == String  || " + expr + ".class == Hash || " + expr + ".class == Array || "
-      + expr + ".class == NilClass || " + expr + ".class == TrueClass || " + expr + ".class == FalseClass || "
-      + expr + ".class == Fixnum || " + expr + ".class == Float)";
+      if (type.variable) {
+        if (type.classParam) {
+          return "@j_arg_" + type.name + ".accept?(" + expr + ")";
+        } else {
+          var classTypeParam = method.resolveClassTypeParam(type);
+          if (classTypeParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').accept?(' + expr + ')';
+          }
+        }
+      }
+      return "::Vertx::Util::unknown_type.accept?(" + expr + ")";
     } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
@@ -231,6 +239,8 @@
       return expr + ".class == Set";
     } else if (kind == CLASS_MAP) {
       return expr + ".class == Hash";
+    } else if (kind == CLASS_CLASS_TYPE) {
+      return expr + ".class == Class";
     }
     return "false";
   }
@@ -330,6 +340,16 @@
     } else if (kind == CLASS_API) {
       return expr + ".j_del";
     } else if (kind == CLASS_OBJECT) {
+      if (type.variable) {
+        if (type.classParam) {
+          return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
+        } else {
+          var classTypeParam = method.resolveClassTypeParam(type);
+          if (classTypeParam != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').unwrap(' + expr + ')';
+          }
+        }
+      }
       return "::Vertx::Util::Utils.to_object(" + expr + ")";
     } else if (kind == CLASS_DATA_OBJECT) {
       return genJavaClassFqn(type) + ".new(::Vertx::Util::Utils.to_json_object(" + expr + "))";
@@ -348,6 +368,8 @@
     } else if (kind == CLASS_MAP) {
       var valueType = type.args[1];
       return "Hash[" + expr + ".map { |k,v| [k," + genConvParam(valueType, "v") + "] }]";
+    } else if (kind == CLASS_CLASS_TYPE) {
+      return "::Vertx::Util::Utils.j_class_of(" + expr + ")";
     }
     return "nil";
   }
@@ -405,10 +427,44 @@
         }
         return "Java::IoVertxLangRuby::Helper.adaptingMap(" + expr + ", Proc.new { |val| ::Vertx::Util::Utils.from_object(val) }, Proc.new { |val| ::Vertx::Util::Utils." + toJava + "(val) })";
       } else if (kind == CLASS_API) {
-        return "::Vertx::Util::Utils.safe_create(" + expr + "," + genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + ")";
+        var foo = new StringBuilder();
+        if (type.parameterized) {
+          for (arg : type.args) {
+            if (arg.kind == CLASS_API) {
+              foo.append(',').append(genRubyClassFqn(arg)).append('.j_api_type');
+            } else if (arg.kind == CLASS_DATA_OBJECT) {
+              foo.append(',::Vertx::Util::data_object_type(').append(genJavaClassFqn(arg)).append(')');
+            } else if (arg.kind == CLASS_ENUM) {
+              foo.append(',::Vertx::Util::java_enum_type(').append(genJavaClassFqn(arg)).append(')');
+            } else if (arg.kind == CLASS_OBJECT) {
+              var classTypeParam = method.resolveClassTypeParam(arg);
+              if (classTypeParam != null) {
+                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(classTypeParam.name).append(')');
+              } else {
+                foo.append(', nil');
+              }
+            } else {
+              foo.append(', nil');
+            }
+          }
+        }
+        return "::Vertx::Util::Utils.safe_create(" + expr + "," + genRubyClassFqn(type.raw) + (type.raw.concrete ? "" : "Impl") + foo +  ")";
       } else if (kind.json) {
         return expr + " != nil ? JSON.parse(" + expr + ".encode) : nil";
       } else if (kind == CLASS_OBJECT) {
+        if (type.variable) {
+          if (type.classParam) {
+            return "@j_arg_" + type.name + ".wrap(" + expr + ")";
+          }
+          if (method != null) {
+            /* work around for failure */
+            var reflect = method.getClass().getMethod("resolveClassTypeParam", type.getClass());
+            var abc = reflect.invoke(method, type);
+            if (abc != null) {
+              return '::Vertx::Util::Utils.v_type_of(' + abc.name +  ').wrap(' + expr + ')';
+            }
+          }
+        }
         return "::Vertx::Util::Utils.from_object(" + expr + ")";
       } else if (kind == CLASS_ENUM) {
         return expr + ".name.intern";
@@ -530,17 +586,48 @@ require 'vertx/util/utils.rb'\n
 @declare{'initializer'}
     # @private\n
     # @param j_del [@{genRubyClassFqn(type.raw)}] the java delegate\n
-    def initialize(j_del)\n
+    def initialize(j_del@foreach{param: type.params}, j_arg_@{param.name}=nil@end{})\n
 	@if{callSuper}
-      super(j_del)\n
+      super(j_del
+			@if{concreteSuperType.parameterized}@foreach{arg:concreteSuperType.args}
+				@if{arg.kind == CLASS_API}
+				, @{genRubyClassFqn(arg)}.j_api_type
+				@else{arg.variable}
+				, j_arg_@{arg.name}
+				@else{}
+				, nil
+				@end{}
+			@end{}@end{}
+			)\n
 	@end{}
       @j_del = j_del\n
+	@foreach{param: type.params}
+      @{'@j_arg_' + param.name} = j_arg_@{param.name} != nil ? j_arg_@{param.name} : ::Vertx::Util::unknown_type\n
+	@end{}
     end\n
     # @private\n
     # @return [@{genRubyClassFqn(type.raw)}] the underlying java delegate\n
     def j_del\n
       @j_del\n
     end\n
+	@if{type.params.empty}
+    @{'@@'}j_api_type = Object.new\n
+    def @{'@@'}j_api_type.accept?(obj)\n
+      obj.class == @{type.raw.simpleName}\n
+    end\n
+    def @{'@@'}j_api_type.wrap(obj)\n
+      @{type.raw.simpleName}.new(obj)\n
+    end\n
+    def @{'@@'}j_api_type.unwrap(obj)\n
+      obj.j_del\n
+    end\n
+    def self.j_api_type\n
+      @{'@@'}j_api_type\n
+    end\n
+    def self.j_class\n
+      @{genJavaClassFqn(type)}.java_class\n
+    end\n
+	@end{}
 @end{}
 
 # Generated from @{type.name}\n
@@ -606,7 +693,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 	@if{previous}
       end\n
 	@end{}
-      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}@{param}@end{","})"\n
+      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}#{@{param}}@end{","})"\n
 @end{}
 
 @comment{""}

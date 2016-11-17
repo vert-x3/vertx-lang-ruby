@@ -14,6 +14,22 @@ module Testmodel
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == CollectionTCK
+    end
+    def @@j_api_type.wrap(obj)
+      CollectionTCK.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCodegenTestmodel::CollectionTCK.java_class
+    end
     # @param [Array<String>] listString 
     # @param [Array<Fixnum>] listByte 
     # @param [Array<Fixnum>] listShort 
@@ -29,7 +45,7 @@ module Testmodel
       if listString.class == Array && listByte.class == Array && listShort.class == Array && listInt.class == Array && listLong.class == Array && listJsonObject.class == Array && listJsonArray.class == Array && listVertxGen.class == Array && listDataObject.class == Array && listEnum.class == Array && !block_given?
         return @j_del.java_method(:methodWithListParams, [Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class,Java::JavaUtil::List.java_class]).call(listString.map { |element| element },listByte.map { |element| ::Vertx::Util::Utils.to_byte(element) },listShort.map { |element| ::Vertx::Util::Utils.to_short(element) },listInt.map { |element| ::Vertx::Util::Utils.to_integer(element) },listLong.map { |element| element },listJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) },listJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) },listVertxGen.map { |element| element.j_del },listDataObject.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) },listEnum.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) })
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_list_params(listString,listByte,listShort,listInt,listLong,listJsonObject,listJsonArray,listVertxGen,listDataObject,listEnum)"
+      raise ArgumentError, "Invalid arguments when calling method_with_list_params(#{listString},#{listByte},#{listShort},#{listInt},#{listLong},#{listJsonObject},#{listJsonArray},#{listVertxGen},#{listDataObject},#{listEnum})"
     end
     # @param [Set<String>] setString 
     # @param [Set<Fixnum>] setByte 
@@ -46,7 +62,7 @@ module Testmodel
       if setString.class == Set && setByte.class == Set && setShort.class == Set && setInt.class == Set && setLong.class == Set && setJsonObject.class == Set && setJsonArray.class == Set && setVertxGen.class == Set && setDataObject.class == Set && setEnum.class == Set && !block_given?
         return @j_del.java_method(:methodWithSetParams, [Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class,Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(setString.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setByte.map { |element| ::Vertx::Util::Utils.to_byte(element) }),Java::JavaUtil::LinkedHashSet.new(setShort.map { |element| ::Vertx::Util::Utils.to_short(element) }),Java::JavaUtil::LinkedHashSet.new(setInt.map { |element| ::Vertx::Util::Utils.to_integer(element) }),Java::JavaUtil::LinkedHashSet.new(setLong.map { |element| element }),Java::JavaUtil::LinkedHashSet.new(setJsonObject.map { |element| ::Vertx::Util::Utils.to_json_object(element) }),Java::JavaUtil::LinkedHashSet.new(setJsonArray.map { |element| ::Vertx::Util::Utils.to_json_array(element) }),Java::JavaUtil::LinkedHashSet.new(setVertxGen.map { |element| element.j_del }),Java::JavaUtil::LinkedHashSet.new(setDataObject.map { |element| Java::IoVertxCodegenTestmodel::TestDataObject.new(::Vertx::Util::Utils.to_json_object(element)) }),Java::JavaUtil::LinkedHashSet.new(setEnum.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_set_params(setString,setByte,setShort,setInt,setLong,setJsonObject,setJsonArray,setVertxGen,setDataObject,setEnum)"
+      raise ArgumentError, "Invalid arguments when calling method_with_set_params(#{setString},#{setByte},#{setShort},#{setInt},#{setLong},#{setJsonObject},#{setJsonArray},#{setVertxGen},#{setDataObject},#{setEnum})"
     end
     # @param [Hash{String => String}] mapString 
     # @param [Hash{String => Fixnum}] mapByte 
@@ -61,7 +77,7 @@ module Testmodel
       if mapString.class == Hash && mapByte.class == Hash && mapShort.class == Hash && mapInt.class == Hash && mapLong.class == Hash && mapJsonObject.class == Hash && mapJsonArray.class == Hash && mapVertxGen.class == Hash && !block_given?
         return @j_del.java_method(:methodWithMapParams, [Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class,Java::JavaUtil::Map.java_class]).call(Hash[mapString.map { |k,v| [k,v] }],Hash[mapByte.map { |k,v| [k,::Vertx::Util::Utils.to_byte(v)] }],Hash[mapShort.map { |k,v| [k,::Vertx::Util::Utils.to_short(v)] }],Hash[mapInt.map { |k,v| [k,::Vertx::Util::Utils.to_integer(v)] }],Hash[mapLong.map { |k,v| [k,v] }],Hash[mapJsonObject.map { |k,v| [k,::Vertx::Util::Utils.to_json_object(v)] }],Hash[mapJsonArray.map { |k,v| [k,::Vertx::Util::Utils.to_json_array(v)] }],Hash[mapVertxGen.map { |k,v| [k,v.j_del] }])
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_map_params(mapString,mapByte,mapShort,mapInt,mapLong,mapJsonObject,mapJsonArray,mapVertxGen)"
+      raise ArgumentError, "Invalid arguments when calling method_with_map_params(#{mapString},#{mapByte},#{mapShort},#{mapInt},#{mapLong},#{mapJsonObject},#{mapJsonArray},#{mapVertxGen})"
     end
     # @param [Proc] listStringHandler 
     # @param [Proc] listIntHandler 
@@ -72,7 +88,7 @@ module Testmodel
       if listStringHandler.class == Proc && listIntHandler.class == Proc && setStringHandler.class == Proc && block_given?
         return @j_del.java_method(:methodWithHandlerListAndSet, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| listStringHandler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| listIntHandler.call(event.to_a.map { |elt| elt }) }),(Proc.new { |event| setStringHandler.call(::Vertx::Util::Utils.to_set(event).map! { |elt| elt }) }),(Proc.new { |event| yield(::Vertx::Util::Utils.to_set(event).map! { |elt| elt }) }))
       end
-      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_and_set(listStringHandler,listIntHandler,setStringHandler)"
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_list_and_set(#{listStringHandler},#{listIntHandler},#{setStringHandler})"
     end
     # @yield 
     # @return [void]

@@ -27,6 +27,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == SharedData
+    end
+    def @@j_api_type.wrap(obj)
+      SharedData.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreShareddata::SharedData.java_class
+    end
     #  Get the cluster wide map with the specified name. The map is accessible to all nodes in the cluster and data
     #  put into the map from any node is visible to to any other node.
     # @param [String] name the name of the map
@@ -34,9 +50,9 @@ module Vertx
     # @return [void]
     def get_cluster_wide_map(name=nil)
       if name.class == String && block_given?
-        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap) : nil) }))
+        return @j_del.java_method(:getClusterWideMap, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::AsyncMap, nil, nil) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(name)"
+      raise ArgumentError, "Invalid arguments when calling get_cluster_wide_map(#{name})"
     end
     #  Get a cluster wide lock with the specified name. The lock will be passed to the handler when it is available.
     # @param [String] name the name of the lock
@@ -46,7 +62,7 @@ module Vertx
       if name.class == String && block_given?
         return @j_del.java_method(:getLock, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_lock(name)"
+      raise ArgumentError, "Invalid arguments when calling get_lock(#{name})"
     end
     #  Like {::Vertx::SharedData#get_lock} but specifying a timeout. If the lock is not obtained within the timeout
     #  a failure will be sent to the handler
@@ -58,7 +74,7 @@ module Vertx
       if name.class == String && timeout.class == Fixnum && block_given?
         return @j_del.java_method(:getLockWithTimeout, [Java::java.lang.String.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(name,timeout,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Lock) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_lock_with_timeout(name,timeout)"
+      raise ArgumentError, "Invalid arguments when calling get_lock_with_timeout(#{name},#{timeout})"
     end
     #  Get a cluster wide counter. The counter will be passed to the handler.
     # @param [String] name the name of the counter.
@@ -68,16 +84,16 @@ module Vertx
       if name.class == String && block_given?
         return @j_del.java_method(:getCounter, [Java::java.lang.String.java_class,Java::IoVertxCore::Handler.java_class]).call(name,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Counter) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling get_counter(name)"
+      raise ArgumentError, "Invalid arguments when calling get_counter(#{name})"
     end
     #  Return a <code>LocalMap</code> with the specific <code>name</code>.
     # @param [String] name the name of the map
     # @return [::Vertx::LocalMap] the msp
     def get_local_map(name=nil)
       if name.class == String && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:getLocalMap, [Java::java.lang.String.java_class]).call(name),::Vertx::LocalMap, nil, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling get_local_map(name)"
+      raise ArgumentError, "Invalid arguments when calling get_local_map(#{name})"
     end
   end
 end

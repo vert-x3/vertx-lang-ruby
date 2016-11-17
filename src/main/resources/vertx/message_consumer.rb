@@ -16,8 +16,9 @@ module Vertx
     include ::Vertx::ReadStream
     # @private
     # @param j_del [::Vertx::MessageConsumer] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::MessageConsumer] the underlying java delegate
@@ -37,7 +38,7 @@ module Vertx
     # @return [self]
     def handler
       if block_given?
-        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message)) }))
+        @j_del.java_method(:handler, [Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Vertx::Message, nil)) }))
         return self
       end
       raise ArgumentError, "Invalid arguments when calling handler()"
@@ -70,7 +71,7 @@ module Vertx
     # @return [::Vertx::ReadStream] a read stream for the body of the message stream.
     def body_stream
       if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:bodyStream, []).call(),::Vertx::ReadStreamImpl)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:bodyStream, []).call(),::Vertx::ReadStreamImpl, nil)
       end
       raise ArgumentError, "Invalid arguments when calling body_stream()"
     end
@@ -95,9 +96,9 @@ module Vertx
     # @return [::Vertx::MessageConsumer] this registration
     def set_max_buffered_messages(maxBufferedMessages=nil)
       if maxBufferedMessages.class == Fixnum && !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages),::Vertx::MessageConsumer)
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:setMaxBufferedMessages, [Java::int.java_class]).call(maxBufferedMessages),::Vertx::MessageConsumer, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(maxBufferedMessages)"
+      raise ArgumentError, "Invalid arguments when calling set_max_buffered_messages(#{maxBufferedMessages})"
     end
     # @return [Fixnum] the maximum number of messages that can be buffered when this stream is paused
     def get_max_buffered_messages

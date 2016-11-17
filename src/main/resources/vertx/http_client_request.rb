@@ -46,6 +46,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpClientRequest
+    end
+    def @@j_api_type.wrap(obj)
+      HttpClientRequest.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpClientRequest.java_class
+    end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::HttpClientRequest#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
     def write_queue_full?
@@ -83,7 +99,7 @@ module Vertx
         @j_del.java_method(:write, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling write(#{param_1},#{param_2})"
     end
     # @param [Fixnum] maxSize 
     # @return [self]
@@ -92,7 +108,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     # @yield 
     # @return [self]
@@ -145,7 +161,7 @@ module Vertx
         @j_del.java_method(:setChunked, [Java::boolean.java_class]).call(chunked)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_chunked(chunked)"
+      raise ArgumentError, "Invalid arguments when calling set_chunked(#{chunked})"
     end
     # @return [true,false] Is the request chunked?
     def chunked?
@@ -177,7 +193,7 @@ module Vertx
         @j_del.java_method(:setRawMethod, [Java::java.lang.String.java_class]).call(method)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_raw_method(method)"
+      raise ArgumentError, "Invalid arguments when calling set_raw_method(#{method})"
     end
     # @return [String] The URI of the request.
     def uri
@@ -202,7 +218,7 @@ module Vertx
     end
     #  Set the request host.<p/>
     # 
-    #  For HTTP2 it sets the  pseudo header otherwise it sets the  header
+    #  For HTTP/2 it sets the  pseudo header otherwise it sets the  header
     # @param [String] host 
     # @return [self]
     def set_host(host=nil)
@@ -210,9 +226,9 @@ module Vertx
         @j_del.java_method(:setHost, [Java::java.lang.String.java_class]).call(host)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_host(host)"
+      raise ArgumentError, "Invalid arguments when calling set_host(#{host})"
     end
-    # @return [String] the request host. For HTTP2 it returns the  pseudo header otherwise it returns the  header
+    # @return [String] the request host. For HTTP/2 it returns the  pseudo header otherwise it returns the  header
     def get_host
       if !block_given?
         return @j_del.java_method(:getHost, []).call()
@@ -238,7 +254,7 @@ module Vertx
         @j_del.java_method(:putHeader, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(name,value)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling put_header(name,value)"
+      raise ArgumentError, "Invalid arguments when calling put_header(#{name},#{value})"
     end
     #  If you send an HTTP request with the header <code>Expect</code> set to the value <code>100-continue</code>
     #  and the server responds with an interim HTTP response with a status code of <code>100</code> and a continue handler
@@ -289,7 +305,7 @@ module Vertx
       elsif param_1.class == String && param_2.class == String && !block_given?
         return @j_del.java_method(:end, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2)
       end
-      raise ArgumentError, "Invalid arguments when calling end(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling end(#{param_1},#{param_2})"
     end
     #  Set's the amount of time after which if the request does not return any data within the timeout period an
     #  TimeoutException will be passed to the exception handler (if provided) and
@@ -304,7 +320,7 @@ module Vertx
         @j_del.java_method(:setTimeout, [Java::long.java_class]).call(timeoutMs)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_timeout(timeoutMs)"
+      raise ArgumentError, "Invalid arguments when calling set_timeout(#{timeoutMs})"
     end
     #  Set a push handler for this request.<p/>
     # 
@@ -331,16 +347,24 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling push_handler()"
     end
-    #  Reset this stream with the error <code>code</code>.
+    #  Reset this request:
+    #  <p/>
+    #  <ul>
+    #    <li>for HTTP/2, this performs send an HTTP/2 reset frame with the specified error <code>code</code></li>
+    #    <li>for HTTP/1.x, this closes the connection after the current in-flight requests are ended</li>
+    #  </ul>
+    #  <p/>
+    #  When the request has not yet been sent, the request will be aborted and false is returned as indicator.
+    #  <p/>
     # @param [Fixnum] code the error code
-    # @return [void]
-    def reset(code=nil)
+    # @return [true,false] true when reset has been performed
+    def reset?(code=nil)
       if !block_given? && code == nil
         return @j_del.java_method(:reset, []).call()
       elsif code.class == Fixnum && !block_given?
         return @j_del.java_method(:reset, [Java::long.java_class]).call(code)
       end
-      raise ArgumentError, "Invalid arguments when calling reset(code)"
+      raise ArgumentError, "Invalid arguments when calling reset?(#{code})"
     end
     # @return [::Vertx::HttpConnection] the {::Vertx::HttpConnection} associated with this request
     def connection
@@ -383,7 +407,7 @@ module Vertx
         @j_del.java_method(:writeCustomFrame, [Java::int.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(param_1,param_2,param_3.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write_custom_frame(param_1,param_2,param_3)"
+      raise ArgumentError, "Invalid arguments when calling write_custom_frame(#{param_1},#{param_2},#{param_3})"
     end
     # @return [Fixnum] the id of the stream of this response,  when it is not yet determined, i.e the request has not been yet sent or it is not supported HTTP/1.x
     def stream_id

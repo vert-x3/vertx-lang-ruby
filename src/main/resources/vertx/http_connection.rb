@@ -21,6 +21,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpConnection
+    end
+    def @@j_api_type.wrap(obj)
+      HttpConnection.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpConnection.java_class
+    end
     # @return [Fixnum] the current connection window size or <code>-1</code> for HTTP/1.x
     def get_window_size
       if !block_given?
@@ -40,7 +56,7 @@ module Vertx
         @j_del.java_method(:setWindowSize, [Java::int.java_class]).call(windowSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_window_size(windowSize)"
+      raise ArgumentError, "Invalid arguments when calling set_window_size(#{windowSize})"
     end
     #  Send a go away frame to the remote endpoint of the connection.
     #  <p/>
@@ -66,7 +82,7 @@ module Vertx
         @j_del.java_method(:goAway, [Java::long.java_class,Java::int.java_class,Java::IoVertxCoreBuffer::Buffer.java_class]).call(errorCode,lastStreamId,debugData.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling go_away(errorCode,lastStreamId,debugData)"
+      raise ArgumentError, "Invalid arguments when calling go_away(#{errorCode},#{lastStreamId},#{debugData})"
     end
     #  Set an handler called when a  frame is received.
     #  <p/>
@@ -106,7 +122,7 @@ module Vertx
         @j_del.java_method(:shutdown, [Java::long.java_class]).call(timeoutMs)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling shutdown(timeoutMs)"
+      raise ArgumentError, "Invalid arguments when calling shutdown(#{timeoutMs})"
     end
     #  Set a close handler. The handler will get notified when the connection is closed.
     # @yield the handler to be notified
@@ -151,7 +167,7 @@ module Vertx
         @j_del.java_method(:updateSettings, [Java::IoVertxCoreHttp::Http2Settings.java_class,Java::IoVertxCore::Handler.java_class]).call(Java::IoVertxCoreHttp::Http2Settings.new(::Vertx::Util::Utils.to_json_object(settings)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling update_settings(settings)"
+      raise ArgumentError, "Invalid arguments when calling update_settings(#{settings})"
     end
     # @return [Hash] the current remote endpoint settings for this connection - this is not implemented for HTTP/1.x
     def remote_settings
@@ -183,7 +199,7 @@ module Vertx
         @j_del.java_method(:ping, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::IoVertxCore::Handler.java_class]).call(data.j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Buffer) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling ping(data)"
+      raise ArgumentError, "Invalid arguments when calling ping(#{data})"
     end
     #  Set an handler notified when a  frame is received from the remote endpoint.
     #  <p/>

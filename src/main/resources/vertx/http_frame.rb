@@ -14,6 +14,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpFrame
+    end
+    def @@j_api_type.wrap(obj)
+      HttpFrame.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpFrame.java_class
+    end
     # @return [Fixnum] the 8-bit type of the frame
     def type
       if !block_given?

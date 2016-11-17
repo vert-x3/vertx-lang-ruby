@@ -44,6 +44,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == Context
+    end
+    def @@j_api_type.wrap(obj)
+      Context.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCore::Context.java_class
+    end
     #  Is the current thread a worker thread?
     #  <p>
     #  NOTE! This is not always the same as calling {::Vertx::Context#is_worker_context}. If you are running blocking code
@@ -99,11 +115,11 @@ module Vertx
     # @return [void]
     def execute_blocking(blockingCodeHandler=nil,ordered=nil)
       if blockingCodeHandler.class == Proc && block_given? && ordered == nil
-        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future, nil)) }),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       elsif blockingCodeHandler.class == Proc && (ordered.class == TrueClass || ordered.class == FalseClass) && block_given?
-        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
+        return @j_del.java_method(:executeBlocking, [Java::IoVertxCore::Handler.java_class,Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| blockingCodeHandler.call(::Vertx::Util::Utils.safe_create(event,::Vertx::Future, nil)) }),ordered,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.from_object(ar.result) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling execute_blocking(blockingCodeHandler,ordered)"
+      raise ArgumentError, "Invalid arguments when calling execute_blocking(#{blockingCodeHandler},#{ordered})"
     end
     #  If the context is associated with a Verticle deployment, this returns the deployment ID of that deployment.
     # @return [String] the deployment ID of the deployment or null if not a Verticle deployment
@@ -169,7 +185,7 @@ module Vertx
       if key.class == String && !block_given?
         return ::Vertx::Util::Utils.from_object(@j_del.java_method(:get, [Java::java.lang.String.java_class]).call(key))
       end
-      raise ArgumentError, "Invalid arguments when calling get(key)"
+      raise ArgumentError, "Invalid arguments when calling get(#{key})"
     end
     #  Put some data in the context.
     #  <p>
@@ -178,10 +194,10 @@ module Vertx
     # @param [Object] value the data
     # @return [void]
     def put(key=nil,value=nil)
-      if key.class == String && (value.class == String  || value.class == Hash || value.class == Array || value.class == NilClass || value.class == TrueClass || value.class == FalseClass || value.class == Fixnum || value.class == Float) && !block_given?
+      if key.class == String && ::Vertx::Util::unknown_type.accept?(value) && !block_given?
         return @j_del.java_method(:put, [Java::java.lang.String.java_class,Java::java.lang.Object.java_class]).call(key,::Vertx::Util::Utils.to_object(value))
       end
-      raise ArgumentError, "Invalid arguments when calling put(key,value)"
+      raise ArgumentError, "Invalid arguments when calling put(#{key},#{value})"
     end
     #  Remove some data from the context.
     # @param [String] key the key to remove
@@ -190,7 +206,7 @@ module Vertx
       if key.class == String && !block_given?
         return @j_del.java_method(:remove, [Java::java.lang.String.java_class]).call(key)
       end
-      raise ArgumentError, "Invalid arguments when calling remove?(key)"
+      raise ArgumentError, "Invalid arguments when calling remove?(#{key})"
     end
     # @return [::Vertx::Vertx] The Vertx instance that created the context
     def owner

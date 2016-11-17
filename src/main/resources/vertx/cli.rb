@@ -26,6 +26,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == CLI
+    end
+    def @@j_api_type.wrap(obj)
+      CLI.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreCli::CLI.java_class
+    end
     #  Creates an instance of {::Vertx::CLI} using the default implementation.
     # @param [String] name the name of the CLI (must not be <code>null</code>)
     # @return [::Vertx::CLI] the created instance of {::Vertx::CLI}
@@ -33,7 +49,7 @@ module Vertx
       if name.class == String && !block_given?
         return ::Vertx::Util::Utils.safe_create(Java::IoVertxCoreCli::CLI.java_method(:create, [Java::java.lang.String.java_class]).call(name),::Vertx::CLI)
       end
-      raise ArgumentError, "Invalid arguments when calling create(name)"
+      raise ArgumentError, "Invalid arguments when calling create(#{name})"
     end
     #  Parses the user command line interface and create a new {::Vertx::CommandLine} containing extracting values.
     # @param [Array<String>] arguments the arguments
@@ -45,7 +61,7 @@ module Vertx
       elsif arguments.class == Array && (validate.class == TrueClass || validate.class == FalseClass) && !block_given?
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:parse, [Java::JavaUtil::List.java_class,Java::boolean.java_class]).call(arguments.map { |element| element },validate),::Vertx::CommandLine)
       end
-      raise ArgumentError, "Invalid arguments when calling parse(arguments,validate)"
+      raise ArgumentError, "Invalid arguments when calling parse(#{arguments},#{validate})"
     end
     # @return [String] the CLI name.
     def get_name
@@ -62,7 +78,7 @@ module Vertx
         @j_del.java_method(:setName, [Java::java.lang.String.java_class]).call(name)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_name(name)"
+      raise ArgumentError, "Invalid arguments when calling set_name(#{name})"
     end
     # @return [String] the CLI description.
     def get_description
@@ -78,7 +94,7 @@ module Vertx
         @j_del.java_method(:setDescription, [Java::java.lang.String.java_class]).call(desc)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_description(desc)"
+      raise ArgumentError, "Invalid arguments when calling set_description(#{desc})"
     end
     # @return [String] the CLI summary.
     def get_summary
@@ -95,7 +111,7 @@ module Vertx
         @j_del.java_method(:setSummary, [Java::java.lang.String.java_class]).call(summary)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_summary(summary)"
+      raise ArgumentError, "Invalid arguments when calling set_summary(#{summary})"
     end
     #  Checks whether or not the current {::Vertx::CLI} instance is hidden.
     # @return [true,false] <code>true</code> if the current {::Vertx::CLI} is hidden,  otherwise
@@ -114,7 +130,7 @@ module Vertx
         @j_del.java_method(:setHidden, [Java::boolean.java_class]).call(hidden)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_hidden(hidden)"
+      raise ArgumentError, "Invalid arguments when calling set_hidden(#{hidden})"
     end
     #  Gets the list of options.
     # @return [Array<Hash>] the list of options, empty if none.
@@ -132,7 +148,7 @@ module Vertx
         @j_del.java_method(:addOption, [Java::IoVertxCoreCli::Option.java_class]).call(Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(option)))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add_option(option)"
+      raise ArgumentError, "Invalid arguments when calling add_option(#{option})"
     end
     #  Adds a set of options. Unlike {::Vertx::CLI#set_options}}, this method does not remove the existing options.
     #  The given list is appended to the existing list.
@@ -143,7 +159,7 @@ module Vertx
         @j_del.java_method(:addOptions, [Java::JavaUtil::List.java_class]).call(options.map { |element| Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(element)) })
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add_options(options)"
+      raise ArgumentError, "Invalid arguments when calling add_options(#{options})"
     end
     #  Sets the list of arguments.
     # @param [Array<Hash>] options the list of options, must not be <code>null</code>
@@ -153,7 +169,7 @@ module Vertx
         @j_del.java_method(:setOptions, [Java::JavaUtil::List.java_class]).call(options.map { |element| Java::IoVertxCoreCli::Option.new(::Vertx::Util::Utils.to_json_object(element)) })
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_options(options)"
+      raise ArgumentError, "Invalid arguments when calling set_options(#{options})"
     end
     #  Gets the list of defined arguments.
     # @return [Array<Hash>] the list of argument, empty if none.
@@ -171,7 +187,7 @@ module Vertx
         @j_del.java_method(:addArgument, [Java::IoVertxCoreCli::Argument.java_class]).call(Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(arg)))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add_argument(arg)"
+      raise ArgumentError, "Invalid arguments when calling add_argument(#{arg})"
     end
     #  Adds a set of arguments. Unlike {::Vertx::CLI#set_arguments}, this method does not remove the existing arguments.
     #  The given list is appended to the existing list.
@@ -182,7 +198,7 @@ module Vertx
         @j_del.java_method(:addArguments, [Java::JavaUtil::List.java_class]).call(args.map { |element| Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(element)) })
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add_arguments(args)"
+      raise ArgumentError, "Invalid arguments when calling add_arguments(#{args})"
     end
     #  Sets the list of arguments.
     # @param [Array<Hash>] args the list of arguments, must not be <code>null</code>
@@ -192,7 +208,7 @@ module Vertx
         @j_del.java_method(:setArguments, [Java::JavaUtil::List.java_class]).call(args.map { |element| Java::IoVertxCoreCli::Argument.new(::Vertx::Util::Utils.to_json_object(element)) })
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_arguments(args)"
+      raise ArgumentError, "Invalid arguments when calling set_arguments(#{args})"
     end
     #  Gets an {Hash} based on its name (short name, long name or argument name).
     # @param [String] name the name, must not be <code>null</code>
@@ -201,7 +217,7 @@ module Vertx
       if name.class == String && !block_given?
         return @j_del.java_method(:getOption, [Java::java.lang.String.java_class]).call(name) != nil ? JSON.parse(@j_del.java_method(:getOption, [Java::java.lang.String.java_class]).call(name).toJson.encode) : nil
       end
-      raise ArgumentError, "Invalid arguments when calling get_option(name)"
+      raise ArgumentError, "Invalid arguments when calling get_option(#{name})"
     end
     #  Gets an {Hash} based on its index.
     # @overload getArgument(name)
@@ -215,7 +231,7 @@ module Vertx
       elsif param_1.class == Fixnum && !block_given?
         return @j_del.java_method(:getArgument, [Java::int.java_class]).call(param_1) != nil ? JSON.parse(@j_del.java_method(:getArgument, [Java::int.java_class]).call(param_1).toJson.encode) : nil
       end
-      raise ArgumentError, "Invalid arguments when calling get_argument(param_1)"
+      raise ArgumentError, "Invalid arguments when calling get_argument(#{param_1})"
     end
     #  Removes an option identified by its name. This method does nothing if the option cannot be found.
     # @param [String] name the option name
@@ -225,7 +241,7 @@ module Vertx
         @j_del.java_method(:removeOption, [Java::java.lang.String.java_class]).call(name)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling remove_option(name)"
+      raise ArgumentError, "Invalid arguments when calling remove_option(#{name})"
     end
     #  Removes an argument identified by its index. This method does nothing if the argument cannot be found.
     # @param [Fixnum] index the argument index
@@ -235,7 +251,7 @@ module Vertx
         @j_del.java_method(:removeArgument, [Java::int.java_class]).call(index)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling remove_argument(index)"
+      raise ArgumentError, "Invalid arguments when calling remove_argument(#{index})"
     end
   end
 end

@@ -23,6 +23,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == AsyncFile
+    end
+    def @@j_api_type.wrap(obj)
+      AsyncFile.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreFile::AsyncFile.java_class
+    end
     #  Same as {::Vertx::AsyncFile#end} but writes some data to the stream before ending.
     # @param [::Vertx::Buffer] t 
     # @return [void]
@@ -32,7 +48,7 @@ module Vertx
       elsif t.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:end, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(t.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::AsyncFile#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
@@ -97,7 +113,7 @@ module Vertx
         @j_del.java_method(:write, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(buffer.j_del,position,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(buffer,position)"
+      raise ArgumentError, "Invalid arguments when calling write(#{buffer},#{position})"
     end
     # @param [Fixnum] maxSize 
     # @return [self]
@@ -106,7 +122,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     # @yield 
     # @return [self]
@@ -157,7 +173,7 @@ module Vertx
         @j_del.java_method(:read, [Java::IoVertxCoreBuffer::Buffer.java_class,Java::int.java_class,Java::long.java_class,Java::int.java_class,Java::IoVertxCore::Handler.java_class]).call(buffer.j_del,offset,position,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Buffer) : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling read(buffer,offset,position,length)"
+      raise ArgumentError, "Invalid arguments when calling read(#{buffer},#{offset},#{position},#{length})"
     end
     #  Same as {::Vertx::AsyncFile#flush} but the handler will be called when the flush is complete or if an error occurs
     # @yield 
@@ -180,7 +196,7 @@ module Vertx
         @j_del.java_method(:setReadPos, [Java::long.java_class]).call(readPos)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_read_pos(readPos)"
+      raise ArgumentError, "Invalid arguments when calling set_read_pos(#{readPos})"
     end
     #  Sets the position from which data will be written when using the file as a {::Vertx::WriteStream}.
     # @param [Fixnum] writePos the position in the file
@@ -190,7 +206,7 @@ module Vertx
         @j_del.java_method(:setWritePos, [Java::long.java_class]).call(writePos)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_pos(writePos)"
+      raise ArgumentError, "Invalid arguments when calling set_write_pos(#{writePos})"
     end
     #  Sets the buffer size that will be used to read the data from the file. Changing this value will impact how much
     #  the data will be read at a time from the file system.
@@ -201,7 +217,7 @@ module Vertx
         @j_del.java_method(:setReadBufferSize, [Java::int.java_class]).call(readBufferSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_read_buffer_size(readBufferSize)"
+      raise ArgumentError, "Invalid arguments when calling set_read_buffer_size(#{readBufferSize})"
     end
   end
 end

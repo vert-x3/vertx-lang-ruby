@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpServerFileUpload
+    end
+    def @@j_api_type.wrap(obj)
+      HttpServerFileUpload.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpServerFileUpload.java_class
+    end
     # @yield 
     # @return [self]
     def exception_handler
@@ -67,7 +83,7 @@ module Vertx
         @j_del.java_method(:streamToFileSystem, [Java::java.lang.String.java_class]).call(filename)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling stream_to_file_system(filename)"
+      raise ArgumentError, "Invalid arguments when calling stream_to_file_system(#{filename})"
     end
     # @return [String] the filename which was used when upload the file.
     def filename

@@ -27,6 +27,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == NetSocket
+    end
+    def @@j_api_type.wrap(obj)
+      NetSocket.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreNet::NetSocket.java_class
+    end
     #  Same as {::Vertx::NetSocket#end} but writes some data to the stream before ending.
     # @param [::Vertx::Buffer] t 
     # @return [void]
@@ -36,7 +52,7 @@ module Vertx
       elsif t.class.method_defined?(:j_del) && !block_given?
         return @j_del.java_method(:end, [Java::IoVertxCoreBuffer::Buffer.java_class]).call(t.j_del)
       end
-      raise ArgumentError, "Invalid arguments when calling end(t)"
+      raise ArgumentError, "Invalid arguments when calling end(#{t})"
     end
     #  This will return <code>true</code> if there are more bytes in the write queue than the value set using {::Vertx::NetSocket#set_write_queue_max_size}
     # @return [true,false] true if write queue is full
@@ -109,7 +125,7 @@ module Vertx
         @j_del.java_method(:write, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(param_1,param_2)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling write(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling write(#{param_1},#{param_2})"
     end
     # @param [Fixnum] maxSize 
     # @return [self]
@@ -118,7 +134,7 @@ module Vertx
         @j_del.java_method(:setWriteQueueMaxSize, [Java::int.java_class]).call(maxSize)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(maxSize)"
+      raise ArgumentError, "Invalid arguments when calling set_write_queue_max_size(#{maxSize})"
     end
     # @yield 
     # @return [self]
@@ -169,7 +185,7 @@ module Vertx
         @j_del.java_method(:sendFile, [Java::java.lang.String.java_class,Java::long.java_class,Java::long.java_class,Java::IoVertxCore::Handler.java_class]).call(filename,offset,length,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) }))
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling send_file(filename,offset,length)"
+      raise ArgumentError, "Invalid arguments when calling send_file(#{filename},#{offset},#{length})"
     end
     # @return [::Vertx::SocketAddress] the remote address for this socket
     def remote_address

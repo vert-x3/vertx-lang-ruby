@@ -16,6 +16,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == MultiMap
+    end
+    def @@j_api_type.wrap(obj)
+      MultiMap.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCore::MultiMap.java_class
+    end
     #  Create a multi-map implementation with case insensitive keys, for instance it can be used to hold some HTTP headers.
     # @return [::Vertx::MultiMap] the multi-map
     def self.case_insensitive_multi_map
@@ -32,7 +48,7 @@ module Vertx
       if name.class == String && !block_given?
         return @j_del.java_method(:get, [Java::java.lang.String.java_class]).call(name)
       end
-      raise ArgumentError, "Invalid arguments when calling get(name)"
+      raise ArgumentError, "Invalid arguments when calling get(#{name})"
     end
     #  Returns the values with the specified name
     # @param [String] name The name to search
@@ -41,7 +57,7 @@ module Vertx
       if name.class == String && !block_given?
         return @j_del.java_method(:getAll, [Java::java.lang.String.java_class]).call(name).to_a.map { |elt| elt }
       end
-      raise ArgumentError, "Invalid arguments when calling get_all(name)"
+      raise ArgumentError, "Invalid arguments when calling get_all(#{name})"
     end
     #  Checks to see if there is a value with the specified name
     # @param [String] name The name to search for
@@ -50,7 +66,7 @@ module Vertx
       if name.class == String && !block_given?
         return @j_del.java_method(:contains, [Java::java.lang.String.java_class]).call(name)
       end
-      raise ArgumentError, "Invalid arguments when calling contains?(name)"
+      raise ArgumentError, "Invalid arguments when calling contains?(#{name})"
     end
     #  Return true if empty
     # @return [true,false]
@@ -77,7 +93,7 @@ module Vertx
         @j_del.java_method(:add, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(name,value)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add(name,value)"
+      raise ArgumentError, "Invalid arguments when calling add(#{name},#{value})"
     end
     #  Adds all the entries from another MultiMap to this one
     # @param [::Vertx::MultiMap] map 
@@ -87,7 +103,7 @@ module Vertx
         @j_del.java_method(:addAll, [Java::IoVertxCore::MultiMap.java_class]).call(map.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling add_all(map)"
+      raise ArgumentError, "Invalid arguments when calling add_all(#{map})"
     end
     #  Sets a value under the specified name.
     #  <p>
@@ -100,7 +116,7 @@ module Vertx
         @j_del.java_method(:set, [Java::java.lang.String.java_class,Java::java.lang.String.java_class]).call(name,value)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set(name,value)"
+      raise ArgumentError, "Invalid arguments when calling set(#{name},#{value})"
     end
     #  Cleans this instance.
     # @param [::Vertx::MultiMap] map 
@@ -110,7 +126,7 @@ module Vertx
         @j_del.java_method(:setAll, [Java::IoVertxCore::MultiMap.java_class]).call(map.j_del)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_all(map)"
+      raise ArgumentError, "Invalid arguments when calling set_all(#{map})"
     end
     #  Removes the value with the given name
     # @param [String] name The name of the value to remove
@@ -120,7 +136,7 @@ module Vertx
         @j_del.java_method(:remove, [Java::java.lang.String.java_class]).call(name)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling remove(name)"
+      raise ArgumentError, "Invalid arguments when calling remove(#{name})"
     end
     #  Removes all
     # @return [self]

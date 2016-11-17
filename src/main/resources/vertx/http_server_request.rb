@@ -32,6 +32,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpServerRequest
+    end
+    def @@j_api_type.wrap(obj)
+      HttpServerRequest.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpServerRequest.java_class
+    end
     # @yield 
     # @return [self]
     def exception_handler
@@ -165,7 +181,7 @@ module Vertx
       if headerName.class == String && !block_given?
         return @j_del.java_method(:getHeader, [Java::java.lang.String.java_class]).call(headerName)
       end
-      raise ArgumentError, "Invalid arguments when calling get_header(headerName)"
+      raise ArgumentError, "Invalid arguments when calling get_header(#{headerName})"
     end
     # @return [::Vertx::MultiMap] the query parameters in the request
     def params
@@ -184,7 +200,7 @@ module Vertx
       if paramName.class == String && !block_given?
         return @j_del.java_method(:getParam, [Java::java.lang.String.java_class]).call(paramName)
       end
-      raise ArgumentError, "Invalid arguments when calling get_param(paramName)"
+      raise ArgumentError, "Invalid arguments when calling get_param(#{paramName})"
     end
     # @return [::Vertx::SocketAddress] the remote (client side) address of the request
     def remote_address
@@ -252,7 +268,7 @@ module Vertx
         @j_del.java_method(:setExpectMultipart, [Java::boolean.java_class]).call(expect)
         return self
       end
-      raise ArgumentError, "Invalid arguments when calling set_expect_multipart(expect)"
+      raise ArgumentError, "Invalid arguments when calling set_expect_multipart(#{expect})"
     end
     # @return [true,false] true if we are expecting a multi-part body for this request. See {::Vertx::HttpServerRequest#set_expect_multipart}.
     def expect_multipart?
@@ -295,7 +311,7 @@ module Vertx
       if attributeName.class == String && !block_given?
         return @j_del.java_method(:getFormAttribute, [Java::java.lang.String.java_class]).call(attributeName)
       end
-      raise ArgumentError, "Invalid arguments when calling get_form_attribute(attributeName)"
+      raise ArgumentError, "Invalid arguments when calling get_form_attribute(#{attributeName})"
     end
     #  Upgrade the connection to a WebSocket connection.
     #  <p>

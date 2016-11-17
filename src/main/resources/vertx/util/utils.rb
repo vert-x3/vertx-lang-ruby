@@ -18,9 +18,9 @@ module Vertx
       def self.to_throwable(err)
         Java::IoVertxLangRuby::Helper.catchAndReturnThrowable(Proc.new { raise err });
       end
-      def self.safe_create(object, clazz)
+      def self.safe_create(object, clazz, *args)
         if nil != object
-          return clazz.new(object)
+          return clazz.new(object, *args)
         end
         return nil
       end
@@ -140,7 +140,182 @@ module Vertx
           end
         }
       end
+      def self.v_type_of ruby_type
+        if ruby_type.respond_to? :j_api_type
+          ruby_type.j_api_type
+        elsif ruby_type == Fixnum
+          ::Vertx::Util.fixnum_type
+        elsif ruby_type == Float
+          ::Vertx::Util.float_type
+        elsif ruby_type == String
+          ::Vertx::Util.string_type
+        elsif ruby_type == Hash
+          ::Vertx::Util.hash_type
+        elsif ruby_type == Array
+          ::Vertx::Util.array_type
+        elsif ruby_type == TrueClass || ruby_type == FalseClass
+          ::Vertx::Util.boolean_type
+        else
+          ::Vertx::Util.unknown_type
+        end
+      end
+      def self.j_class_of ruby_type
+        if ruby_type.respond_to? :j_class
+          ruby_type.j_class
+        else
+          if ruby_type == Hash
+            Java::IoVertxCoreJson::JsonObject.java_class
+          elsif ruby_type == Array
+              Java::IoVertxCoreJson::JsonArray.java_class
+          elsif ruby_type == Fixnum
+            Java::JavaLang::Long.java_class
+          elsif ruby_type == Float
+            Java::JavaLang::Float.java_class
+          elsif ruby_type == String
+            Java::JavaLang::String.java_class
+          elsif ruby_type == TrueClass || ruby_type == FalseClass
+            Java::JavaLang::Boolean.java_class
+          else
+            nil
+          end
+        end
+      end
     end
+
+    @@unknown_type = Object.new
+    def @@unknown_type.accept?(obj)
+      obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float
+    end
+    def @@unknown_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@unknown_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.unknown_type
+      @@unknown_type
+    end
+
+    @@fixnum_type = Object.new
+    def @@fixnum_type.accept?(obj)
+      obj.class == Fixnum
+    end
+    def @@fixnum_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@fixnum_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.fixnum_type
+      @@fixnum_type
+    end
+
+    @@float_type = Object.new
+    def @@float_type.accept?(obj)
+      obj.class == Float
+    end
+    def @@float_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@float_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.float_type
+      @@float_type
+    end
+
+    @@string_type = Object.new
+    def @@string_type.accept?(obj)
+      obj.class == String
+    end
+    def @@string_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@string_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.string_type
+      @@string_type
+    end
+
+    @@hash_type = Object.new
+    def @@hash_type.accept?(obj)
+      obj.class == Hash
+    end
+    def @@hash_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@hash_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.hash_type
+      @@hash_type
+    end
+
+    @@array_type = Object.new
+    def @@array_type.accept?(obj)
+      obj.class == Array
+    end
+    def @@array_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@array_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.array_type
+      @@array_type
+    end
+
+    @@boolean_type = Object.new
+    def @@boolean_type.accept?(obj)
+      obj.class == TrueClass || obj.class == FalseClass
+    end
+    def @@boolean_type.wrap(obj)
+      Vertx::Util::Utils.from_object(obj)
+    end
+    def @@boolean_type.unwrap(obj)
+      Vertx::Util::Utils.to_object(obj)
+    end
+    def self.boolean_type
+      @@boolean_type
+    end
+
+    class DataObjectType
+      def initialize(clazz)
+        @clazz = clazz
+      end
+      def accept?(obj)
+        obj.class == Hash
+      end
+      def wrap(obj)
+        JSON.parse(obj.toJson.encode)
+      end
+      def unwrap(obj)
+        @clazz.new(::Vertx::Util::Utils.to_json_object(obj));
+      end
+    end
+    def self.data_object_type(clazz)
+      DataObjectType.new clazz
+    end
+
+    class JavaEnumType
+      def initialize(clazz)
+        @clazz = clazz
+      end
+      def accept?(obj)
+        obj.class == String
+      end
+      def wrap(obj)
+        obj != nil ? obj.name : nil
+      end
+      def unwrap(obj)
+        obj != nil ? @clazz.valueOf(obj) : nil
+      end
+    end
+    def self.java_enum_type(clazz)
+      JavaEnumType.new clazz
+    end
+
     class HashProxy < Hash
       def initialize
         super

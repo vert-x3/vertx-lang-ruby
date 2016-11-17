@@ -13,8 +13,9 @@ module Vertx
   class Message
     # @private
     # @param j_del [::Vertx::Message] the java delegate
-    def initialize(j_del)
+    def initialize(j_del, j_arg_T=nil)
       @j_del = j_del
+      @j_arg_T = j_arg_T != nil ? j_arg_T : ::Vertx::Util::unknown_type
     end
     # @private
     # @return [::Vertx::Message] the underlying java delegate
@@ -44,7 +45,7 @@ module Vertx
         if @cached_body != nil
           return @cached_body
         end
-        return @cached_body = ::Vertx::Util::Utils.from_object(@j_del.java_method(:body, []).call())
+        return @cached_body = @j_arg_T.wrap(@j_del.java_method(:body, []).call())
       end
       raise ArgumentError, "Invalid arguments when calling body()"
     end
@@ -63,16 +64,16 @@ module Vertx
     # @yield the reply handler for the reply.
     # @return [void]
     def reply(message=nil,options=nil)
-      if (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && !block_given? && options == nil
+      if ::Vertx::Util::unknown_type.accept?(message) && !block_given? && options == nil
         return @j_del.java_method(:reply, [Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(message))
-      elsif (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && block_given? && options == nil
-        return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) }))
-      elsif (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && !block_given?
+      elsif ::Vertx::Util::unknown_type.accept?(message) && block_given? && options == nil
+        return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) }))
+      elsif ::Vertx::Util::unknown_type.accept?(message) && options.class == Hash && !block_given?
         return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class]).call(::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)))
-      elsif (message.class == String  || message.class == Hash || message.class == Array || message.class == NilClass || message.class == TrueClass || message.class == FalseClass || message.class == Fixnum || message.class == Float) && options.class == Hash && block_given?
-        return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message) : nil) }))
+      elsif ::Vertx::Util::unknown_type.accept?(message) && options.class == Hash && block_given?
+        return @j_del.java_method(:reply, [Java::java.lang.Object.java_class,Java::IoVertxCoreEventbus::DeliveryOptions.java_class,Java::IoVertxCore::Handler.java_class]).call(::Vertx::Util::Utils.to_object(message),Java::IoVertxCoreEventbus::DeliveryOptions.new(::Vertx::Util::Utils.to_json_object(options)),(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Vertx::Message, nil) : nil) }))
       end
-      raise ArgumentError, "Invalid arguments when calling reply(message,options)"
+      raise ArgumentError, "Invalid arguments when calling reply(#{message},#{options})"
     end
     #  Signal to the sender that processing of this message failed.
     #  <p>
@@ -85,7 +86,7 @@ module Vertx
       if failureCode.class == Fixnum && message.class == String && !block_given?
         return @j_del.java_method(:fail, [Java::int.java_class,Java::java.lang.String.java_class]).call(failureCode,message)
       end
-      raise ArgumentError, "Invalid arguments when calling fail(failureCode,message)"
+      raise ArgumentError, "Invalid arguments when calling fail(#{failureCode},#{message})"
     end
   end
 end

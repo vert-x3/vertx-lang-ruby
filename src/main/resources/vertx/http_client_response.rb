@@ -25,6 +25,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == HttpClientResponse
+    end
+    def @@j_api_type.wrap(obj)
+      HttpClientResponse.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::HttpClientResponse.java_class
+    end
     # @return [self]
     def resume
       if !block_given?
@@ -106,7 +122,7 @@ module Vertx
       if headerName.class == String && !block_given?
         return @j_del.java_method(:getHeader, [Java::java.lang.String.java_class]).call(headerName)
       end
-      raise ArgumentError, "Invalid arguments when calling get_header(headerName)"
+      raise ArgumentError, "Invalid arguments when calling get_header(#{headerName})"
     end
     #  Return the first trailer value with the specified name
     # @param [String] trailerName the trailer name
@@ -115,7 +131,7 @@ module Vertx
       if trailerName.class == String && !block_given?
         return @j_del.java_method(:getTrailer, [Java::java.lang.String.java_class]).call(trailerName)
       end
-      raise ArgumentError, "Invalid arguments when calling get_trailer(trailerName)"
+      raise ArgumentError, "Invalid arguments when calling get_trailer(#{trailerName})"
     end
     # @return [::Vertx::MultiMap] the trailers
     def trailers

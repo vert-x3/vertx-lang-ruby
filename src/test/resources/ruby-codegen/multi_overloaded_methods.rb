@@ -12,6 +12,22 @@ module RubyCodegen
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == MultiOverloadedMethods
+    end
+    def @@j_api_type.wrap(obj)
+      MultiOverloadedMethods.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxTestSupport::MultiOverloadedMethods.java_class
+    end
     # @overload method()
     # @overload method(foo)
     #   @param [String] foo 
@@ -27,7 +43,7 @@ module RubyCodegen
       elsif param_1.class == Fixnum && (param_2.class == TrueClass || param_2.class == FalseClass) && !block_given?
         return @j_del.java_method(:method, [Java::int.java_class,Java::boolean.java_class]).call(param_1,param_2)
       end
-      raise ArgumentError, "Invalid arguments when calling method(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling method(#{param_1},#{param_2})"
     end
     # @overload optionalHandler(foo,bar)
     #   @param [String] foo 
@@ -47,7 +63,7 @@ module RubyCodegen
       elsif param_1.class == String && (param_2.class == TrueClass || param_2.class == FalseClass) && !block_given?
         return @j_del.java_method(:optionalHandler, [Java::java.lang.String.java_class,Java::boolean.java_class]).call(param_1,param_2)
       end
-      raise ArgumentError, "Invalid arguments when calling optional_handler(param_1,param_2)"
+      raise ArgumentError, "Invalid arguments when calling optional_handler(#{param_1},#{param_2})"
     end
     # @param [Proc] foo 
     # @param [Proc] bar 
@@ -61,7 +77,7 @@ module RubyCodegen
       elsif foo.class == Proc && bar.class == Proc && block_given?
         return @j_del.java_method(:handlers, [Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class,Java::IoVertxCore::Handler.java_class]).call((Proc.new { |event| foo.call(event) }),(Proc.new { |event| bar.call(event) }),(Proc.new { |event| yield(event) }))
       end
-      raise ArgumentError, "Invalid arguments when calling handlers(foo,bar)"
+      raise ArgumentError, "Invalid arguments when calling handlers(#{foo},#{bar})"
     end
   end
 end

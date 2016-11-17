@@ -22,6 +22,22 @@ module Vertx
     def j_del
       @j_del
     end
+    @@j_api_type = Object.new
+    def @@j_api_type.accept?(obj)
+      obj.class == WebSocketStream
+    end
+    def @@j_api_type.wrap(obj)
+      WebSocketStream.new(obj)
+    end
+    def @@j_api_type.unwrap(obj)
+      obj.j_del
+    end
+    def self.j_api_type
+      @@j_api_type
+    end
+    def self.j_class
+      Java::IoVertxCoreHttp::WebSocketStream.java_class
+    end
     # @yield 
     # @return [self]
     def exception_handler
