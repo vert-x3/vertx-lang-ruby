@@ -184,7 +184,7 @@ module Vertx
 
     @@unknown_type = Object.new
     def @@unknown_type.accept?(obj)
-      obj.class == String  || obj.class == Hash || obj.class == Array || obj.class == NilClass || obj.class == TrueClass || obj.class == FalseClass || obj.class == Fixnum || obj.class == Float
+      true
     end
     def @@unknown_type.wrap(obj)
       Vertx::Util::Utils.from_object(obj)
