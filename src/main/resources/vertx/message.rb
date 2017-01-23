@@ -57,6 +57,14 @@ module Vertx
       end
       raise ArgumentError, "Invalid arguments when calling reply_address()"
     end
+    #  Signals if this message represents a send or publish event.
+    # @return [true,false] true if this is a send.
+    def send?
+      if !block_given?
+        return @j_del.java_method(:isSend, []).call()
+      end
+      raise ArgumentError, "Invalid arguments when calling send?()"
+    end
     #  The same as <code>reply(R message, DeliveryOptions)</code> but you can specify handler for the reply - i.e.
     #  to receive the reply to the reply.
     # @param [Object] message the reply message

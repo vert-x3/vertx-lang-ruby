@@ -3,6 +3,7 @@ require 'testmodel/interface_with_api_arg'
 require 'testmodel/interface_with_variable_arg'
 require 'testmodel/interface_with_string_arg'
 require 'testmodel/refed_interface1'
+require 'testmodel/generic_nullable_refed_interface'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.codegen.testmodel.GenericsTCK
 module Testmodel
@@ -611,6 +612,58 @@ module Testmodel
         return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:interfaceWithVariableArg, [Java::java.lang.Object.java_class,Java::JavaLang::Class.java_class,Java::java.lang.Object.java_class]).call(::Vertx::Util::Utils.to_object(value1),::Vertx::Util::Utils.j_class_of(type),::Vertx::Util::Utils.v_type_of(type).unwrap(value2)),::Testmodel::InterfaceWithVariableArg, nil, ::Vertx::Util::Utils.v_type_of(type))
       end
       raise ArgumentError, "Invalid arguments when calling interface_with_variable_arg(#{value1},#{type},#{value2})"
+    end
+    # @param [true,false] notNull 
+    # @yield 
+    # @return [void]
+    def method_with_handler_generic_nullable_api(notNull=nil)
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && block_given?
+        return @j_del.java_method(:methodWithHandlerGenericNullableApi, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericNullableRefedInterface,::Testmodel::RefedInterface1.j_api_type)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_generic_nullable_api(#{notNull})"
+    end
+    # @param [true,false] notNull 
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_generic_nullable_api(notNull=nil)
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultGenericNullableApi, [Java::boolean.java_class,Java::IoVertxCore::Handler.java_class]).call(notNull,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericNullableRefedInterface,::Testmodel::RefedInterface1.j_api_type) : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_generic_nullable_api(#{notNull})"
+    end
+    # @param [true,false] notNull 
+    # @return [::Testmodel::GenericNullableRefedInterface]
+    def method_with_generic_nullable_api_return(notNull=nil)
+      if (notNull.class == TrueClass || notNull.class == FalseClass) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithGenericNullableApiReturn, [Java::boolean.java_class]).call(notNull),::Testmodel::GenericNullableRefedInterface,::Testmodel::RefedInterface1.j_api_type)
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_generic_nullable_api_return(#{notNull})"
+    end
+    # @param [::Testmodel::GenericRefedInterface] param 
+    # @return [::Testmodel::GenericRefedInterface]
+    def method_with_param_infered_return(param=nil)
+      if param.class.method_defined?(:j_del) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:methodWithParamInferedReturn, [Java::IoVertxCodegenTestmodel::GenericRefedInterface.java_class]).call(param.j_del),::Testmodel::GenericRefedInterface, nil)
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_param_infered_return(#{param})"
+    end
+    # @param [::Testmodel::GenericRefedInterface] param 
+    # @yield 
+    # @return [void]
+    def method_with_handler_param_infered(param=nil)
+      if param.class.method_defined?(:j_del) && block_given?
+        return @j_del.java_method(:methodWithHandlerParamInfered, [Java::IoVertxCodegenTestmodel::GenericRefedInterface.java_class,Java::IoVertxCore::Handler.java_class]).call(param.j_del,(Proc.new { |event| yield(::Vertx::Util::Utils.safe_create(event,::Testmodel::GenericRefedInterface, nil)) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_param_infered(#{param})"
+    end
+    # @param [::Testmodel::GenericRefedInterface] param 
+    # @yield 
+    # @return [void]
+    def method_with_handler_async_result_param_infered(param=nil)
+      if param.class.method_defined?(:j_del) && block_given?
+        return @j_del.java_method(:methodWithHandlerAsyncResultParamInfered, [Java::IoVertxCodegenTestmodel::GenericRefedInterface.java_class,Java::IoVertxCore::Handler.java_class]).call(param.j_del,(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? ::Vertx::Util::Utils.safe_create(ar.result,::Testmodel::GenericRefedInterface, nil) : nil) }))
+      end
+      raise ArgumentError, "Invalid arguments when calling method_with_handler_async_result_param_infered(#{param})"
     end
   end
 end

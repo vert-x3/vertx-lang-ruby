@@ -35,13 +35,18 @@ module Vertx
       raise ArgumentError, "Invalid arguments when calling succeeded_future(#{result})"
     end
     #  Create a failed future with the specified failure message.
-    # @param [String] failureMessage the failure message
+    # @overload failedFuture(t)
+    #   @param [Exception] t the failure cause as a Throwable
+    # @overload failedFuture(failureMessage)
+    #   @param [String] failureMessage the failure message
     # @return [::Vertx::Future] the future
-    def self.failed_future(failureMessage=nil)
-      if failureMessage.class == String && !block_given?
-        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(failureMessage),::Vertx::Future, nil)
+    def self.failed_future(param_1=nil)
+      if param_1.is_a?(Exception) && !block_given?
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::JavaLang::Throwable.java_class]).call(::Vertx::Util::Utils.to_throwable(param_1)),::Vertx::Future, nil)
+      elsif param_1.class == String && !block_given?
+        return ::Vertx::Util::Utils.safe_create(Java::IoVertxCore::Future.java_method(:failedFuture, [Java::java.lang.String.java_class]).call(param_1),::Vertx::Future, nil)
       end
-      raise ArgumentError, "Invalid arguments when calling failed_future(#{failureMessage})"
+      raise ArgumentError, "Invalid arguments when calling failed_future(#{param_1})"
     end
     #  Has the future completed?
     #  <p>

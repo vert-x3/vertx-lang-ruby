@@ -1,7 +1,8 @@
+require 'vertx/http_client_request'
 require 'vertx/buffer'
 require 'vertx/http_frame'
-require 'vertx/read_stream'
 require 'vertx/multi_map'
+require 'vertx/read_stream'
 require 'vertx/net_socket'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpClientResponse
@@ -192,6 +193,16 @@ module Vertx
         return @cached_net_socket = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:netSocket, []).call(),::Vertx::NetSocket)
       end
       raise ArgumentError, "Invalid arguments when calling net_socket()"
+    end
+    # @return [::Vertx::HttpClientRequest] the corresponding request
+    def request
+      if !block_given?
+        if @cached_request != nil
+          return @cached_request
+        end
+        return @cached_request = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:request, []).call(),::Vertx::HttpClientRequest)
+      end
+      raise ArgumentError, "Invalid arguments when calling request()"
     end
   end
 end

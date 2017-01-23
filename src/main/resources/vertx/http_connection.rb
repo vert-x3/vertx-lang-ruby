@@ -1,4 +1,5 @@
 require 'vertx/buffer'
+require 'vertx/socket_address'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.http.HttpConnection
 module Vertx
@@ -222,6 +223,26 @@ module Vertx
         return self
       end
       raise ArgumentError, "Invalid arguments when calling exception_handler()"
+    end
+    # @return [::Vertx::SocketAddress] the remote address for this connection
+    def remote_address
+      if !block_given?
+        if @cached_remote_address != nil
+          return @cached_remote_address
+        end
+        return @cached_remote_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:remoteAddress, []).call(),::Vertx::SocketAddress)
+      end
+      raise ArgumentError, "Invalid arguments when calling remote_address()"
+    end
+    # @return [::Vertx::SocketAddress] the remote address for this connection
+    def local_address
+      if !block_given?
+        if @cached_local_address != nil
+          return @cached_local_address
+        end
+        return @cached_local_address = ::Vertx::Util::Utils.safe_create(@j_del.java_method(:localAddress, []).call(),::Vertx::SocketAddress)
+      end
+      raise ArgumentError, "Invalid arguments when calling local_address()"
     end
   end
 end
