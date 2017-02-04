@@ -358,7 +358,7 @@
     } else if (kind == CLASS_JSON_ARRAY) {
       return "::Vertx::Util::Utils.to_json_array(" + expr + ")";
     } else if (kind == CLASS_ENUM) {
-      return genJavaClassFqn(type) + ".valueOf(" + expr + ")";
+      return genJavaClassFqn(type) + ".valueOf(" + expr + ".to_s)";
     } else if (kind == CLASS_LIST) {
       var elementType = type.args[0];
       return expr + ".map { |element| " + genConvParam(elementType, "element") + " }";

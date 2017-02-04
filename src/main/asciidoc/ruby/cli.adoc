@@ -40,7 +40,7 @@ cli = Vertx::CLI.create("copy").set_summary("A command line interface to copy fi
   'description' => "The source",
   'argName' => "source"
 }).add_argument({
-  'index' => 0,
+  'index' => 1,
   'description' => "The destination",
   'argName' => "target"
 })

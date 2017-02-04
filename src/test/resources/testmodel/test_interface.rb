@@ -721,7 +721,7 @@ module Testmodel
     # @return [String]
     def method_with_enum_param(strVal=nil,weirdo=nil)
       if strVal.class == String && weirdo.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithEnumParam, [Java::java.lang.String.java_class,Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(strVal,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(weirdo))
+        return @j_del.java_method(:methodWithEnumParam, [Java::java.lang.String.java_class,Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(strVal,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(weirdo.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_enum_param(#{strVal},#{weirdo})"
     end
@@ -738,7 +738,7 @@ module Testmodel
     # @return [String]
     def method_with_gen_enum_param(strVal=nil,weirdo=nil)
       if strVal.class == String && weirdo.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithGenEnumParam, [Java::java.lang.String.java_class,Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(strVal,Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(weirdo))
+        return @j_del.java_method(:methodWithGenEnumParam, [Java::java.lang.String.java_class,Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(strVal,Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(weirdo.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_gen_enum_param(#{strVal},#{weirdo})"
     end

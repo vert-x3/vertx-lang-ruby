@@ -91,5 +91,29 @@ module Testmodel
       end
       raise ArgumentError, "Invalid arguments when calling set_data_object_with_buffer(#{dataObject})"
     end
+    # @param [Hash] dataObject 
+    # @return [void]
+    def set_data_object_with_list_adders(dataObject=nil)
+      if dataObject.class == Hash && !block_given?
+        return @j_del.java_method(:setDataObjectWithListAdders, [Java::IoVertxCodegenTestmodel::DataObjectWithListAdders.java_class]).call(Java::IoVertxCodegenTestmodel::DataObjectWithListAdders.new(::Vertx::Util::Utils.to_json_object(dataObject)))
+      end
+      raise ArgumentError, "Invalid arguments when calling set_data_object_with_list_adders(#{dataObject})"
+    end
+    # @param [Hash] dataObject 
+    # @return [void]
+    def set_data_object_with_map_adders(dataObject=nil)
+      if dataObject.class == Hash && !block_given?
+        return @j_del.java_method(:setDataObjectWithMapAdders, [Java::IoVertxCodegenTestmodel::DataObjectWithMapAdders.java_class]).call(Java::IoVertxCodegenTestmodel::DataObjectWithMapAdders.new(::Vertx::Util::Utils.to_json_object(dataObject)))
+      end
+      raise ArgumentError, "Invalid arguments when calling set_data_object_with_map_adders(#{dataObject})"
+    end
+    # @param [Hash] dataObject 
+    # @return [void]
+    def set_data_object_with_recursion(dataObject=nil)
+      if dataObject.class == Hash && !block_given?
+        return @j_del.java_method(:setDataObjectWithRecursion, [Java::IoVertxCodegenTestmodel::DataObjectWithRecursion.java_class]).call(Java::IoVertxCodegenTestmodel::DataObjectWithRecursion.new(::Vertx::Util::Utils.to_json_object(dataObject)))
+      end
+      raise ArgumentError, "Invalid arguments when calling set_data_object_with_recursion(#{dataObject})"
+    end
   end
 end

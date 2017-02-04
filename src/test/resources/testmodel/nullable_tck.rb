@@ -593,7 +593,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_enum_param?(param=nil)
       if param.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithNonNullableEnumParam, [Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(Java::IoVertxCodegenTestmodel::TestEnum.valueOf(param))
+        return @j_del.java_method(:methodWithNonNullableEnumParam, [Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(Java::IoVertxCodegenTestmodel::TestEnum.valueOf(param.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_enum_param?(#{param})"
     end
@@ -602,7 +602,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithNullableEnumParam, [Java::boolean.java_class,Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(expectNull,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(param))
+        return @j_del.java_method(:methodWithNullableEnumParam, [Java::boolean.java_class,Java::IoVertxCodegenTestmodel::TestEnum.java_class]).call(expectNull,Java::IoVertxCodegenTestmodel::TestEnum.valueOf(param.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_enum_param(#{expectNull},#{param})"
     end
@@ -636,7 +636,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_gen_enum_param?(param=nil)
       if param.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithNonNullableGenEnumParam, [Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(param))
+        return @j_del.java_method(:methodWithNonNullableGenEnumParam, [Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(param.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_gen_enum_param?(#{param})"
     end
@@ -645,7 +645,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_gen_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Symbol && !block_given?
-        return @j_del.java_method(:methodWithNullableGenEnumParam, [Java::boolean.java_class,Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(expectNull,Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(param))
+        return @j_del.java_method(:methodWithNullableGenEnumParam, [Java::boolean.java_class,Java::IoVertxCodegenTestmodel::TestGenEnum.java_class]).call(expectNull,Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(param.to_s))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_gen_enum_param(#{expectNull},#{param})"
     end
@@ -1285,7 +1285,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_list_enum_param?(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNonNullableListEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithNonNullableListEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_list_enum_param?(#{param})"
     end
@@ -1294,7 +1294,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_list_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNullableListEnumParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithNullableListEnumParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_enum_param(#{expectNull},#{param})"
     end
@@ -1328,7 +1328,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_list_gen_enum_param?(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNonNullableListGenEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithNonNullableListGenEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_list_gen_enum_param?(#{param})"
     end
@@ -1337,7 +1337,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_list_gen_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithNullableListGenEnumParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithNullableListGenEnumParam, [Java::boolean.java_class,Java::JavaUtil::List.java_class]).call(expectNull,param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_list_gen_enum_param(#{expectNull},#{param})"
     end
@@ -1930,7 +1930,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_set_enum_param?(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNonNullableSetEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithNonNullableSetEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_set_enum_param?(#{param})"
     end
@@ -1939,7 +1939,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_set_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNullableSetEnumParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithNullableSetEnumParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_set_enum_param(#{expectNull},#{param})"
     end
@@ -1973,7 +1973,7 @@ module Testmodel
     # @return [true,false]
     def method_with_non_nullable_set_gen_enum_param?(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNonNullableSetGenEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithNonNullableSetGenEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_non_nullable_set_gen_enum_param?(#{param})"
     end
@@ -1982,7 +1982,7 @@ module Testmodel
     # @return [void]
     def method_with_nullable_set_gen_enum_param(expectNull=nil,param=nil)
       if (expectNull.class == TrueClass || expectNull.class == FalseClass) && param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithNullableSetGenEnumParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithNullableSetGenEnumParam, [Java::boolean.java_class,Java::JavaUtil::Set.java_class]).call(expectNull,Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_nullable_set_gen_enum_param(#{expectNull},#{param})"
     end
@@ -2909,7 +2909,7 @@ module Testmodel
     # @return [void]
     def method_with_list_nullable_enum_param(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithListNullableEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithListNullableEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_nullable_enum_param(#{param})"
     end
@@ -2940,7 +2940,7 @@ module Testmodel
     # @return [void]
     def method_with_list_nullable_gen_enum_param(param=nil)
       if param.class == Array && !block_given?
-        return @j_del.java_method(:methodWithListNullableGenEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) })
+        return @j_del.java_method(:methodWithListNullableGenEnumParam, [Java::JavaUtil::List.java_class]).call(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) })
       end
       raise ArgumentError, "Invalid arguments when calling method_with_list_nullable_gen_enum_param(#{param})"
     end
@@ -3374,7 +3374,7 @@ module Testmodel
     # @return [void]
     def method_with_set_nullable_enum_param(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithSetNullableEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithSetNullableEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_nullable_enum_param(#{param})"
     end
@@ -3405,7 +3405,7 @@ module Testmodel
     # @return [void]
     def method_with_set_nullable_gen_enum_param(param=nil)
       if param.class == Set && !block_given?
-        return @j_del.java_method(:methodWithSetNullableGenEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element) }))
+        return @j_del.java_method(:methodWithSetNullableGenEnumParam, [Java::JavaUtil::Set.java_class]).call(Java::JavaUtil::LinkedHashSet.new(param.map { |element| Java::IoVertxCodegenTestmodel::TestGenEnum.valueOf(element.to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_set_nullable_gen_enum_param(#{param})"
     end

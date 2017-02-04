@@ -184,7 +184,7 @@ module Testmodel
     # @return [String]
     def method_with_enum_return(func=nil)
       if block_given? && func == nil
-        return @j_del.java_method(:methodWithEnumReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(yield(event)) }))
+        return @j_del.java_method(:methodWithEnumReturn, [Java::JavaUtilFunction::Function.java_class]).call((Proc.new { |event| Java::IoVertxCodegenTestmodel::TestEnum.valueOf(yield(event).to_s) }))
       end
       raise ArgumentError, "Invalid arguments when calling method_with_enum_return(#{func})"
     end
