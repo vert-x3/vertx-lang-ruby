@@ -187,10 +187,10 @@ module Vertx
       true
     end
     def @@unknown_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@unknown_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.unknown_type
       @@unknown_type
@@ -201,10 +201,10 @@ module Vertx
       obj.class == Fixnum
     end
     def @@fixnum_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@fixnum_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.fixnum_type
       @@fixnum_type
@@ -215,10 +215,10 @@ module Vertx
       obj.class == Float
     end
     def @@float_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@float_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.float_type
       @@float_type
@@ -229,10 +229,10 @@ module Vertx
       obj.class == String
     end
     def @@string_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@string_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.string_type
       @@string_type
@@ -243,10 +243,10 @@ module Vertx
       obj.class == Hash
     end
     def @@hash_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@hash_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.hash_type
       @@hash_type
@@ -257,10 +257,10 @@ module Vertx
       obj.class == Array
     end
     def @@array_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@array_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.array_type
       @@array_type
@@ -271,10 +271,10 @@ module Vertx
       obj.class == TrueClass || obj.class == FalseClass
     end
     def @@boolean_type.wrap(obj)
-      Vertx::Util::Utils.from_object(obj)
+      Utils.from_object(obj)
     end
     def @@boolean_type.unwrap(obj)
-      Vertx::Util::Utils.to_object(obj)
+      Utils.to_object(obj)
     end
     def self.boolean_type
       @@boolean_type
@@ -291,7 +291,7 @@ module Vertx
         JSON.parse(obj.toJson.encode)
       end
       def unwrap(obj)
-        @clazz.new(::Vertx::Util::Utils.to_json_object(obj));
+        @clazz.new(Utils.to_json_object(obj));
       end
     end
     def self.data_object_type(clazz)
