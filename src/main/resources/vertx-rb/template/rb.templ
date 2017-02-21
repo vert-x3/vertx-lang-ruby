@@ -174,11 +174,8 @@
    */
   def genMethodName(method) {
     var name = method.getName(CASE_SNAKE);
-    if (method.returnType.name == "boolean" || method.returnType.name == "java.lang.Boolean") {
-      if (name.startsWith("is_")) {
-        name = name.substring(3);
-      }
-      name += "?";
+    if ((method.returnType.name == "boolean" || method.returnType.name == "java.lang.Boolean") && name.startsWith("is_")) {
+      name = name.substring(3) + "?";
     }
     return name;
   }
