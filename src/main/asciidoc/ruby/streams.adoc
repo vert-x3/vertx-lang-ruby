@@ -160,7 +160,7 @@ or when end of request is reached if it's an HTTP request, or when the connectio
 
 `WriteStream` is implemented by `link:../../yardoc/Vertx/HttpClientRequest.html[HttpClientRequest]`, `link:../../yardoc/Vertx/HttpServerResponse.html[HttpServerResponse]`
 `link:../../yardoc/Vertx/WebSocket.html[WebSocket]`, `link:../../yardoc/Vertx/NetSocket.html[NetSocket]`, `link:../../yardoc/Vertx/AsyncFile.html[AsyncFile]`,
-`link:../../yardoc/Vertx/PacketWritestream.html[PacketWritestream]` and `link:../../yardoc/Vertx/MessageProducer.html[MessageProducer]`
+and `link:../../yardoc/Vertx/MessageProducer.html[MessageProducer]`
 
 Functions:
 
