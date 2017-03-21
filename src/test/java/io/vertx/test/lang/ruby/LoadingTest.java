@@ -4,7 +4,10 @@ import io.vertx.test.core.VertxTestBase;
 import org.junit.After;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -38,7 +41,7 @@ public class LoadingTest extends VertxTestBase {
     Thread.currentThread().setContextClassLoader(custom);
     deployed = false;
     vertx.deployVerticle("require/simple_verticle.rb");
-    waitUntil(() -> deployed);
+    assertWaitUntil(() -> deployed);
   }
 
   @Test
@@ -49,7 +52,7 @@ public class LoadingTest extends VertxTestBase {
     Thread.currentThread().setContextClassLoader(custom);
     deployed = false;
     vertx.deployVerticle("require/simple_verticle.rb");
-    waitUntil(() -> deployed);
+    assertWaitUntil(() -> deployed);
   }
 
   private File createJar() throws IOException {
