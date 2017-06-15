@@ -1540,7 +1540,7 @@ The client can be configured to follow HTTP redirections: when the client receiv
 `301`, `302`, `303` or `307` status code, it follows the redirection provided by the `Location` response header
 and the response handler is passed the redirected response instead of the original response.
 
-Here’s an example:
+Here's an example:
 
 [source,ruby]
 ----
@@ -2187,6 +2187,12 @@ client SSL/TLS (such as trust, key/certificate, ciphers, ALPN, ...) will be reus
 Likewise `link:../../yardoc/Vertx/HttpClient.html#request_abs-instance_method[requestAbs]` scheme
 also overrides the default client setting.
 
+==== Server Name Indication (SNI)
+
+Vert.x http servers can be configured to use SNI in exactly the same way as net.adoc.
+
+Vert.x http client will present the actual hostname as _server name_ during the TLS handshake.
+
 === WebSockets
 
 http://en.wikipedia.org/wiki/WebSocket[WebSockets] are a web technology that allows a full duplex socket-like
@@ -2439,6 +2445,30 @@ client = vertx.create_http_client(options)
 
 The DNS resolution is always done on the proxy server, to achieve the functionality of a SOCKS4 client, it is necessary
 to resolve the DNS address locally.
+
+==== Handling of other protocols
+
+The HTTP proxy implementation supports getting ftp:// urls if the proxy supports
+that, which isn't available in non-proxy getAbs requests.
+
+[source,ruby]
+----
+
+options = {
+  'proxyOptions' => {
+    'type' => "HTTP"
+  }
+}
+client = vertx.create_http_client(options)
+client.get_abs("ftp://ftp.gnu.org/gnu/") { |response|
+  puts "Received response with status code #{response.status_code()}"
+}
+
+
+----
+
+Support for other protocols is not available since java.net.URL does not
+support them (gopher:// for example).
 
 === Automatic clean-up in verticles
 
