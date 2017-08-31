@@ -29,6 +29,8 @@ module Vertx
           JsonObject.new(JSON.generate(object))
         elsif object.is_a? Array
           JsonArray.new(JSON.generate(object))
+        elsif object.respond_to?(:j_del)
+          object.j_del
         else
           # Best effort, we let jruby handle the conversion
           object

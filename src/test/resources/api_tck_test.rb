@@ -131,7 +131,7 @@ def testMethodWithHandlerGenericReturn
   handler.call("the-result");
   Assert.equals(result, "the-result")
   handler.call(@obj);
-  Assert.equals(result, @obj)
+  Assert.equals(result, @obj.j_del)
 end
 
 def testMethodWithHandlerVertxGenReturn
@@ -173,7 +173,7 @@ def testMethodWithHandlerAsyncResultGenericReturn
   succeedingHandler.call(nil, "the-result");
   Assert.equals(result, "the-result")
   succeedingHandler.call(nil, @obj);
-  Assert.equals(result, @obj)
+  Assert.equals(result, @obj.j_del)
 end
 
 def testMethodWithHandlerAsyncResultVertxGenReturn
