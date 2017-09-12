@@ -370,7 +370,7 @@ def testBasicReturns
   ret = @obj.method_with_double_return
   Assert.equals(ret.class, Float)
   Assert.equals(ret, 3.34535)
-  ret = @obj.method_with_boolean_return
+  ret = @obj.method_with_boolean_return?
   Assert.equals(ret.class, TrueClass)
   Assert.equals(ret, true)
   ret = @obj.method_with_char_return
