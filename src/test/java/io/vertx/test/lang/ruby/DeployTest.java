@@ -57,6 +57,7 @@ public class DeployTest extends VertxTestBase {
 
   @Test
   public void testGemPath() {
+    waitFor(2);
     File gemsDir = new File(System.getProperty("gems.path"));
     if (gemsDir.exists()) {
       if (!gemsDir.isDirectory()) {
@@ -75,14 +76,14 @@ public class DeployTest extends VertxTestBase {
     );
     vertx.eventBus().consumer("deployment", msg -> {
       assertEquals("gem_started", msg.body());
-      testComplete();
+      complete();
     });
     vertx.deployVerticle(
         "verticle_requiring_gem.rb",
         new DeploymentOptions().setConfig(new JsonObject().put("GEM_PATH", gemsDir.getAbsolutePath())),
-        ar -> {
-      assertTrue(ar.succeeded());
-    });
+        onSuccess(id -> {
+          complete();
+        }));
     await();
   }
 

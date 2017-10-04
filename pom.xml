@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-parent</artifactId>
-    <version>10</version>
+    <version>11</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -66,7 +66,7 @@
     <dependency>
       <groupId>org.jruby</groupId>
       <artifactId>jruby-complete</artifactId>
-      <version>9.1.7.0</version>
+      <version>9.1.13.0</version>
     </dependency>
     <dependency>
       <groupId>org.mvel</groupId>
@@ -179,10 +179,10 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <version>3.1.0</version>
         <configuration>
           <systemProperties>
             <java.util.logging.SimpleFormatter.format>%4$s: %3$s - %5$s %6$s%n</java.util.logging.SimpleFormatter.format>
+            <mvel2.disable.jit>true</mvel2.disable.jit>
           </systemProperties>
         </configuration>
         <executions>
