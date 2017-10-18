@@ -53,3 +53,101 @@ Vertx::RecordParser.new_fixed(4) { |h|
 ----
 
 For more details, check out the `link:../../yardoc/Vertx/RecordParser.html[RecordParser]` class.
+
+== Json Parser
+
+You can easily parse JSON structures but that requires to provide the JSON content at once, but it
+may not be convenient when you need to parse very large structures.
+
+The non-blocking JSON parser is an event driven parser able to deal with very large structures.
+It transforms a sequence of input buffer to a sequence of JSON parse events.
+
+[source, ruby]
+----
+Code not translatable
+----
+
+The parser is non-blocking and emitted events are driven by the input buffers.
+
+[source, ruby]
+----
+require 'vertx/json_parser'
+require 'vertx/buffer'
+
+parser = Vertx::JsonParser.new_parser()
+
+# start array event
+# start object event
+# "firstName":"Bob" event
+parser.handle(Vertx::Buffer.buffer("[{\"firstName\":\"Bob\","))
+
+# "lastName":"Morane" event
+# end object event
+parser.handle(Vertx::Buffer.buffer("\"lastName\":\"Morane\"},"))
+
+# start object event
+# "firstName":"Luke" event
+# "lastName":"Lucky" event
+# end object event
+parser.handle(Vertx::Buffer.buffer("{\"firstName\":\"Luke\",\"lastName\":\"Lucky\"}"))
+
+# end array event
+parser.handle(Vertx::Buffer.buffer("]"))
+
+# Always call end
+parser.end()
+
+----
+
+Event driven parsing provides more control but comes at the price of dealing with fine grained events, which can be
+inconvenient sometimes. The JSON parser allows you to handle JSON structures as values when it is desired:
+
+[source, ruby]
+----
+Code not translatable
+----
+
+The value mode can be set and unset during the parsing allowing you to switch between fine grained
+events or JSON object value events.
+
+[source, ruby]
+----
+Code not translatable
+----
+
+You can do the same with arrays as well
+
+[source, ruby]
+----
+Code not translatable
+----
+
+You can also decode POJOs
+
+[source, ruby]
+----
+parser.handler() { |event|
+  # Handle each object
+  # Get the field in which this object was parsed
+  id = event.field_name()
+  user = event.map_to(Java::ExamplesParseToolsExamples::User::class)
+  puts "User with id #{id} : #{user::firstName} #{user::lastName}"
+}
+
+----
+
+Whenever the parser fails to process a buffer, an exception will be thrown unless you set an exception handler:
+
+[source, ruby]
+----
+require 'vertx/json_parser'
+
+parser = Vertx::JsonParser.new_parser()
+
+parser.exception_handler() { |err|
+  # Catch any parsing or decoding error
+}
+
+----
+
+For more details, check out the `link:../../yardoc/Vertx/JsonParser.html[JsonParser]` class.
