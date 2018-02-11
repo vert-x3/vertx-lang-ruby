@@ -1427,7 +1427,7 @@ request.exception_handler() { |err|
 
 ----
 
-=== Handling http responses
+=== Handling HTTP responses
 
 You receive an instance of `link:../../yardoc/Vertx/HttpClientResponse.html[HttpClientResponse]` into the handler that you specify in of
 the request methods or by setting a handler directly on the `link:../../yardoc/Vertx/HttpClientRequest.html[HttpClientRequest]` object.
