@@ -21,6 +21,12 @@
 
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-ruby-codegen</artifactId>
+      <version>3.6.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-codegen</artifactId>
       <scope>provided</scope>
     </dependency>
@@ -64,18 +70,6 @@
 
     <!-- Test dependencies -->
     <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <classifier>tck-sources</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <classifier>tck</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -84,6 +78,13 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-core</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-ruby-codegen</artifactId>
+      <version>3.6.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
@@ -144,21 +145,6 @@
               <includes>io/vertx/core/**/*.java,examples/**/*.java</includes>
               <excludes>**/impl/**/*.java,**/logging/**/*.java</excludes>
               <outputDirectory>${project.build.directory}/sources/vertx-core</outputDirectory>
-            </configuration>
-          </execution>
-          <!-- Unpack codegen source code to target/sources/codegen -->
-          <execution>
-            <id>unpack-codegen</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeGroupIds>io.vertx</includeGroupIds>
-              <includeArtifactIds>vertx-codegen</includeArtifactIds>
-              <includeTypes>jar</includeTypes>
-              <includeClassifiers>tck-sources</includeClassifiers>
-              <outputDirectory>${project.build.directory}/sources/codegen</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -229,30 +215,6 @@
               <sourceDirectory>src/main/docoverride</sourceDirectory>
             </configuration>
           </execution>
-          <!-- Run the annotation processor on codegen and generate the ruby codegen -->
-          <execution>
-            <id>generate-codegen</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>generate-test-sources</phase>
-            <configuration>
-              <processors>
-                <processor>io.vertx.codegen.CodeGenProcessor</processor>
-              </processors>
-              <optionMap>
-                <codegen.output>${project.basedir}/src/test</codegen.output>
-                <codegen.generators>Ruby</codegen.generators>
-              </optionMap>
-              <sourceDirectory>${project.build.directory}/sources/codegen</sourceDirectory>
-              <excludes>
-                <exclude>io/vertx/test/lang/ruby/**</exclude>
-              </excludes>
-              <additionalSourceDirectories>
-                <additionalSourceDirectory>${project.basedir}/src/test/java</additionalSourceDirectory>
-              </additionalSourceDirectories>
-            </configuration>
-          </execution>
         </executions>
         <dependencies>
           <dependency>
@@ -263,6 +225,7 @@
         </dependencies>
       </plugin>
 
+      <!--
       <plugin>
         <groupId>org.asciidoctor</groupId>
         <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -293,9 +256,11 @@
           </execution>
         </executions>
       </plugin>
+    -->
     </plugins>
   </build>
 
+  <!--
   <profiles>
     <profile>
       <id>docs</id>
@@ -323,7 +288,7 @@
                 </goals>
                 <phase>prepare-package</phase>
                 <configuration>
-                  <execArgs>${project.build.directory}/rubygems/bin/yardoc --no-private -m html --main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/docs/yardoc ${project.basedir}/src/main/resources/vertx/*.rb</execArgs>
+                  <execArgs>${project.build.directory}/rubygems/bin/yardoc - -no-private -m html - -main ${project.basedir}/src/main/resources/vertx/index.md -o ${project.build.directory}/docs/yardoc ${project.basedir}/src/main/resources/vertx/*.rb</execArgs>
                 </configuration>
               </execution>
             </executions>
@@ -340,5 +305,5 @@
       </build>
     </profile>
   </profiles>
-
+  -->
 </project>

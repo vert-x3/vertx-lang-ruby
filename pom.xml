@@ -19,6 +19,7 @@
   </properties>
 
   <modules>
+    <module>vertx-lang-ruby-codegen</module>
     <module>vertx-lang-ruby</module>
   </modules>
 
