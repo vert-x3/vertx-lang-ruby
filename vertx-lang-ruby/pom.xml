@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
+    <artifactId>vertx-base-stack</artifactId>
     <groupId>io.vertx</groupId>
-    <artifactId>vertx-lang-ruby-parent</artifactId>
     <version>3.6.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
+    <relativePath></relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -24,42 +24,6 @@
       <artifactId>vertx-lang-ruby-codegen</artifactId>
       <version>3.6.0-SNAPSHOT</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codegen</artifactId>
-      <classifier>sources</classifier>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-docgen</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-codetrans</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.vertx</groupId>
-      <artifactId>vertx-core</artifactId>
-      <classifier>sources</classifier>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jruby</groupId>
-      <artifactId>jruby-complete</artifactId>
-      <version>9.1.13.0</version>
     </dependency>
     <dependency>
       <groupId>org.mvel</groupId>
@@ -127,102 +91,49 @@
       </plugins>
     </pluginManagement>
     <plugins>
+
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.2</version>
         <executions>
-          <!-- Unpack vertx-core source code to target/vertx-core -->
+          <!-- Unpack sources to target/sources -->
           <execution>
-            <id>unpack-vertx-core</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeGroupIds>io.vertx</includeGroupIds>
-              <includeArtifactIds>vertx-core</includeArtifactIds>
-              <includeTypes>jar</includeTypes>
-              <includeClassifiers>sources</includeClassifiers>
-              <includes>io/vertx/core/**/*.java,examples/**/*.java</includes>
-              <excludes>**/impl/**/*.java,**/logging/**/*.java</excludes>
-              <outputDirectory>${project.build.directory}/sources/vertx-core</outputDirectory>
-            </configuration>
+            <id>unpack-java</id>
+          </execution>
+          <execution>
+            <id>unpack-asciidoc</id>
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <configuration>
-          <systemProperties>
-            <java.util.logging.SimpleFormatter.format>%4$s: %3$s - %5$s %6$s%n</java.util.logging.SimpleFormatter.format>
-            <mvel2.disable.jit>true</mvel2.disable.jit>
-          </systemProperties>
-        </configuration>
+        <version>3.1.0</version>
         <executions>
-          <!-- Run the annotation processor on vertx-core and generate the ruby API -->
           <execution>
-            <id>generate-api</id>
+            <id>generate-sources</id>
+          </execution>
+          <execution>
+            <id>generate-doc</id>
+          </execution>
+          <execution>
+            <id>generate-test-sources</id>
             <goals>
-              <goal>process</goal>
+              <goal>process-test</goal>
             </goals>
-            <phase>generate-sources</phase>
+            <phase>generate-test-sources</phase>
             <configuration>
               <processors>
                 <processor>io.vertx.codegen.CodeGenProcessor</processor>
               </processors>
               <optionMap>
-                <codegen.output>${project.basedir}/src/main</codegen.output>
-                <codegen.generators>Ruby</codegen.generators>
+                <outputDirectory>${project.basedir}/src/test</outputDirectory>
               </optionMap>
-              <sourceDirectory>${project.build.directory}/sources/vertx-core</sourceDirectory>
-            </configuration>
-          </execution>
-          <!-- Run the annotation processor on vertx-core and generate the ruby API -->
-          <execution>
-            <id>generate-docs</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>prepare-package</phase>
-            <configuration>
-              <processors>
-                <processor>io.vertx.docgen.DocGenProcessor</processor>
-              </processors>
-              <optionMap>
-                <docgen.output>${asciidoc.dir}/ruby</docgen.output>
-              </optionMap>
-              <sourceDirectory>${project.build.directory}/sources/vertx-core</sourceDirectory>
-            </configuration>
-          </execution>
-          <!-- We have to run the annotation processor again to process doc overrides -->
-          <execution>
-            <id>generate-docoverride</id>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <phase>prepare-package</phase>
-            <configuration>
-              <processors>
-                <processor>io.vertx.docgen.DocGenProcessor</processor>
-              </processors>
-              <optionMap>
-                <docgen.output>${asciidoc.dir}/ruby</docgen.output>
-
-                <maven.groupId>${project.groupId}</maven.groupId>
-                <maven.artifactId>${project.artifactId}</maven.artifactId>
-                <maven.version>${project.version}</maven.version>
-              </optionMap>
-              <sourceDirectory>src/main/docoverride</sourceDirectory>
+              <defaultOutputDirectory>${project.build.directory}/generated-test-sources/test-annotations</defaultOutputDirectory>
             </configuration>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-          </dependency>
-        </dependencies>
       </plugin>
 
       <!--
