@@ -282,12 +282,6 @@
           <id>rubygems-releases</id>
           <url>http://rubygems-proxy.torquebox.org/releases</url>
         </pluginRepository>
-        <!-- For dokka-maven-plugin -->
-        <pluginRepository>
-          <id>jcenter</id>
-          <name>JCenter</name>
-          <url>https://jcenter.bintray.com/</url>
-        </pluginRepository>
       </pluginRepositories>
       <repositories>
         <repository>
