@@ -1,0 +1,33 @@
+=== Passing configuration to a verticle
+
+Configuration in the form of JSON can be passed to a verticle at deployment time:
+
+[source,ruby]
+----
+config = {
+ 'name' => "tim",
+ 'directory' => "/blah"
+}
+options = {
+ 'config' => config
+}
+vertx.deploy_verticle("MyOrderProcessorVerticle.rb", options)
+----
+
+This configuration is then available via the {@link io.vertx.core.Context} object. The configuration is returned as a
+_Hash_ object so you can retrieve data as follows:
+
+[source,ruby]
+----
+puts $vertx.get_or_create_context().config()["name"]
+----
+
+=== Accessing environment variables in a Verticle
+
+Environment variables and system properties are accessible from a verticle using the Java API:
+
+[source,javascript]
+----
+puts Java::JavaLang::System.getProperty("foo")
+puts Java::JavaLang::System.getenv("HOME")
+----
