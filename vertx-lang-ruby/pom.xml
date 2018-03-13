@@ -85,30 +85,13 @@
             </additionalClasspathElements>
           </configuration>
         </plugin>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>default-clean</id>
-              <configuration>
-                <filesets>
-                  <fileset>
-                    <directory>${asciidoc.dir}</directory>
-                  </fileset>
-                </filesets>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
 
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.2</version>
         <executions>
-          <!-- Unpack sources to target/sources -->
           <execution>
             <id>unpack-java</id>
           </execution>
@@ -121,7 +104,6 @@
       <plugin>
         <groupId>org.bsc.maven</groupId>
         <artifactId>maven-processor-plugin</artifactId>
-        <version>3.1.0</version>
         <executions>
           <execution>
             <id>generate-sources</id>
