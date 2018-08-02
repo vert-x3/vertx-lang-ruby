@@ -1,5 +1,15 @@
 @includeNamed{'/vertx-java/template/common-lib.templ'}
+
 @code{
+
+  /* Filter method containing java types */
+  var it = methods.iterator();
+  while (it.hasNext()) {
+    var meth = it.next();
+    if (meth.isContainingAnyJavaType()) {
+      it.remove();
+    }
+  }
 
   /*
    * Returns the Ruby class qualified name for a given Vert.x Api interface
