@@ -756,6 +756,15 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 
 	@end{}
 
+	@foreach{constant:constants}
+		@if{constant.doc != null}
+			@{renderDocToHtml("    # ", constant.doc, renderLinkToHtml)}
+		@end{}
+    def self.@{constant.name}\n
+      @{genConvReturn(constant.type, genJavaClassFqn(type) + '.' + constant.name)}\n
+    end\n
+	@end{}
+
   end\n
 
 @comment{"The mixin implementing the class for abstract interfaces"}
