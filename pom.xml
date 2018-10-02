@@ -20,6 +20,7 @@
 
   <modules>
     <module>vertx-lang-ruby-codegen</module>
+    <module>vertx-lang-ruby</module>
   </modules>
 
   <dependencyManagement>
@@ -33,12 +34,5 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <dependencies>
-  </dependencies>
-
-  <build>
-
-  </build>
 
 </project>
