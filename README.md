@@ -1,7 +1,7 @@
 vertx-lang-jruby
 ========
 
-[![Build Status](https://vertx.ci.cloudbees.com/buildStatus/icon?job=vert.x3-lang-ruby)](https://vertx.ci.cloudbees.com/view/vert.x-3/job/vert.x3-lang-ruby/)
+[![Build Status](https://travis-ci.org/vert-x3/vertx-lang-ruby.svg?branch=master)](https://travis-ci.org/vert-x3/vertx-lang-ruby)
 
 ## todo list
 
