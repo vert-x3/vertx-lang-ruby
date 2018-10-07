@@ -11,11 +11,11 @@ jobs:
       script: mvn -q clean verify -B
     - stage: deploy
       name: "Deploy to Sonatype's snapshots repository"
-      if: type != pull_request
+      if: type != pull_request AND env(SONATYPE_NEXUS_USERNAME) IS present
       script: bash .travis.deploy.artifacts.sh
 notifications:
   email:
     recipients:
-      - vertx3-ci@googlegroups.com
+      - secure: "JRvr8VdyvegK/loh0FeotlkoqIht/ie4WfMQzYxg3/NisqXxR2A3AAacakEnhTFlH006Pvka1oG9K+7DmDjJHHKuUxWmzhe2FxUMuAn8zkUpqECeKlw+6Z66l2HD5CkSRUUbKNi100tQUcjPfkO8pdKIyb6b9q877RBvHXP4V0E="
     on_success: always
     on_failure: always
