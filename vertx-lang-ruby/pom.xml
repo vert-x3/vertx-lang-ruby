@@ -335,7 +335,7 @@
     <!-- Extra dependencies -->
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby-codegen</artifactId>
+      <artifactId>vertx-lang-ruby-gen</artifactId>
       <version>3.6.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
@@ -361,7 +361,7 @@
     </dependency>
     <dependency>
       <groupId>io.vertx</groupId>
-      <artifactId>vertx-lang-ruby-codegen</artifactId>
+      <artifactId>vertx-lang-ruby-gen</artifactId>
       <version>3.6.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
