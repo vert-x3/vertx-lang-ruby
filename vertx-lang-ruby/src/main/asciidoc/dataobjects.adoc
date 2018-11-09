@@ -99,6 +99,32 @@ Set the list of DNS server addresses, an address is the IP  of the dns server, f
 +++
 |===
 
+[[AggregateOptions]]
+== AggregateOptions
+
+++++
+ Options used to configure aggregate operations.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[allowDiskUse]]`@allowDiskUse`|`Boolean`|+++
+Set the flag if writing to temporary files is enabled.
++++
+|[[batchSize]]`@batchSize`|`Number (int)`|+++
+Set the batch size for methods loading found data in batches.
++++
+|[[maxAwaitTime]]`@maxAwaitTime`|`Number (long)`|+++
+The maximum amount of time for the server to wait on new documents to satisfy a $changeStream aggregation.
++++
+|[[maxTime]]`@maxTime`|`Number (long)`|+++
+Set the time limit in milliseconds for processing operations on a cursor.
++++
+|===
+
 [[AmqpBridgeOptions]]
 == AmqpBridgeOptions
 
@@ -1115,10 +1141,10 @@ Set the trust options in jks format, aka Java truststore
 Set whether compression is enabled
 +++
 |[[tryUsePerFrameWebsocketCompression]]`@tryUsePerFrameWebsocketCompression`|`Boolean`|+++
-Set option to offer Deflate Frame websocket compression
+Set option to offer per frame WebSocket compression.
 +++
 |[[tryUsePerMessageWebsocketCompression]]`@tryUsePerMessageWebsocketCompression`|`Boolean`|+++
-Set option to offer Permessage Deflate websocket compression
+Set option to offer per message WebSocket compression.
 +++
 |[[useAlpn]]`@useAlpn`|`Boolean`|+++
 Set the ALPN usage.
@@ -1136,13 +1162,13 @@ Sets whether the Web Client should send a user agent header. Defaults to true.
 Set whether hostname verification is enabled
 +++
 |[[websocketCompressionAllowClientNoContext]]`@websocketCompressionAllowClientNoContext`|`Boolean`|+++
-Set the websocket compression allow client no context option
+Set the WebSocket compression allow client no context option.
 +++
 |[[websocketCompressionLevel]]`@websocketCompressionLevel`|`Number (int)`|+++
-Set websocket compression level
+Set WebSocket compression level
 +++
 |[[websocketCompressionRequestServerNoContext]]`@websocketCompressionRequestServerNoContext`|`Boolean`|+++
-Set the websocket compression server no context option
+Set the WebSocket compression server no context option
 +++
 |===
 
@@ -1367,7 +1393,16 @@ Sets the value of max worker execute time, in link.
 Set the time unit of <code>maxWorkerExecuteTime</code>
 +++
 |[[multiThreaded]]`@multiThreaded`|`Boolean`|+++
-Set whether the verticle(s) should be deployed as a multi-threaded worker verticle
+Set whether the verticle(s) should be deployed as a multi-threaded worker verticle.
+ <p>
+ <strong>WARNING</strong>: Multi-threaded worker verticles are a deprecated feature.
+ <p>
+ Most applications will have no need for them. Because of the concurrency in these verticles you have to be
+ very careful to keep the verticle in a consistent state using standard Java techniques for multi-threaded
+ programming.
+ <p>
+ You can read the documentation that explains how you can replace this feature by the usage of custom worker
+ pools or <code>executeBlocking</code> calls.
 +++
 |[[worker]]`@worker`|`Boolean`|+++
 Set whether the verticle(s) should be deployed as a worker verticle
@@ -2150,10 +2185,10 @@ Set the trust options in jks format, aka Java truststore
 Set whether compression is enabled
 +++
 |[[tryUsePerFrameWebsocketCompression]]`@tryUsePerFrameWebsocketCompression`|`Boolean`|+++
-Set option to offer Deflate Frame websocket compression
+Set option to offer per frame WebSocket compression.
 +++
 |[[tryUsePerMessageWebsocketCompression]]`@tryUsePerMessageWebsocketCompression`|`Boolean`|+++
-Set option to offer Permessage Deflate websocket compression
+Set option to offer per message WebSocket compression.
 +++
 |[[useAlpn]]`@useAlpn`|`Boolean`|+++
 Set the ALPN usage.
@@ -2165,13 +2200,13 @@ Set whether Netty pooled buffers are enabled
 Set whether hostname verification is enabled
 +++
 |[[websocketCompressionAllowClientNoContext]]`@websocketCompressionAllowClientNoContext`|`Boolean`|+++
-Set the websocket compression allow client no context option
+Set the WebSocket compression allow client no context option.
 +++
 |[[websocketCompressionLevel]]`@websocketCompressionLevel`|`Number (int)`|+++
-Set websocket compression level
+Set WebSocket compression level
 +++
 |[[websocketCompressionRequestServerNoContext]]`@websocketCompressionRequestServerNoContext`|`Boolean`|+++
-Set the websocket compression server no context option
+Set the WebSocket compression server no context option
 +++
 |===
 
@@ -3528,6 +3563,12 @@ Get the document id that's upserted
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
+|[[password]]`@password`|`String`|+++
+
++++
+|[[username]]`@username`|`String`|+++
+
++++
 |===
 
 [[MqttClientOptions]]
@@ -3844,7 +3885,16 @@ Set whether Netty pooled buffers are enabled
 |[[willFlag]]`@willFlag`|`Boolean`|+++
 
 +++
+|[[willMessage]]`@willMessage`|`String`|+++
+
++++
+|[[willQos]]`@willQos`|`Number (int)`|+++
+
++++
 |[[willRetain]]`@willRetain`|`Boolean`|+++
+
++++
+|[[willTopic]]`@willTopic`|`String`|+++
 
 +++
 |===
@@ -4494,10 +4544,10 @@ Set the trust options in jks format, aka Java truststore
 Set whether compression is enabled
 +++
 |[[tryUsePerFrameWebsocketCompression]]`@tryUsePerFrameWebsocketCompression`|`Boolean`|+++
-Set option to offer Deflate Frame websocket compression
+Set option to offer per frame WebSocket compression.
 +++
 |[[tryUsePerMessageWebsocketCompression]]`@tryUsePerMessageWebsocketCompression`|`Boolean`|+++
-Set option to offer Permessage Deflate websocket compression
+Set option to offer per message WebSocket compression.
 +++
 |[[useAlpn]]`@useAlpn`|`Boolean`|+++
 Set the ALPN usage.
@@ -4522,13 +4572,13 @@ Set the provider userInfo resource path
 Set whether hostname verification is enabled
 +++
 |[[websocketCompressionAllowClientNoContext]]`@websocketCompressionAllowClientNoContext`|`Boolean`|+++
-Set the websocket compression allow client no context option
+Set the WebSocket compression allow client no context option.
 +++
 |[[websocketCompressionLevel]]`@websocketCompressionLevel`|`Number (int)`|+++
-Set websocket compression level
+Set WebSocket compression level
 +++
 |[[websocketCompressionRequestServerNoContext]]`@websocketCompressionRequestServerNoContext`|`Boolean`|+++
-Set the websocket compression server no context option
+Set the WebSocket compression server no context option
 +++
 |===
 
@@ -5716,6 +5766,9 @@ Set service address
 |[[id]]`@id`|`String`|+++
 Set ID of service
 +++
+|[[meta]]`@meta`|`String`|+++
+Specifies arbitrary KV metadata linked to the service instance.
++++
 |[[name]]`@name`|`String`|+++
 Set service name
 +++
@@ -5849,6 +5902,9 @@ Set check options of service
 +++
 |[[id]]`@id`|`String`|+++
 Set the ID of session
++++
+|[[meta]]`@meta`|`String`|+++
+Specifies arbitrary KV metadata linked to the service instance.
 +++
 |[[name]]`@name`|`String`|+++
 Set service name
@@ -7129,6 +7185,10 @@ HTTP server options for the embedded server
 |[[enabled]]`@enabled`|`Boolean`|+++
 Set true to enable Prometheus reporting
 +++
+|[[publishQuantiles]]`@publishQuantiles`|`Boolean`|+++
+Set true to publish histogram stats, necessary to compute quantiles.
+ Note that it generates many new timeseries for stats, which is why it is deactivated by default.
++++
 |[[startEmbeddedServer]]`@startEmbeddedServer`|`Boolean`|+++
 When true, an embedded server will init to expose metrics with Prometheus format.
 +++
@@ -7354,10 +7414,10 @@ Set the trust options in jks format, aka Java truststore
 Set whether compression is enabled
 +++
 |[[tryUsePerFrameWebsocketCompression]]`@tryUsePerFrameWebsocketCompression`|`Boolean`|+++
-Set option to offer Deflate Frame websocket compression
+Set option to offer per frame WebSocket compression.
 +++
 |[[tryUsePerMessageWebsocketCompression]]`@tryUsePerMessageWebsocketCompression`|`Boolean`|+++
-Set option to offer Permessage Deflate websocket compression
+Set option to offer per message WebSocket compression.
 +++
 |[[useAlpn]]`@useAlpn`|`Boolean`|+++
 Set the ALPN usage.
@@ -7375,13 +7435,13 @@ Sets whether the Web Client should send a user agent header. Defaults to true.
 Set whether hostname verification is enabled
 +++
 |[[websocketCompressionAllowClientNoContext]]`@websocketCompressionAllowClientNoContext`|`Boolean`|+++
-Set the websocket compression allow client no context option
+Set the WebSocket compression allow client no context option.
 +++
 |[[websocketCompressionLevel]]`@websocketCompressionLevel`|`Number (int)`|+++
-Set websocket compression level
+Set WebSocket compression level
 +++
 |[[websocketCompressionRequestServerNoContext]]`@websocketCompressionRequestServerNoContext`|`Boolean`|+++
-Set the websocket compression server no context option
+Set the WebSocket compression server no context option
 +++
 |===
 
