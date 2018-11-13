@@ -735,7 +735,8 @@ def testMethodWithListParams
       [['foo'], ['blah']],
       [Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')],
       [{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}],
-      ['JULIEN','TIM']
+      ['JULIEN','TIM'],
+      ['foo',4,3.4,true,{'wibble'=>'eek'},['one',2]]
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
@@ -751,7 +752,8 @@ def testMethodWithSetParams
       Set.new([['foo'], ['blah']]),
       Set.new([Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'), Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')]),
       Set.new([{:foo=>'String 1',:bar=>1,:wibble=>1.1}, {:foo=>'String 2',:bar=>2,:wibble=>2.2}]),
-      Set.new(['TIM','JULIEN'])
+      Set.new(['TIM','JULIEN']),
+      Set.new(['foo',4,3.4,true,{'wibble'=>'eek'},['one',2]])
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
@@ -765,7 +767,8 @@ def testMethodWithMapParams
       {'foo'=>123,'eek'=>456},
       {'foo'=>{'foo'=>'bar'},'eek'=>{'eek'=>'wibble'}},
       {'foo'=>['foo'],'eek'=>['blah']},
-      {'foo'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'),'eek'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')}
+      {'foo'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'),'eek'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')},
+      {'string'=>'foo','integer'=>4,'float'=>3.4,'boolean'=>true,'object'=>{'wibble'=>'eek'},'array'=>['one',2]}
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
 end
