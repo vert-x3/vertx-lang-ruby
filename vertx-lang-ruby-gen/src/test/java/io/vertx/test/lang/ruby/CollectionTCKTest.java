@@ -243,6 +243,11 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
+  public void testMapObjectReturn() {
+    runTest();
+  }
+
+  @Test
   public void testMapLongReturn() {
     runTest();
   }
@@ -284,6 +289,11 @@ public class CollectionTCKTest extends RubyTestBase {
 
   @Test
   public void testListDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testListObjectReturn() {
     runTest();
   }
 
@@ -334,6 +344,11 @@ public class CollectionTCKTest extends RubyTestBase {
 
   @Test
   public void testSetEnumReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testSetObjectReturn() {
     runTest();
   }
 

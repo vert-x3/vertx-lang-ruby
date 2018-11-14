@@ -385,7 +385,7 @@ end
 def testMapReturn
   readLog = []
   writeLog = []
-  map = @obj.method_with_map_return{ |op|
+  map = @obj.method_with_map_string_return{ |op|
     if op =~ /put\([^,]+,[^\)]+\)/ || op =~ /remove\([^\)]+\)/ || op == 'clear()'
       writeLog.push op
     elsif op == 'size()' || op =~ /get\([^\)]+\)/ || op == 'entrySet()'
@@ -394,6 +394,8 @@ def testMapReturn
       raise "unsupported #{op}"
     end
   }
+  Assert.equals writeLog, ['put(foo,bar)']
+  writeLog.clear
   map['foo'] = 'bar'
   Assert.equals writeLog, ['put(foo,bar)']
   readLog.clear
@@ -567,6 +569,23 @@ def testMapDoubleReturn
   Assert.equals map, {'foo'=>0.123,'bar'=>0.321}
 end
 
+def testMapObjectReturn
+  map = @obj.method_with_map_object_return {}
+  Assert.equals map['string'].class, String
+  Assert.equals map['string'], 'foo'
+  Assert.equals map['integer'].class, Fixnum
+  Assert.equals map['integer'], 4
+  Assert.equals map['float'].class, Float
+  Assert.equals map['float'], 3.4
+  Assert.equals map['boolean'].class, TrueClass
+  Assert.equals map['boolean'], true
+  Assert.equals map['object'].class, Hash
+  Assert.equals map['object']['wibble'], 'eek'
+  Assert.equals map['array'].class, Array
+  Assert.equals map['array'][0], 'one'
+  Assert.equals map['array'][1], 2
+end
+
 def testListStringReturn
   ret = @obj.method_with_list_string_return
   Assert.has_class ret, Array
@@ -627,6 +646,23 @@ def testListEnumReturn
   Assert.equals(ret[1], :TIM)
 end
 
+def testListObjectReturn
+  ret = @obj.method_with_list_object_return
+  Assert.equals ret[0].class, String
+  Assert.equals ret[0], 'foo'
+  Assert.equals ret[1].class, Fixnum
+  Assert.equals ret[1], 4
+  Assert.equals ret[2].class, Float
+  Assert.equals ret[2], 3.4
+  Assert.equals ret[3].class, TrueClass
+  Assert.equals ret[3], true
+  Assert.equals ret[4].class, Hash
+  Assert.equals ret[4]['wibble'], 'eek'
+  Assert.equals ret[5].class, Array
+  Assert.equals ret[5][0], 'one'
+  Assert.equals ret[5][1], 2
+end
+
 def testSetStringReturn
   ret = @obj.method_with_set_string_return
   Assert.has_class ret, Set
@@ -678,6 +714,24 @@ end
 def testSetEnumReturn
   ret = @obj.method_with_set_enum_return
   Assert.equals(ret, Set.new([:JULIEN,:TIM]))
+end
+
+def testSetObjectReturn
+  ret = @obj.method_with_set_object_return
+  ret = ret.to_a
+  Assert.equals ret[0].class, String
+  Assert.equals ret[0], 'foo'
+  Assert.equals ret[1].class, Fixnum
+  Assert.equals ret[1], 4
+  Assert.equals ret[2].class, Float
+  Assert.equals ret[2], 3.4
+  Assert.equals ret[3].class, TrueClass
+  Assert.equals ret[3], true
+  Assert.equals ret[4].class, Hash
+  Assert.equals ret[4]['wibble'], 'eek'
+  Assert.equals ret[5].class, Array
+  Assert.equals ret[5][0], 'one'
+  Assert.equals ret[5][1], 2
 end
 
 def testMapComplexJsonArrayReturn
