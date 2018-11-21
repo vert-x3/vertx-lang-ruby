@@ -342,7 +342,6 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-ruby-gen</artifactId>
       <version>3.6.0-SNAPSHOT</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.mvel</groupId>
