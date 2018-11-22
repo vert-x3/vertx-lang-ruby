@@ -5,7 +5,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.test.core.VertxTestBase;
 import org.jruby.embed.LocalContextScope;
 import org.jruby.embed.ScriptingContainer;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -56,7 +55,6 @@ public class DeployTest extends VertxTestBase {
     await();
   }
 
-  @Ignore("Does not pass anymore with JRuby 9.2.4.0")
   @Test
   public void testGemPath() {
     waitFor(2);
