@@ -6526,6 +6526,29 @@ Sets the websocket path. Only frames received on this path would be considered a
 +++
 |===
 
+[[StreamPriority]]
+== StreamPriority
+
+++++
+ This class represents HTTP/2 stream priority defined in RFC 7540 clause 5.3
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[dependency]]`@dependency`|`Number (int)`|+++
+Set the priority dependency value.
++++
+|[[exclusive]]`@exclusive`|`Boolean`|+++
+Set the priority exclusive value.
++++
+|[[weight]]`@weight`|`Number (short)`|+++
+Set the priority weight.
++++
+|===
+
 [[TCPSSLOptions]]
 == TCPSSLOptions
 
@@ -6796,29 +6819,6 @@ Set the test timeout.
 |[[useEventLoop]]`@useEventLoop`|`Boolean`|+++
 Configure the execution to use an event loop when there is no one existing.
 +++
-|===
-
-[[TokenRequest]]
-== TokenRequest
-
-++++
- The token request structure.
-++++
-'''
-
-[cols=">25%,25%,50%"]
-[frame="topbot"]
-|===
-^|Name | Type ^| Description
-|[[displayName]]`@displayName`|`String`|-
-|[[id]]`@id`|`String`|-
-|[[meta]]`@meta`|`String`|-
-|[[noDefaultPolicy]]`@noDefaultPolicy`|`Boolean`|-
-|[[noParent]]`@noParent`|`Boolean`|-
-|[[numUses]]`@numUses`|`Number (long)`|-
-|[[policies]]`@policies`|`Array of String`|-
-|[[role]]`@role`|`String`|-
-|[[ttl]]`@ttl`|`String`|-
 |===
 
 [[TopicPartition]]
