@@ -8,7 +8,11 @@
    * @param type the type
    */
   def genRubyClassFqn(type) {
-    return "::" + type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
+    if (type.parameterized) {
+      return genRubyClassFqn(type.raw);
+    } else {
+      return "::" + type.module.getName(CASE_CAMEL) + "::" + type.simpleName;
+    }
   }
 
   def genRubyDocType(type) {
