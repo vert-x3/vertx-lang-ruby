@@ -208,6 +208,21 @@ public class CollectionTCKTest extends RubyTestBase {
   }
 
   @Test
+  public void testMapVertxGenReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testMapDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testMapEnumReturn() {
+    runTest();
+  }
+
+  @Test
   public void testMapIntegerReturn() {
     runTest();
   }

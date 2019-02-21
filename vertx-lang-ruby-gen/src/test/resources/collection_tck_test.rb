@@ -476,6 +476,25 @@ def testMapJsonArrayReturn
   Assert.equals map, {'foo'=>['wibble'],'bar'=>['spidey']}
 end
 
+def testMapVertxGenReturn
+  map = @obj.method_with_map_vertx_gen_return {}
+  ret = map['foo']
+  Assert.has_class ret, Testmodel::RefedInterface1
+  Assert.equals ret.get_string, 'foo'
+end
+
+def testMapDataObjectReturn
+  map = @obj.method_with_map_data_object_return {}
+  ret = map['foo']
+  Assert.equals(ret, {'foo'=>'String 1','bar'=>1,'wibble'=>1.1})
+end
+
+def testMapEnumReturn
+  map = @obj.method_with_map_enum_return {}
+  ret = map['foo']
+  Assert.equals(ret, :JULIEN)
+end
+
 def testMapLongReturn
   map = @obj.method_with_map_long_return {}
   num = map['foo']
@@ -822,6 +841,8 @@ def testMethodWithMapParams
       {'foo'=>{'foo'=>'bar'},'eek'=>{'eek'=>'wibble'}},
       {'foo'=>['foo'],'eek'=>['blah']},
       {'foo'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('foo'),'eek'=>Testmodel::RefedInterface1.new(RefedInterface1Impl.new).set_string('bar')},
+      {'foo'=>{:foo=>'String 1',:bar=>1,:wibble=>1.1}},
+      {'foo'=>'JULIEN'},
       {'string'=>'foo','integer'=>4,'float'=>3.4,'boolean'=>true,'object'=>{'wibble'=>'eek'},'array'=>['one',2]}
   )
   Assert.argument_error { @obj.method_with_list_params(nil, nil, nil, nil, nil, nil, nil, nil) }
