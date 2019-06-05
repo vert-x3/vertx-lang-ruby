@@ -71,6 +71,8 @@
           return "true,false";
         }
       }
+    } else if (type.name == "java.lang.Number") {
+      return "Fixnum";
     } else if (kind == CLASS_API) {
       return genRubyClassFqn(type.raw);
     }
@@ -229,7 +231,9 @@
         }
       }
       return "::Vertx::Util::unknown_type.accept?(" + expr + ")";
-    } else if (kind == CLASS_API) {
+    } else if (type.name == "java.lang.Number") {
+      return expr + ".class == Fixnum";
+   } else if (kind == CLASS_API) {
       return expr + ".class.method_defined?(:j_del)";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
       return expr + ".class == Proc";
@@ -323,6 +327,8 @@
       } else {
         return expr;
       }
+    } else if (type.name == "java.lang.Number") {
+      return "::Vertx::Util::Utils.to_number(" + expr + ")";
     } else if (kind == CLASS_THROWABLE) {
         return "::Vertx::Util::Utils.to_throwable(" + expr + ")";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
@@ -406,7 +412,7 @@
       return expr;
     } else {
       var kind = type.kind;
-      if (kind.basic) {
+      if (kind.basic || type.name == "java.lang.Number") {
         return expr;
       } else if (kind == CLASS_THROWABLE) {
         return "::Vertx::Util::Utils.from_throwable(" + expr + ")";
@@ -446,6 +452,8 @@
           } else if (valueType.name == 'java.lang.Double') {
             toJava = "::Vertx::Util::Utils.to_double(val)";
           }
+        } else if (type.name == "java.lang.Number") {
+          toJava = "::Vertx::Util::Utils.to_number(" + expr + ")";
         } else if (valueKind == CLASS_API) {
           toJava = genConvParam(valueType, "val");
         }

@@ -71,6 +71,13 @@ module Vertx
           raise ArgumentError, 'Only Fixnum accepted'
         end
       end
+      def self.to_number(val)
+        if (val != nil && val.class == Fixnum)
+          Java::JavaLang::Double.new(val)
+        else
+          raise ArgumentError, 'Only Fixnum accepted'
+        end
+      end
       def self.to_character(val)
         if val != nil && val.class == Fixnum
           Java::JavaLang::Character.new(val)

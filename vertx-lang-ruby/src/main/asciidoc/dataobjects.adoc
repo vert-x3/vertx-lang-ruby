@@ -244,6 +244,12 @@ Set proxy options for connections via CONNECT proxy (e.g. Squid) or a SOCKS prox
 |[[ssl]]`@ssl`|`Boolean`|+++
 
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 
 +++
@@ -892,6 +898,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -1291,6 +1303,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -1871,6 +1889,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -2436,6 +2460,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -2685,6 +2715,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -2905,6 +2941,12 @@ Configure the SockJS path, the default value is <code>/term/*</code>.
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -4023,6 +4065,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -4163,6 +4211,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -4319,6 +4373,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -4435,6 +4495,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -4855,6 +4921,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -5894,6 +5966,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -6700,6 +6778,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -6858,6 +6942,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[supportedVersions]]`@supportedVersions`|`Array of String`|+++
 Sets the STOMP protocol versions supported by the server. Versions must be given in the decreasing order.
 +++
@@ -7000,6 +7090,12 @@ Set whether SO_linger keep alive is enabled
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
 +++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
++++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
 +++
@@ -7127,6 +7223,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
@@ -7821,6 +7923,12 @@ Set whether SO_linger keep alive is enabled
 +++
 |[[ssl]]`@ssl`|`Boolean`|+++
 Set whether SSL/TLS is enabled
++++
+|[[sslHandshakeTimeout]]`@sslHandshakeTimeout`|`Number (long)`|+++
+Set the SSL handshake timeout, default time unit is seconds.
++++
+|[[sslHandshakeTimeoutUnit]]`@sslHandshakeTimeoutUnit`|`link:enums.html#TimeUnit[TimeUnit]`|+++
+Set the SSL handshake timeout unit. If not specified, default is seconds.
 +++
 |[[tcpCork]]`@tcpCork`|`Boolean`|+++
 Enable the <code>TCP_CORK</code> option - only with linux native transport.
