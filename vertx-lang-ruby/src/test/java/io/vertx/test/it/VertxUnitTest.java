@@ -32,7 +32,8 @@ public class VertxUnitTest extends VertxTestBase {
       }
     });
     vertx.deployVerticle(verticle, ar -> {
-      assertTrue(ar.succeeded());
+      if (ar.failed()) fail(ar.cause());
+      else testComplete();
     });
     await();
   }

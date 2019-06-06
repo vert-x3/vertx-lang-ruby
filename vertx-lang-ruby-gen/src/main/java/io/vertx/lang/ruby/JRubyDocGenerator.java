@@ -29,7 +29,7 @@ public class JRubyDocGenerator implements DocGenerator {
 
   @Override
   public void init(ProcessingEnvironment processingEnv) {
-    factory = new TypeMirrorFactory(processingEnv.getElementUtils(), processingEnv.getTypeUtils());
+    factory = new TypeMirrorFactory(processingEnv.getElementUtils(), processingEnv.getTypeUtils(), null);
     translator = new CodeTranslator(processingEnv);
   }
 
