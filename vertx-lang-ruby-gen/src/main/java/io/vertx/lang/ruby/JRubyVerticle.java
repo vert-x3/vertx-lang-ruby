@@ -1,7 +1,7 @@
 package io.vertx.lang.ruby;
 
 import io.vertx.core.Context;
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 
@@ -37,7 +37,7 @@ public class JRubyVerticle implements Verticle {
   }
 
   @Override
-  public void start(Future<Void> startFuture) throws Exception {
+  public void start(Promise<Void> startFuture) throws Exception {
     String gemPath = context.config().getString("GEM_PATH");
     if (gemPath != null && !gemPath.trim().isEmpty()) {
       instance = holder.create(gemPath, vertx, classLoader, startFuture);
@@ -47,7 +47,7 @@ public class JRubyVerticle implements Verticle {
   }
 
   @Override
-  public void stop(Future<Void> stopFuture) throws Exception {
+  public void stop(Promise<Void> stopFuture) throws Exception {
     if (instance != null) {
       holder.undeploy(instance, stopFuture);
     } else {

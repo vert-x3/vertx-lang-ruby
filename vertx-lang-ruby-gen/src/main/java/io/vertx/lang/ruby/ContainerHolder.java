@@ -1,8 +1,7 @@
 package io.vertx.lang.ruby;
 
-import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
-import org.jruby.CompatVersion;
 import org.jruby.RubyClass;
 import org.jruby.RubyInstanceConfig;
 import org.jruby.RubyModule;
@@ -57,7 +56,7 @@ class ContainerHolder {
    * @param startFuture the start callback
    * @return the deployment or null if that couldn't be done
    */
-  synchronized Deployment create(String gemPath, Vertx vertx, ClassLoader classLoader, Future<?> startFuture) {
+  synchronized Deployment create(String gemPath, Vertx vertx, ClassLoader classLoader, Promise<?> startFuture) {
     if (refs++ == 0) {
       ScriptingContainer cont = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
       RubyInstanceConfig config = cont.getProvider().getRubyInstanceConfig();
@@ -92,7 +91,7 @@ class ContainerHolder {
       }));
       cont.put("$_vertx", vertx);
       cont.runScriptlet("require 'vertx/vertx'");
-      cont.runScriptlet("require 'vertx/future'");
+      cont.runScriptlet("require 'vertx/promise'");
       cont.runScriptlet("$vertx=Vertx::Vertx.new($_vertx)");
       cont.remove("$_vertx");
       container = cont;
@@ -154,9 +153,9 @@ class ContainerHolder {
    * @param deployment the deployment to destroy
    * @param stopFuture the stop callback
    */
-  synchronized void undeploy(Deployment deployment, Future<?> stopFuture) {
-    Future<Void> fut = Future.future();
-    fut.setHandler(ar -> {
+  synchronized void undeploy(Deployment deployment, Promise<?> stopFuture) {
+    Promise<Void> promise = Promise.promise();
+    promise.future().setHandler(ar -> {
 
       // Remove the module const
       container.runScriptlet("Object.send(:remove_const, :" + deployment.modName + ")");
@@ -176,16 +175,16 @@ class ContainerHolder {
     });
     if (deployment.wrappingModule.getMethods().containsKey("vertx_stop")) {
       container.callMethod(deployment.wrappingModule, "vertx_stop");
-      fut.complete();
+      promise.complete();
     } else if (deployment.wrappingModule.getMethods().containsKey("vertx_stop_async")) {
-      invokeAsync(deployment.wrappingModule, "vertx_stop_async", fut);
+      invokeAsync(deployment.wrappingModule, "vertx_stop_async", promise);
     } else {
-      fut.complete();
+      promise.complete();
     }
   }
 
-  private void invokeAsync(RubyModule module, String name, Future future) {
-    org.jruby.RubyClass rubyClass = (RubyClass) container.runScriptlet("return ::Vertx::Future");
+  private void invokeAsync(RubyModule module, String name, Promise future) {
+    org.jruby.RubyClass rubyClass = (RubyClass) container.runScriptlet("return ::Vertx::Promise");
     Object wrappedFuture = container.callMethod(rubyClass, "new", future);
     container.callMethod(module, name, wrappedFuture);
   }
