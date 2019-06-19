@@ -29,7 +29,7 @@ public class VerticleTest extends VertxTestBase {
   public void testEventBusPingPong() throws Exception {
     vertx.deployVerticle("examples/bus_echo.rb", ar -> {
       assertTrue(ar.succeeded());
-      vertx.eventBus().send("ping-address", "ping", onSuccess(msg -> {
+      vertx.eventBus().request("ping-address", "ping", onSuccess(msg -> {
         testComplete();
       }));
     });

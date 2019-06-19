@@ -286,18 +286,18 @@
   }
 
   def genDecoderInstanceRef(type) {
-    if (type.getJsonDecoderEnclosingClass() != null) {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonDecoderPackage())) + "::" + type.getJsonDecoderEnclosingClass() + "::" +type.getJsonDecoderSimpleName();
+    if (type.getJsonCodecInfo().getJsonDecoderEnclosingClass() != null) {
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonDecoderPackage())) + "::" + type.getJsonCodecInfo().getJsonDecoderEnclosingClass() + "::" +type.getJsonCodecInfo().getJsonDecoderSimpleName();
     } else {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonDecoderPackage())) + "::" + type.getJsonDecoderSimpleName();
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonDecoderPackage())) + "::" + type.getJsonCodecInfo().getJsonDecoderSimpleName();
     }
   }
 
   def genEncoderInstanceRef(type) {
-    if (type.getJsonEncoderEnclosingClass() != null) {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonEncoderPackage())) + "::" + type.getJsonEncoderEnclosingClass() + "::" +type.getJsonEncoderSimpleName();
+    if (type.getJsonCodecInfo().getJsonEncoderEnclosingClass() != null) {
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonEncoderPackage())) + "::" + type.getJsonCodecInfo().getJsonEncoderEnclosingClass() + "::" + type.getJsonCodecInfo().getJsonEncoderSimpleName();
     } else {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonEncoderPackage())) + "::" + type.getJsonEncoderSimpleName();
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonEncoderPackage())) + "::" + type.getJsonCodecInfo().getJsonEncoderSimpleName();
     }
   }
 
@@ -380,7 +380,11 @@
       }
       return "::Vertx::Util::Utils.to_object(" + expr + ")";
     } else if (kind == CLASS_DATA_OBJECT) {
-      return genDecoderInstanceRef(type) + "::INSTANCE.decode(" + genConvParam(type.getTargetJsonType(), expr) + ")";
+      if (type.isDataObjectAnnotatedType()) {
+        return genJavaClassFqn(type) + ".new(" + genConvParam(type.getTargetJsonType(), expr) + ")";
+      } else {
+        return genDecoderInstanceRef(type) + "::INSTANCE.decode(" + genConvParam(type.getTargetJsonType(), expr) + ")";
+      }
     } else if (kind == CLASS_JSON_OBJECT) {
       return "::Vertx::Util::Utils.to_json_object(" + expr + ")";
     } else if (kind == CLASS_JSON_ARRAY) {
@@ -417,7 +421,11 @@
       } else if (kind == CLASS_THROWABLE) {
         return "::Vertx::Util::Utils.from_throwable(" + expr + ")";
       } else if (kind == CLASS_DATA_OBJECT) {
-        return genConvReturn(type.getTargetJsonType(), genEncoderInstanceRef(type) + "::INSTANCE.encode(" + expr + ")");
+        if (type.isDataObjectAnnotatedType()) {
+          return expr + " != nil ? JSON.parse(" + expr + ".toJson.encode) : nil";
+        } else {
+          return genConvReturn(type.getTargetJsonType(), genEncoderInstanceRef(type) + "::INSTANCE.encode(" + expr + ")");
+        }
       } else if (kind == CLASS_LIST) {
         var elementType = type.args[0];
         return expr + ".to_a.map { |elt| " + genConvReturn(elementType, "elt") + " }";
