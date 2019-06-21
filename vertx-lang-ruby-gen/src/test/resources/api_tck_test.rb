@@ -425,8 +425,10 @@ def testOverloadedMethods
   ret = @obj.overloaded_method('cat', @refed_obj) { |animal| Assert.equals(animal, 'giraffe') ; called = true }
   Assert.equals(ret, 'meth4')
   Assert.equals(called, true)
-  Assert.argument_error { @obj.overloaded_method 'cat' }
-  Assert.argument_error { @obj.overloaded_method('cat', @refed_obj, 12345) }
+  ret = @obj.overloaded_method 'cat'
+  Assert.equals(ret, 'meth3')
+  ret = @obj.overloaded_method('cat', @refed_obj, 12345)
+  Assert.equals(ret, 'meth2')
   Assert.argument_error { @obj.overloaded_method {} }
 end
 

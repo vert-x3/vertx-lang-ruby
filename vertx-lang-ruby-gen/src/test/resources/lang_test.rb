@@ -121,7 +121,10 @@ def test_multi_overload_handlers
   Assert.equals(obj.j_del.getCalled, 'handlers(foo,bar,juu)')
   Assert.equals(list, {:foo=>'foo_event',:bar=>'bar_event',:juu=>'juu_event'})
 
-  Assert.argument_error { obj.handlers }
+  obj = create_multi_overload
+  obj.handlers
+  Assert.equals(obj.j_del.getCalled, 'handlers(foo)')
+
   Assert.argument_error { obj.handlers Proc.new({}), Proc.new({}), Proc.new({})  }
   Assert.argument_error { obj.handlers Proc.new({}), Proc.new({}), 'a'  }
   Assert.argument_error { obj.handlers(Proc.new({}), Proc.new({}), 'a') {}  }

@@ -336,33 +336,34 @@
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_DATA_OBJECT || eventKind.collection || eventKind == CLASS_API ||
           eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json || eventKind == CLASS_ENUM) {
-        if (expr != "yield") {
-          expr += ".call";
-        }
-        expr = expr + '(' + genConvReturn(eventType, 'event') + ')';
+        var yield = expr == "yield";
+        var ret = (yield ? 'yield' : (expr + '.call')) + '(' + genConvReturn(eventType, 'event') + ')';
         if (kind == CLASS_FUNCTION) {
-          expr =  genConvParam(type.args[1], expr);
+          ret =  genConvParam(type.args[1], ret);
         }
-        return '(Proc.new { |event| ' + expr + ' })';
+        return '(Proc.new { |event| ' + ret + ' unless ' +  (yield ? '!block_given?' : (expr + ' == nil')) + ' })';
       } else if (eventKind == CLASS_VOID) {
         if (expr == "yield") {
-          expr = "Proc.new { yield }";
+          expr = "Proc.new { yield unless !block_given? }";
         }
         return expr;
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
+        var yield = expr == "yield";
         if (resultKind.basic || resultKind == CLASS_DATA_OBJECT || resultKind.collection || resultKind == CLASS_API ||
             resultKind == CLASS_OBJECT || resultKind.json) {
-          if (expr != "yield") {
-            expr += ".call";
+          if (yield) {
+            return "(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) } unless !block_given?)";
+          } else {
+            return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) } unless " + expr + " == nil )";
           }
-          return "(Proc.new { |ar| " + expr + "(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) })";
         } else if (resultKind == CLASS_VOID) {
-          if (expr != "yield") {
-            expr += ".call";
+          if (yield) {
+            return "(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) } unless !block_given?)";
+          } else {
+            return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil) } unless " + expr + " == nil )";
           }
-          return "(Proc.new { |ar| " + expr + "(ar.failed ? ar.cause : nil) })";
         }
       }
     } else if (kind == CLASS_API) {
@@ -699,7 +700,6 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{checks=new java.util.LinkedList()}
 		@foreach{param:method.params}
 			@if{paramNames.size() + 1 == method.params.size() && (param.type.kind == CLASS_HANDLER || param.type.kind == CLASS_FUNCTION)}
-				@code{checks.add("block_given?")}
 				@code{paramNames.add("yield")}
 			@else{}
 				@code{paramName=remainingParams.removeFirst()}
@@ -707,7 +707,11 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 				@code{paramNames.add(paramName)}
 			@end{}
 		@end{}
-		@if{checks.empty || checks.peekLast() != "block_given?"}
+		@if{method.params.size() > 0 && method.params[method.params.size() - 1].type.kind == CLASS_FUNCTION}
+			@code{checks.add("block_given?")}
+		@else{method.params.size() > 0 && method.params[method.params.size() - 1].type.kind == CLASS_HANDLER}
+			@code{checks.add("true")}
+		@else{}
 			@code{checks.add("!block_given?")}
 		@end{}
 		@foreach{remainingParam:remainingParams}
@@ -731,9 +735,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@end{}
 		@code{previous=true}
 	@end{}
-	@if{previous}
       end\n
-	@end{}
       raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}#{@{param}}@end{","})"\n
 @end{}
 
