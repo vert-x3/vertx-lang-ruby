@@ -94,12 +94,12 @@ This can be done also possible in Ruby:
 
 [source,ruby]
 ----
-options = { :config => { :GEM_PATH => '/path/to/gems' } }
+options = { config: { GEM_PATH: '/path/to/gems' } }
 $vertx.deploy_verticle('my_verticle.rb', options)
 ----
 
 This option can also be specified for the CLI:
 
 ----
-vertx run my_verticle_rb -conf {\"GEM_PATH\":\"/path/to/gems\"}
+vertx run my_verticle_rb -conf '{"GEM_PATH":"/path/to/gems"}'
 ----

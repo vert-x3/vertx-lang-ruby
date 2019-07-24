@@ -11,7 +11,7 @@ config = {
 options = {
  'config' => config
 }
-vertx.deploy_verticle("MyOrderProcessorVerticle.rb", options)
+$vertx.deploy_verticle("MyOrderProcessorVerticle.rb", options)
 ----
 
 This configuration is then available via the {@link io.vertx.core.Context} object. The configuration is returned as a
@@ -19,14 +19,14 @@ _Hash_ object so you can retrieve data as follows:
 
 [source,ruby]
 ----
-puts $vertx.get_or_create_context().config()["name"]
+puts $vertx.get_or_create_context.config["name"]
 ----
 
 === Accessing environment variables in a Verticle
 
 Environment variables and system properties are accessible from a verticle using the Java API:
 
-[source,javascript]
+[source,ruby]
 ----
 puts Java::JavaLang::System.getProperty("foo")
 puts Java::JavaLang::System.getenv("HOME")

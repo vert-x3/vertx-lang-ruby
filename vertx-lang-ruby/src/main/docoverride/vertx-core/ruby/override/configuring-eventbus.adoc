@@ -11,11 +11,11 @@ As the event bus acts as a server and client, the configuration is close to {@li
       "path": "keystore.jks",
       "password": "wibble"
     },
-    "trustStoreOptions:" {
+    "trustStoreOptions": {
       "path": "keystore.jks",
       "password": "wibble"
     },
-    clientAuth: "REQUIRED"
+    "clientAuth": "REQUIRED"
   }
 }
 ----
