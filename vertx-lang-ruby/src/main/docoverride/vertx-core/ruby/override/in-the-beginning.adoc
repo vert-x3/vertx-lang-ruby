@@ -7,14 +7,14 @@ getting a reference to the event bus, setting timers, as well as many other thin
 
 So how do you get an instance?
 
-When you start your application with the CLI, a `vertx` variable will be made available to your code.
+When you start your application with the CLI, a `$vertx` variable will be made available to your code.
 
 [source,ruby]
 ----
-server = vertx.create_http_server() # <1>
-server.request_handler() { |request|
-  request.response().end("Hello world")
-})
+server = $vertx.create_http_server # <1>
+server.request_handler { |request|
+  request.response.end("Hello world")
+}
 server.listen(8080)
 ----
 <1> At runtime, `vertx` variable is available

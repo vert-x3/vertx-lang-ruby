@@ -14,7 +14,7 @@ def testSendBuffer
   event_bus.consumer('foo') do |msg|
     Assert.equals('The quick brown fox jumps over the lazy dog', msg.body.to_string)
     latch.countDown
-  end.completion_handler() do |err, v|
+  end.completion_handler do |err, v|
     Assert.is_nil(err)
     event_bus.send('foo', Vertx::Buffer.buffer('The quick brown fox jumps over the lazy dog'))
   end
