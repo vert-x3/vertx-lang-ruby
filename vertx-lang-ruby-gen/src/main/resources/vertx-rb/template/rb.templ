@@ -224,9 +224,9 @@
         if (type.classParam) {
           return "@j_arg_" + type.name + ".accept?(" + expr + ")";
         } else {
-          var classTypeParam = method.resolveClassTypeParam(type);
-          if (classTypeParam != null) {
-            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').accept?(' + expr + ')';
+          var classTypeParamName = resolveClassTypeParamName(type);
+          if (classTypeParamName != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParamName + ').accept?(' + expr + ')';
           }
         }
       }
@@ -373,9 +373,9 @@
         if (type.classParam) {
           return "@j_arg_" + type.name + ".unwrap(" + expr + ")";
         } else {
-          var classTypeParam = method.resolveClassTypeParam(type);
-          if (classTypeParam != null) {
-            return '::Vertx::Util::Utils.v_type_of(' + classTypeParam.name + ').unwrap(' + expr + ')';
+          var classTypeParamName = resolveClassTypeParamName(type);
+          if (classTypeParamName != null) {
+            return '::Vertx::Util::Utils.v_type_of(' + classTypeParamName + ').unwrap(' + expr + ')';
           }
         }
       }
@@ -405,6 +405,18 @@
       return "::Vertx::Util::Utils.j_class_of(" + expr + ")";
     }
     return "nil";
+  }
+
+  /*
+   * Resolves the class type parameter name
+   */
+  def resolveClassTypeParamName(arg) {
+    var classTypeParam = method.resolveClassTypeParam(arg);
+    if (classTypeParam != null) {
+      var idx = method.params.indexOf(classTypeParam);
+      return "args[" + idx + "]";
+    }
+    return null;
   }
 
   /*
@@ -479,9 +491,9 @@
             } else if (arg.kind == CLASS_ENUM) {
               foo.append(',::Vertx::Util::java_enum_type(').append(genJavaClassFqn(arg)).append(')');
             } else if (arg.kind == CLASS_OBJECT) {
-              var classTypeParam = method.resolveClassTypeParam(arg);
-              if (classTypeParam != null) {
-                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(classTypeParam.name).append(')');
+              var classTypeParamName = resolveClassTypeParamName(arg);
+              if (classTypeParamName != null) {
+                foo.append(', ::Vertx::Util::Utils.v_type_of(').append(classTypeParamName).append(')');
               } else {
                 foo.append(', nil');
               }
@@ -499,11 +511,9 @@
             return "@j_arg_" + type.name + ".wrap(" + expr + ")";
           }
           if (method != null) {
-            /* work around for failure */
-            var reflect = method.getClass().getMethod("resolveClassTypeParam", type.getClass());
-            var abc = reflect.invoke(method, type);
-            if (abc != null) {
-              return '::Vertx::Util::Utils.v_type_of(' + abc.name +  ').wrap(' + expr + ')';
+            var classTypeParamName = resolveClassTypeParamName(type);
+            if (classTypeParamName != null) {
+              return '::Vertx::Util::Utils.v_type_of(' + classTypeParamName +  ').wrap(' + expr + ')';
             }
           }
         }
@@ -567,26 +577,7 @@
       return trie;
     }
   }
-  /*
-   * Returns the trie kind:
-   * 0 : empty
-   * 1 : linear
-   * 2 : multiarg
-   * @param trie the trie
-   */
-  def trieKind(trie) {
-    if (trie.isEmpty()) {
-      return 0;
-    } else if (trie.size() == 1) {
-      var kind = trieKind(trie.get(trie.keySet().iterator().next()));
-      if (kind == 2) {
-        return 2;
-      }
-      return 1;
-    } else {
-      return 2;
-    }
-  }
+
 
   /*
    * Returns the trie height
@@ -760,27 +751,18 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@foreach{method:methods}
 			@code{trieAppend(trie, method.params.iterator())}
 		@end{}
-		@code{kind = trieKind(trie)}
 
 		@code{params=new java.util.ArrayList()}
 		@foreach{index:trieHeight(trie)}
-			@if{kind == 0 || kind == 1}
-				@code{params.add(genRubyName(lastMethod.params[index].name))}
-			@else{}
-				@code{params.add("param_" + (index + 1))}
-			@end{}
+			@code{params.add("args[" + index + "]")}
 		@end{}
 
 		@if{lastMethod.doc != null}
 			@{renderDocToHtml("    # ", lastMethod.doc, renderLinkToHtml)}
 		@end{}
-		@if{kind != 2}
-			@includeNamed{'methodParamsTags';methodParams=lastMethod.params;indent=''}
-		@else{}
-			@foreach{method:methods}
+		@foreach{method:methods}
     # @overload @{method.name}(@foreach{param:method.params}@{param.name}@end{","})\n
-				@includeNamed{'methodParamsTags';methodParams=method.params;indent='  '}
-			@end{}
+			@includeNamed{'methodParamsTags';methodParams=method.params;indent='  '}
 		@end{}
 		@if{lastMethod.fluent}
     # @return [self]\n
@@ -789,11 +771,7 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@else{}
     # @return [@{genRubyDocType(lastMethod.returnType)}]@if{lastMethod.returnDescription != null} @{renderTokensToHtml("", lastMethod.returnDescription.tokens, renderLinkToHtml, "")}@end{}\n
 		@end{}
-    def @{methodDecl}@if{params.size() > 0}(
-		@code{index=0}@foreach{param:params}
-		@code{index++}
-		@{param}=nil
-		@end{","})@end{}\n
+    def @{methodDecl}@if{params.size() > 0}(*args)@end{}\n
 		@includeNamed{'genMethodDispatch'}
     end\n
 
