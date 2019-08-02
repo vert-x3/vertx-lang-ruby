@@ -727,7 +727,11 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 		@code{previous=true}
 	@end{}
       end\n
-      raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}#{@{param}}@end{","})"\n
+      if defined?(super)\n
+        super\n
+      else\n
+        raise ArgumentError, "Invalid arguments when calling @{methodName}(@foreach{param:params}#{@{param}}@end{","})"\n
+      end\n
 @end{}
 
 @comment{""}
