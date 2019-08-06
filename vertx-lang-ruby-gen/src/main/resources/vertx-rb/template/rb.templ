@@ -335,34 +335,23 @@
       var eventType = type.args[0];
       var eventKind = eventType.kind;
       if (eventKind.basic || eventKind == CLASS_DATA_OBJECT || eventKind.collection || eventKind == CLASS_API ||
-          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json || eventKind == CLASS_ENUM) {
+          eventKind == CLASS_THROWABLE || eventKind == CLASS_OBJECT || eventKind.json || eventKind == CLASS_ENUM || eventKind == CLASS_VOID) {
         var yield = expr == "yield";
         var ret = (yield ? 'yield' : (expr + '.call')) + '(' + genConvReturn(eventType, 'event') + ')';
         if (kind == CLASS_FUNCTION) {
           ret =  genConvParam(type.args[1], ret);
         }
         return '(Proc.new { |event| ' + ret + ' unless ' +  (yield ? '!block_given?' : (expr + ' == nil')) + ' })';
-      } else if (eventKind == CLASS_VOID) {
-        if (expr == "yield") {
-          expr = "Proc.new { yield unless !block_given? }";
-        }
-        return expr;
       } else if (eventKind == CLASS_ASYNC_RESULT) {
         var resultType = eventType.args[0];
         var resultKind = resultType.kind;
         var yield = expr == "yield";
         if (resultKind.basic || resultKind == CLASS_DATA_OBJECT || resultKind.collection || resultKind == CLASS_API ||
-            resultKind == CLASS_OBJECT || resultKind.json) {
+            resultKind == CLASS_OBJECT || resultKind.json || resultKind == CLASS_VOID) {
           if (yield) {
-            return "(Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) } unless !block_given?)";
+            return "block_given? ? Proc.new { |ar| yield(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) } : promise";
           } else {
             return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil, ar.succeeded ? " + genConvReturn(resultType, "ar.result") + " : nil) } unless " + expr + " == nil )";
-          }
-        } else if (resultKind == CLASS_VOID) {
-          if (yield) {
-            return "(Proc.new { |ar| yield(ar.failed ? ar.cause : nil) } unless !block_given?)";
-          } else {
-            return "(Proc.new { |ar| " + expr + ".call(ar.failed ? ar.cause : nil) } unless " + expr + " == nil )";
           }
         }
       }
@@ -533,6 +522,15 @@
   }
 
   /*
+   * Generate a future type for a given type.
+   */
+  var futureType = (io.vertx.codegen.type.TypeReflectionFactory.create(io.vertx.core.Future)).raw;
+  def genFutureType(type) {
+    var p = new io.vertx.codegen.type.ParameterizedTypeInfo(futureType, true, java.util.Arrays.asList(type));
+    return p;
+  }
+
+  /*
    * Append an entry to a Trie structure. The Trie structure is created from the overloaded methods parameters
    * and is used to know if we need to name the method parameters in a generic fashion or not.
    *
@@ -614,6 +612,7 @@
 @foreach{referencedType : referencedTypes}
 require '@{genRubyClassInclude(referencedType.raw)}'\n
 @end{}
+require 'vertx/future'\n
 require 'vertx/util/utils.rb'\n
 
 @declare{'initializer'}
@@ -709,7 +708,21 @@ module @{type.raw.module.getName(CASE_CAMEL)}\n
 			@code{checks.add(remainingParam + " == nil")}
 		@end{}
       @if{!previous}if@else{}elsif@end{} @foreach{check:checks}@{check}@end{" && "}\n
-		@if{method.fluent}
+		@if{method.kind == METHOD_FUTURE}
+			@code{resultType=method.getParam(method.params.size() - 1).type.args[0].args[0]}
+        if (block_given?)\n
+			@if{method.fluent}
+          @{genMethodCall(method,paramNames)}\n
+          return self\n
+			@else{}
+          return @{genConvReturn(method.returnType, genMethodCall(method,paramNames))}\n
+			@end{}
+        else\n
+          promise = ::Vertx::Util::Utils.promise\n
+          @{genMethodCall(method,paramNames)}\n
+          return @{genConvReturn(genFutureType(method.getParam(method.params.size() - 1).type.args[0].args[0]), "promise.future()")}\n
+        end\n
+		@else{method.fluent}
         @{genMethodCall(method,paramNames)}\n
         return self\n
 		@else{}

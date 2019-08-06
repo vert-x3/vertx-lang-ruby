@@ -5,6 +5,9 @@ java_import 'io.vertx.core.json.JsonArray'
 module Vertx
   module Util
     class Utils
+      def self.promise()
+        Java::IoVertxCore::Promise.promise
+      end
       def self.raise_runtime_exception(err)
         raise err.getMessage
       end

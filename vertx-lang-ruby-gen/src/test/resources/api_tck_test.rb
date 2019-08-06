@@ -337,6 +337,14 @@ def testMethodWithGenericHandlerAsyncResult
   count = 0
   @obj.method_with_generic_handler_async_result('String') { |err,val| Assert.is_nil(err); Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 }
   Assert.equals(1, count)
+
+  # Test with future
+  count = 0
+  future = @obj.method_with_generic_handler_async_result('String')
+  Assert.equals(0, count)
+  future.set_handler { |err,val| Assert.is_nil(err); Assert.equals(val.class, String); Assert.equals(val, 'foo'); count += 1 }
+  Assert.equals(1, count)
+
   count = 0
   @obj.method_with_generic_handler_async_result('Ref') { |err,val| Assert.is_nil(err); Assert.equals(val.getString, 'bar'); count += 1 }
   Assert.equals(1, count)
