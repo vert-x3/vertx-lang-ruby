@@ -4,14 +4,14 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-lang-ruby-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-milestone2</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>vertx-lang-ruby</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+  <version>4.0.0-milestone2</version>
 
   <properties>
     <asciidoc.path>/ruby</asciidoc.path>
@@ -315,7 +315,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-ruby-gen</artifactId>
-      <version>4.0.0-SNAPSHOT</version>
+      <version>4.0.0-milestone2</version>
     </dependency>
     <dependency>
       <groupId>org.mvel</groupId>
@@ -340,7 +340,7 @@
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-ruby-gen</artifactId>
-      <version>4.0.0-SNAPSHOT</version>
+      <version>4.0.0-milestone2</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
