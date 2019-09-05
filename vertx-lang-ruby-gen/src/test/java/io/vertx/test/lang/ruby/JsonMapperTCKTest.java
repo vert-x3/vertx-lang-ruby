@@ -2,10 +2,10 @@ package io.vertx.test.lang.ruby;
 
 import org.junit.Test;
 
-public class JsonCodecTCKTest extends RubyTestBase {
+public class JsonMapperTCKTest extends RubyTestBase {
 
   private void runTest() {
-    runTest("json_codec_tck_test", testName.getMethodName());
+    runTest("json_mapper_tck_test", testName.getMethodName());
   }
 
   @Test public void testMethodWithTypeToIntegerParam() throws Exception { runTest(); }

@@ -285,19 +285,19 @@
     return (method.staticMethod ? genJavaClassFqn(type) : "@j_del") + ".java_method" + signature + ".call" + args;
   }
 
-  def genDecoderInstanceRef(type) {
-    if (type.getJsonCodecInfo().getJsonDecoderEnclosingClass() != null) {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonDecoderPackage())) + "::" + type.getJsonCodecInfo().getJsonDecoderEnclosingClass() + "::" +type.getJsonCodecInfo().getJsonDecoderSimpleName();
+  def genDeserializerInstanceRef(type) {
+    if (type.getJsonMapperInfo().getJsonDeserializerEnclosingClass() != null) {
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonMapperInfo().getJsonDeserializerPackage())) + "::" + type.getJsonMapperInfo().getJsonDeserializerEnclosingClass() + "::" +type.getJsonMapperInfo().getJsonDeserializerSimpleName();
     } else {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonDecoderPackage())) + "::" + type.getJsonCodecInfo().getJsonDecoderSimpleName();
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonMapperInfo().getJsonDeserializerPackage())) + "::" + type.getJsonMapperInfo().getJsonDeserializerSimpleName();
     }
   }
 
-  def genEncoderInstanceRef(type) {
-    if (type.getJsonCodecInfo().getJsonEncoderEnclosingClass() != null) {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonEncoderPackage())) + "::" + type.getJsonCodecInfo().getJsonEncoderEnclosingClass() + "::" + type.getJsonCodecInfo().getJsonEncoderSimpleName();
+  def genSerializerInstanceRef(type) {
+    if (type.getJsonMapperInfo().getJsonSerializerEnclosingClass() != null) {
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonMapperInfo().getJsonSerializerPackage())) + "::" + type.getJsonMapperInfo().getJsonSerializerEnclosingClass() + "::" + type.getJsonMapperInfo().getJsonSerializerSimpleName();
     } else {
-      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonCodecInfo().getJsonEncoderPackage())) + "::" + type.getJsonCodecInfo().getJsonEncoderSimpleName();
+      return "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(type.getJsonMapperInfo().getJsonSerializerPackage())) + "::" + type.getJsonMapperInfo().getJsonSerializerSimpleName();
     }
   }
 
@@ -373,7 +373,7 @@
       if (type.isDataObjectAnnotatedType()) {
         return genJavaClassFqn(type) + ".new(" + genConvParam(type.getTargetJsonType(), expr) + ")";
       } else {
-        return genDecoderInstanceRef(type) + "::INSTANCE.decode(" + genConvParam(type.getTargetJsonType(), expr) + ")";
+        return genSerializerInstanceRef(type) + "::INSTANCE.deserialize(" + genConvParam(type.getTargetJsonType(), expr) + ")";
       }
     } else if (kind == CLASS_JSON_OBJECT) {
       return "::Vertx::Util::Utils.to_json_object(" + expr + ")";
@@ -426,7 +426,7 @@
         if (type.isDataObjectAnnotatedType()) {
           return expr + " != nil ? JSON.parse(" + expr + ".toJson.encode) : nil";
         } else {
-          return genConvReturn(type.getTargetJsonType(), genEncoderInstanceRef(type) + "::INSTANCE.encode(" + expr + ")");
+          return genConvReturn(type.getTargetJsonType(), genSerializerInstanceRef(type) + "::INSTANCE.serialize(" + expr + ")");
         }
       } else if (kind == CLASS_LIST) {
         var elementType = type.args[0];

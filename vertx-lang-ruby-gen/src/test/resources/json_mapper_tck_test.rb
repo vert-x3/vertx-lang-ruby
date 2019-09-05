@@ -1,12 +1,12 @@
 require 'java'
 require 'assert'
 require 'set'
-require 'testmodel/json_codec_tck'
+require 'testmodel/json_mapper_tck'
 
-java_import 'io.vertx.codegen.testmodel.JsonCodecTCKImpl'
+java_import 'io.vertx.codegen.testmodel.JsonMapperTCKImpl'
 
 # Instantiate obj
-@jcodec_tck = Testmodel::JsonCodecTCK.new(JsonCodecTCKImpl.new)
+@jcodec_tck = Testmodel::JsonMapperTCK.new(JsonMapperTCKImpl.new)
 
 # Integer
 
