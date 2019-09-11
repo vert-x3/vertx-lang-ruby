@@ -431,3 +431,107 @@ def testMethodWithHandlerAsyncResultMapOfTypeToJsonObjectParam
   end
   Assert.equals(count, 1)
 end
+
+def testMethodWithFunctionMappedParam
+  @jcodec_tck.method_with_function_mapped_param("en_US")
+end
+
+def testMethodWithListOfFunctionMappedParam
+  @jcodec_tck.method_with_list_of_function_mapped_param(["en_US","en_GB"])
+end
+
+def testMethodWithSetOfFunctionMappedParam
+  @jcodec_tck.method_with_set_of_function_mapped_param(Set.new(["en_US","en_GB"]))
+end
+
+def testMethodWithMapOfFunctionMappedParam
+  @jcodec_tck.method_with_map_of_function_mapped_param({"en_US"=>"en_US","en_GB"=>"en_GB"})
+end
+
+def testMethodWithFunctionMappedReturn
+  Assert.equals(@jcodec_tck.method_with_function_mapped_return(), "en_us")
+end
+
+def testMethodWithListOfFunctionMappedReturn
+  Assert.equals(@jcodec_tck.method_with_list_of_function_mapped_return(), ["en_us","en_gb"])
+end
+
+def testMethodWithSetOfFunctionMappedReturn
+  Assert.equals(@jcodec_tck.method_with_set_of_function_mapped_return(), Set.new(["en_us","en_gb"]))
+end
+
+def testMethodWithMapOfFunctionMappedReturn
+  Assert.equals(@jcodec_tck.method_with_map_of_function_mapped_return(), {"en_gb"=>"en_gb", "en_us"=>"en_us"})
+end
+
+def testMethodWithHandlerFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_function_mapped do |val|
+    Assert.equals(val, "en_us")
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerListOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_list_of_function_mapped do |val|
+    Assert.equals(val, ["en_us","en_gb"])
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerSetOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_set_of_function_mapped do |val|
+    Assert.equals(val, Set.new(["en_us","en_gb"]))
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerMapOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_map_of_function_mapped do |val|
+    Assert.equals(val, {"en_gb"=>"en_gb", "en_us"=>"en_us"})
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerAsyncResultFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_async_result_function_mapped do |err, val|
+    Assert.equals(val, "en_us")
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerAsyncResultListOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_async_result_list_of_function_mapped do |err, val|
+    Assert.equals(val, ["en_us","en_gb"])
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerAsyncResultSetOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_async_result_set_of_function_mapped do |err, val|
+    Assert.equals(val, Set.new(["en_us","en_gb"]))
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerAsyncResultMapOfFunctionMapped
+  count = 0
+  @jcodec_tck.method_with_handler_async_result_map_of_function_mapped do |err, val|
+    Assert.equals(val, {"en_gb"=>"en_gb", "en_us"=>"en_us"})
+    count += 1
+  end
+  Assert.equals(count, 1)
+end
