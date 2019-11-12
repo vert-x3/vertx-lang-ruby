@@ -16,12 +16,14 @@
 
 package io.vertx.lang.ruby;
 
+import io.vertx.core.Promise;
 import io.vertx.core.Verticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.spi.VerticleFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /**
  * @author <a href="http://tfox.org">Tim Fox</a>
@@ -38,26 +40,24 @@ public class JRubyVerticleFactory implements VerticleFactory {
   }
 
   @Override
-  public boolean blockingCreate() {
-    return true;
-  }
-
-  @Override
   public void init(Vertx vertx) {
     this.vertx = vertx;
   }
 
   @Override
-  public Verticle createVerticle(String verticleName, ClassLoader classLoader) throws Exception {
-    verticleName = VerticleFactory.removePrefix(verticleName);
+  public void createVerticle(String verticleName, ClassLoader classLoader, Promise<Callable<Verticle>> promise) {
+    String actualName;
+    try {
+      actualName = VerticleFactory.removePrefix(verticleName);
+    } catch (Exception e) {
+      promise.fail(e);
+      return;
+    }
     ContainerHolder holder;
     synchronized (holderMap) {
-      holder = holderMap.get(verticleName);
-      if (holder == null) {
-        holderMap.put(verticleName, holder = new ContainerHolder(this, verticleName));
-      }
+      holder = holderMap.computeIfAbsent(actualName, (name -> new ContainerHolder(this, name)));
     }
-    return new JRubyVerticle(this, holder, classLoader, verticleName);
+    promise.complete(() -> new JRubyVerticle(this, holder, classLoader, actualName));
   }
 
   void removeVerticle(ContainerHolder holder) {
