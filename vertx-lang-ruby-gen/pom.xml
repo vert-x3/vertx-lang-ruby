@@ -125,21 +125,6 @@
               <outputDirectory>${project.build.directory}/sources/codegen</outputDirectory>
             </configuration>
           </execution>
-          <!-- Unpack a few classes of core source code to target/sources/codegen -->
-          <execution>
-            <id>unpack-core</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-              <includeGroupIds>io.vertx</includeGroupIds>
-              <includeArtifactIds>vertx-core</includeArtifactIds>
-              <includeTypes>jar</includeTypes>
-              <outputDirectory>${project.build.directory}/sources/codegen</outputDirectory>
-              <includes>io/vertx/core/Promise.java,io/vertx/core/Future.java</includes>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
       <plugin>
