@@ -41,6 +41,11 @@ public class ApiTCKTest extends RubyTestBase {
   }
 
   @Test
+  public void testMethodWithOverloadedUserTypes() {
+    runTest();
+  }
+
+  @Test
   public void testObjectParam() {
     runTest();
   }

@@ -13,10 +13,12 @@ require 'acme/my_interface'
 
 java_import 'io.vertx.codegen.testmodel.TestInterfaceImpl'
 java_import 'io.vertx.codegen.testmodel.RefedInterface1Impl'
+java_import 'io.vertx.codegen.testmodel.RefedInterface2Impl'
 
 # Instantiate obj
 @obj = Testmodel::TestInterface.new(TestInterfaceImpl.new)
 @refed_obj = Testmodel::RefedInterface1.new(RefedInterface1Impl.new)
+@refed2_obj = Testmodel::RefedInterface2Impl.new(RefedInterface2Impl.new)
 
 def testMethodWithBasicParams
   @obj.method_with_basic_params(123, 12345, 1234567, 1265615234, 12.345, 12.34566, true, 88, 'foobar');
@@ -73,6 +75,11 @@ end
 def testMethodWithUserTypes
   @refed_obj.set_string('aardvarks')
   @obj.method_with_user_types(@refed_obj)
+end
+
+def testMethodWithOverloadedUserTypes
+  Assert.equals(@obj.method_with_overloaded_user_types(@refed_obj), "refed1")
+  Assert.equals(@obj.method_with_overloaded_user_types(@refed2_obj), "refed2")
 end
 
 def testObjectParam

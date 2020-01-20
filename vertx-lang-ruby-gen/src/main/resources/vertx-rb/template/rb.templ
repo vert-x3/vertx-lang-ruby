@@ -234,7 +234,7 @@
     } else if (type.name == "java.lang.Number") {
       return expr + ".class == Fixnum";
    } else if (kind == CLASS_API) {
-      return expr + ".class.method_defined?(:j_del)";
+      return expr + ".class.method_defined?(:j_del) && " + genJavaClassFqn(type)  + ".java_class.to_java.isInstance(" + expr + ".j_del)";
     } else if (kind == CLASS_HANDLER || kind == CLASS_FUNCTION) {
       return expr + ".class == Proc";
     } else if (kind == CLASS_JSON_OBJECT) {
