@@ -11,11 +11,11 @@
 
   <packaging>pom</packaging>
   <artifactId>vertx-lang-ruby-parent</artifactId>
-  <version>3.8.5</version>
+  <version>3.8.6-SNAPSHOT</version>
 
   <properties>
     <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
-    <stack.version>3.8.5</stack.version>
+    <stack.version>3.8.6-SNAPSHOT</stack.version>
   </properties>
 
   <modules>
