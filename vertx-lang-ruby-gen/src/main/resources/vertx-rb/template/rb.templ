@@ -288,9 +288,9 @@
   def genMapperCall(mapper) {
     var fqn = mapper.qualifiedName;
     var idx = fqn.lastIndexOf(".");
-    var expr = "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(fqn.substring(0, idx))) + "::" + fqn.substring(idx + 1) + "." + mapper.name;
-    if (mapper.kind == MAPPER_FUNCTION) {
-      expr = expr + ".apply"
+    var expr = "Java::" + CASE_CAMEL.format(CASE_QUALIFIED.parse(fqn.substring(0, idx))) + "::" + fqn.substring(idx + 1);
+    for (selector : mapper.selectors) {
+      expr = expr + "." + selector;
     }
     return expr;
   }
