@@ -19,6 +19,7 @@
   </properties>
 
   <modules>
+    <module>vertx-lang-ruby-mvel</module>
     <module>vertx-lang-ruby-gen</module>
     <module>vertx-lang-ruby</module>
   </modules>

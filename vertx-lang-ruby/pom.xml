@@ -319,6 +319,11 @@
     <!-- Extra dependencies -->
     <dependency>
       <groupId>io.vertx</groupId>
+      <artifactId>vertx-lang-ruby-mvel</artifactId>
+      <version>4.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>io.vertx</groupId>
       <artifactId>vertx-lang-ruby-gen</artifactId>
       <version>4.0.0-SNAPSHOT</version>
     </dependency>

@@ -1966,6 +1966,36 @@ Sets the headers of the frames.
 |[[transaction]]`@transaction`|`String`|-
 |===
 
+[[Geometry]]
+== Geometry
+
+++++
+ Geometry is an abstract class which represents the base of MySQL geometry data type.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|===
+
+[[GeometryCollection]]
+== GeometryCollection
+
+++++
+ A GeomCollection is a geometry that is a collection of zero or more geometries of any class.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|===
+
 [[GoAway]]
 == GoAway
 
@@ -3190,6 +3220,21 @@ Set session ID for lock release operation.
 ^|Name | Type ^| Description
 |===
 
+[[LineString]]
+== LineString
+
+++++
+ A LineString is a Curve with linear interpolation between points, it may represents a Line or a LinearRing.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|===
+
 [[MailConfig]]
 == MailConfig
 
@@ -4095,6 +4140,51 @@ Set the ALPN usage.
 |[[willTopic]]`@willTopic`|`String`|+++
 
 +++
+|===
+
+[[MultiLineString]]
+== MultiLineString
+
+++++
+ A MultiLineString is a MultiCurve geometry collection composed of LineString elements.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|===
+
+[[MultiPoint]]
+== MultiPoint
+
+++++
+ A MultiPoint is a geometry collection composed of Point elements. The points are not connected or ordered in any way.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|===
+
+[[MultiPolygon]]
+== MultiPolygon
+
+++++
+ A MultiPolygon is a MultiSurface object composed of Polygon elements.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
 |===
 
 [[MySQLAuthOptions]]
@@ -5532,6 +5622,23 @@ Set the process id.
 == Point
 
 ++++
+ A Point is a geometry that represents a single location in coordinate space.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
+|[[x]]`@x`|`Number (double)`|-
+|[[y]]`@y`|`Number (double)`|-
+|===
+
+[[Point]]
+== Point
+
+++++
  A Postgresql point.
 ++++
 '''
@@ -5557,6 +5664,21 @@ Set the process id.
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
+|===
+
+[[Polygon]]
+== Polygon
+
+++++
+ A Polygon is a planar Surface representing a multisided geometry. It is defined by a single exterior boundary and zero or more interior boundaries, where each interior boundary defines a hole in the Polygon.
+++++
+'''
+
+[cols=">25%,25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[srid]]`@srid`|`Number (long)`|-
 |===
 
 [[PoolOptions]]
