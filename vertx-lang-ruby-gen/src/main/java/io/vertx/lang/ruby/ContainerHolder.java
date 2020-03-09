@@ -155,7 +155,7 @@ class ContainerHolder {
    */
   synchronized void undeploy(Deployment deployment, Promise<?> stopFuture) {
     Promise<Void> promise = Promise.promise();
-    promise.future().setHandler(ar -> {
+    promise.future().onComplete(ar -> {
 
       // Remove the module const
       container.runScriptlet("Object.send(:remove_const, :" + deployment.modName + ")");
