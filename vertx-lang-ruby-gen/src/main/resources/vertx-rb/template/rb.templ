@@ -510,7 +510,11 @@
         var serializer = dataObject.serializer;
         var jsonType = serializer.jsonType;
         if (serializer.kind == MAPPER_SELF) {
-          return expr + " != nil ? JSON.parse(" + expr + ".toJson.encode) : nil";
+          if (serializer.jsonType.kind == CLASS_JSON_OBJECT || serializer.jsonType.kind == CLASS_JSON_ARRAY) {
+            return expr + " != nil ? JSON.parse(" + expr + ".toJson.encode) : nil";
+          } else {
+            return expr + " != nil ? " + expr + ".toJson : nil";
+          }
         } else {
           return genConvReturn(jsonType, genMapperCall(serializer) + "(" + expr + ")");
         }

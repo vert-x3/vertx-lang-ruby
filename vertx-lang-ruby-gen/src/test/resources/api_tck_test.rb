@@ -100,15 +100,32 @@ def testDataObjectParam
   @obj.method_with_data_object_param(data_object)
 end
 
+def testStringDataObjectParam
+  data_object = 'hello'
+  @obj.method_with_string_data_object_param(data_object)
+end
+
 def testMethodWithHandlerDataObject
   count = 0
   @obj.method_with_handler_data_object { |event| Assert.equals(event, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
   Assert.equals(count, 1)
 end
 
+def testMethodWithHandlerStringDataObject
+  count = 0
+  @obj.method_with_handler_string_data_object { |event| Assert.equals(event, 'foo'); count += 1 }
+  Assert.equals(count, 1)
+end
+
 def testMethodWithHandlerAsyncResultDataObject
   count = 0
-  @obj.method_with_handler_async_result_data_object(false) { |err,val| Assert.is_nil(err); Assert.equals(val, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0}); count += 1 }
+  @obj.method_with_handler_async_result_string_data_object(false) { |err,val| Assert.is_nil(err); Assert.equals(val, 'foo'); count += 1 }
+  Assert.equals(count, 1)
+end
+
+def testMethodWithHandlerAsyncResultStringDataObject
+  count = 0
+  @obj.method_with_handler_async_result_string_data_object(false) { |err,val| Assert.is_nil(err); Assert.equals(val, 'foo'); count += 1 }
   Assert.equals(count, 1)
 end
 
@@ -416,6 +433,11 @@ end
 def testDataObjectReturn
   ret = @obj.method_with_data_object_return
   Assert.equals(ret, {'foo' => 'foo', 'bar' => 123, 'wibble' => 0.0})
+end
+
+def testStringDataObjectReturn
+  ret = @obj.method_with_string_data_object_return
+  Assert.equals(ret, "foo")
 end
 
 def testDataObjectNullReturn

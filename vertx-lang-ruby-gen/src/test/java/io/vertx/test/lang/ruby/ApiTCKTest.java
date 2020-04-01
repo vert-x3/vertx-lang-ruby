@@ -56,12 +56,27 @@ public class ApiTCKTest extends RubyTestBase {
   }
 
   @Test
+  public void testStringDataObjectParam() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerDataObject() {
     runTest();
   }
 
   @Test
+  public void testMethodWithHandlerStringDataObject() {
+    runTest();
+  }
+
+  @Test
   public void testMethodWithHandlerAsyncResultDataObject() {
+    runTest();
+  }
+
+  @Test
+  public void testMethodWithHandlerAsyncResultStringDataObject() {
     runTest();
   }
 
@@ -192,6 +207,11 @@ public class ApiTCKTest extends RubyTestBase {
 
   @Test
   public void testDataObjectReturn() {
+    runTest();
+  }
+
+  @Test
+  public void testStringDataObjectReturn() {
     runTest();
   }
 
