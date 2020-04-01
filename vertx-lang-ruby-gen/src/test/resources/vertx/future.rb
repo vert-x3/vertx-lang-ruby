@@ -2,7 +2,6 @@
 # This code was copied from generated code from vertx-lang-rb module
 #
 require 'vertx/promise'
-require 'vertx/context'
 require 'vertx/future'
 require 'vertx/util/utils.rb'
 # Generated from io.vertx.core.Future
@@ -258,18 +257,6 @@ module Vertx
         super
       else
         raise ArgumentError, "Invalid arguments when calling future()"
-      end
-    end
-    # @overload context()
-    # @return [::Vertx::Context] the context associated with this future or <code>null</code> when
-    def context
-      if !block_given?
-        return ::Vertx::Util::Utils.safe_create(@j_del.java_method(:context, []).call(),::Vertx::Context)
-      end
-      if defined?(super)
-        super
-      else
-        raise ArgumentError, "Invalid arguments when calling context()"
       end
     end
     #  Created a succeeded future with the specified result.
