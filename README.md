@@ -1,7 +1,7 @@
 vertx-lang-jruby
 ========
 
-[![Build Status](https://travis-ci.org/vert-x3/vertx-lang-ruby.svg?branch=master)](https://travis-ci.org/vert-x3/vertx-lang-ruby)
+[![Build Status](https://github.com/vert-x3/vertx-lang-ruby/workflows/CI/badge.svg?branch=3.9)](https://github.com/vert-x3/vertx-lang-ruby/actions?query=workflow%3ACI)
 
 ## todo list
 
