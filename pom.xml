@@ -1,38 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-  <parent>
-    <groupId>io.vertx</groupId>
-    <artifactId>vertx-parent</artifactId>
-    <version>19</version>
-  </parent>
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <packaging>pom</packaging>
-  <artifactId>vertx-lang-ruby-parent</artifactId>
-  <version>3.9.9-SNAPSHOT</version>
-
-  <properties>
-    <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
-    <stack.version>3.9.9-SNAPSHOT</stack.version>
-  </properties>
-
-  <modules>
-    <module>vertx-lang-ruby-gen</module>
-    <module>vertx-lang-ruby</module>
-  </modules>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
+      
+    <parent>
+            
         <groupId>io.vertx</groupId>
-        <artifactId>vertx-dependencies</artifactId>
-        <version>${stack.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
+            
+        <artifactId>vertx-parent</artifactId>
+            
+        <version>19</version>
+          
+    </parent>
+      
+    <modelVersion>4.0.0</modelVersion>
+      
+    <packaging>pom</packaging>
+      
+    <artifactId>vertx-lang-ruby-parent</artifactId>
+      
+    <version>3.9.9</version>
+      
+    <properties>
+            
+        <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
+            
+        <stack.version>3.9.9</stack.version>
+          
+    </properties>
+      
+    <modules>
+            
+        <module>vertx-lang-ruby-gen</module>
+            
+        <module>vertx-lang-ruby</module>
+          
+    </modules>
+      
+    <dependencyManagement>
+            
+        <dependencies>
+                  
+            <dependency>
+                        
+                <groupId>io.vertx</groupId>
+                        
+                <artifactId>vertx-dependencies</artifactId>
+                        
+                <version>${stack.version}</version>
+                        
+                <type>pom</type>
+                        
+                <scope>import</scope>
+                      
+            </dependency>
+                
+        </dependencies>
+          
+    </dependencyManagement>
+    
 </project>
