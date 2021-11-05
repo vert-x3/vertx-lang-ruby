@@ -4,14 +4,14 @@
   <parent>
     <groupId>io.vertx</groupId>
     <artifactId>vertx-lang-ruby-parent</artifactId>
-    <version>3.9.10</version>
+    <version>3.9.11-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>vertx-lang-ruby-gen</artifactId>
-  <version>3.9.10</version>
+  <version>3.9.11-SNAPSHOT</version>
 
   <dependencies>
 
