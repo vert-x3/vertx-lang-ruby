@@ -17,13 +17,13 @@
       
     <artifactId>vertx-lang-ruby-parent</artifactId>
       
-    <version>3.9.12-SNAPSHOT</version>
+    <version>3.9.12</version>
       
     <properties>
             
         <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
             
-        <stack.version>3.9.12-SNAPSHOT</stack.version>
+        <stack.version>3.9.12</stack.version>
           
     </properties>
       
